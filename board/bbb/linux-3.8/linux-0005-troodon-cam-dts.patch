@@ -1,0 +1,280 @@
+From bf201bce0c0ebf667b9c7216643f7da80b03d944 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Fri, 12 Jul 2013 11:32:21 -0400
+Subject: [PATCH] troodon-cam dts
+
+---
+ firmware/Makefile                   |    1 +
+ firmware/capes/troodon-cam-00A0.dts |  248 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 249 insertions(+)
+ create mode 100644 firmware/capes/troodon-cam-00A0.dts
+
+diff --git a/firmware/Makefile b/firmware/Makefile
+index c13e51c..8142a56 100644
+--- a/firmware/Makefile
++++ b/firmware/Makefile
+@@ -139,6 +139,7 @@ fw-shipped-$(CONFIG_YAM) += yam/1200.bin yam/9600.bin
+ # all the generic capes
+ fw-shipped-$(CONFIG_CAPE_BEAGLEBONE) += \
+ 	cape-bone-2g-emmc1.dtbo \
++	troodon-cam-00A0.dtbo \
+ 	cape-bone-adafruit-lcd-00A0.dtbo \
+ 	cape-bone-adafruit-rtc-00A0.dtbo \
+ 	cape-bone-dvi-00A0.dtbo \
+diff --git a/firmware/capes/troodon-cam-00A0.dts b/firmware/capes/troodon-cam-00A0.dts
+new file mode 100644
+index 0000000..9458f75
+--- /dev/null
++++ b/firmware/capes/troodon-cam-00A0.dts
+@@ -0,0 +1,248 @@
++/*
++ * Copyright (C) 2013 Frank Hunleth <fhunleth@troodon-software.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++/plugin/;
++
++/ {
++        compatible = "ti,beaglebone", "ti,beaglebone-black";
++
++        /* identification */
++        part-number = "troodon-cam";
++        version = "00A0";
++
++        /* state the resources this cape uses */
++        exclusive-use =
++                /* the pin header uses */
++                "P9.11",        /* GPS_EN */
++                "P9.12",        /* GPS_FIX */
++                "P9.13",        /* IMAGER_STDBY */
++                "P9.15",        /* IMAGER ~RESET */
++                "P9.17",        /* MT9V034 I2C SCL */
++                "P9.18",        /* MT9V034 I2C SDA */
++                "P9.21",	/* GPS UART TX */
++                "P9.22",	/* GPS UART RX */
++                "P9.24",        /* IMAGER LEDOUT */
++                "P9.25",        /* IMAGER Exposure */
++                "P9.26",        /* PIXCLK */
++                "P9.27",        /* GPS PPS */
++                "P9.31",        /* Old clock - must be input */
++                "P9.41",        /* Old clock - must be input */
++
++                "P8.19",        /* Imager CLK */
++                "P8.27",        /* Cin8 */
++                "P8.28",        /* LINE_VALID */
++                "P8.29",        /* Cin9 */
++                "P8.30",        /* FRAME_VALID */
++                "P8.39",        /* Cin6 */
++                "P8.40",        /* Cin7 */
++                "P8.41",        /* Cin4 */
++                "P8.42",        /* Cin5 */
++                "P8.43",        /* Cin2 */
++                "P8.44",        /* Cin3 */
++                "P8.45",        /* Cin0 */
++                "P8.46",        /* Cin1 */
++
++                /* the hardware IP uses */
++                "uart2", "i2c1", "pru0", "pru1", "ehrpwm2A";
++
++        fragment@0 {
++                target = <&am33xx_pinmux>;
++                __overlay__ {
++                        uart_pins: pinmux_uart_pins {
++                                pinctrl-single,pins = <
++                                        0x150	0x21	/* spi0_sclk.uart2_rxd | MODE1 | PULL_UP */
++                                        0x154	0x01	/* spi0_d0.uart2_txd | MODE1 */
++                                >;
++                        };
++
++                        imager_pruss_pins: pinmux_imager_pruss_pins {
++                                pinctrl-single,pins = <
++                                        0x184 0x2e	/* uart1_txd.pr1_pru0_pru_r31_16, MODE6 | INPUT_NOPULLUP    : Imager's LEDOUT */
++                                        /* 0x1ac 0x05       mcasp0_ahclkx.pr1_pru0_pru_r30_7, MODE5 : Exposure */
++                                        0x180 0x2e      /* uart1_rxd.pr1_pru1_pru_r31_16, MODE6 | INPUT_NOPULLUP    : PIXCLK */
++
++                                        0x0e0 0x2e      /* lcd_vsync.pr1_pru1_pru_r31_8, MODE6 | INPUT_NOPULLUP    : Cin8 */
++                                        0x0e8 0x2e      /* lcd_pclk.pr1_pru1_pru_r31_10, MODE6 | INPUT_NOPULLUP    : LINE_VALID */
++                                        0x0e4 0x2e      /* lcd_hsync.pr1_pru1_pru_r31_9, MODE6 | INPUT_NOPULLUP    : Cin9 */
++                                        0x0ec 0x2e      /* lcd_ac_bias_en.pr1_pru1_pru_r31_11, MODE6 | INPUT_NOPULLUP : FRAME_VALID */
++
++                                        0x0b8 0x2e      /* lcd_data6.pr1_pru1_pru_r31_6, MODE6 | INPUT_NOPULLUP : Cin6 */
++                                        0x0bc 0x2e      /* lcd_data7.pr1_pru1_pru_r31_7, MODE6 | INPUT_NOPULLUP : Cin7 */
++                                        0x0b0 0x2e      /* lcd_data4.pr1_pru1_pru_r31_4, MODE6 | INPUT_NOPULLUP : Cin4 */
++                                        0x0b4 0x2e      /* lcd_data5.pr1_pru1_pru_r31_5, MODE6 | INPUT_NOPULLUP : Cin5 */
++                                        0x0a8 0x2e      /* lcd_data2.pr1_pru1_pru_r31_2, MODE6 | INPUT_NOPULLUP : Cin2 */
++                                        0x0ac 0x2e      /* lcd_data3.pr1_pru1_pru_r31_3, MODE6 | INPUT_NOPULLUP : Cin3 */
++                                        0x0a0 0x2e      /* lcd_data0.pr1_pru1_pru_r31_0, MODE6 | INPUT_NOPULLUP : Cin0 */
++                                        0x0a4 0x2e      /* lcd_data1.pr1_pru1_pru_r31_1, MODE6 | INPUT_NOPULLUP : Cin1 */
++
++                                        /* 0x1a4 0x05	 mcasp0_fsr.pr1_pru0_pru_r30_5, MODE6 | INPUT_NOPULLUP : GPS PPS */
++                                >;
++                        };
++
++                        gpio_pins: pinmux_gpio_pins {
++                                pinctrl-single,pins = <
++                                        0x070 0x07      /* gpmc_wait0.gpio0[30], MODE7    : GPS_EN */
++                                        0x078 0x2f      /* gpmc_be1n.gpio1[28], MODE7 | INPUT_NOPULLUP    : GPS FIX */
++                                        0x074 0x07      /* gpmc_wpn.gpio0[31], MODE7      : IMAGER_STDBY */
++                                        0x040 0x07      /* gpmc_a0.gpio1[16], MODE7       : IMAGER ~RESET */
++                                        0x1a4 0x2f      /* mcasp0_fsr.gpio3[19], MODE7 | INPUT_NOPULLUP   : GPS PPS */
++                                        0x190 0x2f      /* mcasp0_aclkx.gpio3[14], MODE7 | INPUT_NOPULLUP   : Old clock */
++                                        0x1b4 0x2f      /* xdma_event_intr1.gpio0[20], MODE7 | INPUT_NOPULLUP   : Old clock */
++
++                                        0x1ac 0x2f      /* mcasp0_ahclkx.gpio3[21], MODE7 | INPUT_NOPULLUP : 24.576 MHz clock on this pin, so keep disconnected */
++                                        0x06c 0x07      /* gpmc_a11.gpio1[27], MODE7 : 24.576 MHz clock enable */
++
++                                        0x088 0x2f      /* gpmc_csn3.gpio2[0], MODE7 | INPUT_NOPULLUP : Shared with IMAGER ~RESET on BBB */
++
++                                >;
++                        };
++
++                        imager_i2c1_pins: pinmux_imager_i2c1_pins {
++                                pinctrl-single,pins = <
++                                        0x158 0x72	/* spi0_d1.i2c1_sda, SLEWCTRL_SLOW | INPUT_PULLUP | MODE2 */
++                                        0x15c 0x72	/* spi0_cs0.i2c1_scl, SLEWCTRL_SLOW | INPUT_PULLUP | MODE2 */
++                                >;
++                        };
++
++                        pwm_P8_19: pinmux_pwm_P8_19_pins {
++                                pinctrl-single,pins = <0x020  0x4>; /* gpmc_ad8.ehrpwm2A, MODE 4 : Imager Clock*/
++                        };
++                };
++        };
++
++        fragment@1 {
++                target = <&uart3>;
++                __overlay__ {
++                        status = "okay";
++                        pinctrl-names = "default";
++                        pinctrl-0 = <&uart_pins>;
++                };
++        };
++
++        fragment@2 {
++                target = <&pruss>;
++                __overlay__ {
++                        status = "okay";
++
++                        pinctrl-names = "default";
++                        pinctrl-0 = <&imager_pruss_pins>;
++                };
++        };
++
++        fragment@3 {
++                target = <&i2c1>;	/* i2c1 is numbered correctly */
++                __overlay__ {
++                        status = "okay";
++                        pinctrl-names = "default";
++                        pinctrl-0 = <&imager_i2c1_pins>;
++
++                        /* this is the configuration part */
++                        clock-frequency = <400000>;
++
++                        #address-cells = <1>;
++                        #size-cells = <0>;
++
++                        /* imager currently controlled in userland */
++                };
++        };
++
++        fragment@4 {
++                target = <&epwmss2>;
++                __overlay__ {
++                        status = "okay";
++                };
++        };
++
++        fragment@5 {
++                target = <&ehrpwm2>;
++                __overlay__ {
++                        status = "okay";
++                };
++        };
++
++        fragment@6 {
++                target = <&ocp>;
++                __overlay__ {
++
++                        gpio_helper {
++                                compatible = "gpio-of-helper";
++                                status = "okay";
++                                pinctrl-names = "default";
++                                pinctrl-0 = <&gpio_pins>;
++
++                                /* declare your gpios */
++                                gps_en {
++                                        gpio-name = "gps_en";
++                                        gpio = <&gpio1 30 0x00>;	/* gpio4 is gpio3 */
++                                        output;
++                                        init-low;
++                                };
++
++                                gps_fix {
++                                        gpio-name = "gps_fix";
++                                        gpio = <&gpio2 28 0x00>;	/* gpio4 is gpio3 */
++                                        input;
++                                };
++
++                                imager_stdby {
++                                        gpio-name = "imager_stdby";
++                                        gpio = <&gpio1 31 0x00>;	/* gpio4 is gpio3 */
++                                        output;
++                                        init-low;
++                                };
++
++                                imager_nreset {
++                                        gpio-name = "imager_nreset";
++                                        gpio = <&gpio2 16 0x00>;	/* gpio4 is gpio3 */
++                                        output;
++                                        init-low;
++                                };
++
++                                gps_pps {
++                                        gpio-name = "gps_pps";
++                                        gpio = <&gpio4 19 0x00>;	/* gpio4 is gpio3 */
++                                        input;
++                                };
++
++                                unused_clock_1 {
++                                        gpio-name = "unused_clock_1";
++                                        gpio = <&gpio4 14 0x00>;	/* gpio4 is gpio3 */
++                                        input;
++                                };
++
++                                unused_clock_2 {
++                                        gpio-name = "unused_clock_2";
++                                        gpio = <&gpio1 20 0x00>;	/* gpio4 is gpio3 */
++                                        input;
++                                };
++
++                                clk_24_576_enable {
++                                        gpio-name = "clk_24_576_enable";
++                                        gpio = <&gpio2 27 0x00>;	/* gpio4 is gpio3 */
++                                        output;
++                                        init-low;
++                                };
++                        };
++
++                        pwm_test_P8_19 {
++                                /* 25 MHz to the imager (PWM has 20ns resolution) */
++                                compatible	= "pwm_test";
++                                pwms 		= <&ehrpwm2 0 40 0>;
++                                pwm-names 	= "PWM_P8_19";
++
++                                pinctrl-names	= "default";
++                                pinctrl-0	= <&pwm_P8_19>;
++
++                                enabled		= <1>;
++                                duty		= <20>;
++                                status 		= "okay";
++                        };
++
++                };
++        };
++};
+-- 
+1.7.9.5
+

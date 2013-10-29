@@ -1,0 +1,85 @@
+From 4c10a51b9321a4fa4fe14a3f51734e8a1a172ae0 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 29 Oct 2013 14:47:10 -0400
+Subject: [PATCH 2/7] erlang: multiple fixes
+
+  1. Added staging directory to keep header files around for other
+     Erlang projects to use.
+  2. Turned off target SMP support to reduce compile time
+  3. Scrubbed more files from the target install
+---
+ package/erlang/erlang.mk | 39 ++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 34 insertions(+), 5 deletions(-)
+
+diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
+index 4a94af0..c801b0f 100644
+--- a/package/erlang/erlang.mk
++++ b/package/erlang/erlang.mk
+@@ -14,6 +14,8 @@ ERLANG_LICENSE = EPL
+ ERLANG_LICENSE_FILES = EPLICENCE
+ ERLANG_INSTALL_STAGING = YES
+ 
++ERLANG_INSTALL_STAGING = YES
++
+ # The configure checks for these functions fail incorrectly
+ ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes
+ 
+@@ -21,7 +23,7 @@ ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes
+ # for documentation.
+ ERLANG_CONF_ENV += erl_xcomp_sysroot=$(STAGING_DIR)
+ 
+-ERLANG_CONF_OPT = --without-javac
++ERLANG_CONF_OPT = --without-javac --disable-smp-support
+ HOST_ERLANG_CONF_OPT = --without-javac
+ 
+ ifeq ($(BR2_PACKAGE_NCURSES),y)
+@@ -50,15 +52,42 @@ ifneq ($(BR2_PACKAGE_ERLANG_MEGACO),y)
+ ERLANG_REMOVE_PACKAGES += megaco
+ endif
+ 
+-define ERLANG_REMOVE_UNUSED
+-	find $(TARGET_DIR)/usr/lib/erlang -type d -name src -prune -exec rm -rf {} \;
+-	find $(TARGET_DIR)/usr/lib/erlang -type d -name examples -prune -exec rm -rf {} \;
++define ERLANG_REMOVE_STAGING_UNUSED
++	# Remove intermediate build products from being copied around
++	# by Erlang release tools
++	find $(STAGING_DIR)/usr/lib/erlang -type d -name obj -prune -exec rm -rf {} \;
++
++	# Don't expose packages that won't be available on the target
++	for package in $(ERLANG_REMOVE_PACKAGES); do \
++		rm -rf $(STAGING_DIR)/usr/lib/erlang/lib/$${package}-*; \
++	done
++endef
++
++define ERLANG_REMOVE_TARGET_UNUSED
++	# Remove top level installation and header files
++	rm -rf $(TARGET_DIR)/usr/lib/erlang/misc
++	rm -f $(TARGET_DIR)/usr/lib/erlang/Install
++	rm -rf $(TARGET_DIR)/usr/lib/erlang/usr/include
++
++	# Remove intermediate build products
++	find $(TARGET_DIR)/usr/lib/erlang -type d -name obj -prune -exec rm -rf {} \;
++
++	# Remove package and erts files that are not needed
++	# at runtime
++	for dir in $(TARGET_DIR)/usr/lib/erlang/erts-* \
++		   $(TARGET_DIR)/usr/lib/erlang/lib/*; do \
++		rm -rf $${dir}/src $${dir}/c_src $${dir}/include $${dir}/doc \
++		       $${dir}/man $${dir}/examples $${dir}/emacs; \
++	done
++
++	# Remove unwanted packages
+ 	for package in $(ERLANG_REMOVE_PACKAGES); do \
+ 		rm -rf $(TARGET_DIR)/usr/lib/erlang/lib/$${package}-*; \
+ 	done
+ endef
+ 
+-ERLANG_POST_INSTALL_TARGET_HOOKS += ERLANG_REMOVE_UNUSED
++ERLANG_POST_INSTALL_STAGING_HOOKS += ERLANG_REMOVE_STAGING_UNUSED
++ERLANG_POST_INSTALL_TARGET_HOOKS += ERLANG_REMOVE_TARGET_UNUSED
+ 
+ $(eval $(autotools-package))
+ $(eval $(host-autotools-package))
+-- 
+1.8.3.2
+

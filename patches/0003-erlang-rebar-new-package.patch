@@ -1,0 +1,85 @@
+From 9c0973499f578c16646aec4f645c2d6b91bf1035 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 29 Oct 2013 14:52:22 -0400
+Subject: [PATCH 3/7] erlang-rebar: new package
+
+---
+ package/Config.in.host               |  1 +
+ package/erlang-rebar/Config.in.host  |  8 ++++++++
+ package/erlang-rebar/erlang-rebar.mk | 37 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 46 insertions(+)
+ create mode 100644 package/erlang-rebar/Config.in.host
+ create mode 100644 package/erlang-rebar/erlang-rebar.mk
+
+diff --git a/package/Config.in.host b/package/Config.in.host
+index 7f9c219..811f697 100644
+--- a/package/Config.in.host
++++ b/package/Config.in.host
+@@ -4,6 +4,7 @@ source "package/am335x-pru-package/Config.in.host"
+ source "package/dfu-util/Config.in.host"
+ source "package/dosfstools/Config.in.host"
+ source "package/e2fsprogs/Config.in.host"
++source "package/erlang-rebar/Config.in.host"
+ source "package/genext2fs/Config.in.host"
+ source "package/genimage/Config.in.host"
+ source "package/genpart/Config.in.host"
+diff --git a/package/erlang-rebar/Config.in.host b/package/erlang-rebar/Config.in.host
+new file mode 100644
+index 0000000..48ece82
+--- /dev/null
++++ b/package/erlang-rebar/Config.in.host
+@@ -0,0 +1,8 @@
++config BR2_PACKAGE_HOST_ERLANG_REBAR
++	bool "host erlang-rebar"
++	depends on BR2_PACKAGE_ERLANG
++	help
++	  Erlang build tool that makes it easy to compile and test Erlang
++	  applications, port drivers and releases.
++
++	  http://github.com/rebar/rebar
+diff --git a/package/erlang-rebar/erlang-rebar.mk b/package/erlang-rebar/erlang-rebar.mk
+new file mode 100644
+index 0000000..6e34890
+--- /dev/null
++++ b/package/erlang-rebar/erlang-rebar.mk
+@@ -0,0 +1,37 @@
++#############################################################
++#
++# erlang-rebar
++#
++#############################################################
++
++ERLANG_REBAR_VERSION = ed88055a750736c5c9807ca4da4803ff8a6aef16
++ERLANG_REBAR_SITE = http://github.com/rebar/rebar/tarball/$(ERLANG_REBAR_VERSION)
++ERLANG_REBAR_LICENSE = Apache-2.0 
++ERLANG_REBAR_LICENSE_FILE = LICENSE 
++
++HOST_ERLANG_REBAR_DEPENDENCIES = host-erlang
++
++ERLANG_ERTS_DIR = `ls -d $(STAGING_DIR)/usr/lib/erlang/erts-*`
++ERLANG_ERL_INTERFACE_DIR = `ls -d $(STAGING_DIR)/usr/lib/erlang/lib/erl_interface-*`
++
++# Macro for invoking rebar in other packages
++REBAR = $(HOST_MAKE_ENV) \
++	CC="$(TARGET_CC)" \
++	CXX="$(TARGET_CXX)" \
++	CFLAGS="$(TARGET_CFLAGS)" \
++	CXXFLAGS="$(TARGET_CXXFLAGS)" \
++	LDFLAGS="$(TARGET_LDFLAGS)" \
++	ERL_CFLAGS="-I$(ERLANG_ERTS_DIR)/include -I$(ERLANG_ERL_INTERFACE_DIR)/include" \
++	ERL_LDFLAGS="-L$(ERLANG_ERTS_DIR)/lib -L$(ERLANG_ERL_INTERFACE_DIR)/lib -lerts -lei" \
++	REBAR_PLT_DIR="$(STAGING_DIR)/usr/lib/erlang" \
++	$(HOST_DIR)/usr/bin/rebar -v
++
++define HOST_ERLANG_REBAR_BUILD_CMDS
++	(cd $(@D); $(HOST_MAKE_ENV) ./bootstrap)
++endef
++
++define HOST_ERLANG_REBAR_INSTALL_CMDS
++	cp $(@D)/rebar $(HOST_DIR)/usr/bin
++endef
++
++$(eval $(host-generic-package))
+-- 
+1.8.3.2
+

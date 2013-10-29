@@ -1,0 +1,71 @@
+From a5c5d09eb9a8f0532a8cb330611157db80c78c76 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 29 Oct 2013 14:56:21 -0400
+Subject: [PATCH 6/7] new package: erlinit
+
+---
+ package/Config.in          |  1 +
+ package/erlinit/Config.in  |  7 +++++++
+ package/erlinit/erlinit.mk | 24 ++++++++++++++++++++++++
+ 3 files changed, 32 insertions(+)
+ create mode 100644 package/erlinit/Config.in
+ create mode 100644 package/erlinit/erlinit.mk
+
+diff --git a/package/Config.in b/package/Config.in
+index 078d904..c956a14 100644
+--- a/package/Config.in
++++ b/package/Config.in
+@@ -348,6 +348,7 @@ endmenu
+ 
+ menu "Interpreter languages and scripting"
+ source "package/erlang/Config.in"
++source "package/erlinit/Config.in"
+ source "package/enscript/Config.in"
+ source "package/haserl/Config.in"
+ source "package/jamvm/Config.in"
+diff --git a/package/erlinit/Config.in b/package/erlinit/Config.in
+new file mode 100644
+index 0000000..d9b6673
+--- /dev/null
++++ b/package/erlinit/Config.in
+@@ -0,0 +1,7 @@
++config BR2_PACKAGE_ERLINIT
++	bool "erlinit"
++	depends on BR2_PACKAGE_ERLANG
++	help
++	  Erlinit is a replacement for /sbin/init that starts erlang.
++
++	  https://github.com/fhunleth/erlinit
+diff --git a/package/erlinit/erlinit.mk b/package/erlinit/erlinit.mk
+new file mode 100644
+index 0000000..fa0746e
+--- /dev/null
++++ b/package/erlinit/erlinit.mk
+@@ -0,0 +1,24 @@
++#############################################################
++#
++# erlinit
++#
++#############################################################
++
++ERLINIT_VERSION = 5a616c7
++ERLINIT_SITE = http://github.com/nerves-project/erlinit/tarball/$(ERLINIT_VERSION)
++ERLINIT_LICENSE = MIT 
++
++# Make sure erlinit wins over busybox init
++ifeq ($(BR2_PACKAGE_BUSYBOX),y)
++ERLINIT_DEPENDENCIES += busybox
++endif
++
++define ERLINIT_BUILD_CMDS
++	$(MAKE1) $(TARGET_CONFIGURE_OPTS) -C $(@D)
++endef
++
++define ERLINIT_INSTALL_TARGET_CMDS
++	$(INSTALL) -D -m 755 $(@D)/erlinit $(TARGET_DIR)/sbin/init
++endef
++
++$(eval $(generic-package))
+-- 
+1.8.3.2
+

@@ -1,0 +1,250 @@
+From 872b5e3bf087cfc2e1e2b8610811f4b5d4082128 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 29 Oct 2013 14:36:09 -0400
+Subject: [PATCH 1/7] new package: am335x-pru-package
+
+---
+ package/Config.in                                  |  1 +
+ package/Config.in.host                             |  1 +
+ package/am335x-pru-package/Config.in               |  7 +++
+ package/am335x-pru-package/Config.in.host          |  7 +++
+ package/am335x-pru-package/am335x-pru-package.mk   | 61 ++++++++++++++++++++++
+ ...package-prussdrv-add-prussdrv_extmem_size.patch | 42 +++++++++++++++
+ ...ru_package-prussdrv-mark-const-parameters.patch | 57 ++++++++++++++++++++
+ 7 files changed, 176 insertions(+)
+ create mode 100644 package/am335x-pru-package/Config.in
+ create mode 100644 package/am335x-pru-package/Config.in.host
+ create mode 100644 package/am335x-pru-package/am335x-pru-package.mk
+ create mode 100644 package/am335x-pru-package/am335x_pru_package-prussdrv-add-prussdrv_extmem_size.patch
+ create mode 100644 package/am335x-pru-package/am335x_pru_package-prussdrv-mark-const-parameters.patch
+
+diff --git a/package/Config.in b/package/Config.in
+index 4c4da51..078d904 100644
+--- a/package/Config.in
++++ b/package/Config.in
+@@ -261,6 +261,7 @@ source "package/zd1211-firmware/Config.in"
+ endmenu
+ source "package/a10disp/Config.in"
+ source "package/acpid/Config.in"
++source "package/am335x-pru-package/Config.in"
+ source "package/cdrkit/Config.in"
+ source "package/cryptsetup/Config.in"
+ source "package/dbus/Config.in"
+diff --git a/package/Config.in.host b/package/Config.in.host
+index 5fd2570..7f9c219 100644
+--- a/package/Config.in.host
++++ b/package/Config.in.host
+@@ -1,5 +1,6 @@
+ menu "Host utilities"
+ 
++source "package/am335x-pru-package/Config.in.host"
+ source "package/dfu-util/Config.in.host"
+ source "package/dosfstools/Config.in.host"
+ source "package/e2fsprogs/Config.in.host"
+diff --git a/package/am335x-pru-package/Config.in b/package/am335x-pru-package/Config.in
+new file mode 100644
+index 0000000..6dfca9e
+--- /dev/null
++++ b/package/am335x-pru-package/Config.in
+@@ -0,0 +1,7 @@
++config BR2_PACKAGE_AM335X_PRU_PACKAGE
++	bool "am335x-pru-package"
++	depends on BR2_arm # only relevant for TI am335x
++	help
++	  AM335X loader, and example applications
++
++	  https://github.com/beagleboard/am335x_pru_package
+diff --git a/package/am335x-pru-package/Config.in.host b/package/am335x-pru-package/Config.in.host
+new file mode 100644
+index 0000000..3c07bda
+--- /dev/null
++++ b/package/am335x-pru-package/Config.in.host
+@@ -0,0 +1,7 @@
++config BR2_PACKAGE_HOST_AM335X_PRU_PACKAGE
++	bool "host am335x-pru-package"
++	depends on BR2_arm # only relevant for TI am335x
++	help
++	  AM335X PRU assembler
++
++	  https://github.com/beagleboard/am335x_pru_package
+diff --git a/package/am335x-pru-package/am335x-pru-package.mk b/package/am335x-pru-package/am335x-pru-package.mk
+new file mode 100644
+index 0000000..5a2f465
+--- /dev/null
++++ b/package/am335x-pru-package/am335x-pru-package.mk
+@@ -0,0 +1,61 @@
++################################################################################
++#
++# am335x-pru-package
++#
++################################################################################
++
++AM335X_PRU_PACKAGE_VERSION = dbd22a0
++AM335X_PRU_PACKAGE_SITE = http://github.com/beagleboard/am335x_pru_package/tarball/$(AM335X_PRU_PACKAGE_VERSION)
++AM335X_PRU_PACKAGE_LICENSE = BSD-3c
++AM335X_PRU_PACKAGE_LICENSE_FILES = pru_sw/utils/LICENCE.txt
++AM335X_PRU_PACKAGE_DEPENDENCIES = host-am335x-pru-package
++AM335X_PRU_PACKAGE_INSTALL_STAGING = YES
++
++define AM335X_PRU_PACKAGE_BUILD_CMDS
++	$(MAKE) CROSS_COMPILE="$(TARGET_CROSS)" \
++		-C $(@D)/pru_sw/app_loader/interface all
++	$(MAKE) CROSS_COMPILE="$(TARGET_CROSS)" \
++		PASM=$(HOST_DIR)/usr/bin/pasm -C $(@D)/pru_sw/example_apps all
++endef
++
++define AM335X_PRU_PACKAGE_INSTALL_STAGING_CMDS
++	$(INSTALL) -m 0644 -D $(@D)/pru_sw/app_loader/lib/libprussdrv.a \
++		$(STAGING_DIR)/usr/lib/libprussdrv.a
++	$(INSTALL) -m 0644 -D $(@D)/pru_sw/app_loader/include/prussdrv.h \
++		$(STAGING_DIR)/usr/include/prussdrv.h
++	$(INSTALL) -m 0644 -D $(@D)/pru_sw/app_loader/include/pruss_intc_mapping.h \
++		$(STAGING_DIR)/usr/include/pruss_intc_mapping.h
++endef
++
++define AM335X_PRU_PACKAGE_INSTALL_TARGET_CMDS
++	# Binaries
++	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_memAccess_DDR_PRUsharedRAM \
++		 $(TARGET_DIR)/usr/bin/PRU_memAccess_DDR_PRUsharedRAM
++	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_memAccessPRUDataRam \
++		 $(TARGET_DIR)/usr/bin/PRU_memAccess_DDR_PRUDataRam
++	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_PRUtoPRU_Interrupt \
++		 $(TARGET_DIR)/usr/bin/PRU_PRUtoPRU_Interrupt
++
++	# Firmware
++	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_memAccess_DDR_PRUsharedRAM.bin \
++		 $(TARGET_DIR)/usr/bin/PRU_memAccess_DDR_PRUsharedRAM.bin
++	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_memAccessPRUDataRam.bin \
++		 $(TARGET_DIR)/usr/bin/PRU_memAccessPRUDataRam.bin
++	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_PRU0toPRU1_Interrupt.bin \
++		 $(TARGET_DIR)/usr/bin/PRU_PRU0toPRU1_Interrupt.bin
++	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_PRU1toPRU0_Interrupt.bin \
++		 $(TARGET_DIR)/usr/bin/PRU_PRU1toPRU0_Interrupt.bin
++endef
++
++define HOST_AM335X_PRU_PACKAGE_BUILD_CMDS
++	cd $(@D)/pru_sw/utils/pasm_source && \
++		$(HOSTCC) -D_UNIX_ pasm.c pasmpp.c pasmexp.c pasmop.c \
++			pasmdot.c pasmstruct.c pasmmacro.c -o ../pasm
++endef
++
++define HOST_AM335X_PRU_PACKAGE_INSTALL_CMDS
++	$(INSTALL) -m 0755 -D $(@D)/pru_sw/utils/pasm $(HOST_DIR)/usr/bin/pasm
++endef
++
++$(eval $(generic-package))
++$(eval $(host-generic-package))
+diff --git a/package/am335x-pru-package/am335x_pru_package-prussdrv-add-prussdrv_extmem_size.patch b/package/am335x-pru-package/am335x_pru_package-prussdrv-add-prussdrv_extmem_size.patch
+new file mode 100644
+index 0000000..0c516b2
+--- /dev/null
++++ b/package/am335x-pru-package/am335x_pru_package-prussdrv-add-prussdrv_extmem_size.patch
+@@ -0,0 +1,42 @@
++From b2d711230025de88782498b1969339f7d149acef Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Tue, 23 Jul 2013 15:40:10 -0400
++Subject: [PATCH 2/2] prussdrv: add prussdrv_extmem_size
++
++---
++ pru_sw/app_loader/include/prussdrv.h   |    2 ++
++ pru_sw/app_loader/interface/prussdrv.c |    5 +++++
++ 2 files changed, 7 insertions(+)
++
++diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
++index e653030..59fa43e 100755
++--- a/pru_sw/app_loader/include/prussdrv.h
+++++ b/pru_sw/app_loader/include/prussdrv.h
++@@ -128,6 +128,8 @@ extern "C" {
++ 
++     int prussdrv_map_extmem(void **address);
++ 
+++    unsigned int prussdrv_extmem_size(void);
+++
++     int prussdrv_map_prumem(unsigned int pru_ram_id, void **address);
++ 
++     int prussdrv_map_peripheral_io(unsigned int per_id, void **address);
++diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
++index c4d2ee0..9384be1 100755
++--- a/pru_sw/app_loader/interface/prussdrv.c
+++++ b/pru_sw/app_loader/interface/prussdrv.c
++@@ -466,6 +466,11 @@ int prussdrv_map_extmem(void **address)
++ 
++ }
++ 
+++unsigned int prussdrv_extmem_size(void)
+++{
+++    return prussdrv.extram_map_size;
+++}
+++
++ 
++ int prussdrv_map_prumem(unsigned int pru_ram_id, void **address)
++ {
++-- 
++1.7.9.5
++
+diff --git a/package/am335x-pru-package/am335x_pru_package-prussdrv-mark-const-parameters.patch b/package/am335x-pru-package/am335x_pru_package-prussdrv-mark-const-parameters.patch
+new file mode 100644
+index 0000000..375b2f8
+--- /dev/null
++++ b/package/am335x-pru-package/am335x_pru_package-prussdrv-mark-const-parameters.patch
+@@ -0,0 +1,57 @@
++From f6f51fae45c6c43164f3b17342b10ba49f213180 Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Tue, 23 Jul 2013 10:05:58 -0400
++Subject: [PATCH] prussdrv: mark const parameters
++
++---
++ pru_sw/app_loader/include/prussdrv.h   |    4 ++--
++ pru_sw/app_loader/interface/prussdrv.c |    4 ++--
++ 2 files changed, 4 insertions(+), 4 deletions(-)
++
++diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
++index 90c489b..e653030 100755
++--- a/pru_sw/app_loader/include/prussdrv.h
+++++ b/pru_sw/app_loader/include/prussdrv.h
++@@ -119,7 +119,7 @@ extern "C" {
++ 
++     int prussdrv_pru_write_memory(unsigned int pru_ram_id,
++                                   unsigned int wordoffset,
++-                                  unsigned int *memarea,
+++                                  const unsigned int *memarea,
++                                   unsigned int bytelength);
++ 
++     int prussdrv_pruintc_init(tpruss_intc_initdata * prussintc_init_data);
++@@ -148,7 +148,7 @@ extern "C" {
++ 
++     int prussdrv_exit(void);
++ 
++-    int prussdrv_exec_program(int prunum, char *filename);
+++    int prussdrv_exec_program(int prunum, const char *filename);
++ 
++     int prussdrv_start_irqthread(unsigned int pru_evtout_num, int priority,
++                                  prussdrv_function_handler irqhandler);
++diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
++index 21e4ba4..c4d2ee0 100755
++--- a/pru_sw/app_loader/interface/prussdrv.c
+++++ b/pru_sw/app_loader/interface/prussdrv.c
++@@ -303,7 +303,7 @@ int prussdrv_pru_disable(unsigned int prunum)
++ 
++ int prussdrv_pru_write_memory(unsigned int pru_ram_id,
++                               unsigned int wordoffset,
++-                              unsigned int *memarea,
+++                              const unsigned int *memarea,
++                               unsigned int bytelength)
++ {
++     unsigned int *pruramarea, i, wordlength;
++@@ -587,7 +587,7 @@ int prussdrv_exit()
++     return 0;
++ }
++ 
++-int prussdrv_exec_program(int prunum, char *filename)
+++int prussdrv_exec_program(int prunum, const char *filename)
++ {
++     FILE *fPtr;
++     unsigned char fileDataArray[PRUSS_MAX_IRAM_SIZE];
++-- 
++1.7.9.5
++
+-- 
+1.8.3.2
+

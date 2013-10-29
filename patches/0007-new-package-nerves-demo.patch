@@ -1,0 +1,71 @@
+From 0e3a61f0ebba90124496363f9e6a4864a5181c05 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 29 Oct 2013 14:59:36 -0400
+Subject: [PATCH 7/7] new package: nerves-demo
+
+---
+ package/Config.in                  |  2 ++
+ package/nerves-demo/Config.in      |  8 ++++++++
+ package/nerves-demo/nerves-demo.mk | 23 +++++++++++++++++++++++
+ 3 files changed, 33 insertions(+)
+ create mode 100644 package/nerves-demo/Config.in
+ create mode 100644 package/nerves-demo/nerves-demo.mk
+
+diff --git a/package/Config.in b/package/Config.in
+index c956a14..f4b1aa3 100644
+--- a/package/Config.in
++++ b/package/Config.in
+@@ -1,5 +1,7 @@
+ menu "Target packages"
+ 
++source "package/nerves-demo/Config.in"
++
+ source "package/busybox/Config.in"
+ 
+ menu "Audio and video applications"
+diff --git a/package/nerves-demo/Config.in b/package/nerves-demo/Config.in
+new file mode 100644
+index 0000000..ad68f1c
+--- /dev/null
++++ b/package/nerves-demo/Config.in
+@@ -0,0 +1,8 @@
++config BR2_PACKAGE_NERVES_DEMO
++	bool "nerves-demo"
++	depends on BR2_PACKAGE_ERLANG
++	select BR2_PACKAGE_HOST_ERLANG_RELX
++	help
++	  Nerves demonstration application
++
++	  http://bitbucket.org/fhunleth/erlang_webcontrol
+diff --git a/package/nerves-demo/nerves-demo.mk b/package/nerves-demo/nerves-demo.mk
+new file mode 100644
+index 0000000..dd40d62
+--- /dev/null
++++ b/package/nerves-demo/nerves-demo.mk
+@@ -0,0 +1,23 @@
++#############################################################
++#
++# nerves-demo
++#
++#############################################################
++
++NERVES_DEMO_VERSION = d5f7743966
++NERVES_DEMO_SITE = http://github.com/nerves-project/nerves-demo/tarball/$(NERVES_DEMO_VERSION)
++NERVES_DEMO_LICENSE = MIT
++NERVES_DEMO_INSTALL_DIR = $(TARGET_DIR)/srv/erlang
++
++NERVES_DEMO_DEPENDENCIES = erlang host-erlang-rebar host-erlang-relx
++
++define NERVES_DEMO_BUILD_CMDS
++	(cd $(@D); $(REBAR) get-deps compile && $(RELX))
++endef
++
++define NERVES_DEMO_INSTALL_TARGET_CMDS
++	mkdir -p $(NERVES_DEMO_INSTALL_DIR)
++	cp -r $(@D)/_rel/* $(NERVES_DEMO_INSTALL_DIR)
++endef
++
++$(eval $(generic-package))
+-- 
+1.8.3.2
+
