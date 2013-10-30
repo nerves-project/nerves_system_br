@@ -5,6 +5,7 @@
 
 NERVES_ROOT=$(dirname $(readlink -f $0))
 NERVES_SDK_ROOT=$NERVES_ROOT/buildroot/output/host
+NERVES_SDK_IMAGES=$NERVES_ROOT/buildroot/output/images
 NERVES_SDK_SYSROOT=$NERVES_ROOT/buildroot/output/staging
 
 # Check that the base buildroot image has been built
@@ -13,6 +14,7 @@ NERVES_SDK_SYSROOT=$NERVES_ROOT/buildroot/output/staging
 # Past the checks, so export variables
 export NERVES_ROOT
 export NERVES_SDK_ROOT
+export NERVES_SDK_IMAGES
 export NERVES_SDK_SYSROOT
 
 # Rebar environment variables

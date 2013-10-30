@@ -11,15 +11,14 @@
 set -e
 export LC_ALL=C
 
-SDK=$1
-BASE_FS_CONTENTS=$2
-RELEASE_DIR=$3
-TMPDIR=$4
-IMG=$5
+BASE_FS_CONTENTS=$1
+RELEASE_DIR=$2
+TMPDIR=$3
+IMG=$4
 
-TUNE2FS=$SDK/host/usr/sbin/tune2fs
-GENEXT2FS=$SDK/host/usr/bin/genext2fs
-E2FSCK=$SDK/host/usr/sbin/e2fsck
+TUNE2FS=$NERVES_SDK_ROOT/usr/sbin/tune2fs
+GENEXT2FS=$NERVES_SDK_ROOT/usr/bin/genext2fs
+E2FSCK=$NERVES_SDK_ROOT/usr/sbin/e2fsck
 
 # Create or cleanup our output directory
 mkdir -p $TMPDIR
