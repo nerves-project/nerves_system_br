@@ -23,6 +23,6 @@ if [ -d $TARGETDIR/lib/arm-linux-gnueabihf -a ! -h $TARGETDIR/lib/arm-linux-gnue
     rm -fr $TARGETDIR/lib/arm-linux-gnueabihf
     rm -fr $TARGETDIR/lib/arm-linux-gnueabi
     ln -fs . $TARGETDIR/lib/arm-linux-gnueabihf
-    ln -fs . $TARGETDIR/usr/lib/arm-linux-gnueabihf
 fi
 
+ln -fs . $TARGETDIR/usr/lib/arm-linux-gnueabihf
