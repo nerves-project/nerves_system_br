@@ -20,6 +20,7 @@ $FWTOOL -c $NERVES_ROOT/board/bbb/fwtool.config \
 	create $NERVES_SDK_IMAGES/bbb.fw
 
 # Build the raw image for the bulk programmer
-$FWTOOL -d $NERVES_SDK_IMAGES/bbb-sdcard.img \
+$FWTOOL -c $NERVES_ROOT/board/bbb/fwtool.config \
+	-d $NERVES_SDK_IMAGES/bbb-sdcard.img \
 	-t complete \
 	run $NERVES_SDK_IMAGES/bbb.fw
