@@ -13,18 +13,24 @@ all: br-make
 	git clone $(BUILDROOT_URL)
 	cd buildroot && git checkout -b nerves $(BUILDROOT_VERSION)
 
+	touch .buildroot-downloaded
+
+.buildroot-patched: .buildroot-downloaded
 	# Apply patches not yet in upstream buildroot
-	cd buildroot && git am ../patches/*.patch
+	cd buildroot; \
+	for p in `ls ../patches/*.patch` ; do \
+		echo Applying $$p; \
+		patch -p1 < $$p; \
+	done
 
 	# If there's a user dl directory, symlink it to avoid
 	# the big download
 	if [ -d $(BUILDROOT_DL_DIR) ]; then \
 		ln -s $(BUILDROOT_DL_DIR) buildroot/dl; \
 	fi
+	touch .buildroot-patched
 
-	touch .buildroot-downloaded
-
-buildroot/configs/$(BUILDROOT_CONFIG): br-configs/$(BUILDROOT_CONFIG) .buildroot-downloaded
+buildroot/configs/$(BUILDROOT_CONFIG): br-configs/$(BUILDROOT_CONFIG) .buildroot-patched
 	cp br-configs/$(BUILDROOT_CONFIG) buildroot/configs
 	make -C buildroot $(BUILDROOT_CONFIG)
 

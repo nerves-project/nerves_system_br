@@ -1,4 +1,4 @@
-From 9c0973499f578c16646aec4f645c2d6b91bf1035 Mon Sep 17 00:00:00 2001
+From cd6f2e098797515cefdd524333ac3be6873060f0 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:52:22 -0400
 Subject: [PATCH 3/7] erlang-rebar: new package

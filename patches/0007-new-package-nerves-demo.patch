@@ -1,4 +1,4 @@
-From 0e3a61f0ebba90124496363f9e6a4864a5181c05 Mon Sep 17 00:00:00 2001
+From a7bc0a3fc4ca6355fe846f9cfc82c2df29dd7031 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:59:36 -0400
 Subject: [PATCH 7/7] new package: nerves-demo
@@ -39,7 +39,7 @@ index 0000000..ad68f1c
 +	  http://bitbucket.org/fhunleth/erlang_webcontrol
 diff --git a/package/nerves-demo/nerves-demo.mk b/package/nerves-demo/nerves-demo.mk
 new file mode 100644
-index 0000000..dd40d62
+index 0000000..a88696e
 --- /dev/null
 +++ b/package/nerves-demo/nerves-demo.mk
 @@ -0,0 +1,23 @@
@@ -49,15 +49,15 @@ index 0000000..dd40d62
 +#
 +#############################################################
 +
-+NERVES_DEMO_VERSION = d5f7743966
-+NERVES_DEMO_SITE = http://github.com/nerves-project/nerves-demo/tarball/$(NERVES_DEMO_VERSION)
++NERVES_DEMO_VERSION = d523ece40eef3d8567d65d6b6abd01e6803d1ac8
++NERVES_DEMO_SITE = https://github.com/nerves-project/nerves-demo/tarball/$(NERVES_DEMO_VERSION)
 +NERVES_DEMO_LICENSE = MIT
 +NERVES_DEMO_INSTALL_DIR = $(TARGET_DIR)/srv/erlang
 +
 +NERVES_DEMO_DEPENDENCIES = erlang host-erlang-rebar host-erlang-relx
 +
 +define NERVES_DEMO_BUILD_CMDS
-+	(cd $(@D); $(REBAR) get-deps compile && $(RELX))
++	(cd $(@D); $(REBAR) get-deps compile && NERVES_SDK_SYSROOT=$(HOST_DIR) $(RELX))
 +endef
 +
 +define NERVES_DEMO_INSTALL_TARGET_CMDS

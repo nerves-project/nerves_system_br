@@ -1,4 +1,4 @@
-From a5c5d09eb9a8f0532a8cb330611157db80c78c76 Mon Sep 17 00:00:00 2001
+From 0af12d1c3a66c93881723ef2c600150fcea7af9b Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:56:21 -0400
 Subject: [PATCH 6/7] new package: erlinit

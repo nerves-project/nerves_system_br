@@ -1,4 +1,4 @@
-From 872b5e3bf087cfc2e1e2b8610811f4b5d4082128 Mon Sep 17 00:00:00 2001
+From daf6094ce39b6befbafdec9c789b7942795869e9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:36:09 -0400
 Subject: [PATCH 1/7] new package: am335x-pru-package

@@ -1,4 +1,4 @@
-From 4be2956e15e0ed18921492a55222ac7941576797 Mon Sep 17 00:00:00 2001
+From 00e4b2e6b5284b7f79ef6c765af8933a96bf3fcd Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:55:17 -0400
 Subject: [PATCH 5/7] new package: erlang-fwtool
@@ -40,7 +40,7 @@ index 0000000..40f5413
 +	  http://github.com/nerves-project/fwtool
 diff --git a/package/erlang-fwtool/erlang-fwtool.mk b/package/erlang-fwtool/erlang-fwtool.mk
 new file mode 100644
-index 0000000..d909378
+index 0000000..fca4676
 --- /dev/null
 +++ b/package/erlang-fwtool/erlang-fwtool.mk
 @@ -0,0 +1,26 @@
@@ -62,7 +62,7 @@ index 0000000..d909378
 +	$(HOST_DIR)/usr/bin/fwtool
 +
 +define HOST_ERLANG_FWTOOL_BUILD_CMDS
-+	$(MAKE1) -C $(@D)
++	$(HOST_MAKE_ENV) $(MAKE1) -C $(@D)
 +endef
 +
 +define HOST_ERLANG_FWTOOL_INSTALL_CMDS

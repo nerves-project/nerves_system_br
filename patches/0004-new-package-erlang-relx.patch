@@ -1,4 +1,4 @@
-From c44a6b0ac3822474e151a219d4a38d8743a82058 Mon Sep 17 00:00:00 2001
+From ad30a3b23d34d1c440337a14172ce2f8f0bd0186 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:54:19 -0400
 Subject: [PATCH 4/7] new package: erlang-relx
@@ -39,7 +39,7 @@ index 0000000..9d59bae
 +	  http://github.com/erlware/relx
 diff --git a/package/erlang-relx/erlang-relx.mk b/package/erlang-relx/erlang-relx.mk
 new file mode 100644
-index 0000000..7ea7c67
+index 0000000..d0241ff
 --- /dev/null
 +++ b/package/erlang-relx/erlang-relx.mk
 @@ -0,0 +1,26 @@
@@ -61,7 +61,7 @@ index 0000000..7ea7c67
 +	$(HOST_DIR)/usr/bin/relx -l $(STAGING_DIR)/usr/lib/erlang/lib
 +
 +define HOST_ERLANG_RELX_BUILD_CMDS
-+	$(MAKE1) -C $(@D)
++	$(HOST_MAKE_ENV) $(MAKE1) -C $(@D)
 +endef
 +
 +define HOST_ERLANG_RELX_INSTALL_CMDS
