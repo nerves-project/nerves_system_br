@@ -13,6 +13,7 @@ command -v fakeroot >/dev/null 2>&1 || { echo "This script requires fakeroot." >
 mkdir -p $OUTPUT_DIR
 
 # Update the file system bundle
+echo Updating base firmware image with Erlang release...
 fakeroot $NERVES_ROOT/scripts/create-fs.sh \
 	$NERVES_SDK_IMAGES/rootfs.tar.gz \
 	$RELEASE_DIR \
@@ -23,6 +24,7 @@ FWTOOL=$NERVES_SDK_ROOT/usr/bin/fwtool
 FWTOOL_CONFIG=$NERVES_SDK_IMAGES/fwtool.config
 
 # Build the firmware image
+echo Building $OUTPUT_DIR/bbb.fw...
 $FWTOOL -c $FWTOOL_CONFIG \
 	--mlo_path=$NERVES_SDK_IMAGES/MLO \
 	--uboot_path=$NERVES_SDK_IMAGES/u-boot.img \
@@ -30,6 +32,7 @@ $FWTOOL -c $FWTOOL_CONFIG \
 	create $OUTPUT_DIR/bbb.fw
 
 # Build the raw image for the bulk programmer
+echo Building $OUTPUT_DIR/sdcard.img...
 $FWTOOL -c $FWTOOL_CONFIG \
 	-d $OUTPUT_DIR/sdcard.img \
 	-t complete \
