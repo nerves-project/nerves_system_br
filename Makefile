@@ -42,4 +42,4 @@ clean:
 	make -C buildroot clean
 
 realclean:
-	rm -fr buildroot
+	rm -fr buildroot .buildroot-patched .buildroot-downloaded
