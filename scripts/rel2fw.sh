@@ -19,7 +19,21 @@ fakeroot $NERVES_ROOT/scripts/create-fs.sh \
 	$OUTPUT_DIR/tmp \
 	$OUTPUT_DIR/rootfs.ext2
 
-$NERVES_SDK_IMAGES/create-firmware.sh $OUTPUT_DIR
+FWTOOL=$NERVES_SDK_ROOT/usr/bin/fwtool
+FWTOOL_CONFIG=$NERVES_SDK_IMAGES/fwtool.config
+
+# Build the firmware image
+$FWTOOL -c $FWTOOL_CONFIG \
+	--mlo_path=$NERVES_SDK_IMAGES/MLO \
+	--uboot_path=$NERVES_SDK_IMAGES/u-boot.img \
+	--rootfs_path=$OUTPUT_DIR/rootfs.ext2 \
+	create $OUTPUT_DIR/bbb.fw
+
+# Build the raw image for the bulk programmer
+$FWTOOL -c $FWTOOL_CONFIG \
+	-d $OUTPUT_DIR/sdcard.img \
+	-t complete \
+	run $OUTPUT_DIR/bbb.fw
 
 # Clean up
 rm -f $OUTPUT_DIR/rootfs.ext2

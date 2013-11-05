@@ -5,11 +5,31 @@
 #
 
 TARGETDIR=$1
-CREATE_FIRMWARE=$(dirname $0)/create-firmware.sh
+
+NERVES_ROOT=$TARGETDIR/../../..
+NERVES_SDK_ROOT=$TARGETDIR/../host
+NERVES_SDK_IMAGES=$TARGETDIR/../images
+
+FWTOOL_CONFIG=$NERVES_ROOT/board/bbb/fwtool.config
 
 # Create the firmware images
-NERVES_ROOT=$TARGETDIR/../../.. NERVES_SDK_ROOT=$TARGETDIR/../host NERVES_SDK_IMAGES=$TARGETDIR/../images $CREATE_FIRMWARE $TARGETDIR
+FWTOOL=$NERVES_SDK_ROOT/usr/bin/fwtool
 
-# Copy the firmware creation script to the images directory
-# so that it can be used later.
-cp $CREATE_FIRMWARE $TARGETDIR/../images
+# Build the firmware image
+echo Building firmware image...
+$FWTOOL -c $FWTOOL_CONFIG \
+	--mlo_path=$NERVES_SDK_IMAGES/MLO \
+	--uboot_path=$NERVES_SDK_IMAGES/u-boot.img \
+	--rootfs_path=$NERVES_SDK_IMAGES/rootfs.ext2 \
+	create $NERVES_SDK_IMAGES/bbb.fw
+
+# Build the raw image for the bulk programmer
+echo Building raw firmware image...
+$FWTOOL -c $FWTOOL_CONFIG \
+	-d $NERVES_SDK_IMAGES/sdcard.img \
+	-t complete \
+	run $NERVES_SDK_IMAGES/bbb.fw
+
+# Copy the fwtool config to the images directory so that
+# it can be used to create images based on this one.
+cp $FWTOOL_CONFIG $NERVES_SDK_IMAGES

@@ -61,7 +61,7 @@ BLOCKS=$(expr 500 + \( $BLOCKS + $INODES / 8 \) \* 11 / 10)
 e2tunefsck() {
     # Upgrade the file system
     if [ $# -ne 0 ]; then
-        $TUNE2FS "$@" "${IMG}"
+        $TUNE2FS "$@" "${IMG}" >/dev/null
     fi
 
     # genext2fs does not generate a UUID, but fsck will whine if one is
@@ -70,7 +70,7 @@ e2tunefsck() {
     # Although a random UUID may seem bad for reproducibility, there
     # already are so many things that are not reproducible in a
     # filesystem: file dates, file ordering, content of the files...
-    $TUNE2FS -U random "${IMG}"
+    $TUNE2FS -U random "${IMG}" >/dev/null
 
     # After changing filesystem options, running fsck is required
     # (see: man tune2fs). Running e2fsck in other cases will ensure
@@ -93,10 +93,10 @@ e2tunefsck() {
     # Remove count- and time-based checks, they are not welcome
     # on embedded devices, where they can cause serious boot-time
     # issues by tremendously slowing down the boot.
-    $TUNE2FS -c 0 -i 0 "${IMG}"
+    $TUNE2FS -c 0 -i 0 "${IMG}" >/dev/null
 
     # ext4 needs to be padded to work under qemu
-    dd if=/dev/zero count=1024 >> $IMG
+    dd if=/dev/zero count=1024 >> $IMG 2>/dev/null
 }
 
 $GENEXT2FS -N $INODES -b $BLOCKS -d $TMPDIR $IMG
