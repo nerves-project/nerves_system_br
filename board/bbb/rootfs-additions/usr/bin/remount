@@ -1,5 +1,0 @@
-#!/bin/sh
-
-# Helper script to remount the root filesystem as rw
-mount -o remount,rw /
-
