@@ -1,4 +1,4 @@
-From e80520308ebd18c5ebcd1639a17c3a0cf5bbca13 Mon Sep 17 00:00:00 2001
+From fc4c4560d337c33635772fd4a9fe5cfcbf72fbd1 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sat, 9 Nov 2013 20:29:35 -0500
 Subject: [PATCH 8/8] new package: mmccopy
@@ -39,7 +39,7 @@ index 0000000..b738411
 +	  https://github.com/fhunleth/mmccopy
 diff --git a/package/mmccopy/mmccopy.mk b/package/mmccopy/mmccopy.mk
 new file mode 100644
-index 0000000..c09dd53
+index 0000000..437c416
 --- /dev/null
 +++ b/package/mmccopy/mmccopy.mk
 @@ -0,0 +1,13 @@
@@ -50,7 +50,7 @@ index 0000000..c09dd53
 +#############################################################
 +
 +
-+MMCCOPY_VERSION = 7d5f73c70fb1914ef29a44ef635bd2ab0215abb9
++MMCCOPY_VERSION = 543ada414bfeec3ea77d5095dce9927f3e44b256
 +MMCCOPY_SITE = https://github.com/fhunleth/mmccopy/tarball/$(MMCCOPY_VERSION)
 +MMCCOPY_LICENSE       = MIT
 +MMCCOPY_LICENSE_FILES = COPYING
