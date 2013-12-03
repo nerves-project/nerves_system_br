@@ -24,12 +24,15 @@ rm -f $TARGETDIR/root/.bash* $TARGETDIR/etc/profile $TARGETDIR/etc/issue
 
 # Remove Erlang binaries that don't make sense on the target
 find $TARGETDIR -name ct_run -exec rm "{}" ";"
-find $TARGETDIR -name dializer -exec rm "{}" ";"
+find $TARGETDIR -name dialyzer -exec rm "{}" ";"
 find $TARGETDIR -name erlc -exec rm "{}" ";"
 find $TARGETDIR -name escript -exec rm "{}" ";"
 find $TARGETDIR -name run_erl -exec rm "{}" ";"
 find $TARGETDIR -name to_erl -exec rm "{}" ";"
 find $TARGETDIR -name typer -exec rm "{}" ";"
+
+# Remove soft links that aren't used
+rm -f $TARGETDIR/usr/bin/erl $TARGETDIR/usr/bin/epmd
 
 # Remove sys v init configs since we don't use them
 # NOTE: Can't remove inittab without causing a buildroot error when
