@@ -1,4 +1,4 @@
-From 0af12d1c3a66c93881723ef2c600150fcea7af9b Mon Sep 17 00:00:00 2001
+From 3bf6e06ed46acac5a49b460fc56731cb4220bde3 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:56:21 -0400
 Subject: [PATCH 6/7] new package: erlinit
@@ -38,7 +38,7 @@ index 0000000..d9b6673
 +	  https://github.com/fhunleth/erlinit
 diff --git a/package/erlinit/erlinit.mk b/package/erlinit/erlinit.mk
 new file mode 100644
-index 0000000..fa0746e
+index 0000000..74ce510
 --- /dev/null
 +++ b/package/erlinit/erlinit.mk
 @@ -0,0 +1,24 @@
@@ -48,7 +48,7 @@ index 0000000..fa0746e
 +#
 +#############################################################
 +
-+ERLINIT_VERSION = 5a616c7
++ERLINIT_VERSION = 1ea141cc37df23595abda4d3123e01c832543d1f
 +ERLINIT_SITE = http://github.com/nerves-project/erlinit/tarball/$(ERLINIT_VERSION)
 +ERLINIT_LICENSE = MIT 
 +
