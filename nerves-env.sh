@@ -24,6 +24,7 @@ ERTS_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*`
 ERL_INTERFACE_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*`
 CROSSCOMPILE=$NERVES_SDK_ROOT/usr/bin/arm-linux-gnueabihf
 
+
 export REBAR_PLT_DIR=$NERVES_SDK_SYSROOT/usr/lib/erlang
 export CC=$CROSSCOMPILE-gcc
 export CXX=$CROSSCOMPILE-g++
@@ -32,6 +33,7 @@ export CXXFLAGS="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=6
 export LDFLAGS=""
 export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
 export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lei"
+export ERL_EI_LIBDIR="$ERL_INTERFACE_DIR/lib"
 
 export PKG_CONFIG=$NERVES_SDK_ROOT/usr/bin/pkg-config
 export PKG_CONFIG_SYSROOT_DIR=/
