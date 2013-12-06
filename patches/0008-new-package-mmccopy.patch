@@ -1,4 +1,4 @@
-From d20255fa4787900eea862acfd04068661f8e641c Mon Sep 17 00:00:00 2001
+From 3275e3c0d85ccd822165f8a562967b723a2add32 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sat, 9 Nov 2013 20:29:35 -0500
 Subject: [PATCH 8/8] new package: mmccopy
@@ -9,14 +9,14 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  package/Config.in.host         |  1 +
  package/mmccopy/Config.in      |  7 +++++++
  package/mmccopy/Config.in.host |  7 +++++++
- package/mmccopy/mmccopy.mk     | 14 ++++++++++++++
- 5 files changed, 30 insertions(+)
+ package/mmccopy/mmccopy.mk     | 13 +++++++++++++
+ 5 files changed, 29 insertions(+)
  create mode 100644 package/mmccopy/Config.in
  create mode 100644 package/mmccopy/Config.in.host
  create mode 100644 package/mmccopy/mmccopy.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 17a7144..44b8424 100644
+index f4b1aa3..862b4f0 100644
 --- a/package/Config.in
 +++ b/package/Config.in
 @@ -147,6 +147,7 @@ source "package/genext2fs/Config.in"
@@ -67,18 +67,17 @@ index 0000000..b738411
 +	  https://github.com/fhunleth/mmccopy
 diff --git a/package/mmccopy/mmccopy.mk b/package/mmccopy/mmccopy.mk
 new file mode 100644
-index 0000000..0173adb
+index 0000000..2b53a84
 --- /dev/null
 +++ b/package/mmccopy/mmccopy.mk
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,13 @@
 +#############################################################
 +#
 +# mmccopy
 +#
 +#############################################################
 +
-+
-+MMCCOPY_VERSION = 543ada414bfeec3ea77d5095dce9927f3e44b256
++MMCCOPY_VERSION = cde7d75659b8bc1584f5ffedc3ae90a5cea28d90
 +MMCCOPY_SITE = https://github.com/fhunleth/mmccopy/tarball/$(MMCCOPY_VERSION)
 +MMCCOPY_LICENSE       = MIT
 +MMCCOPY_LICENSE_FILES = COPYING
