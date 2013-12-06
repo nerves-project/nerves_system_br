@@ -38,6 +38,11 @@ br-make: buildroot/configs/$(BUILDROOT_CONFIG)
 	make -C buildroot
 	@echo SDK is ready to use. Demo image is in buildroot/output/images.
 
+menuconfig: buildroot/configs/$(BUILDROOT_CONFIG)
+	make -C buildroot menuconfig
+	make -C buildroot savedefconfig
+	@echo !!! Remember to copy buildroot/defconfig to br-configs to save the new settings.
+
 clean:
 	make -C buildroot clean
 
