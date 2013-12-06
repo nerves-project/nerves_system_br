@@ -35,6 +35,7 @@ cp -r $RELEASE_DIR/* $TMPDIR/srv/erlang
 # Clean up the Erlang release of all the files that we don't need.
 find $TMPDIR/srv/erlang -name "*~" -type f -print0 | xargs -0 rm -f
 find $TMPDIR/srv/erlang -name "src" -type d -print0 | xargs -0 rm -fr
+find $TMPDIR/srv/erlang -name "c_src" -type d -print0 | xargs -0 rm -fr
 find $TMPDIR/srv/erlang -name "include" -type d -print0 | xargs -0 rm -fr
 find $TMPDIR/srv/erlang -name "obj" -type d -print0 | xargs -0 rm -fr
 rm -fr $TMPDIR/srv/erlang/bin $TMPDIR/srv/erlang/erts-*
