@@ -1,7 +1,7 @@
-From cd6f2e098797515cefdd524333ac3be6873060f0 Mon Sep 17 00:00:00 2001
+From 6deb3b0bb37d766cf2cfe858beb88421248029df Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:52:22 -0400
-Subject: [PATCH 3/7] erlang-rebar: new package
+Subject: [PATCH 3/8] erlang-rebar: new package
 
 ---
  package/Config.in.host               |  1 +

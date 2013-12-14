@@ -1,20 +1,30 @@
-From e5b13e8bcff2fe83627e0e97a54d50f5631d74b1 Mon Sep 17 00:00:00 2001
+From 85075307d5dfef70852e1b7f2be134e34df860da Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:47:10 -0400
-Subject: [PATCH 2/7] erlang: multiple fixes
+Subject: [PATCH 2/8] erlang: multiple fixes
 
   1. Added staging directory to keep header files around for other
      Erlang projects to use.
   2. Turned off target SMP support to reduce compile time
   3. Scrubbed more files from the target install
+  4. Bump Erlang version to R16B03
 ---
- package/erlang/erlang.mk | 39 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 34 insertions(+), 5 deletions(-)
+ package/erlang/erlang.mk | 41 +++++++++++++++++++++++++++++++++++------
+ 1 file changed, 35 insertions(+), 6 deletions(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 4a94af0..c801b0f 100644
+index 4a94af0..9739d23 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
+@@ -4,7 +4,7 @@
+ #
+ ################################################################################
+ 
+-ERLANG_VERSION = R16B01
++ERLANG_VERSION = R16B03
+ ERLANG_SITE = http://www.erlang.org/download
+ ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
+ ERLANG_DEPENDENCIES = host-erlang
 @@ -14,6 +14,8 @@ ERLANG_LICENSE = EPL
  ERLANG_LICENSE_FILES = EPLICENCE
  ERLANG_INSTALL_STAGING = YES

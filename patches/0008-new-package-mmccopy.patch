@@ -1,4 +1,4 @@
-From 3275e3c0d85ccd822165f8a562967b723a2add32 Mon Sep 17 00:00:00 2001
+From 01ec405d3ce6224d87446b117478fd8d6e048809 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sat, 9 Nov 2013 20:29:35 -0500
 Subject: [PATCH 8/8] new package: mmccopy

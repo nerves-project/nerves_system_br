@@ -1,5 +1,5 @@
 
-BUILDROOT_VERSION = da1ca5c0a24e12bff1157fbd9275b5150f2ab620
+BUILDROOT_VERSION = 1a74ea40ea051cc85f79e941add9dd9f7423ba9e
 BUILDROOT_URL = git://git.buildroot.net/buildroot
 BUILDROOT_CONFIG = nerves_bbb_defconfig
 

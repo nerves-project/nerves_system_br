@@ -1,7 +1,7 @@
-From ad30a3b23d34d1c440337a14172ce2f8f0bd0186 Mon Sep 17 00:00:00 2001
+From 8bd38663e2fe7ea221bb945d4de01771ac404ecf Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:54:19 -0400
-Subject: [PATCH 4/7] new package: erlang-relx
+Subject: [PATCH 4/8] new package: erlang-relx
 
 ---
  package/Config.in.host             |  1 +
