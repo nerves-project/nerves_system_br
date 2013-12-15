@@ -1,4 +1,4 @@
-From 357fb808bc4679ca902e35f65b3908bc615f87d0 Mon Sep 17 00:00:00 2001
+From 32efac49ca38ba17f090e6ec6804e33a6c8575e2 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:56:21 -0400
 Subject: [PATCH 6/8] new package: erlinit
@@ -12,17 +12,17 @@ Subject: [PATCH 6/8] new package: erlinit
  create mode 100644 package/erlinit/erlinit.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 078d904..c956a14 100644
+index 39d90ce..8ad0635 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -348,6 +348,7 @@ endmenu
- 
+@@ -346,6 +346,7 @@ endmenu
  menu "Interpreter languages and scripting"
+ source "package/enscript/Config.in"
  source "package/erlang/Config.in"
 +source "package/erlinit/Config.in"
- source "package/enscript/Config.in"
  source "package/haserl/Config.in"
  source "package/jamvm/Config.in"
+ source "package/jimtcl/Config.in"
 diff --git a/package/erlinit/Config.in b/package/erlinit/Config.in
 new file mode 100644
 index 0000000..d9b6673

@@ -1,4 +1,4 @@
-From 6deb3b0bb37d766cf2cfe858beb88421248029df Mon Sep 17 00:00:00 2001
+From ce696200dec7488d5a3b98a39edb1052654eb2db Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:52:22 -0400
 Subject: [PATCH 3/8] erlang-rebar: new package
@@ -12,7 +12,7 @@ Subject: [PATCH 3/8] erlang-rebar: new package
  create mode 100644 package/erlang-rebar/erlang-rebar.mk
 
 diff --git a/package/Config.in.host b/package/Config.in.host
-index 7f9c219..811f697 100644
+index 51c5686..aa873a1 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -4,6 +4,7 @@ source "package/am335x-pru-package/Config.in.host"
