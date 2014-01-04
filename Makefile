@@ -45,6 +45,7 @@ menuconfig: buildroot/configs/nerves_defconfig
 
 clean:
 	make -C buildroot clean
+	-rm -fr buildroot/configs/nerves_defconfig
 
 realclean:
-	rm -fr buildroot .buildroot-patched .buildroot-downloaded
+	-rm -fr buildroot .buildroot-patched .buildroot-downloaded
