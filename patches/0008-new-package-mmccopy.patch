@@ -1,4 +1,4 @@
-From 416727ed00369bd143201b57c3f03046f2a8aeed Mon Sep 17 00:00:00 2001
+From f4377637797c39ae0ebd760a7ee92051f2784df0 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sat, 9 Nov 2013 20:29:35 -0500
 Subject: [PATCH 8/8] new package: mmccopy
@@ -16,10 +16,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/mmccopy/mmccopy.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 1c30d1f..4da57c4 100644
+index 5026b2d..5b04f2b 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -144,6 +144,7 @@ source "package/genext2fs/Config.in"
+@@ -145,6 +145,7 @@ source "package/genext2fs/Config.in"
  source "package/genromfs/Config.in"
  source "package/kobs-ng/Config.in"
  source "package/makedevs/Config.in"

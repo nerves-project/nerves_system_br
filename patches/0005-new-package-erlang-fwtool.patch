@@ -1,4 +1,4 @@
-From 00f4920c88a823f40b30d564e27a83ae7a51a600 Mon Sep 17 00:00:00 2001
+From 06d8d5978dca8c23d9f9a83abb1929fb79f9165d Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:55:17 -0400
 Subject: [PATCH 5/8] new package: erlang-fwtool

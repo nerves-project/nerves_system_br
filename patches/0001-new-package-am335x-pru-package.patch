@@ -1,4 +1,4 @@
-From 5ef70ad5b59dff851a0c264fad384f22fa9e1ca1 Mon Sep 17 00:00:00 2001
+From 798682a1dde9253f05c21f79bdab7eb14a005fb2 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:36:09 -0400
 Subject: [PATCH 1/8] new package: am335x-pru-package
@@ -19,17 +19,17 @@ Subject: [PATCH 1/8] new package: am335x-pru-package
  create mode 100644 package/am335x-pru-package/am335x_pru_package-prussdrv-mark-const-parameters.patch
 
 diff --git a/package/Config.in b/package/Config.in
-index 63ea528..39d90ce 100644
+index e502cde..519c0e5 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -258,6 +258,7 @@ source "package/zd1211-firmware/Config.in"
+@@ -262,6 +262,7 @@ source "package/zd1211-firmware/Config.in"
  endmenu
  source "package/a10disp/Config.in"
  source "package/acpid/Config.in"
 +source "package/am335x-pru-package/Config.in"
+ source "package/avrdude/Config.in"
  source "package/cdrkit/Config.in"
  source "package/cryptsetup/Config.in"
- source "package/dbus/Config.in"
 diff --git a/package/Config.in.host b/package/Config.in.host
 index 34e84bf..51c5686 100644
 --- a/package/Config.in.host

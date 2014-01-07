@@ -1,4 +1,4 @@
-From fd802034c70d92b4e5a4c8aeff4a440ea76774ec Mon Sep 17 00:00:00 2001
+From ece3d837bb1966c7082156c511fd2028239250d9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:47:10 -0400
 Subject: [PATCH 2/8] erlang: multiple fixes
