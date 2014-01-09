@@ -1,7 +1,7 @@
-From f4377637797c39ae0ebd760a7ee92051f2784df0 Mon Sep 17 00:00:00 2001
+From 8e9551312ab05929ea58c9fa54db0327b94664c4 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sat, 9 Nov 2013 20:29:35 -0500
-Subject: [PATCH 8/8] new package: mmccopy
+Subject: [PATCH 8/9] new package: mmccopy
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
@@ -67,7 +67,7 @@ index 0000000..b738411
 +	  https://github.com/fhunleth/mmccopy
 diff --git a/package/mmccopy/mmccopy.mk b/package/mmccopy/mmccopy.mk
 new file mode 100644
-index 0000000..2b53a84
+index 0000000..745367e
 --- /dev/null
 +++ b/package/mmccopy/mmccopy.mk
 @@ -0,0 +1,13 @@
@@ -78,8 +78,8 @@ index 0000000..2b53a84
 +#############################################################
 +
 +MMCCOPY_VERSION = cde7d75659b8bc1584f5ffedc3ae90a5cea28d90
-+MMCCOPY_SITE = https://github.com/fhunleth/mmccopy/tarball/$(MMCCOPY_VERSION)
-+MMCCOPY_LICENSE       = MIT
++MMCCOPY_SITE = $(call github,fhunleth,mmccopy,$(MMCCOPY_VERSION))
++MMCCOPY_LICENSE = MIT
 +MMCCOPY_LICENSE_FILES = COPYING
 +
 +$(eval $(autotools-package))

@@ -1,13 +1,13 @@
-From 31c21c92b897ee8d2c5b43582ecb3c0aba840ba0 Mon Sep 17 00:00:00 2001
+From 11f727b51193d51517585199cc805269d0767a53 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:56:21 -0400
-Subject: [PATCH 6/8] new package: erlinit
+Subject: [PATCH 6/9] new package: erlinit
 
 ---
  package/Config.in          |  1 +
  package/erlinit/Config.in  |  7 +++++++
- package/erlinit/erlinit.mk | 24 ++++++++++++++++++++++++
- 3 files changed, 32 insertions(+)
+ package/erlinit/erlinit.mk | 25 +++++++++++++++++++++++++
+ 3 files changed, 33 insertions(+)
  create mode 100644 package/erlinit/Config.in
  create mode 100644 package/erlinit/erlinit.mk
 
@@ -38,10 +38,10 @@ index 0000000..d9b6673
 +	  https://github.com/fhunleth/erlinit
 diff --git a/package/erlinit/erlinit.mk b/package/erlinit/erlinit.mk
 new file mode 100644
-index 0000000..74ce510
+index 0000000..eabd2ac
 --- /dev/null
 +++ b/package/erlinit/erlinit.mk
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,25 @@
 +#############################################################
 +#
 +# erlinit
@@ -49,10 +49,11 @@ index 0000000..74ce510
 +#############################################################
 +
 +ERLINIT_VERSION = 1ea141cc37df23595abda4d3123e01c832543d1f
-+ERLINIT_SITE = http://github.com/nerves-project/erlinit/tarball/$(ERLINIT_VERSION)
-+ERLINIT_LICENSE = MIT 
++ERLINIT_SITE = $(call github,nerves-project,erlinit,$(ERLINIT_VERSION))
++ERLINIT_LICENSE = MIT
 +
-+# Make sure erlinit wins over busybox init
++# Make sure erlinit gets installed after busybox init so that
++# it gets called
 +ifeq ($(BR2_PACKAGE_BUSYBOX),y)
 +ERLINIT_DEPENDENCIES += busybox
 +endif

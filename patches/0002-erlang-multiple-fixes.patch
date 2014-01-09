@@ -1,7 +1,7 @@
-From ece3d837bb1966c7082156c511fd2028239250d9 Mon Sep 17 00:00:00 2001
+From 1222b37bf008e437cd797847afb23086e936f791 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:47:10 -0400
-Subject: [PATCH 2/8] erlang: multiple fixes
+Subject: [PATCH 2/9] erlang: multiple fixes
 
   1. Added staging directory to keep header files around for other
      Erlang projects to use.

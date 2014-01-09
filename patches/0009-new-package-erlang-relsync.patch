@@ -1,0 +1,71 @@
+From 43b5a1f35f8ad05221b2939e3897fc685a426a46 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 8 Jan 2014 19:00:35 -0500
+Subject: [PATCH 9/9] new package: erlang-relsync
+
+---
+ package/Config.in.host                   |  1 +
+ package/erlang-relsync/Config.in.host    |  9 +++++++++
+ package/erlang-relsync/erlang-relsync.mk | 22 ++++++++++++++++++++++
+ 3 files changed, 32 insertions(+)
+ create mode 100644 package/erlang-relsync/Config.in.host
+ create mode 100644 package/erlang-relsync/erlang-relsync.mk
+
+diff --git a/package/Config.in.host b/package/Config.in.host
+index d9570bb..2ddd11a 100644
+--- a/package/Config.in.host
++++ b/package/Config.in.host
+@@ -6,6 +6,7 @@ source "package/dosfstools/Config.in.host"
+ source "package/e2fsprogs/Config.in.host"
+ source "package/erlang-fwtool/Config.in.host"
+ source "package/erlang-rebar/Config.in.host"
++source "package/erlang-relsync/Config.in.host"
+ source "package/erlang-relx/Config.in.host"
+ source "package/genext2fs/Config.in.host"
+ source "package/genimage/Config.in.host"
+diff --git a/package/erlang-relsync/Config.in.host b/package/erlang-relsync/Config.in.host
+new file mode 100644
+index 0000000..701c92b
+--- /dev/null
++++ b/package/erlang-relsync/Config.in.host
+@@ -0,0 +1,9 @@
++config BR2_PACKAGE_HOST_ERLANG_RELSYNC
++	bool "host erlang-relsync"
++	depends on BR2_PACKAGE_ERLANG
++	select BR2_PACKAGE_HOST_ERLANG_REBAR
++	help
++	  Synchronize Erlang/OTP releases on remote nodes
++	  using distributed Erlang.
++
++	  http://github.com/fhunleth/relsync
+diff --git a/package/erlang-relsync/erlang-relsync.mk b/package/erlang-relsync/erlang-relsync.mk
+new file mode 100644
+index 0000000..8346cb2
+--- /dev/null
++++ b/package/erlang-relsync/erlang-relsync.mk
+@@ -0,0 +1,22 @@
++#############################################################
++#
++# erlang-relsync
++#
++#############################################################
++
++ERLANG_RELSYNC_VERSION = 7ac9e6e1a962a006e5f2f9009702e2d0f64d3a55
++ERLANG_RELSYNC_SITE = $(call github,fhunleth,relsync,$(ERLANG_RELSYNC_VERSION))
++ERLANG_RELSYNC_LICENSE = MIT
++ERLANG_RELSYNC_LICENSE_FILE = LICENSE.md
++
++HOST_ERLANG_RELSYNC_DEPENDENCIES = host-erlang host-erlang-rebar
++
++define HOST_ERLANG_RELSYNC_BUILD_CMDS
++	$(HOST_MAKE_ENV) $(MAKE1) -C $(@D)
++endef
++
++define HOST_ERLANG_RELSYNC_INSTALL_CMDS
++	cp $(@D)/relsync $(HOST_DIR)/usr/bin
++endef
++
++$(eval $(host-generic-package))
+-- 
+1.8.3.2
+

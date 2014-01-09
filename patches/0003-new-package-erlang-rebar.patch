@@ -1,7 +1,7 @@
-From ab41fb603185d7621349774ec280584d8407c597 Mon Sep 17 00:00:00 2001
+From bbf0f0b1924cf57f9e2699c9946c4c12fea1b385 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:52:22 -0400
-Subject: [PATCH 3/8] erlang-rebar: new package
+Subject: [PATCH 3/9] new package: erlang-rebar
 
 ---
  package/Config.in.host               |  1 +
@@ -39,7 +39,7 @@ index 0000000..48ece82
 +	  http://github.com/rebar/rebar
 diff --git a/package/erlang-rebar/erlang-rebar.mk b/package/erlang-rebar/erlang-rebar.mk
 new file mode 100644
-index 0000000..6e34890
+index 0000000..2c1c939
 --- /dev/null
 +++ b/package/erlang-rebar/erlang-rebar.mk
 @@ -0,0 +1,37 @@
@@ -50,9 +50,9 @@ index 0000000..6e34890
 +#############################################################
 +
 +ERLANG_REBAR_VERSION = ed88055a750736c5c9807ca4da4803ff8a6aef16
-+ERLANG_REBAR_SITE = http://github.com/rebar/rebar/tarball/$(ERLANG_REBAR_VERSION)
-+ERLANG_REBAR_LICENSE = Apache-2.0 
-+ERLANG_REBAR_LICENSE_FILE = LICENSE 
++ERLANG_REBAR_SITE = $(call github,rebar,rebar,$(ERLANG_REBAR_VERSION))
++ERLANG_REBAR_LICENSE = Apache-2.0
++ERLANG_REBAR_LICENSE_FILE = LICENSE
 +
 +HOST_ERLANG_REBAR_DEPENDENCIES = host-erlang
 +

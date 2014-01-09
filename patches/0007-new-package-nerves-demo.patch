@@ -1,7 +1,7 @@
-From c9938aee9eb05c19f73e55e65e7b922b5cf1c038 Mon Sep 17 00:00:00 2001
+From 54f5824ebeed4f85deb696fd378fcc7a1862dae4 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:59:36 -0400
-Subject: [PATCH 7/8] new package: nerves-demo
+Subject: [PATCH 7/9] new package: nerves-demo
 
 ---
  package/Config.in                  |  2 ++
@@ -39,7 +39,7 @@ index 0000000..ad68f1c
 +	  http://bitbucket.org/fhunleth/erlang_webcontrol
 diff --git a/package/nerves-demo/nerves-demo.mk b/package/nerves-demo/nerves-demo.mk
 new file mode 100644
-index 0000000..d49822c
+index 0000000..7fb15bb
 --- /dev/null
 +++ b/package/nerves-demo/nerves-demo.mk
 @@ -0,0 +1,23 @@
@@ -50,7 +50,7 @@ index 0000000..d49822c
 +#############################################################
 +
 +NERVES_DEMO_VERSION = faa4a1a
-+NERVES_DEMO_SITE = https://github.com/nerves-project/nerves-demo/tarball/$(NERVES_DEMO_VERSION)
++NERVES_DEMO_SITE = $(call github,nerves-project,nerves-demo,$(NERVES_DEMO_VERSION))
 +NERVES_DEMO_LICENSE = MIT
 +NERVES_DEMO_INSTALL_DIR = $(TARGET_DIR)/srv/erlang
 +
