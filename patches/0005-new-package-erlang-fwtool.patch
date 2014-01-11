@@ -1,4 +1,4 @@
-From a51dc8d841a270138801812c15913cb5f6e75811 Mon Sep 17 00:00:00 2001
+From 5a174311b40fcd7eb2aa810f84d9308da4c1b656 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:55:17 -0400
 Subject: [PATCH 5/9] new package: erlang-fwtool
@@ -40,7 +40,7 @@ index 0000000..40f5413
 +	  http://github.com/nerves-project/fwtool
 diff --git a/package/erlang-fwtool/erlang-fwtool.mk b/package/erlang-fwtool/erlang-fwtool.mk
 new file mode 100644
-index 0000000..31342e5
+index 0000000..674dea3
 --- /dev/null
 +++ b/package/erlang-fwtool/erlang-fwtool.mk
 @@ -0,0 +1,26 @@
@@ -50,7 +50,7 @@ index 0000000..31342e5
 +#
 +#############################################################
 +
-+ERLANG_FWTOOL_VERSION = 7bd113c65ff8a82af364a533a043285c979df3b5
++ERLANG_FWTOOL_VERSION = c37a19813e0c7e031f6c66c5a86ebf3254124253
 +ERLANG_FWTOOL_SITE = $(call github,nerves-project,fwtool,$(ERLANG_FWTOOL_VERSION))
 +ERLANG_FWTOOL_LICENSE = MIT
 +ERLANG_FWTOOL_LICENSE_FILE = LICENSE.md
