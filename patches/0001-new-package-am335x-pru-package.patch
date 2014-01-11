@@ -1,4 +1,4 @@
-From ad91b0bf94b82f302024a6fe62ee62bc254b7789 Mon Sep 17 00:00:00 2001
+From 86afad961dd403a2d81078b1b0f18a2390cad912 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:36:09 -0400
 Subject: [PATCH 1/9] new package: am335x-pru-package
@@ -6,12 +6,12 @@ Subject: [PATCH 1/9] new package: am335x-pru-package
 ---
  package/Config.in                                  |  1 +
  package/Config.in.host                             |  1 +
- package/am335x-pru-package/Config.in               |  7 +++
+ package/am335x-pru-package/Config.in               | 16 ++++++
  package/am335x-pru-package/Config.in.host          |  7 +++
- package/am335x-pru-package/am335x-pru-package.mk   | 61 ++++++++++++++++++++++
- ...package-prussdrv-add-prussdrv_extmem_size.patch | 42 +++++++++++++++
- ...ru_package-prussdrv-mark-const-parameters.patch | 57 ++++++++++++++++++++
- 7 files changed, 176 insertions(+)
+ package/am335x-pru-package/am335x-pru-package.mk   | 65 ++++++++++++++++++++++
+ ...package-prussdrv-add-prussdrv_extmem_size.patch | 42 ++++++++++++++
+ ...ru_package-prussdrv-mark-const-parameters.patch | 57 +++++++++++++++++++
+ 7 files changed, 189 insertions(+)
  create mode 100644 package/am335x-pru-package/Config.in
  create mode 100644 package/am335x-pru-package/Config.in.host
  create mode 100644 package/am335x-pru-package/am335x-pru-package.mk
@@ -43,10 +43,10 @@ index 34e84bf..51c5686 100644
  source "package/e2fsprogs/Config.in.host"
 diff --git a/package/am335x-pru-package/Config.in b/package/am335x-pru-package/Config.in
 new file mode 100644
-index 0000000..6dfca9e
+index 0000000..0b282b9
 --- /dev/null
 +++ b/package/am335x-pru-package/Config.in
-@@ -0,0 +1,7 @@
+@@ -0,0 +1,16 @@
 +config BR2_PACKAGE_AM335X_PRU_PACKAGE
 +	bool "am335x-pru-package"
 +	depends on BR2_arm # only relevant for TI am335x
@@ -54,6 +54,15 @@ index 0000000..6dfca9e
 +	  AM335X loader, and example applications
 +
 +	  https://github.com/beagleboard/am335x_pru_package
++
++if BR2_PACKAGE_AM335X_PRU_PACKAGE
++
++config BR2_PACKAGE_AM335X_PRU_PACKAGE_EXAMPLES
++       bool "PRU examples"
++       help
++         Install PRU example applications.
++
++endif
 diff --git a/package/am335x-pru-package/Config.in.host b/package/am335x-pru-package/Config.in.host
 new file mode 100644
 index 0000000..3c07bda
@@ -69,17 +78,17 @@ index 0000000..3c07bda
 +	  https://github.com/beagleboard/am335x_pru_package
 diff --git a/package/am335x-pru-package/am335x-pru-package.mk b/package/am335x-pru-package/am335x-pru-package.mk
 new file mode 100644
-index 0000000..564bdf0
+index 0000000..1b42e2a
 --- /dev/null
 +++ b/package/am335x-pru-package/am335x-pru-package.mk
-@@ -0,0 +1,61 @@
+@@ -0,0 +1,65 @@
 +################################################################################
 +#
 +# am335x-pru-package
 +#
 +################################################################################
 +
-+AM335X_PRU_PACKAGE_VERSION = dbd22a0
++AM335X_PRU_PACKAGE_VERSION = dbd22a045e48032fffaae72f88d27e8f84c1239b
 +AM335X_PRU_PACKAGE_SITE = $(call github,beagleboard,am335x_pru_package,$(AM335X_PRU_PACKAGE_VERSION))
 +AM335X_PRU_PACKAGE_LICENSE = BSD-3c
 +AM335X_PRU_PACKAGE_LICENSE_FILES = pru_sw/utils/LICENCE.txt
@@ -102,6 +111,7 @@ index 0000000..564bdf0
 +		$(STAGING_DIR)/usr/include/pruss_intc_mapping.h
 +endef
 +
++ifeq ($(BR2_PACKAGE_AM335X_PRU_PACKAGE_EXAMPLES),y)
 +define AM335X_PRU_PACKAGE_INSTALL_TARGET_CMDS
 +	# Binaries
 +	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_memAccess_DDR_PRUsharedRAM \
@@ -121,6 +131,9 @@ index 0000000..564bdf0
 +	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_PRU1toPRU0_Interrupt.bin \
 +		 $(TARGET_DIR)/usr/bin/PRU_PRU1toPRU0_Interrupt.bin
 +endef
++else
++AM335X_PRU_PACKAGE_INSTALL_TARGET = NO
++endif
 +
 +define HOST_AM335X_PRU_PACKAGE_BUILD_CMDS
 +	cd $(@D)/pru_sw/utils/pasm_source && \
