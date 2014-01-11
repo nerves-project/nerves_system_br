@@ -32,6 +32,6 @@ PATH=$NERVES_SDK_ROOT/usr/bin:$PATH $FWTOOL \
 	-t complete \
 	run $NERVES_SDK_IMAGES/bbb.fw
 
-# Copy the fwtool config to the images directory so that
+# Link the fwtool config to the images directory so that
 # it can be used to create images based on this one.
-cp $FWTOOL_CONFIG $NERVES_SDK_IMAGES
+ln -sf $FWTOOL_CONFIG $NERVES_SDK_IMAGES
