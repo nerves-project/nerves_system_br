@@ -43,6 +43,11 @@ menuconfig: buildroot/configs/nerves_defconfig
 	make -C buildroot savedefconfig
 	@echo !!! Remember to copy buildroot/defconfig to br-configs to save the new settings.
 
+linux-menuconfig: buildroot/configs/nerves_defconfig
+	make -C buildroot linux-menuconfig
+	make -C buildroot linux-savedefconfig
+	@echo !!! Remember to copy buildroot/output/build/linux-x.y.z/defconfig to boards/.../linux-x.y.config
+
 clean:
 	make -C buildroot clean
 	-rm -fr buildroot/configs/nerves_defconfig
