@@ -1,4 +1,4 @@
-From 8e9551312ab05929ea58c9fa54db0327b94664c4 Mon Sep 17 00:00:00 2001
+From 2d4489bf02ce42b282ff5b2dbf1c3d963fd487af Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sat, 9 Nov 2013 20:29:35 -0500
 Subject: [PATCH 8/9] new package: mmccopy
@@ -67,7 +67,7 @@ index 0000000..b738411
 +	  https://github.com/fhunleth/mmccopy
 diff --git a/package/mmccopy/mmccopy.mk b/package/mmccopy/mmccopy.mk
 new file mode 100644
-index 0000000..745367e
+index 0000000..d8e9629
 --- /dev/null
 +++ b/package/mmccopy/mmccopy.mk
 @@ -0,0 +1,13 @@
@@ -77,7 +77,7 @@ index 0000000..745367e
 +#
 +#############################################################
 +
-+MMCCOPY_VERSION = cde7d75659b8bc1584f5ffedc3ae90a5cea28d90
++MMCCOPY_VERSION = d79b54b656ca3a8bd67b049a91761e7789335200
 +MMCCOPY_SITE = $(call github,fhunleth,mmccopy,$(MMCCOPY_VERSION))
 +MMCCOPY_LICENSE = MIT
 +MMCCOPY_LICENSE_FILES = COPYING
