@@ -22,13 +22,21 @@ all: br-make
 		echo Applying $$p; \
 		patch -p1 < $$p; \
 	done
+	touch .buildroot-patched
 
 	# If there's a user dl directory, symlink it to avoid
 	# the big download
-	if [ -d $(NERVES_BR_DL_DIR) ]; then \
+	if [ -d $(NERVES_BR_DL_DIR) -a ! -e buildroot/dl ]; then \
 		ln -s $(NERVES_BR_DL_DIR) buildroot/dl; \
 	fi
-	touch .buildroot-patched
+
+reset-buildroot: .buildroot-downloaded
+	# Reset buildroot to a pristine condition so that the
+	# patches can be applied again.
+	cd buildroot && git clean -fd && git reset --hard
+	rm -f .buildroot-patched
+
+update-patches: reset-buildroot .buildroot-patched
 
 buildroot/configs/nerves_defconfig: br-configs/$(NERVES_BR_CONFIG) .buildroot-patched
 	cp br-configs/$(NERVES_BR_CONFIG) buildroot/configs/nerves_defconfig
