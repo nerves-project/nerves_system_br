@@ -3,13 +3,25 @@
 # Source this script to setup your environment to cross-compile
 # and build Erlang apps for this nerves-sdk build.
 
-NERVES_ROOT=$(dirname $(readlink -f $0))
+if [ "$SHELL" != "/bin/bash" ]; then
+    echo ERROR: This script currently only works from bash.
+    exit 1
+fi
+
+if [ "$0" != "bash" ]; then
+    echo ERROR: This scripted should be sourced from bash:
+    echo
+    echo source $BASH_SOURCE
+    exit 1
+fi
+
+NERVES_ROOT=$(dirname $(readlink -f $BASH_SOURCE))
 NERVES_SDK_ROOT=$NERVES_ROOT/buildroot/output/host
 NERVES_SDK_IMAGES=$NERVES_ROOT/buildroot/output/images
 NERVES_SDK_SYSROOT=$NERVES_ROOT/buildroot/output/staging
 
 # Check that the base buildroot image has been built
-[ -d "$NERVES_ROOT/buildroot/output" ] || { echo "Run \"make br-make\" first to build the nerves SDK."; exit 1; }
+[ -d "$NERVES_ROOT/buildroot/output" ] || { echo "ERROR: Run \"make br-make\" first to build the nerves SDK."; return 1; }
 
 # Past the checks, so export variables
 export NERVES_ROOT
