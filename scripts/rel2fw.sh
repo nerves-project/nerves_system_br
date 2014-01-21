@@ -14,11 +14,18 @@ mkdir -p $OUTPUT_DIR
 
 # Update the file system bundle
 echo Updating base firmware image with Erlang release...
+
+# fakeroot note: Since fakeroot intercepts system calls via
+# LD_PRELOAD, it will fail to wrap 32-bit executables on 64-bit
+# machines. Some toolchains ship pre-built 32-bit executables and
+# if any of these are called, you'll get a warning in the log. This
+# isn't a problem as the only tool that gets called is strip and if
+# it falls out of the fakeroot environment, that's ok.
 fakeroot $NERVES_ROOT/scripts/create-fs.sh \
 	$NERVES_SDK_IMAGES/rootfs.tar.gz \
 	$RELEASE_DIR \
 	$OUTPUT_DIR/tmp \
-	$OUTPUT_DIR/rootfs.ext2
+    $OUTPUT_DIR/rootfs.ext2 2>&1 | (grep -v "LD_PRELOAD cannot be preloaded" || true)
 
 FWTOOL=$NERVES_SDK_ROOT/usr/bin/fwtool
 FWTOOL_CONFIG=$NERVES_SDK_IMAGES/fwtool.config

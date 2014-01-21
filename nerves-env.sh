@@ -46,6 +46,7 @@ export LDFLAGS=""
 export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
 export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lei"
 export ERL_EI_LIBDIR="$ERL_INTERFACE_DIR/lib"
+export STRIP=$CROSSCOMPILE-strip
 
 export PKG_CONFIG=$NERVES_SDK_ROOT/usr/bin/pkg-config
 export PKG_CONFIG_SYSROOT_DIR=/
@@ -68,4 +69,4 @@ pathadd $NERVES_SDK_ROOT/usr/bin
 pathadd $NERVES_SDK_ROOT/bin
 ldlibrarypathadd $NERVES_SDK_ROOT/usr/lib
 
-echo Nerves environment updated for this session
+echo Shell environment updated for nerves
