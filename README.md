@@ -7,7 +7,7 @@ work. It just provides a configuration and a few helper scripts and
 patches to customize Buildroot for Erlang/OTP embedded projects.
 
 Currently, the BeagleBone Black is the only supported platform. This
-can me changed by adding new configurations to the br-configs and
+can be changed by adding new configurations to the br-configs and
 referencing them from the Makefile.
 
 ## First time build
