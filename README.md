@@ -65,3 +65,29 @@ Be aware that Buildroot caches the root filesystem between builds
 and that when you unselect a configuration option, it will not
 disappear from the Nerves SDK root file system image until a clean
 build.
+
+## Built-in SDK Configurations
+
+Nerves comes with several configurations out of the box. These can be
+used directly or just as an examples for your own custom configuration.
+
+### nerves_bbb_defconfig
+
+This is the default configuration for building images on the Beaglebone
+Black. It is a minimal image intended for applications that do not require
+a lot of hardware or C library support.
+
+### bbb_linux_defconfig
+
+This configuration produces a Linux image. It is not useful for Erlang
+development, but it can be helpful when getting unfamiliar hardware to work.
+I use it to debug Linux kernel issues since most documentation and
+developers expect a traditional shell-based environment.
+
+### nerves_camera_defconfig
+
+This is the configuration that I'm using for my camera project. Normally
+it wouldn't be a part of the Nerves SDK, but it may be useful to others as
+an example. It requires a custom cape for the BeagleBone Black and uses the
+AM3359's PRU for the hard real-time parts of the project. Erlang is used
+for the rest.
