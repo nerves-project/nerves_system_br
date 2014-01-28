@@ -91,3 +91,19 @@ it wouldn't be a part of the Nerves SDK, but it may be useful to others as
 an example. It requires a custom cape for the BeagleBone Black and uses the
 AM3359's PRU for the hard real-time parts of the project. Erlang is used
 for the rest.
+
+### nerves_bbb_wifi_defconfig
+
+This configuration is a work-in-progress to support wifi within the Nerves
+environment. It is currently setup to support a Rosewill RNX-N150UBE (Realtek
+rtl8712 driver). To test, try run the following programs:
+
+```
+modprobe musb_dsps
+ip link set wlan0 up
+iwlist wlan0 scan
+[use wpa_passphrase to generate a configuration for the wpa_supplicant]
+wpa_supplicant -i wlan0 -c /tmp/wifi.conf
+ip addr add 192.168.1.40/24 dev wlan0
+```
+
