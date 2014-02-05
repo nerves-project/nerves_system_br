@@ -1,4 +1,4 @@
-From 1222b37bf008e437cd797847afb23086e936f791 Mon Sep 17 00:00:00 2001
+From 5838999dbec90d9d87cf70374558cf48fdd49092 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:47:10 -0400
 Subject: [PATCH 2/9] erlang: multiple fixes
@@ -11,7 +11,7 @@ Subject: [PATCH 2/9] erlang: multiple fixes
  1 file changed, 31 insertions(+), 4 deletions(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 18ceb7b..e36f03c 100644
+index 1572731..a2c9ec6 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -54,15 +54,42 @@ ifneq ($(BR2_PACKAGE_ERLANG_MEGACO),y)

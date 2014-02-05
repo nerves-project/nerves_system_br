@@ -1,4 +1,4 @@
-From 35bd82613b642c72191d5e0e13a98bb49f9b232d Mon Sep 17 00:00:00 2001
+From 0333ae00b0472888ef1f05dfae54007ff62c869c Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:36:09 -0400
 Subject: [PATCH 1/9] new package: am335x-pru-package
@@ -6,33 +6,27 @@ Subject: [PATCH 1/9] new package: am335x-pru-package
 ---
  package/Config.in                                  |   1 +
  package/Config.in.host                             |   1 +
- package/am335x-pru-package/Config.in               |  16 +
+ package/am335x-pru-package/Config.in               |   7 +
  package/am335x-pru-package/Config.in.host          |   7 +
- ...ckage-0001-prussdrv-mark-const-parameters.patch |  61 ++
- ...ge-0002-prussdrv-add-prussdrv_extmem_size.patch |  47 ++
- ...-make-debug-printfs-compile-time-optional.patch | 167 +++++
- ...rv-Remove-unnecessary-pthreads-dependency.patch | 312 ++++++++
- ...05-PRU-updates-from-the-Linux-CNC-project.patch | 794 +++++++++++++++++++++
- ...-prussdrv-add-call-to-get-file-descriptor.patch |  45 ++
- ...007-prussdrv-fix-duplicate-event-from-PRU.patch | 130 ++++
- package/am335x-pru-package/am335x-pru-package.mk   |  65 ++
- 12 files changed, 1646 insertions(+)
+ ...rv-Remove-unnecessary-pthreads-dependency.patch | 154 +++++++++++++++++++++
+ ...-prussdrv-add-prussdrv_exec_code-function.patch |  79 +++++++++++
+ ...ader-Makefile-Add-d-param-to-install-call.patch |  36 +++++
+ ...er-Makefile-clean-up-header-file-handling.patch |  68 +++++++++
+ package/am335x-pru-package/am335x-pru-package.mk   |  40 ++++++
+ 9 files changed, 393 insertions(+)
  create mode 100644 package/am335x-pru-package/Config.in
  create mode 100644 package/am335x-pru-package/Config.in.host
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0001-prussdrv-mark-const-parameters.patch
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_extmem_size.patch
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0003-prussdrv-make-debug-printfs-compile-time-optional.patch
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0004-prussdrv-Remove-unnecessary-pthreads-dependency.patch
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0005-PRU-updates-from-the-Linux-CNC-project.patch
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0006-prussdrv-add-call-to-get-file-descriptor.patch
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0007-prussdrv-fix-duplicate-event-from-PRU.patch
+ create mode 100644 package/am335x-pru-package/am335x-pru-package-0001-prussdrv-Remove-unnecessary-pthreads-dependency.patch
+ create mode 100644 package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_exec_code-function.patch
+ create mode 100644 package/am335x-pru-package/am335x-pru-package-0003-app_loader-Makefile-Add-d-param-to-install-call.patch
+ create mode 100644 package/am335x-pru-package/am335x-pru-package-0004-app_loader-Makefile-clean-up-header-file-handling.patch
  create mode 100644 package/am335x-pru-package/am335x-pru-package.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index e502cde..519c0e5 100644
+index ee2a68e..28dbd26 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -262,6 +262,7 @@ source "package/zd1211-firmware/Config.in"
+@@ -264,6 +264,7 @@ source "package/zd1211-firmware/Config.in"
  endmenu
  source "package/a10disp/Config.in"
  source "package/acpid/Config.in"
@@ -41,7 +35,7 @@ index e502cde..519c0e5 100644
  source "package/cdrkit/Config.in"
  source "package/cryptsetup/Config.in"
 diff --git a/package/Config.in.host b/package/Config.in.host
-index 34e84bf..51c5686 100644
+index 599ab9e..8ffb0db 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -1,5 +1,6 @@
@@ -53,10 +47,10 @@ index 34e84bf..51c5686 100644
  source "package/e2fsprogs/Config.in.host"
 diff --git a/package/am335x-pru-package/Config.in b/package/am335x-pru-package/Config.in
 new file mode 100644
-index 0000000..0b282b9
+index 0000000..6dfca9e
 --- /dev/null
 +++ b/package/am335x-pru-package/Config.in
-@@ -0,0 +1,16 @@
+@@ -0,0 +1,7 @@
 +config BR2_PACKAGE_AM335X_PRU_PACKAGE
 +	bool "am335x-pru-package"
 +	depends on BR2_arm # only relevant for TI am335x
@@ -64,15 +58,6 @@ index 0000000..0b282b9
 +	  AM335X loader, and example applications
 +
 +	  https://github.com/beagleboard/am335x_pru_package
-+
-+if BR2_PACKAGE_AM335X_PRU_PACKAGE
-+
-+config BR2_PACKAGE_AM335X_PRU_PACKAGE_EXAMPLES
-+       bool "PRU examples"
-+       help
-+         Install PRU example applications.
-+
-+endif
 diff --git a/package/am335x-pru-package/Config.in.host b/package/am335x-pru-package/Config.in.host
 new file mode 100644
 index 0000000..3c07bda
@@ -86,309 +71,16 @@ index 0000000..3c07bda
 +	  AM335X PRU assembler
 +
 +	  https://github.com/beagleboard/am335x_pru_package
-diff --git a/package/am335x-pru-package/am335x-pru-package-0001-prussdrv-mark-const-parameters.patch b/package/am335x-pru-package/am335x-pru-package-0001-prussdrv-mark-const-parameters.patch
+diff --git a/package/am335x-pru-package/am335x-pru-package-0001-prussdrv-Remove-unnecessary-pthreads-dependency.patch b/package/am335x-pru-package/am335x-pru-package-0001-prussdrv-Remove-unnecessary-pthreads-dependency.patch
 new file mode 100644
-index 0000000..6802941
+index 0000000..50c492e
 --- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0001-prussdrv-mark-const-parameters.patch
-@@ -0,0 +1,61 @@
-+From bac9322ff5c868cdd76ca015b22e4d694beef67f Mon Sep 17 00:00:00 2001
-+From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Tue, 23 Jul 2013 10:05:58 -0400
-+Subject: [PATCH 1/7] prussdrv: mark const parameters
-+
-+This lets users of the library pass const variables to
-+input arguments of functions and not get compiler warnings.
-+
-+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
-+---
-+ pru_sw/app_loader/include/prussdrv.h   | 4 ++--
-+ pru_sw/app_loader/interface/prussdrv.c | 4 ++--
-+ 2 files changed, 4 insertions(+), 4 deletions(-)
-+
-+diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
-+index 90c489b..e653030 100755
-+--- a/pru_sw/app_loader/include/prussdrv.h
-++++ b/pru_sw/app_loader/include/prussdrv.h
-+@@ -119,7 +119,7 @@ extern "C" {
-+ 
-+     int prussdrv_pru_write_memory(unsigned int pru_ram_id,
-+                                   unsigned int wordoffset,
-+-                                  unsigned int *memarea,
-++                                  const unsigned int *memarea,
-+                                   unsigned int bytelength);
-+ 
-+     int prussdrv_pruintc_init(tpruss_intc_initdata * prussintc_init_data);
-+@@ -148,7 +148,7 @@ extern "C" {
-+ 
-+     int prussdrv_exit(void);
-+ 
-+-    int prussdrv_exec_program(int prunum, char *filename);
-++    int prussdrv_exec_program(int prunum, const char *filename);
-+ 
-+     int prussdrv_start_irqthread(unsigned int pru_evtout_num, int priority,
-+                                  prussdrv_function_handler irqhandler);
-+diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
-+index 21e4ba4..c4d2ee0 100755
-+--- a/pru_sw/app_loader/interface/prussdrv.c
-++++ b/pru_sw/app_loader/interface/prussdrv.c
-+@@ -303,7 +303,7 @@ int prussdrv_pru_disable(unsigned int prunum)
-+ 
-+ int prussdrv_pru_write_memory(unsigned int pru_ram_id,
-+                               unsigned int wordoffset,
-+-                              unsigned int *memarea,
-++                              const unsigned int *memarea,
-+                               unsigned int bytelength)
-+ {
-+     unsigned int *pruramarea, i, wordlength;
-+@@ -587,7 +587,7 @@ int prussdrv_exit()
-+     return 0;
-+ }
-+ 
-+-int prussdrv_exec_program(int prunum, char *filename)
-++int prussdrv_exec_program(int prunum, const char *filename)
-+ {
-+     FILE *fPtr;
-+     unsigned char fileDataArray[PRUSS_MAX_IRAM_SIZE];
-+-- 
-+1.8.3.2
-+
-diff --git a/package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_extmem_size.patch b/package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_extmem_size.patch
-new file mode 100644
-index 0000000..f1a33dd
---- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_extmem_size.patch
-@@ -0,0 +1,47 @@
-+From 3d14bcf8ad6122eecefd45a7fc244f43559f4ab6 Mon Sep 17 00:00:00 2001
-+From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Tue, 23 Jul 2013 15:40:10 -0400
-+Subject: [PATCH 2/7] prussdrv: add prussdrv_extmem_size
-+
-+Add function for querying the size of the DDR memory region that
-+was allocated by the driver. This lets applications check that enough
-+memory is available before running their PRU applications.
-+
-+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
-+---
-+ pru_sw/app_loader/include/prussdrv.h   | 2 ++
-+ pru_sw/app_loader/interface/prussdrv.c | 5 +++++
-+ 2 files changed, 7 insertions(+)
-+
-+diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
-+index e653030..59fa43e 100755
-+--- a/pru_sw/app_loader/include/prussdrv.h
-++++ b/pru_sw/app_loader/include/prussdrv.h
-+@@ -128,6 +128,8 @@ extern "C" {
-+ 
-+     int prussdrv_map_extmem(void **address);
-+ 
-++    unsigned int prussdrv_extmem_size(void);
-++
-+     int prussdrv_map_prumem(unsigned int pru_ram_id, void **address);
-+ 
-+     int prussdrv_map_peripheral_io(unsigned int per_id, void **address);
-+diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
-+index c4d2ee0..9384be1 100755
-+--- a/pru_sw/app_loader/interface/prussdrv.c
-++++ b/pru_sw/app_loader/interface/prussdrv.c
-+@@ -466,6 +466,11 @@ int prussdrv_map_extmem(void **address)
-+ 
-+ }
-+ 
-++unsigned int prussdrv_extmem_size(void)
-++{
-++    return prussdrv.extram_map_size;
-++}
-++
-+ 
-+ int prussdrv_map_prumem(unsigned int pru_ram_id, void **address)
-+ {
-+-- 
-+1.8.3.2
-+
-diff --git a/package/am335x-pru-package/am335x-pru-package-0003-prussdrv-make-debug-printfs-compile-time-optional.patch b/package/am335x-pru-package/am335x-pru-package-0003-prussdrv-make-debug-printfs-compile-time-optional.patch
-new file mode 100644
-index 0000000..c15b5b7
---- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0003-prussdrv-make-debug-printfs-compile-time-optional.patch
-@@ -0,0 +1,167 @@
-+From af9d77f10977fb7687aabb22bb528060387990e0 Mon Sep 17 00:00:00 2001
-+From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Sat, 18 Jan 2014 10:58:25 -0500
-+Subject: [PATCH 3/7] prussdrv: make debug printfs compile-time optional
-+
-+This adds a macro to enable or disable the various printfs that can be
-+found throughout the code so that they can be turned off. They are
-+turned off by default.
-+
-+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
-+---
-+ pru_sw/app_loader/interface/prussdrv.c | 58 +++++++++++++++++++---------------
-+ 1 file changed, 33 insertions(+), 25 deletions(-)
-+
-+diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
-+index 9384be1..5921cbf 100755
-+--- a/pru_sw/app_loader/interface/prussdrv.c
-++++ b/pru_sw/app_loader/interface/prussdrv.c
-+@@ -3,35 +3,35 @@
-+  *
-+  * User space driver for PRUSS
-+  *
-+- * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/ 
-+- * 
-+- * 
-+- *  Redistribution and use in source and binary forms, with or without 
-+- *  modification, are permitted provided that the following conditions 
-++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
-++ *
-++ *
-++ *  Redistribution and use in source and binary forms, with or without
-++ *  modification, are permitted provided that the following conditions
-+  *  are met:
-+  *
-+- *    Redistributions of source code must retain the above copyright 
-++ *    Redistributions of source code must retain the above copyright
-+  *    notice, this list of conditions and the following disclaimer.
-+  *
-+  *    Redistributions in binary form must reproduce the above copyright
-+- *    notice, this list of conditions and the following disclaimer in the 
-+- *    documentation and/or other materials provided with the   
-++ *    notice, this list of conditions and the following disclaimer in the
-++ *    documentation and/or other materials provided with the
-+  *    distribution.
-+  *
-+  *    Neither the name of Texas Instruments Incorporated nor the names of
-+  *    its contributors may be used to endorse or promote products derived
-+  *    from this software without specific prior written permission.
-+  *
-+- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-+- *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-++ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-+  *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-+- *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-+- *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-+- *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-++ *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-++ *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-++ *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-+  *  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-+  *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-+- *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-+- *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-++ *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-+  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-+  *
-+ */
-+@@ -50,6 +50,14 @@
-+ #include <prussdrv.h>
-+ #include "__prussdrv.h"
-+ #include <pthread.h>
-++#include <stdio.h>
-++
-++//#define DEBUG
-++#ifdef DEBUG
-++#define DEBUG_PRINTF(FORMAT, ...) fprintf(stderr, FORMAT, ## __VA_ARGS__)
-++#else
-++#define DEBUG_PRINTF(FORMAT, ...)
-++#endif
-+ 
-+ #define PRUSS_UIO_PRAM_PATH_LEN 128
-+ #define PRUSS_UIO_PARAM_VAL_LEN 20
-+@@ -98,7 +106,7 @@ int __prussdrv_memmap_init(void)
-+     switch (prussdrv.version) {
-+     case PRUSS_V1:
-+         {
-+-            printf("AM18XX\n");
-++            DEBUG_PRINTF("AM18XX\n");
-+             prussdrv.pru0_dataram_phy_base = AM18XX_DATARAM0_PHYS_BASE;
-+             prussdrv.pru1_dataram_phy_base = AM18XX_DATARAM1_PHYS_BASE;
-+             prussdrv.intc_phy_base = AM18XX_INTC_PHYS_BASE;
-+@@ -112,7 +120,7 @@ int __prussdrv_memmap_init(void)
-+         break;
-+     case PRUSS_V2:
-+         {
-+-            printf("AM33XX\n");
-++            DEBUG_PRINTF("AM33XX\n");
-+             prussdrv.pru0_dataram_phy_base = AM33XX_DATARAM0_PHYS_BASE;
-+             prussdrv.pru1_dataram_phy_base = AM33XX_DATARAM1_PHYS_BASE;
-+             prussdrv.intc_phy_base = AM33XX_INTC_PHYS_BASE;
-+@@ -133,7 +141,7 @@ int __prussdrv_memmap_init(void)
-+         }
-+         break;
-+     default:
-+-        printf("UNKNOWN\n");
-++        DEBUG_PRINTF("UNKNOWN\n");
-+     }
-+ 
-+     prussdrv.pru1_dataram_base =
-+@@ -387,7 +395,7 @@ int prussdrv_pruintc_init(tpruss_intc_initdata * prussintc_init_data)
-+                 mask2 +
-+                 (1 << (prussintc_init_data->sysevts_enabled[i] - 32));
-+         } else {
-+-            printf("Error: SYS_EVT%d out of range\n",
-++            DEBUG_PRINTF("Error: SYS_EVT%d out of range\n",
-+                    prussintc_init_data->sysevts_enabled[i]);
-+             return -1;
-+         }
-+@@ -423,7 +431,7 @@ int prussdrv_pru_wait_event(unsigned int pru_evtout_num)
-+     int event_count;
-+     unsigned int *pruintc_io = (unsigned int *) prussdrv.intc_base;
-+     read(prussdrv.fd[pru_evtout_num], &event_count, sizeof(int));
-+-    pruintc_io[PRU_INTC_HIEISR_REG >> 2] = pru_evtout_num+2; 
-++    pruintc_io[PRU_INTC_HIEISR_REG >> 2] = pru_evtout_num+2;
-+     return 0;
-+ 
-+ }
-+@@ -609,16 +617,16 @@ int prussdrv_exec_program(int prunum, const char *filename)
-+     // Open an File from the hard drive
-+     fPtr = fopen(filename, "rb");
-+     if (fPtr == NULL) {
-+-        printf("File %s open failed\n", filename);
-++        DEBUG_PRINTF("File %s open failed\n", filename);
-+     } else {
-+-        printf("File %s open passed\n", filename);
-++        DEBUG_PRINTF("File %s open passed\n", filename);
-+     }
-+     // Read file size
-+     fseek(fPtr, 0, SEEK_END);
-+     fileSize = ftell(fPtr);
-+ 
-+     if (fileSize == 0) {
-+-        printf("File read failed.. Closing program\n");
-++        DEBUG_PRINTF("File read failed.. Closing program\n");
-+         fclose(fPtr);
-+         return -1;
-+     }
-+@@ -627,12 +635,12 @@ int prussdrv_exec_program(int prunum, const char *filename)
-+ 
-+     if (fileSize !=
-+         fread((unsigned char *) fileDataArray, 1, fileSize, fPtr)) {
-+-        printf("WARNING: File Size mismatch\n");
-++        DEBUG_PRINTF("WARNING: File Size mismatch\n");
-+     }
-+ 
-+     fclose(fPtr);
-+ 
-+-    // Make sure PRU sub system is first disabled/reset  
-++    // Make sure PRU sub system is first disabled/reset
-+     prussdrv_pru_disable(prunum);
-+     prussdrv_pru_write_memory(pru_ram_id, 0,
-+                               (unsigned int *) fileDataArray, fileSize);
-+-- 
-+1.8.3.2
-+
-diff --git a/package/am335x-pru-package/am335x-pru-package-0004-prussdrv-Remove-unnecessary-pthreads-dependency.patch b/package/am335x-pru-package/am335x-pru-package-0004-prussdrv-Remove-unnecessary-pthreads-dependency.patch
-new file mode 100644
-index 0000000..8a4548d
---- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0004-prussdrv-Remove-unnecessary-pthreads-dependency.patch
-@@ -0,0 +1,312 @@
-+From 79536024992a455a93b95ba00eee0c00179a0ca9 Mon Sep 17 00:00:00 2001
++++ b/package/am335x-pru-package/am335x-pru-package-0001-prussdrv-Remove-unnecessary-pthreads-dependency.patch
+@@ -0,0 +1,154 @@
++From 7a7d25102c4b26932d8727ed138ee0e21412d6c0 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
 +Date: Sat, 18 Jan 2014 11:11:12 -0500
-+Subject: [PATCH 4/7] prussdrv: Remove unnecessary pthreads dependency
++Subject: [PATCH 1/4] prussdrv: Remove unnecessary pthreads dependency
 +
 +This removes the helper function for creating a pthread and the rest of
 +the infrastructure around it. Now the library can be linked in
@@ -398,72 +90,18 @@ index 0000000..8a4548d
 +
 +Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 +---
-+ pru_sw/app_loader/include/prussdrv.h               | 38 +++++++++-------------
-+ pru_sw/app_loader/interface/__prussdrv.h           | 35 ++++++++++----------
-+ pru_sw/app_loader/interface/prussdrv.c             | 26 ---------------
-+ .../example_apps/PRU_PRUtoPRU_Interrupt/Makefile   |  6 ++--
-+ .../example_apps/PRU_memAccessPRUDataRam/Makefile  |  6 ++--
-+ .../PRU_memAccess_DDR_PRUsharedRAM/Makefile        |  6 ++--
-+ 6 files changed, 42 insertions(+), 75 deletions(-)
++ pru_sw/app_loader/include/prussdrv.h               |  6 -----
++ pru_sw/app_loader/interface/__prussdrv.h           |  1 -
++ pru_sw/app_loader/interface/prussdrv.c             | 26 ----------------------
++ .../example_apps/PRU_PRUtoPRU_Interrupt/Makefile   |  2 +-
++ .../example_apps/PRU_memAccessPRUDataRam/Makefile  |  2 +-
++ .../PRU_memAccess_DDR_PRUsharedRAM/Makefile        |  2 +-
++ 6 files changed, 3 insertions(+), 36 deletions(-)
 +
 +diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
-+index 59fa43e..e6ff339 100755
++index c902b03..a9b62c0 100755
 +--- a/pru_sw/app_loader/include/prussdrv.h
 ++++ b/pru_sw/app_loader/include/prussdrv.h
-+@@ -1,37 +1,37 @@
-+ /*
-+  * prussdrv.h
-+- * 
-++ *
-+  * Describes PRUSS userspace driver for Industrial Communications
-+  *
-+- * Copyright (C) 2010 Texas Instruments Incorporated - http://www.ti.com/ 
-+- * 
-+- * 
-+- *  Redistribution and use in source and binary forms, with or without 
-+- *  modification, are permitted provided that the following conditions 
-++ * Copyright (C) 2010 Texas Instruments Incorporated - http://www.ti.com/
-++ *
-++ *
-++ *  Redistribution and use in source and binary forms, with or without
-++ *  modification, are permitted provided that the following conditions
-+  *  are met:
-+  *
-+- *    Redistributions of source code must retain the above copyright 
-++ *    Redistributions of source code must retain the above copyright
-+  *    notice, this list of conditions and the following disclaimer.
-+  *
-+  *    Redistributions in binary form must reproduce the above copyright
-+- *    notice, this list of conditions and the following disclaimer in the 
-+- *    documentation and/or other materials provided with the   
-++ *    notice, this list of conditions and the following disclaimer in the
-++ *    documentation and/or other materials provided with the
-+  *    distribution.
-+  *
-+  *    Neither the name of Texas Instruments Incorporated nor the names of
-+  *    its contributors may be used to endorse or promote products derived
-+  *    from this software without specific prior written permission.
-+  *
-+- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-+- *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-++ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-+  *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-+- *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-+- *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-+- *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-++ *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-++ *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-++ *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-+  *  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-+  *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-+- *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-+- *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-++ *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-+  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-+  *
-+ */
 +@@ -49,7 +49,6 @@
 + #define _PRUSSDRV_H
 + 
@@ -472,7 +110,7 @@ index 0000000..8a4548d
 + 
 + #if defined (__cplusplus)
 + extern "C" {
-+@@ -84,7 +83,6 @@ extern "C" {
++@@ -87,7 +86,6 @@ extern "C" {
 + #define PRU_EVTOUT_6            6
 + #define PRU_EVTOUT_7            7
 + 
@@ -480,11 +118,11 @@ index 0000000..8a4548d
 +     typedef struct __sysevt_to_channel_map {
 +         short sysevt;
 +         short channel;
-+@@ -152,10 +150,6 @@ extern "C" {
++@@ -192,10 +190,6 @@ extern "C" {
 + 
 +     int prussdrv_exec_program(int prunum, const char *filename);
 + 
-+-    int prussdrv_start_irqthread(unsigned int pru_evtout_num, int priority,
++-    int prussdrv_start_irqthread(unsigned int host_interrupt, int priority,
 +-                                 prussdrv_function_handler irqhandler);
 +-
 +-
@@ -492,72 +130,10 @@ index 0000000..8a4548d
 + }
 + #endif
 +diff --git a/pru_sw/app_loader/interface/__prussdrv.h b/pru_sw/app_loader/interface/__prussdrv.h
-+index 08d6937..1c076df 100755
++index 59c7ba9..e4e6969 100755
 +--- a/pru_sw/app_loader/interface/__prussdrv.h
 ++++ b/pru_sw/app_loader/interface/__prussdrv.h
-+@@ -1,36 +1,36 @@
-+ /*
-+  * __prussdrv.h
-+- * 
-+  *
-+- * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/ 
-+- * 
-+- * 
-+- *  Redistribution and use in source and binary forms, with or without 
-+- *  modification, are permitted provided that the following conditions 
-++ *
-++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
-++ *
-++ *
-++ *  Redistribution and use in source and binary forms, with or without
-++ *  modification, are permitted provided that the following conditions
-+  *  are met:
-+  *
-+- *    Redistributions of source code must retain the above copyright 
-++ *    Redistributions of source code must retain the above copyright
-+  *    notice, this list of conditions and the following disclaimer.
-+  *
-+  *    Redistributions in binary form must reproduce the above copyright
-+- *    notice, this list of conditions and the following disclaimer in the 
-+- *    documentation and/or other materials provided with the   
-++ *    notice, this list of conditions and the following disclaimer in the
-++ *    documentation and/or other materials provided with the
-+  *    distribution.
-+  *
-+  *    Neither the name of Texas Instruments Incorporated nor the names of
-+  *    its contributors may be used to endorse or promote products derived
-+  *    from this software without specific prior written permission.
-+  *
-+- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-+- *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-++ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-+  *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-+- *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-+- *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-+- *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-++ *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-++ *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-++ *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-+  *  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-+  *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-+- *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-+- *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-++ *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-+  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-+  *
-+ */
-+@@ -162,7 +162,7 @@
-+ 
-+ #define MAX_HOSTS_SUPPORTED	10
-+ 
-+-//UIO driver expects user space to map PRUSS_UIO_MAP_OFFSET_XXX to 
-++//UIO driver expects user space to map PRUSS_UIO_MAP_OFFSET_XXX to
-+ //access corresponding memory regions - region offset is N*PAGE_SIZE
-+ 
-+ #define PRUSS_UIO_MAP_OFFSET_PRUSS 0*PAGE_SIZE
-+@@ -203,7 +203,6 @@ typedef struct __prussdrv {
++@@ -204,7 +204,6 @@ typedef struct __prussdrv {
 +     void *pru1_iram_base;
 +     void *l3ram_base;
 +     void *extram_base;
@@ -566,7 +142,7 @@ index 0000000..8a4548d
 +     void *pruss_sharedram_base;
 +     void *pruss_cfg_base;
 +diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
-+index 5921cbf..9adfb9a 100755
++index 5fef222..a9fdadf 100755
 +--- a/pru_sw/app_loader/interface/prussdrv.c
 ++++ b/pru_sw/app_loader/interface/prussdrv.c
 +@@ -49,7 +49,6 @@
@@ -576,8 +152,8 @@ index 0000000..8a4548d
 +-#include <pthread.h>
 + #include <stdio.h>
 + 
-+ //#define DEBUG
-+@@ -594,8 +593,6 @@ int prussdrv_exit()
++ #ifdef __DEBUG
++@@ -652,8 +651,6 @@ int prussdrv_exit()
 +     for (i = 0; i < NUM_PRU_HOSTIRQS; i++) {
 +         if (prussdrv.fd[i])
 +             close(prussdrv.fd[i]);
@@ -586,12 +162,12 @@ index 0000000..8a4548d
 +     }
 +     return 0;
 + }
-+@@ -648,26 +645,3 @@ int prussdrv_exec_program(int prunum, const char *filename)
++@@ -709,26 +706,3 @@ int prussdrv_exec_program(int prunum, const char *filename)
 + 
 +     return 0;
 + }
 +-
-+-int prussdrv_start_irqthread(unsigned int pru_evtout_num, int priority,
++-int prussdrv_start_irqthread(unsigned int host_interrupt, int priority,
 +-                             prussdrv_function_handler irqhandler)
 +-{
 +-    pthread_attr_t pthread_attr;
@@ -605,7 +181,7 @@ index 0000000..8a4548d
 +-        pthread_attr_setschedparam(&pthread_attr, &sched_param);
 +-    }
 +-
-+-    pthread_create(&prussdrv.irq_thread[pru_evtout_num], &pthread_attr,
++-    pthread_create(&prussdrv.irq_thread[host_interrupt], &pthread_attr,
 +-                   irqhandler, NULL);
 +-
 +-    pthread_attr_destroy(&pthread_attr);
@@ -614,10 +190,10 @@ index 0000000..8a4548d
 +-
 +-}
 +diff --git a/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/Makefile b/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/Makefile
-+index b519b0f..f5ffba6 100755
++index bc4fddd..f5ffba6 100755
 +--- a/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/Makefile
 ++++ b/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/Makefile
-+@@ -6,11 +6,11 @@ BINDIR?=../bin
++@@ -6,7 +6,7 @@ BINDIR?=../bin
 + 
 + #CFLAGS+= -Wall -I$(INCDIR_APP_LOADER) -D__DEBUG -O2 -mtune=arm926ej-s -march=armv5te
 + CFLAGS+= -I$(INCDIR_APP_LOADER) -D__DEBUG -O2 -mtune=cortex-a8 -march=armv7-a
@@ -626,25 +202,11 @@ index 0000000..8a4548d
 + OBJDIR=obj
 + TARGET=$(BINDIR)/PRU_PRUtoPRU_Interrupt
 + 
-+-_DEPS = 
-++_DEPS =
-+ DEPS = $(patsubst %,$(INCDIR_APP_LOADER)/%,$(_DEPS))
-+ 
-+ _OBJ = PRU_PRUtoPRU_Interrupt.o
-+@@ -19,7 +19,7 @@ OBJ = $(patsubst %,$(OBJDIR)/%,$(_OBJ))
-+ 
-+ $(OBJDIR)/%.o: %.c $(DEPS)
-+ 	@mkdir -p obj
-+-	$(CROSS_COMPILE)gcc $(CFLAGS) -c -o $@ $< 
-++	$(CROSS_COMPILE)gcc $(CFLAGS) -c -o $@ $<
-+ 
-+ $(TARGET): $(OBJ)
-+ 	$(CROSS_COMPILE)gcc $(CFLAGS) -o $@ $^ $(LDFLAGS)
 +diff --git a/pru_sw/example_apps/PRU_memAccessPRUDataRam/Makefile b/pru_sw/example_apps/PRU_memAccessPRUDataRam/Makefile
-+index 5a9c21b..bf5f1bb 100755
++index af39766..bf5f1bb 100755
 +--- a/pru_sw/example_apps/PRU_memAccessPRUDataRam/Makefile
 ++++ b/pru_sw/example_apps/PRU_memAccessPRUDataRam/Makefile
-+@@ -5,11 +5,11 @@ INCDIR_APP_LOADER?=../../app_loader/include
++@@ -5,7 +5,7 @@ INCDIR_APP_LOADER?=../../app_loader/include
 + BINDIR?=../bin
 + 
 + CFLAGS+= -Wall -I$(INCDIR_APP_LOADER) -D__DEBUG -O2 -mtune=cortex-a8 -march=armv7-a
@@ -653,25 +215,11 @@ index 0000000..8a4548d
 + OBJDIR=obj
 + TARGET=$(BINDIR)/PRU_memAccessPRUDataRam
 + 
-+-_DEPS = 
-++_DEPS =
-+ DEPS = $(patsubst %,$(INCDIR_APP_LOADER)/%,$(_DEPS))
-+ 
-+ _OBJ = PRU_memAccessPRUDataRam.o
-+@@ -18,7 +18,7 @@ OBJ = $(patsubst %,$(OBJDIR)/%,$(_OBJ))
-+ 
-+ $(OBJDIR)/%.o: %.c $(DEPS)
-+ 	@mkdir -p obj
-+-	$(CROSS_COMPILE)gcc $(CFLAGS) -c -o $@ $< 
-++	$(CROSS_COMPILE)gcc $(CFLAGS) -c -o $@ $<
-+ 
-+ $(TARGET): $(OBJ)
-+ 	$(CROSS_COMPILE)gcc $(CFLAGS) -o $@ $^ $(LDFLAGS)
 +diff --git a/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/Makefile b/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/Makefile
-+index b0fff99..b007277 100755
++index b8c0747..b007277 100755
 +--- a/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/Makefile
 ++++ b/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/Makefile
-+@@ -5,11 +5,11 @@ INCDIR_APP_LOADER?=../../app_loader/include
++@@ -5,7 +5,7 @@ INCDIR_APP_LOADER?=../../app_loader/include
 + BINDIR?=../bin
 + 
 + CFLAGS+= -Wall -I$(INCDIR_APP_LOADER) -D__DEBUG -O2 -mtune=cortex-a8 -march=armv7-a
@@ -680,256 +228,73 @@ index 0000000..8a4548d
 + OBJDIR=obj
 + TARGET=$(BINDIR)/PRU_memAccess_DDR_PRUsharedRAM
 + 
-+-_DEPS = 
-++_DEPS =
-+ DEPS = $(patsubst %,$(INCDIR_APP_LOADER)/%,$(_DEPS))
-+ 
-+ _OBJ = PRU_memAccess_DDR_PRUsharedRAM.o
-+@@ -18,7 +18,7 @@ OBJ = $(patsubst %,$(OBJDIR)/%,$(_OBJ))
-+ 
-+ $(OBJDIR)/%.o: %.c $(DEPS)
-+ 	@mkdir -p obj
-+-	$(CROSS_COMPILE)gcc $(CFLAGS) -c -o $@ $< 
-++	$(CROSS_COMPILE)gcc $(CFLAGS) -c -o $@ $<
-+ 
-+ $(TARGET): $(OBJ)
-+ 	$(CROSS_COMPILE)gcc $(CFLAGS) -o $@ $^ $(LDFLAGS)
 +-- 
 +1.8.3.2
 +
-diff --git a/package/am335x-pru-package/am335x-pru-package-0005-PRU-updates-from-the-Linux-CNC-project.patch b/package/am335x-pru-package/am335x-pru-package-0005-PRU-updates-from-the-Linux-CNC-project.patch
+diff --git a/package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_exec_code-function.patch b/package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_exec_code-function.patch
 new file mode 100644
-index 0000000..ee498d6
+index 0000000..2cb1e79
 --- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0005-PRU-updates-from-the-Linux-CNC-project.patch
-@@ -0,0 +1,794 @@
-+From 1b5b79baf38ff8da41be850de73e0802f72eab2c Mon Sep 17 00:00:00 2001
++++ b/package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_exec_code-function.patch
+@@ -0,0 +1,79 @@
++From f790e1c84fae53c7b147a7f1f474353e23f5b45f Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Sat, 18 Jan 2014 12:32:31 -0500
-+Subject: [PATCH 5/7] PRU updates from the Linux CNC project
++Date: Wed, 5 Feb 2014 11:10:07 -0500
++Subject: [PATCH 2/4] prussdrv: add prussdrv_exec_code function
 +
-+This only contains a few of the updates. The Linux CNC project has a
-+good refactoring of the internal data structure that may be nice to pull
-+in as well. Also left out are the debug logging updates.
++This adds a helper function for loading PRU code from memory. This is
++handy when building the PRU code into the application executable with
++a header file generated by "pasm -c".
++
++This is based on similar functions found in various am335x_pru_package
++forks.
 +
 +Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 +---
-+ pru_sw/app_loader/include/prussdrv.h               |  11 ++-
-+ pru_sw/app_loader/interface/prussdrv.c             |  66 ++++++++-----
-+ .../PRU_PRUtoPRU_Interrupt.c                       | 109 +++++++++++----------
-+ .../PRU_memAccessPRUDataRam.c                      |  67 ++++++-------
-+ .../PRU_memAccess_DDR_PRUsharedRAM.c               |  71 +++++++-------
-+ 5 files changed, 176 insertions(+), 148 deletions(-)
++ pru_sw/app_loader/include/prussdrv.h   |  2 ++
++ pru_sw/app_loader/interface/prussdrv.c | 25 +++++++++++++++----------
++ 2 files changed, 17 insertions(+), 10 deletions(-)
 +
 +diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
-+index e6ff339..efb8833 100755
++index a9b62c0..fe7b63c 100755
 +--- a/pru_sw/app_loader/include/prussdrv.h
 ++++ b/pru_sw/app_loader/include/prussdrv.h
-+@@ -87,20 +87,25 @@ extern "C" {
-+         short sysevt;
-+         short channel;
-+     } tsysevt_to_channel_map;
++@@ -190,6 +190,8 @@ extern "C" {
++ 
++     int prussdrv_exec_program(int prunum, const char *filename);
++ 
+++    int prussdrv_exec_code(int prunum, const unsigned int *code, int codelen);
 ++
-+     typedef struct __channel_to_host_map {
-+         short channel;
-+         short host;
-+     } tchannel_to_host_map;
-++
-+     typedef struct __pruss_intc_initdata {
-+         //Enabled SYSEVTs - Range:0..63
-+         //{-1} indicates end of list
-+         char sysevts_enabled[NUM_PRU_SYS_EVTS];
-++
-+         //SysEvt to Channel map. SYSEVTs - Range:0..63 Channels -Range: 0..9
-+         //{-1, -1} indicates end of list
-+         tsysevt_to_channel_map sysevt_to_channel_map[NUM_PRU_SYS_EVTS];
-++
-+         //Channel to Host map.Channels -Range: 0..9  HOSTs - Range:0..9
-+         //{-1, -1} indicates end of list
-+         tchannel_to_host_map channel_to_host_map[NUM_PRU_CHANNELS];
-++
-+         //10-bit mask - Enable Host0-Host9 {Host0/1:PRU0/1, Host2..9 : PRUEVT_OUT0..7)
-+         unsigned int host_enable_bitmask;
-+     } tpruss_intc_initdata;
-+@@ -136,7 +141,7 @@ extern "C" {
-+ 
-+     void *prussdrv_get_virt_addr(unsigned int phyaddr);
-+ 
-+-    int prussdrv_pru_wait_event(unsigned int pru_evtout_num);
-++    int prussdrv_pru_wait_event(unsigned int pru_evtout_num, int *event_count);
-+ 
-+     int prussdrv_pru_send_event(unsigned int eventnum);
-+ 
-+@@ -148,7 +153,9 @@ extern "C" {
-+ 
-+     int prussdrv_exit(void);
-+ 
-+-    int prussdrv_exec_program(int prunum, const char *filename);
-++    int prussdrv_exec_program(int prunum, const char *filename, int disabled);
-++
-++    int prussdrv_exec_code(int prunum, const unsigned int *code, int codelen, int disabled);
-+ 
 + #if defined (__cplusplus)
 + }
++ #endif
 +diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
-+index 9adfb9a..6502d5e 100755
++index a9fdadf..761150c 100755
 +--- a/pru_sw/app_loader/interface/prussdrv.c
 ++++ b/pru_sw/app_loader/interface/prussdrv.c
-+@@ -191,6 +191,7 @@ int __prussdrv_memmap_init(void)
-+             prussdrv.pru0_dataram_base + prussdrv.pruss_mdio_phy_base -
-+             prussdrv.pru0_dataram_phy_base;
-+     }
-++
-+ #ifndef DISABLE_L3RAM_SUPPORT
-+     fd = open(PRUSS_UIO_DRV_L3RAM_BASE, O_RDONLY);
-+     if (fd >= 0) {
-+@@ -201,7 +202,6 @@ int __prussdrv_memmap_init(void)
-+     } else
-+         return -1;
-+ 
-+-
-+     fd = open(PRUSS_UIO_DRV_L3RAM_SIZE, O_RDONLY);
-+     if (fd >= 0) {
-+         read(fd, hexstring, PRUSS_UIO_PARAM_VAL_LEN);
-+@@ -234,7 +234,6 @@ int __prussdrv_memmap_init(void)
-+     } else
-+         return -1;
-+ 
-+-
-+     prussdrv.extram_base =
-+         mmap(0, prussdrv.extram_map_size, PROT_READ | PROT_WRITE,
-+              MAP_SHARED, prussdrv.mmap_fd, PRUSS_UIO_MAP_OFFSET_EXTRAM);
-+@@ -247,7 +246,6 @@ int prussdrv_init(void)
-+ {
-+     memset(&prussdrv, 0, sizeof(prussdrv));
-+     return 0;
-+-
-+ }
-+ 
-+ int prussdrv_open(unsigned int pru_evtout_num)
-+@@ -259,7 +257,6 @@ int prussdrv_open(unsigned int pru_evtout_num)
-+         return __prussdrv_memmap_init();
-+     } else {
-+         return -1;
-+-
-+     }
-+ }
-+ 
-+@@ -336,13 +333,11 @@ int prussdrv_pru_write_memory(unsigned int pru_ram_id,
-+         return -1;
-+     }
-+ 
-+-
-+     wordlength = (bytelength + 3) >> 2; //Adjust length as multiple of 4 bytes
-+     for (i = 0; i < wordlength; i++) {
-+         *(pruramarea + i + wordoffset) = *(memarea + i);
-+     }
-+     return wordlength;
-+-
-+ }
-+ 
-+ 
-+@@ -425,14 +420,16 @@ int prussdrv_pru_send_event(unsigned int eventnum)
-+     return 0;
-+ }
-+ 
-+-int prussdrv_pru_wait_event(unsigned int pru_evtout_num)
-++int prussdrv_pru_wait_event(unsigned int pru_evtout_num, int *event_count)
-+ {
-+-    int event_count;
-++    int retval;
-+     unsigned int *pruintc_io = (unsigned int *) prussdrv.intc_base;
-+-    read(prussdrv.fd[pru_evtout_num], &event_count, sizeof(int));
-+-    pruintc_io[PRU_INTC_HIEISR_REG >> 2] = pru_evtout_num+2;
-+-    return 0;
-++    retval = read(prussdrv.fd[pru_evtout_num], event_count, sizeof(int));
-++    if (retval < 0)
-++	DEBUG_PRINTF("prussdrv_pru_wait_event: read returned %d - %s\n", retval, strerror(errno));
-+ 
-++    pruintc_io[PRU_INTC_HIEISR_REG >> 2] = pru_evtout_num+2;
-++    return retval;
-+ }
-+ 
-+ int prussdrv_pru_clear_event(unsigned int eventnum)
-+@@ -449,11 +446,11 @@ int prussdrv_pru_send_wait_clear_event(unsigned int send_eventnum,
-+                                        unsigned int pru_evtout_num,
-+                                        unsigned int ack_eventnum)
-+ {
-++    int event_count;
-+     prussdrv_pru_send_event(send_eventnum);
-+-    prussdrv_pru_wait_event(pru_evtout_num);
-++    prussdrv_pru_wait_event(pru_evtout_num, &event_count);
-+     prussdrv_pru_clear_event(ack_eventnum);
-+     return 0;
-+-
-+ }
-+ 
-+ 
-+@@ -467,10 +464,8 @@ int prussdrv_map_l3mem(void **address)
-+ 
-+ int prussdrv_map_extmem(void **address)
-+ {
-+-
-+     *address = prussdrv.extram_base;
-+     return 0;
-+-
-+ }
-+ 
-+ unsigned int prussdrv_extmem_size(void)
-+@@ -597,11 +592,11 @@ int prussdrv_exit()
-+     return 0;
-+ }
-+ 
-+-int prussdrv_exec_program(int prunum, const char *filename)
-++int prussdrv_exec_program(int prunum, const char *filename, int disabled)
-+ {
++@@ -660,14 +660,6 @@ int prussdrv_exec_program(int prunum, const char *filename)
 +     FILE *fPtr;
 +     unsigned char fileDataArray[PRUSS_MAX_IRAM_SIZE];
-+-    int fileSize = 0;
-++    int fileSize = 0, got;
-+     unsigned int pru_ram_id;
-+ 
-+     if (prunum == 0)
-+@@ -615,8 +610,7 @@ int prussdrv_exec_program(int prunum, const char *filename)
-+     fPtr = fopen(filename, "rb");
-+     if (fPtr == NULL) {
-+         DEBUG_PRINTF("File %s open failed\n", filename);
-+-    } else {
-+-        DEBUG_PRINTF("File %s open passed\n", filename);
-++		return -1;
-+     }
-+     // Read file size
-+     fseek(fPtr, 0, SEEK_END);
-+@@ -629,19 +623,43 @@ int prussdrv_exec_program(int prunum, const char *filename)
-+     }
-+ 
-+     fseek(fPtr, 0, SEEK_SET);
-++    got = fread((unsigned char *) fileDataArray, 1, fileSize, fPtr);
-+ 
-+-    if (fileSize !=
-+-        fread((unsigned char *) fileDataArray, 1, fileSize, fPtr)) {
-+-        DEBUG_PRINTF("WARNING: File Size mismatch\n");
-++    if (fileSize != got) {
-++        DEBUG_PRINTF("WARNING: File Size mismatch - %d/%d\n",
-++		     fileSize, got);
-++	fclose(fPtr);
-++	return -1;
-+     }
++     int fileSize = 0;
++-    unsigned int pru_ram_id;
 +-
++-    if (prunum == 0)
++-        pru_ram_id = PRUSS0_PRU0_IRAM;
++-    else if (prunum == 1)
++-        pru_ram_id = PRUSS0_PRU1_IRAM;
++-    else
++-        return -1;
++ 
++     // Open an File from the hard drive
++     fPtr = fopen(filename, "rb");
++@@ -698,10 +690,23 @@ int prussdrv_exec_program(int prunum, const char *filename)
++ 
 +     fclose(fPtr);
 + 
-+     // Make sure PRU sub system is first disabled/reset
-+     prussdrv_pru_disable(prunum);
-+     prussdrv_pru_write_memory(pru_ram_id, 0,
-+                               (unsigned int *) fileDataArray, fileSize);
-+-    prussdrv_pru_enable(prunum);
-++    if (!disabled)
-++    	prussdrv_pru_enable(prunum);
-++
-++    return 0;
+++    return prussdrv_exec_code(prunum, (const unsigned int *) fileDataArray, fileSize);
 ++}
 ++
-++int prussdrv_exec_code(int prunum, const unsigned int *code, int codelen, int disabled)
+++int prussdrv_exec_code(int prunum, const unsigned int *code, int codelen)
 ++{
 ++    unsigned int pru_ram_id;
 ++
@@ -940,763 +305,146 @@ index 0000000..ee498d6
 ++    else
 ++        return -1;
 ++
-++    // Make sure PRU sub system is first disabled/reset
-++    prussdrv_pru_disable(prunum);
-++    prussdrv_pru_write_memory(pru_ram_id, 0, (unsigned int *) code, codelen);
-++
-++    if (!disabled)
-++	prussdrv_pru_enable(prunum);
++     // Make sure PRU sub system is first disabled/reset
++     prussdrv_pru_disable(prunum);
++-    prussdrv_pru_write_memory(pru_ram_id, 0,
++-                              (unsigned int *) fileDataArray, fileSize);
+++    prussdrv_pru_write_memory(pru_ram_id, 0, code, codelen);
++     prussdrv_pru_enable(prunum);
 + 
 +     return 0;
-+ }
-+diff --git a/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/PRU_PRUtoPRU_Interrupt.c b/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/PRU_PRUtoPRU_Interrupt.c
-+index 5eb0beb..7116fd7 100755
-+--- a/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/PRU_PRUtoPRU_Interrupt.c
-++++ b/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/PRU_PRUtoPRU_Interrupt.c
-+@@ -1,35 +1,35 @@
-+ /*
-+  * PRU_PRUtoPRU_Interrupt.c
-+  *
-+- * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/ 
-+- * 
-+- * 
-+- *  Redistribution and use in source and binary forms, with or without 
-+- *  modification, are permitted provided that the following conditions 
-++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
-++ *
-++ *
-++ *  Redistribution and use in source and binary forms, with or without
-++ *  modification, are permitted provided that the following conditions
-+  *  are met:
-+  *
-+- *    Redistributions of source code must retain the above copyright 
-++ *    Redistributions of source code must retain the above copyright
-+  *    notice, this list of conditions and the following disclaimer.
-+  *
-+  *    Redistributions in binary form must reproduce the above copyright
-+- *    notice, this list of conditions and the following disclaimer in the 
-+- *    documentation and/or other materials provided with the   
-++ *    notice, this list of conditions and the following disclaimer in the
-++ *    documentation and/or other materials provided with the
-+  *    distribution.
-+  *
-+  *    Neither the name of Texas Instruments Incorporated nor the names of
-+  *    its contributors may be used to endorse or promote products derived
-+  *    from this software without specific prior written permission.
-+  *
-+- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-+- *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-++ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-+  *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-+- *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-+- *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-+- *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-++ *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-++ *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-++ *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-+  *  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-+  *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-+- *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-+- *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-++ *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-+  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-+  *
-+ */
-+@@ -46,19 +46,19 @@
-+ /*****************************************************************************
-+ * PRU_PRUtoPRU_Interrupt.c
-+ *
-+-* This example illustrates how two PRUs can communicate between each other by 
-+-* interrupting each other during a process. In this example code, the PRU0 
-+-* configures the PRU INTC registers and connects system event 32 to channel 0 
-+-* which in turn is hooked to the host port 0. The PRU0 then generates a system 
-+-* event 32 by writing into its R31 register which sends an interrupt to PRU1 
-+-* which is polling for it. On receiving the interrupt, the PRU1 performs 
-+-* certain functionality and sets an external flag in DDR memory. The PRU1 
-+-* completes its task and interrupts PRU0 once the task is done using system 
-+-* event 33 by first mapping this system event number to channel 1 and channel 
-+-* 1 to host 1 and then writing into its R31 register. The PRU0 polls for the 
-+-* interrupt and acknowledges the completion of task by setting another flag 
-+-* in DDR memory. The ARM checks the flag values in DDR memory to verify the 
-+-* example was successful. 
-++* This example illustrates how two PRUs can communicate between each other by
-++* interrupting each other during a process. In this example code, the PRU0
-++* configures the PRU INTC registers and connects system event 32 to channel 0
-++* which in turn is hooked to the host port 0. The PRU0 then generates a system
-++* event 32 by writing into its R31 register which sends an interrupt to PRU1
-++* which is polling for it. On receiving the interrupt, the PRU1 performs
-++* certain functionality and sets an external flag in DDR memory. The PRU1
-++* completes its task and interrupts PRU0 once the task is done using system
-++* event 33 by first mapping this system event number to channel 1 and channel
-++* 1 to host 1 and then writing into its R31 register. The PRU0 polls for the
-++* interrupt and acknowledges the completion of task by setting another flag
-++* in DDR memory. The ARM checks the flag values in DDR memory to verify the
-++* example was successful.
-+ *
-+ *****************************************************************************/
-+ 
-+@@ -77,7 +77,7 @@
-+ 
-+ // Driver header file
-+ #include <prussdrv.h>
-+-#include <pruss_intc_mapping.h>	 
-++#include <pruss_intc_mapping.h>
-+ 
-+ /*****************************************************************************
-+ * Local Macro Declarations                                                   *
-+@@ -133,11 +133,12 @@ int main(void)
-+ {
-+     unsigned int ret;
-+     tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
-++    int event_count;
-+ 
-+     printf("\nINFO: Starting %s example.\r\n","PRU_PRUtoPRU_Interrupt");
-+     /* Initialize the PRU */
-+-    prussdrv_init ();		
-+-    
-++    prussdrv_init ();
-++
-+     /* Open PRU Interrupt */
-+     ret = prussdrv_open(PRU_EVTOUT_0);
-+     if (ret)
-+@@ -145,7 +146,7 @@ int main(void)
-+         printf("prussdrv_open open failed\n");
-+         return (ret);
-+     }
-+-    
-++
-+     /* Open PRU Interrupt */
-+     ret = prussdrv_open(PRU_EVTOUT_1);
-+     if (ret)
-+@@ -153,7 +154,7 @@ int main(void)
-+         printf("prussdrv_open open failed\n");
-+         return (ret);
-+     }
-+-    
-++
-+     /* Get the interrupt initialized */
-+     prussdrv_pruintc_init(&pruss_intc_initdata);
-+ 
-+@@ -163,20 +164,20 @@ int main(void)
-+ 
-+     /* Execute example on PRU */
-+     printf("\tINFO: Executing example on PRU0.\r\n");
-+-    prussdrv_exec_program (PRU_NUM0, "./PRU_PRU0toPRU1_Interrupt.bin");
-++    prussdrv_exec_program (PRU_NUM0, "./PRU_PRU0toPRU1_Interrupt.bin", 0);
-+     printf("\t\tINFO: Executing example on PRU1.\r\n");
-+-    prussdrv_exec_program (PRU_NUM1, "./PRU_PRU1toPRU0_Interrupt.bin");
-+-   
-+- 
-++    prussdrv_exec_program (PRU_NUM1, "./PRU_PRU1toPRU0_Interrupt.bin", 0);
-++
-++
-+     /* Wait until PRU0 has finished execution */
-+     printf("\tINFO: Waiting for HALT command.\r\n");
-+-    prussdrv_pru_wait_event (PRU_EVTOUT_0);
-++    prussdrv_pru_wait_event (PRU_EVTOUT_0, &event_count);
-+     printf("\tINFO: PRU0 completed transfer.\r\n");
-+     prussdrv_pru_clear_event (PRU0_ARM_INTERRUPT);
-+ 
-+     /* Wait until PRU0 has finished execution */
-+     printf("\t\tINFO: Waiting for HALT command.\r\n");
-+-    prussdrv_pru_wait_event (PRU_EVTOUT_1);
-++    prussdrv_pru_wait_event (PRU_EVTOUT_1, &event_count);
-+     printf("\t\tINFO: PRU1 completed transfer.\r\n");
-+     prussdrv_pru_clear_event (PRU1_ARM_INTERRUPT);
-+ 
-+@@ -196,8 +197,8 @@ int main(void)
-+     prussdrv_exit ();
-+     munmap(ddrMem, 0x0FFFFFFF);
-+     close(mem_fd);
-+-    
-+-    return(0); 
-++
-++    return(0);
-+ }
-+ /*****************************************************************************
-+ * Local Function Definitions                                                 *
-+@@ -205,15 +206,15 @@ int main(void)
-+ 
-+ static int LOCAL_exampleInit ()
-+ {
-+-    void *DDR_regaddr;   
-+-   
-++    void *DDR_regaddr;
-++
-+     /* open the device */
-+     mem_fd = open("/dev/mem", O_RDWR);
-+     if (mem_fd < 0) {
-+         printf("Failed to open /dev/mem (%s)\n", strerror(errno));
-+         return -1;
-+-    }   
-+-  
-++    }
-++
-+     /* map the memory */
-+     ddrMem = mmap(0, 0x0FFFFFFF, PROT_WRITE | PROT_READ, MAP_SHARED, mem_fd, DDR_BASEADDR);
-+     if (ddrMem == NULL) {
-+@@ -221,30 +222,30 @@ static int LOCAL_exampleInit ()
-+         close(mem_fd);
-+         return -1;
-+     }
-+-  
-+-    //FLush the flag locations of PRU0 and PRU1 
-++
-++    //FLush the flag locations of PRU0 and PRU1
-+     DDR_regaddr = ddrMem;
-+     *(unsigned long*) DDR_regaddr = 0x00;
-+-  
-++
-+     DDR_regaddr = ddrMem + 0x000000004;
-+     *(unsigned long*) DDR_regaddr = 0x00;
-+ 
-+     return(0);
-+-   
-++
-+ }
-+ 
-+ static unsigned short LOCAL_examplePassed ( unsigned short pruNum )
-+ {
-+     unsigned long result_0, result_1;
-+-    void *DDR_regaddr;   
-+- 
-++    void *DDR_regaddr;
-++
-+     //Read in the first example done flags
-+     DDR_regaddr = ddrMem;
-+     result_0 = *(unsigned long*) DDR_regaddr;
-+-   
-++
-+     DDR_regaddr = ddrMem + 0x000000004;
-+     result_1 = *(unsigned long*) DDR_regaddr;
-+-  
-+-    //check if Example completed 
-++
-++    //check if Example completed
-+     return ((result_0 == FLAG1) & (result_1 == FLAG2) ) ;
-+ }
-+diff --git a/pru_sw/example_apps/PRU_memAccessPRUDataRam/PRU_memAccessPRUDataRam.c b/pru_sw/example_apps/PRU_memAccessPRUDataRam/PRU_memAccessPRUDataRam.c
-+index eb28476..a57c361 100755
-+--- a/pru_sw/example_apps/PRU_memAccessPRUDataRam/PRU_memAccessPRUDataRam.c
-++++ b/pru_sw/example_apps/PRU_memAccessPRUDataRam/PRU_memAccessPRUDataRam.c
-+@@ -1,35 +1,35 @@
-+ /*
-+  * PRU_memAccessPRUDataRam.c
-+  *
-+- * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/ 
-+- * 
-+- * 
-+- *  Redistribution and use in source and binary forms, with or without 
-+- *  modification, are permitted provided that the following conditions 
-++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
-++ *
-++ *
-++ *  Redistribution and use in source and binary forms, with or without
-++ *  modification, are permitted provided that the following conditions
-+  *  are met:
-+  *
-+- *    Redistributions of source code must retain the above copyright 
-++ *    Redistributions of source code must retain the above copyright
-+  *    notice, this list of conditions and the following disclaimer.
-+  *
-+  *    Redistributions in binary form must reproduce the above copyright
-+- *    notice, this list of conditions and the following disclaimer in the 
-+- *    documentation and/or other materials provided with the   
-++ *    notice, this list of conditions and the following disclaimer in the
-++ *    documentation and/or other materials provided with the
-+  *    distribution.
-+  *
-+  *    Neither the name of Texas Instruments Incorporated nor the names of
-+  *    its contributors may be used to endorse or promote products derived
-+  *    from this software without specific prior written permission.
-+  *
-+- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-+- *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-++ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-+  *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-+- *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-+- *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-+- *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-++ *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-++ *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-++ *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-+  *  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-+  *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-+- *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-+- *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-++ *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-+  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-+  *
-+ */
-+@@ -46,11 +46,11 @@
-+ /*****************************************************************************
-+ * PRU_memAccessPRUDataRam.c
-+ *
-+-* The PRU reads and stores values into the PRU Data RAM memory. PRU Data RAM 
-+-* memory has an address in both the local data memory map and global memory 
-+-* map. The example accesses the local Data RAM using both the local address 
-+-* through a register pointed base address and the global address pointed by 
-+-* entries in the constant table. 
-++* The PRU reads and stores values into the PRU Data RAM memory. PRU Data RAM
-++* memory has an address in both the local data memory map and global memory
-++* map. The example accesses the local Data RAM using both the local address
-++* through a register pointed base address and the global address pointed by
-++* entries in the constant table.
-+ *
-+ ******************************************************************************/
-+ 
-+@@ -116,11 +116,12 @@ int main (void)
-+ {
-+     unsigned int ret;
-+     tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
-+-    
-++    int event_count;
-++
-+     printf("\nINFO: Starting %s example.\r\n", "PRU_memAccessPRUDataRam");
-+     /* Initialize the PRU */
-+-    prussdrv_init ();		
-+-    
-++    prussdrv_init ();
-++
-+     /* Open PRU Interrupt */
-+     ret = prussdrv_open(PRU_EVTOUT_0);
-+     if (ret)
-+@@ -128,22 +129,22 @@ int main (void)
-+         printf("prussdrv_open open failed\n");
-+         return (ret);
-+     }
-+-    
-++
-+     /* Get the interrupt initialized */
-+     prussdrv_pruintc_init(&pruss_intc_initdata);
-+ 
-+     /* Initialize example */
-+     printf("\tINFO: Initializing example.\r\n");
-+     LOCAL_exampleInit(PRU_NUM);
-+-    
-++
-+     /* Execute example on PRU */
-+     printf("\tINFO: Executing example.\r\n");
-+-    prussdrv_exec_program (PRU_NUM, "./PRU_memAccessPRUDataRam.bin");
-+-    
-+-    
-++    prussdrv_exec_program (PRU_NUM, "./PRU_memAccessPRUDataRam.bin", 0);
-++
-++
-+     /* Wait until PRU0 has finished execution */
-+     printf("\tINFO: Waiting for HALT command.\r\n");
-+-    prussdrv_pru_wait_event (PRU_EVTOUT_0);
-++    prussdrv_pru_wait_event (PRU_EVTOUT_0, &event_count);
-+     printf("\tINFO: PRU completed transfer.\r\n");
-+     prussdrv_pru_clear_event (PRU0_ARM_INTERRUPT);
-+ 
-+@@ -170,7 +171,7 @@ int main (void)
-+ *****************************************************************************/
-+ 
-+ static int LOCAL_exampleInit ( unsigned short pruNum )
-+-{  
-++{
-+     //Initialize pointer to PRU data memory
-+     if (pruNum == 0)
-+     {
-+@@ -179,15 +180,15 @@ static int LOCAL_exampleInit ( unsigned short pruNum )
-+     else if (pruNum == 1)
-+     {
-+       prussdrv_map_prumem (PRUSS0_PRU1_DATARAM, &pruDataMem);
-+-    }  
-++    }
-+     pruDataMem_int = (unsigned int*) pruDataMem;
-+-    
-++
-+     // Flush the values in the PRU data memory locations
-+     pruDataMem_int[1] = 0x00;
-+     pruDataMem_int[2] = 0x00;
-+ 
-+     return(0);
-+-}		
-++}
-+ 
-+ static unsigned short LOCAL_examplePassed ( unsigned short pruNum )
-+ {
-+diff --git a/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/PRU_memAccess_DDR_PRUsharedRAM.c b/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/PRU_memAccess_DDR_PRUsharedRAM.c
-+index e4eccd8..69fb176 100755
-+--- a/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/PRU_memAccess_DDR_PRUsharedRAM.c
-++++ b/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/PRU_memAccess_DDR_PRUsharedRAM.c
-+@@ -1,35 +1,35 @@
-+ /*
-+  * PRU_memAccess_DDR_PRUsharedRAM.c
-+  *
-+- * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/ 
-+- * 
-+- * 
-+- *  Redistribution and use in source and binary forms, with or without 
-+- *  modification, are permitted provided that the following conditions 
-++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
-++ *
-++ *
-++ *  Redistribution and use in source and binary forms, with or without
-++ *  modification, are permitted provided that the following conditions
-+  *  are met:
-+  *
-+- *    Redistributions of source code must retain the above copyright 
-++ *    Redistributions of source code must retain the above copyright
-+  *    notice, this list of conditions and the following disclaimer.
-+  *
-+  *    Redistributions in binary form must reproduce the above copyright
-+- *    notice, this list of conditions and the following disclaimer in the 
-+- *    documentation and/or other materials provided with the   
-++ *    notice, this list of conditions and the following disclaimer in the
-++ *    documentation and/or other materials provided with the
-+  *    distribution.
-+  *
-+  *    Neither the name of Texas Instruments Incorporated nor the names of
-+  *    its contributors may be used to endorse or promote products derived
-+  *    from this software without specific prior written permission.
-+  *
-+- *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-+- *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-++ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-++ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-+  *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-+- *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-+- *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-+- *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-++ *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-++ *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-++ *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-+  *  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-+  *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-+- *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-+- *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
-++ *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-++ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-+  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-+  *
-+ */
-+@@ -46,12 +46,12 @@
-+ /******************************************************************************
-+ * PRU_memAccess_DDR_PRUsharedRAM.c
-+ *
-+-* The PRU reads three values from external DDR memory and stores these values 
-+-* in shared PRU RAM using the programmable constant table entries.  The example 
-+-* initially loads 3 values into the external DDR RAM.  The PRU configures its 
-+-* Constant Table Programmable Pointer Register 0 and 1 (CTPPR_0, 1) to point 
-+-* to appropriate locations in the DDR memory and the PRU shared RAM.  The 
-+-* values are then read from the DDR memory and stored into the PRU shared RAM 
-++* The PRU reads three values from external DDR memory and stores these values
-++* in shared PRU RAM using the programmable constant table entries.  The example
-++* initially loads 3 values into the external DDR RAM.  The PRU configures its
-++* Constant Table Programmable Pointer Register 0 and 1 (CTPPR_0, 1) to point
-++* to appropriate locations in the DDR memory and the PRU shared RAM.  The
-++* values are then read from the DDR memory and stored into the PRU shared RAM
-+ * using the values in the 28th and 31st entries of the constant table.
-+ *
-+ ******************************************************************************/
-+@@ -71,7 +71,7 @@
-+ 
-+ // Driver header file
-+ #include "prussdrv.h"
-+-#include <pruss_intc_mapping.h>	 
-++#include <pruss_intc_mapping.h>
-+ 
-+ /******************************************************************************
-+ * Explicit External Declarations                                              *
-+@@ -87,7 +87,7 @@
-+ #define ADDEND3		 0x10210210u
-+ 
-+ #define DDR_BASEADDR     0x80000000
-+-#define OFFSET_DDR	 0x00001000 
-++#define OFFSET_DDR	 0x00001000
-+ #define OFFSET_SHAREDRAM 2048		//equivalent with 0x00002000
-+ 
-+ #define PRUSS0_SHARED_DATARAM    4
-+@@ -131,11 +131,12 @@ int main (void)
-+ {
-+     unsigned int ret;
-+     tpruss_intc_initdata pruss_intc_initdata = PRUSS_INTC_INITDATA;
-+-    
-++    int event_count;
-++
-+     printf("\nINFO: Starting %s example.\r\n", "PRU_memAccess_DDR_PRUsharedRAM");
-+     /* Initialize the PRU */
-+-    prussdrv_init ();		
-+-    
-++    prussdrv_init ();
-++
-+     /* Open PRU Interrupt */
-+     ret = prussdrv_open(PRU_EVTOUT_0);
-+     if (ret)
-+@@ -143,21 +144,21 @@ int main (void)
-+         printf("prussdrv_open open failed\n");
-+         return (ret);
-+     }
-+-    
-++
-+     /* Get the interrupt initialized */
-+     prussdrv_pruintc_init(&pruss_intc_initdata);
-+ 
-+     /* Initialize example */
-+     printf("\tINFO: Initializing example.\r\n");
-+     LOCAL_exampleInit(PRU_NUM);
-+-    
-++
-+     /* Execute example on PRU */
-+     printf("\tINFO: Executing example.\r\n");
-+-    prussdrv_exec_program (PRU_NUM, "./PRU_memAccess_DDR_PRUsharedRAM.bin");
-++    prussdrv_exec_program (PRU_NUM, "./PRU_memAccess_DDR_PRUsharedRAM.bin", 0);
-+ 
-+     /* Wait until PRU0 has finished execution */
-+     printf("\tINFO: Waiting for HALT command.\r\n");
-+-    prussdrv_pru_wait_event (PRU_EVTOUT_0);
-++    prussdrv_pru_wait_event (PRU_EVTOUT_0, &event_count);
-+     printf("\tINFO: PRU completed transfer.\r\n");
-+     prussdrv_pru_clear_event (PRU0_ARM_INTERRUPT);
-+ 
-+@@ -170,9 +171,9 @@ int main (void)
-+     {
-+         printf("Example failed.\r\n");
-+     }
-+-    
-++
-+     /* Disable PRU and close memory mapping*/
-+-    prussdrv_pru_disable(PRU_NUM); 
-++    prussdrv_pru_disable(PRU_NUM);
-+     prussdrv_exit ();
-+     munmap(ddrMem, 0x0FFFFFFF);
-+     close(mem_fd);
-+@@ -186,14 +187,14 @@ int main (void)
-+ 
-+ static int LOCAL_exampleInit (  )
-+ {
-+-    void *DDR_regaddr1, *DDR_regaddr2, *DDR_regaddr3;	
-++    void *DDR_regaddr1, *DDR_regaddr2, *DDR_regaddr3;
-+ 
-+     /* open the device */
-+     mem_fd = open("/dev/mem", O_RDWR);
-+     if (mem_fd < 0) {
-+         printf("Failed to open /dev/mem (%s)\n", strerror(errno));
-+         return -1;
-+-    }	
-++    }
-+ 
-+     /* map the DDR memory */
-+     ddrMem = mmap(0, 0x0FFFFFFF, PROT_WRITE | PROT_READ, MAP_SHARED, mem_fd, DDR_BASEADDR);
-+@@ -202,7 +203,7 @@ static int LOCAL_exampleInit (  )
-+         close(mem_fd);
-+         return -1;
-+     }
-+-    
-++
-+     /* Store Addends in DDR memory location */
-+     DDR_regaddr1 = ddrMem + OFFSET_DDR;
-+     DDR_regaddr2 = ddrMem + OFFSET_DDR + 0x00000004;
 +-- 
 +1.8.3.2
 +
-diff --git a/package/am335x-pru-package/am335x-pru-package-0006-prussdrv-add-call-to-get-file-descriptor.patch b/package/am335x-pru-package/am335x-pru-package-0006-prussdrv-add-call-to-get-file-descriptor.patch
+diff --git a/package/am335x-pru-package/am335x-pru-package-0003-app_loader-Makefile-Add-d-param-to-install-call.patch b/package/am335x-pru-package/am335x-pru-package-0003-app_loader-Makefile-Add-d-param-to-install-call.patch
 new file mode 100644
-index 0000000..a0cddbe
+index 0000000..2c88af0
 --- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0006-prussdrv-add-call-to-get-file-descriptor.patch
-@@ -0,0 +1,45 @@
-+From 6cea8fd30f46ece84bf98f67a1223ec5dcb4beac Mon Sep 17 00:00:00 2001
++++ b/package/am335x-pru-package/am335x-pru-package-0003-app_loader-Makefile-Add-d-param-to-install-call.patch
+@@ -0,0 +1,36 @@
++From 7e14791f5a91d67a4d0496f01fa528c6153168bc Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Sat, 18 Jan 2014 12:43:05 -0500
-+Subject: [PATCH 6/7] prussdrv: add call to get file descriptor
++Date: Wed, 5 Feb 2014 14:17:57 -0500
++Subject: [PATCH 3/4] app_loader Makefile: Add -d param to install call
 +
-+This is needed to be able to select(2) or poll(2) on PRU interrupts.
++This fixes the calls to make sure that the $(PREFIX)/lib and include
++directories exist.
 +
 +Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 +---
-+ pru_sw/app_loader/include/prussdrv.h   | 2 ++
-+ pru_sw/app_loader/interface/prussdrv.c | 5 +++++
-+ 2 files changed, 7 insertions(+)
++ pru_sw/app_loader/interface/Makefile | 5 ++---
++ 1 file changed, 2 insertions(+), 3 deletions(-)
 +
-+diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
-+index efb8833..d44adaa 100755
-+--- a/pru_sw/app_loader/include/prussdrv.h
-++++ b/pru_sw/app_loader/include/prussdrv.h
-+@@ -143,6 +143,8 @@ extern "C" {
++diff --git a/pru_sw/app_loader/interface/Makefile b/pru_sw/app_loader/interface/Makefile
++index bdecf09..a6d1283 100755
++--- a/pru_sw/app_loader/interface/Makefile
+++++ b/pru_sw/app_loader/interface/Makefile
++@@ -39,8 +39,8 @@ PIC_RELOBJFILES = $(SOURCES:%.c=release/%_PIC.o)
++ all:	debug release sodebug sorelease
 + 
-+     int prussdrv_pru_wait_event(unsigned int pru_evtout_num, int *event_count);
++ install: release
++-	install -m 0755 $(PREFIX)/lib
++-	install -m 0755 $(PREFIX)/include
+++	install -m 0755 -d $(PREFIX)/lib
+++	install -m 0755 -d $(PREFIX)/include
++ 	install -m 0644 $(LIBDIR)/* $(PREFIX)/lib
++ 	install -m 0644 $(INSTALL_HDRS) $(PREFIX)/include
 + 
-++    int prussdrv_pru_event_fd(unsigned int pru_evtout_num);
-++
-+     int prussdrv_pru_send_event(unsigned int eventnum);
++@@ -96,4 +96,3 @@ $(TARGETHEADERS): $(HEADERS)
 + 
-+     int prussdrv_pru_clear_event(unsigned int eventnum);
-+diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
-+index 6502d5e..5a87bbf 100755
-+--- a/pru_sw/app_loader/interface/prussdrv.c
-++++ b/pru_sw/app_loader/interface/prussdrv.c
-+@@ -432,6 +432,11 @@ int prussdrv_pru_wait_event(unsigned int pru_evtout_num, int *event_count)
-+     return retval;
-+ }
-+ 
-++int prussdrv_pru_event_fd(unsigned int pru_evtout_num)
-++{
-++    return prussdrv.fd[pru_evtout_num];
-++}
-++
-+ int prussdrv_pru_clear_event(unsigned int eventnum)
-+ {
-+     unsigned int *pruintc_io = (unsigned int *) prussdrv.intc_base;
++ clean:
++ 	-rm -rf release debug *~ ../lib/*
++-
 +-- 
 +1.8.3.2
 +
-diff --git a/package/am335x-pru-package/am335x-pru-package-0007-prussdrv-fix-duplicate-event-from-PRU.patch b/package/am335x-pru-package/am335x-pru-package-0007-prussdrv-fix-duplicate-event-from-PRU.patch
+diff --git a/package/am335x-pru-package/am335x-pru-package-0004-app_loader-Makefile-clean-up-header-file-handling.patch b/package/am335x-pru-package/am335x-pru-package-0004-app_loader-Makefile-clean-up-header-file-handling.patch
 new file mode 100644
-index 0000000..42dcebd
+index 0000000..42bd01c
 --- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0007-prussdrv-fix-duplicate-event-from-PRU.patch
-@@ -0,0 +1,130 @@
-+From 30f4b47da15658b76545e709af107572d39761a5 Mon Sep 17 00:00:00 2001
++++ b/package/am335x-pru-package/am335x-pru-package-0004-app_loader-Makefile-clean-up-header-file-handling.patch
+@@ -0,0 +1,68 @@
++From f4d0127829669b8fc44657a935819f51b2e19dac Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Sat, 18 Jan 2014 16:33:21 -0500
-+Subject: [PATCH 7/7] prussdrv: fix duplicate event from PRU
++Date: Wed, 5 Feb 2014 14:24:16 -0500
++Subject: [PATCH 4/4] app_loader Makefile: clean up header file handling
 +
-+This patch fixes the bug where the host receives two notifications for
-+each event sent from the PRU. It is based on the information at
-+http://e2e.ti.com/support/arm/sitara_arm/f/791/t/239735.aspx
++Removed Makefile targets that would never be called and added the public
++header files to the dependency list so that changes to them would
++trigger .c file recompilation.
 +
 +Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 +---
-+ pru_sw/app_loader/include/prussdrv.h                         |  4 ++--
-+ pru_sw/app_loader/interface/prussdrv.c                       | 12 ++++++++----
-+ .../PRU_PRUtoPRU_Interrupt/PRU_PRUtoPRU_Interrupt.c          |  4 ++--
-+ .../PRU_memAccessPRUDataRam/PRU_memAccessPRUDataRam.c        |  2 +-
-+ .../PRU_memAccess_DDR_PRUsharedRAM.c                         |  2 +-
-+ 5 files changed, 14 insertions(+), 10 deletions(-)
++ pru_sw/app_loader/interface/Makefile | 18 ++++--------------
++ 1 file changed, 4 insertions(+), 14 deletions(-)
 +
-+diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
-+index d44adaa..94d443d 100755
-+--- a/pru_sw/app_loader/include/prussdrv.h
-++++ b/pru_sw/app_loader/include/prussdrv.h
-+@@ -145,9 +145,9 @@ extern "C" {
++diff --git a/pru_sw/app_loader/interface/Makefile b/pru_sw/app_loader/interface/Makefile
++index a6d1283..dcf4d98 100755
++--- a/pru_sw/app_loader/interface/Makefile
+++++ b/pru_sw/app_loader/interface/Makefile
++@@ -24,10 +24,10 @@ DBGCFLAGS = -g -O0 -D__DEBUG
++ RELCFLAGS = -O3 -mtune=cortex-a8 -march=armv7-a
 + 
-+     int prussdrv_pru_event_fd(unsigned int pru_evtout_num);
++ SOURCES = $(wildcard *.c)
++-HEADERS = $(wildcard *.h)
 + 
-+-    int prussdrv_pru_send_event(unsigned int eventnum);
-++    int prussdrv_pru_send_event(unsigned int pru_evtout_num);
++-TARGETHEADERS = $(addprefix $(INCLUDEDIR)/, $(HEADERS))
++-INSTALL_HDRS = $(wildcard $(INCLUDEDIR)/*.h)
+++PUBLIC_HDRS = $(wildcard $(INCLUDEDIR)/*.h)
+++PRIVATE_HDRS = $(wildcard *.h)
+++HEADERS = $(PUBLIC_HDRS) $(PRIVATE_HDRS)
 + 
-+-    int prussdrv_pru_clear_event(unsigned int eventnum);
-++    int prussdrv_pru_clear_event(unsigned int eventnum, unsigned int pru_evtout_num);
++ DBGOBJFILES = $(SOURCES:%.c=debug/%.o)
++ RELOBJFILES = $(SOURCES:%.c=release/%.o)
++@@ -42,20 +42,15 @@ install: release
++ 	install -m 0755 -d $(PREFIX)/lib
++ 	install -m 0755 -d $(PREFIX)/include
++ 	install -m 0644 $(LIBDIR)/* $(PREFIX)/lib
++-	install -m 0644 $(INSTALL_HDRS) $(PREFIX)/include
+++	install -m 0644 $(PUBLIC_HDRS) $(PREFIX)/include
 + 
-+     int prussdrv_pru_send_wait_clear_event(unsigned int send_eventnum,
-+                                            unsigned int pru_evtout_num,
-+diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
-+index 5a87bbf..727dadb 100755
-+--- a/pru_sw/app_loader/interface/prussdrv.c
-++++ b/pru_sw/app_loader/interface/prussdrv.c
-+@@ -423,12 +423,10 @@ int prussdrv_pru_send_event(unsigned int eventnum)
-+ int prussdrv_pru_wait_event(unsigned int pru_evtout_num, int *event_count)
-+ {
-+     int retval;
-+-    unsigned int *pruintc_io = (unsigned int *) prussdrv.intc_base;
-+     retval = read(prussdrv.fd[pru_evtout_num], event_count, sizeof(int));
-+     if (retval < 0)
-+ 	DEBUG_PRINTF("prussdrv_pru_wait_event: read returned %d - %s\n", retval, strerror(errno));
++ release:	$(RELTARGET)
++-#release:	$(RELTARGET) $(TARGETHEADERS)
 + 
-+-    pruintc_io[PRU_INTC_HIEISR_REG >> 2] = pru_evtout_num+2;
-+     return retval;
-+ }
++ sorelease:	$(SORELTARGET)
++-#sorelease:	$(SORELTARGET) $(TARGETHEADERS)
 + 
-+@@ -437,13 +435,19 @@ int prussdrv_pru_event_fd(unsigned int pru_evtout_num)
-+     return prussdrv.fd[pru_evtout_num];
-+ }
++ sodebug:	$(SODBGTARGET)
++-#sodebug:	$(SODBGTARGET) $(TARGETHEADERS)
 + 
-+-int prussdrv_pru_clear_event(unsigned int eventnum)
-++int prussdrv_pru_clear_event(unsigned int eventnum, unsigned int pru_evtout_num)
-+ {
-+     unsigned int *pruintc_io = (unsigned int *) prussdrv.intc_base;
-++
-++    // Clear the event.
-+     if (eventnum < 32)
-+         pruintc_io[PRU_INTC_SECR1_REG >> 2] = 1 << eventnum;
-+     else
-+         pruintc_io[PRU_INTC_SECR2_REG >> 2] = 1 << (eventnum - 32);
-++
-++    // Re-enable the interrupt
-++    pruintc_io[PRU_INTC_HIEISR_REG >> 2] = pru_evtout_num + 2;
-++
-+     return 0;
-+ }
++ debug:		$(DBGTARGET)
++-#debug:		$(DBGTARGET) $(TARGETHEADERS)
++-
 + 
-+@@ -454,7 +458,7 @@ int prussdrv_pru_send_wait_clear_event(unsigned int send_eventnum,
-+     int event_count;
-+     prussdrv_pru_send_event(send_eventnum);
-+     prussdrv_pru_wait_event(pru_evtout_num, &event_count);
-+-    prussdrv_pru_clear_event(ack_eventnum);
-++    prussdrv_pru_clear_event(ack_eventnum, pru_evtout_num);
-+     return 0;
-+ }
++ $(RELTARGET):	$(RELOBJFILES)
++ 	@mkdir -p $(ROOTDIR)/lib
++@@ -89,10 +84,5 @@ $(PIC_DBGOBJFILES):	debug/%_PIC.o: %.c $(HEADERS)
++ 	@mkdir -p debug
++ 	$(COMPILE.c) -fPIC $(DBGCFLAGS) -o $@ $<
 + 
-+diff --git a/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/PRU_PRUtoPRU_Interrupt.c b/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/PRU_PRUtoPRU_Interrupt.c
-+index 7116fd7..07fc394 100755
-+--- a/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/PRU_PRUtoPRU_Interrupt.c
-++++ b/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/PRU_PRUtoPRU_Interrupt.c
-+@@ -173,13 +173,13 @@ int main(void)
-+     printf("\tINFO: Waiting for HALT command.\r\n");
-+     prussdrv_pru_wait_event (PRU_EVTOUT_0, &event_count);
-+     printf("\tINFO: PRU0 completed transfer.\r\n");
-+-    prussdrv_pru_clear_event (PRU0_ARM_INTERRUPT);
-++    prussdrv_pru_clear_event (PRU0_ARM_INTERRUPT, PRU_EVTOUT_0);
-+ 
-+     /* Wait until PRU0 has finished execution */
-+     printf("\t\tINFO: Waiting for HALT command.\r\n");
-+     prussdrv_pru_wait_event (PRU_EVTOUT_1, &event_count);
-+     printf("\t\tINFO: PRU1 completed transfer.\r\n");
-+-    prussdrv_pru_clear_event (PRU1_ARM_INTERRUPT);
-++    prussdrv_pru_clear_event (PRU1_ARM_INTERRUPT, PRU_EVTOUT_1);
-+ 
-+     /* Check if example passed */
-+     if ( LOCAL_examplePassed(PRU_NUM1) )
-+diff --git a/pru_sw/example_apps/PRU_memAccessPRUDataRam/PRU_memAccessPRUDataRam.c b/pru_sw/example_apps/PRU_memAccessPRUDataRam/PRU_memAccessPRUDataRam.c
-+index a57c361..28b1e20 100755
-+--- a/pru_sw/example_apps/PRU_memAccessPRUDataRam/PRU_memAccessPRUDataRam.c
-++++ b/pru_sw/example_apps/PRU_memAccessPRUDataRam/PRU_memAccessPRUDataRam.c
-+@@ -146,7 +146,7 @@ int main (void)
-+     printf("\tINFO: Waiting for HALT command.\r\n");
-+     prussdrv_pru_wait_event (PRU_EVTOUT_0, &event_count);
-+     printf("\tINFO: PRU completed transfer.\r\n");
-+-    prussdrv_pru_clear_event (PRU0_ARM_INTERRUPT);
-++    prussdrv_pru_clear_event (PRU0_ARM_INTERRUPT, PRU_EVTOUT_0);
-+ 
-+     /* Check if example passed */
-+     if ( LOCAL_examplePassed(PRU_NUM) )
-+diff --git a/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/PRU_memAccess_DDR_PRUsharedRAM.c b/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/PRU_memAccess_DDR_PRUsharedRAM.c
-+index 69fb176..d549a28 100755
-+--- a/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/PRU_memAccess_DDR_PRUsharedRAM.c
-++++ b/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/PRU_memAccess_DDR_PRUsharedRAM.c
-+@@ -160,7 +160,7 @@ int main (void)
-+     printf("\tINFO: Waiting for HALT command.\r\n");
-+     prussdrv_pru_wait_event (PRU_EVTOUT_0, &event_count);
-+     printf("\tINFO: PRU completed transfer.\r\n");
-+-    prussdrv_pru_clear_event (PRU0_ARM_INTERRUPT);
-++    prussdrv_pru_clear_event (PRU0_ARM_INTERRUPT, PRU_EVTOUT_0);
-+ 
-+     /* Check if example passed */
-+     if ( LOCAL_examplePassed(PRU_NUM) )
++-$(TARGETHEADERS): $(HEADERS)
++-	@echo Installing headers...
++-	@install -d $(INCLUDEDIR)
++-	@install -c $< $@
++-
++ clean:
++ 	-rm -rf release debug *~ ../lib/*
 +-- 
 +1.8.3.2
 +
 diff --git a/package/am335x-pru-package/am335x-pru-package.mk b/package/am335x-pru-package/am335x-pru-package.mk
 new file mode 100644
-index 0000000..1b42e2a
+index 0000000..27e67d1
 --- /dev/null
 +++ b/package/am335x-pru-package/am335x-pru-package.mk
-@@ -0,0 +1,65 @@
+@@ -0,0 +1,40 @@
 +################################################################################
 +#
 +# am335x-pru-package
 +#
 +################################################################################
 +
-+AM335X_PRU_PACKAGE_VERSION = dbd22a045e48032fffaae72f88d27e8f84c1239b
++AM335X_PRU_PACKAGE_VERSION = f4528c582d740e0d07afcc8a524cae5841cdb3d2
 +AM335X_PRU_PACKAGE_SITE = $(call github,beagleboard,am335x_pru_package,$(AM335X_PRU_PACKAGE_VERSION))
 +AM335X_PRU_PACKAGE_LICENSE = BSD-3c
 +AM335X_PRU_PACKAGE_LICENSE_FILES = pru_sw/utils/LICENCE.txt
@@ -1706,42 +454,17 @@ index 0000000..1b42e2a
 +define AM335X_PRU_PACKAGE_BUILD_CMDS
 +	$(MAKE) CROSS_COMPILE="$(TARGET_CROSS)" \
 +		-C $(@D)/pru_sw/app_loader/interface all
-+	$(MAKE) CROSS_COMPILE="$(TARGET_CROSS)" \
-+		PASM=$(HOST_DIR)/usr/bin/pasm -C $(@D)/pru_sw/example_apps all
 +endef
 +
 +define AM335X_PRU_PACKAGE_INSTALL_STAGING_CMDS
-+	$(INSTALL) -m 0644 -D $(@D)/pru_sw/app_loader/lib/libprussdrv.a \
-+		$(STAGING_DIR)/usr/lib/libprussdrv.a
-+	$(INSTALL) -m 0644 -D $(@D)/pru_sw/app_loader/include/prussdrv.h \
-+		$(STAGING_DIR)/usr/include/prussdrv.h
-+	$(INSTALL) -m 0644 -D $(@D)/pru_sw/app_loader/include/pruss_intc_mapping.h \
-+		$(STAGING_DIR)/usr/include/pruss_intc_mapping.h
++	$(MAKE1) PREFIX="$(STAGING_DIR)/usr" \
++		-C $(@D)/pru_sw/app_loader/interface install
 +endef
 +
-+ifeq ($(BR2_PACKAGE_AM335X_PRU_PACKAGE_EXAMPLES),y)
 +define AM335X_PRU_PACKAGE_INSTALL_TARGET_CMDS
-+	# Binaries
-+	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_memAccess_DDR_PRUsharedRAM \
-+		 $(TARGET_DIR)/usr/bin/PRU_memAccess_DDR_PRUsharedRAM
-+	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_memAccessPRUDataRam \
-+		 $(TARGET_DIR)/usr/bin/PRU_memAccess_DDR_PRUDataRam
-+	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_PRUtoPRU_Interrupt \
-+		 $(TARGET_DIR)/usr/bin/PRU_PRUtoPRU_Interrupt
-+
-+	# Firmware
-+	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_memAccess_DDR_PRUsharedRAM.bin \
-+		 $(TARGET_DIR)/usr/bin/PRU_memAccess_DDR_PRUsharedRAM.bin
-+	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_memAccessPRUDataRam.bin \
-+		 $(TARGET_DIR)/usr/bin/PRU_memAccessPRUDataRam.bin
-+	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_PRU0toPRU1_Interrupt.bin \
-+		 $(TARGET_DIR)/usr/bin/PRU_PRU0toPRU1_Interrupt.bin
-+	$(INSTALL) -m 0755 -D $(@D)/pru_sw/example_apps/bin/PRU_PRU1toPRU0_Interrupt.bin \
-+		 $(TARGET_DIR)/usr/bin/PRU_PRU1toPRU0_Interrupt.bin
++	$(INSTALL) -m 0755 -D $(@D)/pru_sw/app_loader/lib/libprussdrv.so \
++		$(TARGET_DIR)/usr/lib
 +endef
-+else
-+AM335X_PRU_PACKAGE_INSTALL_TARGET = NO
-+endif
 +
 +define HOST_AM335X_PRU_PACKAGE_BUILD_CMDS
 +	cd $(@D)/pru_sw/utils/pasm_source && \

@@ -1,4 +1,4 @@
-From 2d4489bf02ce42b282ff5b2dbf1c3d963fd487af Mon Sep 17 00:00:00 2001
+From 09b2f58821590dd99a3e28ccff46afabb4302d98 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sat, 9 Nov 2013 20:29:35 -0500
 Subject: [PATCH 8/9] new package: mmccopy
@@ -16,7 +16,7 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/mmccopy/mmccopy.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 5026b2d..5b04f2b 100644
+index 3f4b6c2..fd93ae7 100644
 --- a/package/Config.in
 +++ b/package/Config.in
 @@ -145,6 +145,7 @@ source "package/genext2fs/Config.in"
@@ -24,11 +24,11 @@ index 5026b2d..5b04f2b 100644
  source "package/kobs-ng/Config.in"
  source "package/makedevs/Config.in"
 +source "package/mmccopy/Config.in"
+ source "package/mmc-utils/Config.in"
  source "package/mtd/Config.in"
  source "package/nfs-utils/Config.in"
- source "package/ntfs-3g/Config.in"
 diff --git a/package/Config.in.host b/package/Config.in.host
-index 096bbcf..d9570bb 100644
+index b1e0bbd..80549fb 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -11,6 +11,7 @@ source "package/genext2fs/Config.in.host"
@@ -36,9 +36,9 @@ index 096bbcf..d9570bb 100644
  source "package/genpart/Config.in.host"
  source "package/lpc3250loader/Config.in.host"
 +source "package/mmccopy/Config.in.host"
+ source "package/mtd/Config.in.host"
  source "package/mtools/Config.in.host"
  source "package/omap-u-boot-utils/Config.in.host"
- source "package/openocd/Config.in.host"
 diff --git a/package/mmccopy/Config.in b/package/mmccopy/Config.in
 new file mode 100644
 index 0000000..b610bad

@@ -1,4 +1,4 @@
-From 5a174311b40fcd7eb2aa810f84d9308da4c1b656 Mon Sep 17 00:00:00 2001
+From cb0124af8a995e49a55393c915d5ac826a7b8c64 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:55:17 -0400
 Subject: [PATCH 5/9] new package: erlang-fwtool
@@ -12,7 +12,7 @@ Subject: [PATCH 5/9] new package: erlang-fwtool
  create mode 100644 package/erlang-fwtool/erlang-fwtool.mk
 
 diff --git a/package/Config.in.host b/package/Config.in.host
-index 0a9fb0c..096bbcf 100644
+index 5b3ccb4..b1e0bbd 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -4,6 +4,7 @@ source "package/am335x-pru-package/Config.in.host"

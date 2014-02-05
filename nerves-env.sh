@@ -12,6 +12,7 @@ if [ "$0" != "bash" ]; then
     echo ERROR: This scripted should be sourced from bash:
     echo
     echo source $BASH_SOURCE
+    return 1
     exit 1
 fi
 
