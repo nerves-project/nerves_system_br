@@ -7,6 +7,8 @@ NERVES_BR_CONFIG ?= nerves_bbb_defconfig
 # to be redownloaded when working a lot with buildroot
 NERVES_BR_DL_DIR ?= ~/dl
 
+TOPDIR:=$(shell pwd)
+
 all: br-make
 
 .buildroot-downloaded:
@@ -38,6 +40,10 @@ reset-buildroot: .buildroot-downloaded
 
 update-patches: reset-buildroot .buildroot-patched
 
+%_defconfig: $(TOPDIR)/br-configs/%_defconfig .buildroot-patched
+	@cp br-configs/$@ buildroot/configs/nerves_defconfig
+	make -C buildroot nerves_defconfig
+
 buildroot/configs/nerves_defconfig: br-configs/$(NERVES_BR_CONFIG) .buildroot-patched
 	cp br-configs/$(NERVES_BR_CONFIG) buildroot/configs/nerves_defconfig
 	make -C buildroot nerves_defconfig
@@ -62,3 +68,22 @@ clean:
 
 realclean:
 	-rm -fr buildroot .buildroot-patched .buildroot-downloaded
+
+help:
+	@echo 'Nerves SDK Help'
+	@echo '---------------'
+	@echo
+	@echo 'Cleaning:'
+	@echo '  clean				- clean Buildroot directory and config'
+	@echo '  realclean			- Clean up everything'
+	@echo
+	@echo 'Build:'
+	@echo '  all				- build everything [default target]'
+	@echo
+	@echo 'Configuration:'
+	@echo '  menuconfig			- run buildroots menuconfig'
+	@echo '  linux-menuconfig		- run menuconfig on the Linux kernel'
+	@echo
+	@echo 'Built-in configs:'
+	@$(foreach b, $(sort $(notdir $(wildcard br-configs/*_defconfig))), \
+	  printf "  %-29s - Build for %s\\n" $(b) $(b:_defconfig=);)
