@@ -1,4 +1,4 @@
-From 04b96f1dccbae4de5ff15dd324f603462898a9df Mon Sep 17 00:00:00 2001
+From 5602387237f7887a98c6074b6917ce8c086ad9e0 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 8 Jan 2014 19:00:35 -0500
 Subject: [PATCH 9/9] new package: erlang-relsync
@@ -12,7 +12,7 @@ Subject: [PATCH 9/9] new package: erlang-relsync
  create mode 100644 package/erlang-relsync/erlang-relsync.mk
 
 diff --git a/package/Config.in.host b/package/Config.in.host
-index 80549fb..a256dbe 100644
+index a4ee7b9..aa6f6c0 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -6,6 +6,7 @@ source "package/dosfstools/Config.in.host"

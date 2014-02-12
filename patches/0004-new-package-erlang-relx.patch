@@ -1,4 +1,4 @@
-From a45504c874354f372dcc7ffff997989ab08db769 Mon Sep 17 00:00:00 2001
+From 23c4af652d93981b5915b8d28a1ffb5fb64959ea Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:54:19 -0400
 Subject: [PATCH 4/9] new package: erlang-relx
@@ -12,7 +12,7 @@ Subject: [PATCH 4/9] new package: erlang-relx
  create mode 100644 package/erlang-relx/erlang-relx.mk
 
 diff --git a/package/Config.in.host b/package/Config.in.host
-index a851bfe..5b3ccb4 100644
+index 80a795d..0f60aea 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -5,6 +5,7 @@ source "package/dfu-util/Config.in.host"

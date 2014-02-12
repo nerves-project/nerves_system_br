@@ -1,4 +1,4 @@
-From 09b2f58821590dd99a3e28ccff46afabb4302d98 Mon Sep 17 00:00:00 2001
+From 80efc27fc7f9e080699ca037e32e1c8619c79004 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sat, 9 Nov 2013 20:29:35 -0500
 Subject: [PATCH 8/9] new package: mmccopy
@@ -16,10 +16,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/mmccopy/mmccopy.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 3f4b6c2..fd93ae7 100644
+index 50f14a4..dba05e8 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -145,6 +145,7 @@ source "package/genext2fs/Config.in"
+@@ -142,6 +142,7 @@ source "package/genext2fs/Config.in"
  source "package/genromfs/Config.in"
  source "package/kobs-ng/Config.in"
  source "package/makedevs/Config.in"
@@ -28,7 +28,7 @@ index 3f4b6c2..fd93ae7 100644
  source "package/mtd/Config.in"
  source "package/nfs-utils/Config.in"
 diff --git a/package/Config.in.host b/package/Config.in.host
-index b1e0bbd..80549fb 100644
+index b498e92..a4ee7b9 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -11,6 +11,7 @@ source "package/genext2fs/Config.in.host"
@@ -67,7 +67,7 @@ index 0000000..b738411
 +	  https://github.com/fhunleth/mmccopy
 diff --git a/package/mmccopy/mmccopy.mk b/package/mmccopy/mmccopy.mk
 new file mode 100644
-index 0000000..d8e9629
+index 0000000..3461eaf
 --- /dev/null
 +++ b/package/mmccopy/mmccopy.mk
 @@ -0,0 +1,13 @@
@@ -77,7 +77,7 @@ index 0000000..d8e9629
 +#
 +#############################################################
 +
-+MMCCOPY_VERSION = d79b54b656ca3a8bd67b049a91761e7789335200
++MMCCOPY_VERSION = bc3fab8c3c3a58be0535b9782a399f7cd3b9081d
 +MMCCOPY_SITE = $(call github,fhunleth,mmccopy,$(MMCCOPY_VERSION))
 +MMCCOPY_LICENSE = MIT
 +MMCCOPY_LICENSE_FILES = COPYING

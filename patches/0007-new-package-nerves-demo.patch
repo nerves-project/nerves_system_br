@@ -1,4 +1,4 @@
-From 591443231ac939e2d53acdbff3bb0b52d70c6475 Mon Sep 17 00:00:00 2001
+From 5ff93567152107949c535111986aac3136076c61 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:59:36 -0400
 Subject: [PATCH 7/9] new package: nerves-demo
@@ -12,7 +12,7 @@ Subject: [PATCH 7/9] new package: nerves-demo
  create mode 100644 package/nerves-demo/nerves-demo.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 89e895b..3f4b6c2 100644
+index 18d18dc..50f14a4 100644
 --- a/package/Config.in
 +++ b/package/Config.in
 @@ -1,5 +1,7 @@

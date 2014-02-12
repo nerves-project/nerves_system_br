@@ -1,4 +1,4 @@
-From 175f2143cf4d3ba83481d34dc75efd71bd1a34b8 Mon Sep 17 00:00:00 2001
+From ba6c57f05a65530ad943caadbe4279192572ea48 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:56:21 -0400
 Subject: [PATCH 6/9] new package: erlinit
@@ -12,10 +12,10 @@ Subject: [PATCH 6/9] new package: erlinit
  create mode 100644 package/erlinit/erlinit.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 28dbd26..89e895b 100644
+index 71bd2d1..18d18dc 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -361,6 +361,7 @@ endmenu
+@@ -357,6 +357,7 @@ endmenu
  menu "Interpreter languages and scripting"
  source "package/enscript/Config.in"
  source "package/erlang/Config.in"

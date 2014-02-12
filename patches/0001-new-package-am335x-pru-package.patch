@@ -1,32 +1,24 @@
-From 0333ae00b0472888ef1f05dfae54007ff62c869c Mon Sep 17 00:00:00 2001
+From 85addf6b5eac106c1cb82262aeeffa6584e9eca9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:36:09 -0400
 Subject: [PATCH 1/9] new package: am335x-pru-package
 
 ---
- package/Config.in                                  |   1 +
- package/Config.in.host                             |   1 +
- package/am335x-pru-package/Config.in               |   7 +
- package/am335x-pru-package/Config.in.host          |   7 +
- ...rv-Remove-unnecessary-pthreads-dependency.patch | 154 +++++++++++++++++++++
- ...-prussdrv-add-prussdrv_exec_code-function.patch |  79 +++++++++++
- ...ader-Makefile-Add-d-param-to-install-call.patch |  36 +++++
- ...er-Makefile-clean-up-header-file-handling.patch |  68 +++++++++
- package/am335x-pru-package/am335x-pru-package.mk   |  40 ++++++
- 9 files changed, 393 insertions(+)
+ package/Config.in                                |  1 +
+ package/Config.in.host                           |  1 +
+ package/am335x-pru-package/Config.in             |  7 +++++
+ package/am335x-pru-package/Config.in.host        |  7 +++++
+ package/am335x-pru-package/am335x-pru-package.mk | 40 ++++++++++++++++++++++++
+ 5 files changed, 56 insertions(+)
  create mode 100644 package/am335x-pru-package/Config.in
  create mode 100644 package/am335x-pru-package/Config.in.host
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0001-prussdrv-Remove-unnecessary-pthreads-dependency.patch
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_exec_code-function.patch
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0003-app_loader-Makefile-Add-d-param-to-install-call.patch
- create mode 100644 package/am335x-pru-package/am335x-pru-package-0004-app_loader-Makefile-clean-up-header-file-handling.patch
  create mode 100644 package/am335x-pru-package/am335x-pru-package.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index ee2a68e..28dbd26 100644
+index fca61d6..71bd2d1 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -264,6 +264,7 @@ source "package/zd1211-firmware/Config.in"
+@@ -260,6 +260,7 @@ source "package/zd1211-firmware/Config.in"
  endmenu
  source "package/a10disp/Config.in"
  source "package/acpid/Config.in"
@@ -35,7 +27,7 @@ index ee2a68e..28dbd26 100644
  source "package/cdrkit/Config.in"
  source "package/cryptsetup/Config.in"
 diff --git a/package/Config.in.host b/package/Config.in.host
-index 599ab9e..8ffb0db 100644
+index ac6091f..a364f4e 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -1,5 +1,6 @@
@@ -71,370 +63,9 @@ index 0000000..3c07bda
 +	  AM335X PRU assembler
 +
 +	  https://github.com/beagleboard/am335x_pru_package
-diff --git a/package/am335x-pru-package/am335x-pru-package-0001-prussdrv-Remove-unnecessary-pthreads-dependency.patch b/package/am335x-pru-package/am335x-pru-package-0001-prussdrv-Remove-unnecessary-pthreads-dependency.patch
-new file mode 100644
-index 0000000..50c492e
---- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0001-prussdrv-Remove-unnecessary-pthreads-dependency.patch
-@@ -0,0 +1,154 @@
-+From 7a7d25102c4b26932d8727ed138ee0e21412d6c0 Mon Sep 17 00:00:00 2001
-+From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Sat, 18 Jan 2014 11:11:12 -0500
-+Subject: [PATCH 1/4] prussdrv: Remove unnecessary pthreads dependency
-+
-+This removes the helper function for creating a pthread and the rest of
-+the infrastructure around it. Now the library can be linked in
-+environments that don't have pthreads. Also, the pthread helper code is
-+easily replicated in a user application and probably makes more sense
-+there anyway so that the user is more aware of the threading.
-+
-+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
-+---
-+ pru_sw/app_loader/include/prussdrv.h               |  6 -----
-+ pru_sw/app_loader/interface/__prussdrv.h           |  1 -
-+ pru_sw/app_loader/interface/prussdrv.c             | 26 ----------------------
-+ .../example_apps/PRU_PRUtoPRU_Interrupt/Makefile   |  2 +-
-+ .../example_apps/PRU_memAccessPRUDataRam/Makefile  |  2 +-
-+ .../PRU_memAccess_DDR_PRUsharedRAM/Makefile        |  2 +-
-+ 6 files changed, 3 insertions(+), 36 deletions(-)
-+
-+diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
-+index c902b03..a9b62c0 100755
-+--- a/pru_sw/app_loader/include/prussdrv.h
-++++ b/pru_sw/app_loader/include/prussdrv.h
-+@@ -49,7 +49,6 @@
-+ #define _PRUSSDRV_H
-+ 
-+ #include <sys/types.h>
-+-#include <pthread.h>
-+ 
-+ #if defined (__cplusplus)
-+ extern "C" {
-+@@ -87,7 +86,6 @@ extern "C" {
-+ #define PRU_EVTOUT_6            6
-+ #define PRU_EVTOUT_7            7
-+ 
-+-    typedef void *(*prussdrv_function_handler) (void *);
-+     typedef struct __sysevt_to_channel_map {
-+         short sysevt;
-+         short channel;
-+@@ -192,10 +190,6 @@ extern "C" {
-+ 
-+     int prussdrv_exec_program(int prunum, const char *filename);
-+ 
-+-    int prussdrv_start_irqthread(unsigned int host_interrupt, int priority,
-+-                                 prussdrv_function_handler irqhandler);
-+-
-+-
-+ #if defined (__cplusplus)
-+ }
-+ #endif
-+diff --git a/pru_sw/app_loader/interface/__prussdrv.h b/pru_sw/app_loader/interface/__prussdrv.h
-+index 59c7ba9..e4e6969 100755
-+--- a/pru_sw/app_loader/interface/__prussdrv.h
-++++ b/pru_sw/app_loader/interface/__prussdrv.h
-+@@ -204,7 +204,6 @@ typedef struct __prussdrv {
-+     void *pru1_iram_base;
-+     void *l3ram_base;
-+     void *extram_base;
-+-    pthread_t irq_thread[NUM_PRU_HOSTIRQS];
-+     int mmap_fd;
-+     void *pruss_sharedram_base;
-+     void *pruss_cfg_base;
-+diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
-+index 5fef222..a9fdadf 100755
-+--- a/pru_sw/app_loader/interface/prussdrv.c
-++++ b/pru_sw/app_loader/interface/prussdrv.c
-+@@ -49,7 +49,6 @@
-+ 
-+ #include <prussdrv.h>
-+ #include "__prussdrv.h"
-+-#include <pthread.h>
-+ #include <stdio.h>
-+ 
-+ #ifdef __DEBUG
-+@@ -652,8 +651,6 @@ int prussdrv_exit()
-+     for (i = 0; i < NUM_PRU_HOSTIRQS; i++) {
-+         if (prussdrv.fd[i])
-+             close(prussdrv.fd[i]);
-+-        if (prussdrv.irq_thread[i])
-+-            pthread_join(prussdrv.irq_thread[i], NULL);
-+     }
-+     return 0;
-+ }
-+@@ -709,26 +706,3 @@ int prussdrv_exec_program(int prunum, const char *filename)
-+ 
-+     return 0;
-+ }
-+-
-+-int prussdrv_start_irqthread(unsigned int host_interrupt, int priority,
-+-                             prussdrv_function_handler irqhandler)
-+-{
-+-    pthread_attr_t pthread_attr;
-+-    struct sched_param sched_param;
-+-    pthread_attr_init(&pthread_attr);
-+-    if (priority != 0) {
-+-        pthread_attr_setinheritsched(&pthread_attr,
-+-                                     PTHREAD_EXPLICIT_SCHED);
-+-        pthread_attr_setschedpolicy(&pthread_attr, SCHED_FIFO);
-+-        sched_param.sched_priority = priority;
-+-        pthread_attr_setschedparam(&pthread_attr, &sched_param);
-+-    }
-+-
-+-    pthread_create(&prussdrv.irq_thread[host_interrupt], &pthread_attr,
-+-                   irqhandler, NULL);
-+-
-+-    pthread_attr_destroy(&pthread_attr);
-+-
-+-    return 0;
-+-
-+-}
-+diff --git a/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/Makefile b/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/Makefile
-+index bc4fddd..f5ffba6 100755
-+--- a/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/Makefile
-++++ b/pru_sw/example_apps/PRU_PRUtoPRU_Interrupt/Makefile
-+@@ -6,7 +6,7 @@ BINDIR?=../bin
-+ 
-+ #CFLAGS+= -Wall -I$(INCDIR_APP_LOADER) -D__DEBUG -O2 -mtune=arm926ej-s -march=armv5te
-+ CFLAGS+= -I$(INCDIR_APP_LOADER) -D__DEBUG -O2 -mtune=cortex-a8 -march=armv7-a
-+-LDFLAGS+=-L$(LIBDIR_APP_LOADER) -lprussdrv -lpthread
-++LDFLAGS+=-L$(LIBDIR_APP_LOADER) -lprussdrv
-+ OBJDIR=obj
-+ TARGET=$(BINDIR)/PRU_PRUtoPRU_Interrupt
-+ 
-+diff --git a/pru_sw/example_apps/PRU_memAccessPRUDataRam/Makefile b/pru_sw/example_apps/PRU_memAccessPRUDataRam/Makefile
-+index af39766..bf5f1bb 100755
-+--- a/pru_sw/example_apps/PRU_memAccessPRUDataRam/Makefile
-++++ b/pru_sw/example_apps/PRU_memAccessPRUDataRam/Makefile
-+@@ -5,7 +5,7 @@ INCDIR_APP_LOADER?=../../app_loader/include
-+ BINDIR?=../bin
-+ 
-+ CFLAGS+= -Wall -I$(INCDIR_APP_LOADER) -D__DEBUG -O2 -mtune=cortex-a8 -march=armv7-a
-+-LDFLAGS+=-L$(LIBDIR_APP_LOADER) -lprussdrv -lpthread
-++LDFLAGS+=-L$(LIBDIR_APP_LOADER) -lprussdrv
-+ OBJDIR=obj
-+ TARGET=$(BINDIR)/PRU_memAccessPRUDataRam
-+ 
-+diff --git a/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/Makefile b/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/Makefile
-+index b8c0747..b007277 100755
-+--- a/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/Makefile
-++++ b/pru_sw/example_apps/PRU_memAccess_DDR_PRUsharedRAM/Makefile
-+@@ -5,7 +5,7 @@ INCDIR_APP_LOADER?=../../app_loader/include
-+ BINDIR?=../bin
-+ 
-+ CFLAGS+= -Wall -I$(INCDIR_APP_LOADER) -D__DEBUG -O2 -mtune=cortex-a8 -march=armv7-a
-+-LDFLAGS+=-L$(LIBDIR_APP_LOADER) -lprussdrv -lpthread
-++LDFLAGS+=-L$(LIBDIR_APP_LOADER) -lprussdrv
-+ OBJDIR=obj
-+ TARGET=$(BINDIR)/PRU_memAccess_DDR_PRUsharedRAM
-+ 
-+-- 
-+1.8.3.2
-+
-diff --git a/package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_exec_code-function.patch b/package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_exec_code-function.patch
-new file mode 100644
-index 0000000..2cb1e79
---- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0002-prussdrv-add-prussdrv_exec_code-function.patch
-@@ -0,0 +1,79 @@
-+From f790e1c84fae53c7b147a7f1f474353e23f5b45f Mon Sep 17 00:00:00 2001
-+From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Wed, 5 Feb 2014 11:10:07 -0500
-+Subject: [PATCH 2/4] prussdrv: add prussdrv_exec_code function
-+
-+This adds a helper function for loading PRU code from memory. This is
-+handy when building the PRU code into the application executable with
-+a header file generated by "pasm -c".
-+
-+This is based on similar functions found in various am335x_pru_package
-+forks.
-+
-+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
-+---
-+ pru_sw/app_loader/include/prussdrv.h   |  2 ++
-+ pru_sw/app_loader/interface/prussdrv.c | 25 +++++++++++++++----------
-+ 2 files changed, 17 insertions(+), 10 deletions(-)
-+
-+diff --git a/pru_sw/app_loader/include/prussdrv.h b/pru_sw/app_loader/include/prussdrv.h
-+index a9b62c0..fe7b63c 100755
-+--- a/pru_sw/app_loader/include/prussdrv.h
-++++ b/pru_sw/app_loader/include/prussdrv.h
-+@@ -190,6 +190,8 @@ extern "C" {
-+ 
-+     int prussdrv_exec_program(int prunum, const char *filename);
-+ 
-++    int prussdrv_exec_code(int prunum, const unsigned int *code, int codelen);
-++
-+ #if defined (__cplusplus)
-+ }
-+ #endif
-+diff --git a/pru_sw/app_loader/interface/prussdrv.c b/pru_sw/app_loader/interface/prussdrv.c
-+index a9fdadf..761150c 100755
-+--- a/pru_sw/app_loader/interface/prussdrv.c
-++++ b/pru_sw/app_loader/interface/prussdrv.c
-+@@ -660,14 +660,6 @@ int prussdrv_exec_program(int prunum, const char *filename)
-+     FILE *fPtr;
-+     unsigned char fileDataArray[PRUSS_MAX_IRAM_SIZE];
-+     int fileSize = 0;
-+-    unsigned int pru_ram_id;
-+-
-+-    if (prunum == 0)
-+-        pru_ram_id = PRUSS0_PRU0_IRAM;
-+-    else if (prunum == 1)
-+-        pru_ram_id = PRUSS0_PRU1_IRAM;
-+-    else
-+-        return -1;
-+ 
-+     // Open an File from the hard drive
-+     fPtr = fopen(filename, "rb");
-+@@ -698,10 +690,23 @@ int prussdrv_exec_program(int prunum, const char *filename)
-+ 
-+     fclose(fPtr);
-+ 
-++    return prussdrv_exec_code(prunum, (const unsigned int *) fileDataArray, fileSize);
-++}
-++
-++int prussdrv_exec_code(int prunum, const unsigned int *code, int codelen)
-++{
-++    unsigned int pru_ram_id;
-++
-++    if (prunum == 0)
-++        pru_ram_id = PRUSS0_PRU0_IRAM;
-++    else if (prunum == 1)
-++        pru_ram_id = PRUSS0_PRU1_IRAM;
-++    else
-++        return -1;
-++
-+     // Make sure PRU sub system is first disabled/reset
-+     prussdrv_pru_disable(prunum);
-+-    prussdrv_pru_write_memory(pru_ram_id, 0,
-+-                              (unsigned int *) fileDataArray, fileSize);
-++    prussdrv_pru_write_memory(pru_ram_id, 0, code, codelen);
-+     prussdrv_pru_enable(prunum);
-+ 
-+     return 0;
-+-- 
-+1.8.3.2
-+
-diff --git a/package/am335x-pru-package/am335x-pru-package-0003-app_loader-Makefile-Add-d-param-to-install-call.patch b/package/am335x-pru-package/am335x-pru-package-0003-app_loader-Makefile-Add-d-param-to-install-call.patch
-new file mode 100644
-index 0000000..2c88af0
---- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0003-app_loader-Makefile-Add-d-param-to-install-call.patch
-@@ -0,0 +1,36 @@
-+From 7e14791f5a91d67a4d0496f01fa528c6153168bc Mon Sep 17 00:00:00 2001
-+From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Wed, 5 Feb 2014 14:17:57 -0500
-+Subject: [PATCH 3/4] app_loader Makefile: Add -d param to install call
-+
-+This fixes the calls to make sure that the $(PREFIX)/lib and include
-+directories exist.
-+
-+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
-+---
-+ pru_sw/app_loader/interface/Makefile | 5 ++---
-+ 1 file changed, 2 insertions(+), 3 deletions(-)
-+
-+diff --git a/pru_sw/app_loader/interface/Makefile b/pru_sw/app_loader/interface/Makefile
-+index bdecf09..a6d1283 100755
-+--- a/pru_sw/app_loader/interface/Makefile
-++++ b/pru_sw/app_loader/interface/Makefile
-+@@ -39,8 +39,8 @@ PIC_RELOBJFILES = $(SOURCES:%.c=release/%_PIC.o)
-+ all:	debug release sodebug sorelease
-+ 
-+ install: release
-+-	install -m 0755 $(PREFIX)/lib
-+-	install -m 0755 $(PREFIX)/include
-++	install -m 0755 -d $(PREFIX)/lib
-++	install -m 0755 -d $(PREFIX)/include
-+ 	install -m 0644 $(LIBDIR)/* $(PREFIX)/lib
-+ 	install -m 0644 $(INSTALL_HDRS) $(PREFIX)/include
-+ 
-+@@ -96,4 +96,3 @@ $(TARGETHEADERS): $(HEADERS)
-+ 
-+ clean:
-+ 	-rm -rf release debug *~ ../lib/*
-+-
-+-- 
-+1.8.3.2
-+
-diff --git a/package/am335x-pru-package/am335x-pru-package-0004-app_loader-Makefile-clean-up-header-file-handling.patch b/package/am335x-pru-package/am335x-pru-package-0004-app_loader-Makefile-clean-up-header-file-handling.patch
-new file mode 100644
-index 0000000..42bd01c
---- /dev/null
-+++ b/package/am335x-pru-package/am335x-pru-package-0004-app_loader-Makefile-clean-up-header-file-handling.patch
-@@ -0,0 +1,68 @@
-+From f4d0127829669b8fc44657a935819f51b2e19dac Mon Sep 17 00:00:00 2001
-+From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Wed, 5 Feb 2014 14:24:16 -0500
-+Subject: [PATCH 4/4] app_loader Makefile: clean up header file handling
-+
-+Removed Makefile targets that would never be called and added the public
-+header files to the dependency list so that changes to them would
-+trigger .c file recompilation.
-+
-+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
-+---
-+ pru_sw/app_loader/interface/Makefile | 18 ++++--------------
-+ 1 file changed, 4 insertions(+), 14 deletions(-)
-+
-+diff --git a/pru_sw/app_loader/interface/Makefile b/pru_sw/app_loader/interface/Makefile
-+index a6d1283..dcf4d98 100755
-+--- a/pru_sw/app_loader/interface/Makefile
-++++ b/pru_sw/app_loader/interface/Makefile
-+@@ -24,10 +24,10 @@ DBGCFLAGS = -g -O0 -D__DEBUG
-+ RELCFLAGS = -O3 -mtune=cortex-a8 -march=armv7-a
-+ 
-+ SOURCES = $(wildcard *.c)
-+-HEADERS = $(wildcard *.h)
-+ 
-+-TARGETHEADERS = $(addprefix $(INCLUDEDIR)/, $(HEADERS))
-+-INSTALL_HDRS = $(wildcard $(INCLUDEDIR)/*.h)
-++PUBLIC_HDRS = $(wildcard $(INCLUDEDIR)/*.h)
-++PRIVATE_HDRS = $(wildcard *.h)
-++HEADERS = $(PUBLIC_HDRS) $(PRIVATE_HDRS)
-+ 
-+ DBGOBJFILES = $(SOURCES:%.c=debug/%.o)
-+ RELOBJFILES = $(SOURCES:%.c=release/%.o)
-+@@ -42,20 +42,15 @@ install: release
-+ 	install -m 0755 -d $(PREFIX)/lib
-+ 	install -m 0755 -d $(PREFIX)/include
-+ 	install -m 0644 $(LIBDIR)/* $(PREFIX)/lib
-+-	install -m 0644 $(INSTALL_HDRS) $(PREFIX)/include
-++	install -m 0644 $(PUBLIC_HDRS) $(PREFIX)/include
-+ 
-+ release:	$(RELTARGET)
-+-#release:	$(RELTARGET) $(TARGETHEADERS)
-+ 
-+ sorelease:	$(SORELTARGET)
-+-#sorelease:	$(SORELTARGET) $(TARGETHEADERS)
-+ 
-+ sodebug:	$(SODBGTARGET)
-+-#sodebug:	$(SODBGTARGET) $(TARGETHEADERS)
-+ 
-+ debug:		$(DBGTARGET)
-+-#debug:		$(DBGTARGET) $(TARGETHEADERS)
-+-
-+ 
-+ $(RELTARGET):	$(RELOBJFILES)
-+ 	@mkdir -p $(ROOTDIR)/lib
-+@@ -89,10 +84,5 @@ $(PIC_DBGOBJFILES):	debug/%_PIC.o: %.c $(HEADERS)
-+ 	@mkdir -p debug
-+ 	$(COMPILE.c) -fPIC $(DBGCFLAGS) -o $@ $<
-+ 
-+-$(TARGETHEADERS): $(HEADERS)
-+-	@echo Installing headers...
-+-	@install -d $(INCLUDEDIR)
-+-	@install -c $< $@
-+-
-+ clean:
-+ 	-rm -rf release debug *~ ../lib/*
-+-- 
-+1.8.3.2
-+
 diff --git a/package/am335x-pru-package/am335x-pru-package.mk b/package/am335x-pru-package/am335x-pru-package.mk
 new file mode 100644
-index 0000000..27e67d1
+index 0000000..f2423c9
 --- /dev/null
 +++ b/package/am335x-pru-package/am335x-pru-package.mk
 @@ -0,0 +1,40 @@
@@ -444,7 +75,7 @@ index 0000000..27e67d1
 +#
 +################################################################################
 +
-+AM335X_PRU_PACKAGE_VERSION = f4528c582d740e0d07afcc8a524cae5841cdb3d2
++AM335X_PRU_PACKAGE_VERSION = e226f3c8a738a337a2a0363c116707cc0aa3e9ba
 +AM335X_PRU_PACKAGE_SITE = $(call github,beagleboard,am335x_pru_package,$(AM335X_PRU_PACKAGE_VERSION))
 +AM335X_PRU_PACKAGE_LICENSE = BSD-3c
 +AM335X_PRU_PACKAGE_LICENSE_FILES = pru_sw/utils/LICENCE.txt

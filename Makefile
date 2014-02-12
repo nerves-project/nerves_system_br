@@ -1,5 +1,5 @@
 
-NERVES_BR_VERSION = acb457e7505d7c2a2c870b331604ba80d26518fc
+NERVES_BR_VERSION = b5f44c2ed0ec3e3abaa62d8539cb5211ec32e9eb
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 NERVES_BR_CONFIG ?= nerves_bbb_defconfig
 

@@ -1,4 +1,4 @@
-From cb0124af8a995e49a55393c915d5ac826a7b8c64 Mon Sep 17 00:00:00 2001
+From 6b657725d414aa6c2b1f0dd5e774c7fc591fb4a4 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:55:17 -0400
 Subject: [PATCH 5/9] new package: erlang-fwtool
@@ -12,7 +12,7 @@ Subject: [PATCH 5/9] new package: erlang-fwtool
  create mode 100644 package/erlang-fwtool/erlang-fwtool.mk
 
 diff --git a/package/Config.in.host b/package/Config.in.host
-index 5b3ccb4..b1e0bbd 100644
+index 0f60aea..b498e92 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -4,6 +4,7 @@ source "package/am335x-pru-package/Config.in.host"
@@ -40,7 +40,7 @@ index 0000000..40f5413
 +	  http://github.com/nerves-project/fwtool
 diff --git a/package/erlang-fwtool/erlang-fwtool.mk b/package/erlang-fwtool/erlang-fwtool.mk
 new file mode 100644
-index 0000000..674dea3
+index 0000000..b810d57
 --- /dev/null
 +++ b/package/erlang-fwtool/erlang-fwtool.mk
 @@ -0,0 +1,26 @@
@@ -50,7 +50,7 @@ index 0000000..674dea3
 +#
 +#############################################################
 +
-+ERLANG_FWTOOL_VERSION = c37a19813e0c7e031f6c66c5a86ebf3254124253
++ERLANG_FWTOOL_VERSION = 121dba6b763566af5ac4eaf8d873439c2c3d4ef2
 +ERLANG_FWTOOL_SITE = $(call github,nerves-project,fwtool,$(ERLANG_FWTOOL_VERSION))
 +ERLANG_FWTOOL_LICENSE = MIT
 +ERLANG_FWTOOL_LICENSE_FILE = LICENSE.md
