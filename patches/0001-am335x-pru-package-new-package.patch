@@ -1,8 +1,12 @@
-From 85addf6b5eac106c1cb82262aeeffa6584e9eca9 Mon Sep 17 00:00:00 2001
+From f28e3ccdca7751543a92da9c159512494fe168d3 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:36:09 -0400
-Subject: [PATCH 1/9] new package: am335x-pru-package
+Subject: [PATCH 01/10] am335x-pru-package: new package
 
+am335x-pru-package provides an assembler and program loader for Texas
+Instrument's AM335x programmable real-time units.
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
  package/Config.in                                |  1 +
  package/Config.in.host                           |  1 +
@@ -39,7 +43,7 @@ index ac6091f..a364f4e 100644
  source "package/e2fsprogs/Config.in.host"
 diff --git a/package/am335x-pru-package/Config.in b/package/am335x-pru-package/Config.in
 new file mode 100644
-index 0000000..6dfca9e
+index 0000000..66d7773
 --- /dev/null
 +++ b/package/am335x-pru-package/Config.in
 @@ -0,0 +1,7 @@
@@ -47,12 +51,12 @@ index 0000000..6dfca9e
 +	bool "am335x-pru-package"
 +	depends on BR2_arm # only relevant for TI am335x
 +	help
-+	  AM335X loader, and example applications
++	  TI AM335X PRU program loader
 +
 +	  https://github.com/beagleboard/am335x_pru_package
 diff --git a/package/am335x-pru-package/Config.in.host b/package/am335x-pru-package/Config.in.host
 new file mode 100644
-index 0000000..3c07bda
+index 0000000..283128e
 --- /dev/null
 +++ b/package/am335x-pru-package/Config.in.host
 @@ -0,0 +1,7 @@
@@ -60,12 +64,12 @@ index 0000000..3c07bda
 +	bool "host am335x-pru-package"
 +	depends on BR2_arm # only relevant for TI am335x
 +	help
-+	  AM335X PRU assembler
++	  TI AM335X PRU assembler (pasm)
 +
 +	  https://github.com/beagleboard/am335x_pru_package
 diff --git a/package/am335x-pru-package/am335x-pru-package.mk b/package/am335x-pru-package/am335x-pru-package.mk
 new file mode 100644
-index 0000000..f2423c9
+index 0000000..f70e679
 --- /dev/null
 +++ b/package/am335x-pru-package/am335x-pru-package.mk
 @@ -0,0 +1,40 @@
@@ -75,7 +79,7 @@ index 0000000..f2423c9
 +#
 +################################################################################
 +
-+AM335X_PRU_PACKAGE_VERSION = e226f3c8a738a337a2a0363c116707cc0aa3e9ba
++AM335X_PRU_PACKAGE_VERSION = f46d8cb564f492740ccd33a03e8368ee4ecc83ae
 +AM335X_PRU_PACKAGE_SITE = $(call github,beagleboard,am335x_pru_package,$(AM335X_PRU_PACKAGE_VERSION))
 +AM335X_PRU_PACKAGE_LICENSE = BSD-3c
 +AM335X_PRU_PACKAGE_LICENSE_FILES = pru_sw/utils/LICENCE.txt
@@ -99,7 +103,7 @@ index 0000000..f2423c9
 +
 +define HOST_AM335X_PRU_PACKAGE_BUILD_CMDS
 +	cd $(@D)/pru_sw/utils/pasm_source && \
-+		$(HOSTCC) -D_UNIX_ pasm.c pasmpp.c pasmexp.c pasmop.c \
++		$(HOSTCC) -Wall -D_UNIX_ pasm.c pasmpp.c pasmexp.c pasmop.c \
 +			pasmdot.c pasmstruct.c pasmmacro.c -o ../pasm
 +endef
 +

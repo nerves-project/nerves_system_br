@@ -1,7 +1,7 @@
-From 5ff93567152107949c535111986aac3136076c61 Mon Sep 17 00:00:00 2001
+From 415df51a2d009c0f1ad11b5c4f20e56e226af190 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:59:36 -0400
-Subject: [PATCH 7/9] new package: nerves-demo
+Subject: [PATCH 07/10] nerves-demo: new package
 
 ---
  package/Config.in                  |  2 ++

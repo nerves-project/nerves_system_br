@@ -1,5 +1,5 @@
 
-NERVES_BR_VERSION = b5f44c2ed0ec3e3abaa62d8539cb5211ec32e9eb
+NERVES_BR_VERSION = 2f78767bb84a5c536a7fc3129b9460acada7426e
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 NERVES_BR_CONFIG ?= nerves_bbb_defconfig
 
@@ -66,6 +66,7 @@ clean:
 	make -C buildroot clean
 	-rm -fr buildroot/configs/nerves_defconfig
 
+distclean: realclean
 realclean:
 	-rm -fr buildroot .buildroot-patched .buildroot-downloaded
 

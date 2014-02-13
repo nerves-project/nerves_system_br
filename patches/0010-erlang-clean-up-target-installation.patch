@@ -1,0 +1,68 @@
+From 42b8a3fab7a9dd2bb5306f415f1bbaf40bb3d47e Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 12 Feb 2014 23:20:28 -0500
+Subject: [PATCH 10/10] erlang: clean up target installation
+
+This patch removes source code, documentation, examples, static
+libraries, and other unnecessary files from being installed on
+the target.
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ package/erlang/erlang.mk | 31 +++++++++++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
+
+diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
+index a873d9d..03c5c5a 100644
+--- a/package/erlang/erlang.mk
++++ b/package/erlang/erlang.mk
+@@ -55,17 +55,44 @@ ERLANG_REMOVE_PACKAGES += megaco
+ endif
+ 
+ define ERLANG_REMOVE_STAGING_UNUSED
++	# Remove intermediate build products that can get copied Erlang
++	# release tools.
++	find $(STAGING_DIR)/usr/lib/erlang -type d -name obj -prune -exec rm -rf {} \;
++
++	# Remove unwanted packages from being found by the Erlang compiler
+ 	for package in $(ERLANG_REMOVE_PACKAGES); do \
+ 		rm -rf $(STAGING_DIR)/usr/lib/erlang/lib/$${package}-*; \
+ 	done
+ endef
+ 
+ define ERLANG_REMOVE_TARGET_UNUSED
+-	find $(TARGET_DIR)/usr/lib/erlang -type d -name src -prune -exec rm -rf {} \;
+-	find $(TARGET_DIR)/usr/lib/erlang -type d -name examples -prune -exec rm -rf {} \;
++	# Remove top level installation files
++	rm -rf $(TARGET_DIR)/usr/lib/erlang/misc
++	rm -f $(TARGET_DIR)/usr/lib/erlang/Install
++
++	# Remove intermediate build products
++	find $(TARGET_DIR)/usr/lib/erlang -type d -name obj -prune -exec rm -rf {} \;
++	find $(TARGET_DIR)/usr/lib/erlang -name "*.a" -delete
++
++	# Remove source and documentation
++	find $(TARGET_DIR)/usr/lib/erlang -name "*.h" -delete
++	find $(TARGET_DIR)/usr/lib/erlang -name "*.idl" -delete
++	find $(TARGET_DIR)/usr/lib/erlang -name "*.mk" -delete
++	find $(TARGET_DIR)/usr/lib/erlang -name "*.erl" -delete
++	find $(TARGET_DIR)/usr/lib/erlang -name "README" -delete
++	for dir in $(TARGET_DIR)/usr/lib/erlang/erts-* \
++		   $(TARGET_DIR)/usr/lib/erlang/lib/*; do \
++		rm -rf $${dir}/src $${dir}/c_src $${dir}/doc \
++		       $${dir}/man $${dir}/examples $${dir}/emacs; \
++	done
++
++	# Remove unwanted packages
+ 	for package in $(ERLANG_REMOVE_PACKAGES); do \
+ 		rm -rf $(TARGET_DIR)/usr/lib/erlang/lib/$${package}-*; \
+ 	done
++
++	# Remove all folders that are now empty
++	find $(TARGET_DIR)/usr/lib/erlang -type d -empty -delete
+ endef
+ 
+ ERLANG_POST_INSTALL_STAGING_HOOKS += ERLANG_REMOVE_STAGING_UNUSED
+-- 
+1.8.3.2
+

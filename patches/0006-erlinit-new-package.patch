@@ -1,7 +1,7 @@
-From ba6c57f05a65530ad943caadbe4279192572ea48 Mon Sep 17 00:00:00 2001
+From 4df1eba0a8e2f17b70f4cf1ade35e0e80fec3402 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:56:21 -0400
-Subject: [PATCH 6/9] new package: erlinit
+Subject: [PATCH 06/10] erlinit: new package
 
 ---
  package/Config.in          |  1 +

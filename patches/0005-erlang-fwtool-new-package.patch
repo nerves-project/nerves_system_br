@@ -1,7 +1,7 @@
-From 6b657725d414aa6c2b1f0dd5e774c7fc591fb4a4 Mon Sep 17 00:00:00 2001
+From ee7371401970087842cd4c07ff6f5d86b3dca4d7 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:55:17 -0400
-Subject: [PATCH 5/9] new package: erlang-fwtool
+Subject: [PATCH 05/10] erlang-fwtool: new package
 
 ---
  package/Config.in.host                 |  1 +
