@@ -41,14 +41,18 @@ rm -fr $TMPDIR/srv/erlang/bin $TMPDIR/srv/erlang/erts-*
 # since the image will now reference what's in /srv/erlang
 rm -fr $TMPDIR/usr/lib/erlang/lib
 
+# Delete empty directories
+find $TMPDIR/usr/lib/erlang -type d -empty -delete
+find $TMPDIR/srv/erlang -type d -empty -delete
+
 # Strip debug information from executables and libraries
 # Symbols are still available to the user in the release directory.
 find $TMPDIR/srv/erlang -type f -perm /111 | xargs $STRIP
 
 # Create sshd public keys
-mkdir -p $TMPDIR/etc/ssh
-ssh-keygen -P "" -q -t dsa -f $TMPDIR/etc/ssh/ssh_host_dsa_key
-ssh-keygen -P "" -q -t rsa -f $TMPDIR/etc/ssh/ssh_host_rsa_key
+#mkdir -p $TMPDIR/etc/ssh
+#ssh-keygen -P "" -q -t dsa -f $TMPDIR/etc/ssh/ssh_host_dsa_key
+#ssh-keygen -P "" -q -t rsa -f $TMPDIR/etc/ssh/ssh_host_rsa_key
 
 # calculate needed inodes
 INODES=$(find $TMPDIR | wc -l)
