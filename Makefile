@@ -7,7 +7,8 @@ NERVES_BR_CONFIG ?= nerves_bbb_defconfig
 # to be redownloaded when working a lot with buildroot
 NERVES_BR_DL_DIR ?= ~/dl
 
-TOPDIR:=$(shell pwd)
+TOPDIR := $(shell pwd)
+MAKE_BR = make -C buildroot BR2_EXTERNAL=$(TOPDIR)
 
 all: br-make
 
@@ -40,31 +41,28 @@ reset-buildroot: .buildroot-downloaded
 
 update-patches: reset-buildroot .buildroot-patched
 
-%_defconfig: $(TOPDIR)/br-configs/%_defconfig .buildroot-patched
-	@cp br-configs/$@ buildroot/configs/nerves_defconfig
-	make -C buildroot nerves_defconfig
+%_defconfig: $(TOPDIR)/configs/%_defconfig .buildroot-patched
+	$(MAKE_BR) $@
 
-buildroot/configs/nerves_defconfig: br-configs/$(NERVES_BR_CONFIG) .buildroot-patched
-	cp br-configs/$(NERVES_BR_CONFIG) buildroot/configs/nerves_defconfig
-	make -C buildroot nerves_defconfig
+buildroot/.config: .buildroot-patched
+	$(MAKE_BR) $(NERVES_BR_CONFIG)
 
-br-make: buildroot/configs/nerves_defconfig
-	make -C buildroot
+br-make: buildroot/.config
+	$(MAKE_BR) 
 	@echo SDK is ready to use. Demo image is in buildroot/output/images.
 
-menuconfig: buildroot/configs/nerves_defconfig
-	make -C buildroot menuconfig
-	make -C buildroot savedefconfig
-	@echo !!! Remember to copy buildroot/defconfig to br-configs to save the new settings.
+menuconfig: buildroot/.config
+	$(MAKE_BR) menuconfig
+	$(MAKE_BR) savedefconfig
+	@echo !!! Remember to copy buildroot/defconfig to the configs directory to save the new settings.
 
-linux-menuconfig: buildroot/configs/nerves_defconfig
-	make -C buildroot linux-menuconfig
-	make -C buildroot linux-savedefconfig
+linux-menuconfig: buildroot/.config
+	$(MAKE_BR) linux-menuconfig
+	$(MAKE_BR) linux-savedefconfig
 	@echo !!! Remember to copy buildroot/output/build/linux-x.y.z/defconfig to boards/.../linux-x.y.config
 
 clean:
-	make -C buildroot clean
-	-rm -fr buildroot/configs/nerves_defconfig
+	$(MAKE_BR) clean
 
 distclean: realclean
 realclean:
@@ -85,6 +83,8 @@ help:
 	@echo '  menuconfig			- run buildroots menuconfig'
 	@echo '  linux-menuconfig		- run menuconfig on the Linux kernel'
 	@echo
-	@echo 'Built-in configs:'
-	@$(foreach b, $(sort $(notdir $(wildcard br-configs/*_defconfig))), \
+	@echo 'Nerves built-in configs:'
+	@$(foreach b, $(sort $(notdir $(wildcard configs/*_defconfig))), \
 	  printf "  %-29s - Build for %s\\n" $(b) $(b:_defconfig=);)
+	@echo
+	@echo 'Nerves default configuration: $(NERVES_BR_CONFIG)'

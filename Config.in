@@ -1,0 +1,8 @@
+source "$BR2_EXTERNAL/package/erlinit/Config.in"
+source "$BR2_EXTERNAL/package/mmccopy/Config.in"
+source "$BR2_EXTERNAL/package/nerves-demo/Config.in"
+source "$BR2_EXTERNAL/package/erlang-relx/Config.in.host"
+source "$BR2_EXTERNAL/package/mmccopy/Config.in.host"
+source "$BR2_EXTERNAL/package/erlang-relsync/Config.in.host"
+source "$BR2_EXTERNAL/package/erlang-fwtool/Config.in.host"
+source "$BR2_EXTERNAL/package/erlang-rebar/Config.in.host"

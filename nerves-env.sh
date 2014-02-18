@@ -22,7 +22,7 @@ NERVES_SDK_IMAGES=$NERVES_ROOT/buildroot/output/images
 NERVES_SDK_SYSROOT=$NERVES_ROOT/buildroot/output/staging
 
 # Check that the base buildroot image has been built
-[ -d "$NERVES_ROOT/buildroot/output" ] || { echo "ERROR: Run \"make br-make\" first to build the nerves SDK."; return 1; }
+[ -d "$NERVES_ROOT/buildroot/output" ] || { echo "ERROR: Run \"make\" first to build the nerves SDK."; return 1; }
 
 # Past the checks, so export variables
 export NERVES_ROOT

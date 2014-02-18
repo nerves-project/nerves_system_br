@@ -1,0 +1,7 @@
+config BR2_PACKAGE_MMCCOPY
+	bool "mmccopy"
+	help
+	  The mmccopy utility is an easier-to-use alternative to dd for
+	  writing images to SDCards and MMC memory.
+	  
+	  https://github.com/fhunleth/mmccopy

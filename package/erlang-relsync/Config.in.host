@@ -1,0 +1,9 @@
+config BR2_PACKAGE_HOST_ERLANG_RELSYNC
+	bool "host erlang-relsync"
+	depends on BR2_PACKAGE_ERLANG
+	select BR2_PACKAGE_HOST_ERLANG_REBAR
+	help
+	  Synchronize Erlang/OTP releases on remote nodes
+	  using distributed Erlang.
+
+	  http://github.com/fhunleth/relsync
