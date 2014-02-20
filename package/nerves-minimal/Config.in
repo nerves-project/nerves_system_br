@@ -1,0 +1,8 @@
+config BR2_PACKAGE_NERVES_MINIMAL
+	bool "nerves-minimal"
+	depends on BR2_PACKAGE_ERLANG
+	select BR2_PACKAGE_HOST_ERLANG_RELX
+	help
+	  Nerves minimal application
+
+	  https://github.com/nerves-project/nerves-minimal
