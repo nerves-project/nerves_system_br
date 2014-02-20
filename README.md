@@ -7,7 +7,7 @@ work. It just provides a configuration and a few helper scripts and
 patches to customize Buildroot for Erlang/OTP embedded projects.
 
 Currently, the BeagleBone Black is the only supported platform. This
-can be changed by adding new configurations to the br-configs and
+can be changed by adding new configurations to the `configs` directory and
 referencing them from the Makefile.
 
 ## First time build
@@ -59,7 +59,7 @@ the nerves-sdk directory:
 You'll probably be interested in the "Package Selection for the target"
 menu option. After you're done, run `make` to rebuild the SDK. If you
 want to save your set of options permanently, you'll need to copy
-`buildroot/defconfig` to the `br-configs` directory.
+`buildroot/defconfig` to the `configs` directory.
 
 Be aware that Buildroot caches the root filesystem between builds
 and that when you unselect a configuration option, it will not
