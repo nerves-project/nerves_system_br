@@ -1,0 +1,8 @@
+config BR2_PACKAGE_HOST_ELIXIR
+	bool "host elixir"
+	select BR2_PACKAGE_ERLANG
+	help
+	  Elixir is a functional, meta-programming aware language built on top of
+	  the Erlang VM.
+
+	  http://elixir-lang.org
