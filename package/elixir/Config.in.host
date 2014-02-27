@@ -1,5 +1,5 @@
-config BR2_PACKAGE_HOST_ERLANG_ELIXIR
-	bool "host erlang-elixir"
+config BR2_PACKAGE_HOST_ELIXIR
+	bool "host elixir"
 	depends on BR2_PACKAGE_ERLANG
 	help
 	  Elixir programming environemnt
