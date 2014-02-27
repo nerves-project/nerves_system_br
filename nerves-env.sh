@@ -8,7 +8,7 @@ if [ "$SHELL" != "/bin/bash" ]; then
     exit 1
 fi
 
-if [ "$0" != "bash" ]; then
+if [ "$0" != "bash" -a "$0" != "-bash" ]; then
     echo ERROR: This scripted should be sourced from bash:
     echo
     echo source $BASH_SOURCE
