@@ -37,7 +37,14 @@ rm -f $TARGETDIR/usr/bin/erl $TARGETDIR/usr/bin/epmd
 # Remove sys v init configs since we don't use them
 # NOTE: Can't remove inittab without causing a buildroot error when
 # it configures whether to mount to root file system read/write
-rm -fr $TARGETDIR/etc/init.d $TARGETDIR/etc/random-seed $TARGET_DIR/etc/network
+rm -fr $TARGETDIR/etc/init.d $TARGETDIR/etc/random-seed $TARGET_DIR/etc/network \
+    $TARGETDIR/etc/protocols $TARGETDIR/etc/services
+
+# Prune empty directories
+find $TARGETDIR/etc -type d -empty -delete
+find $TARGETDIR/usr -type d -empty -delete
+find $TARGETDIR/var -type d -empty -delete
+rm -fr $TARGETDIR/home
 
 # Misc. cleanup of target
 rm -fr $TARGETDIR/usr/share/bash-completion
