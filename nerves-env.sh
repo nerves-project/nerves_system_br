@@ -67,6 +67,7 @@ ldlibrarypathadd() {
 }
 
 pathadd $NERVES_SDK_ROOT/usr/bin
+pathadd $NERVES_SDK_ROOT/usr/sbin
 pathadd $NERVES_SDK_ROOT/bin
 ldlibrarypathadd $NERVES_SDK_ROOT/usr/lib
 

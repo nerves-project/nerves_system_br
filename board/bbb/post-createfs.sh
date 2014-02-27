@@ -17,7 +17,7 @@ FWTOOL=$NERVES_SDK_ROOT/usr/bin/fwtool
 
 # Build the firmware image
 echo Building firmware image...
-PATH=$NERVES_SDK_ROOT/usr/bin:$PATH $FWTOOL \
+PATH=$NERVES_SDK_ROOT/usr/bin:$NERVES_SDK_ROOT/usr/sbin:$PATH $FWTOOL \
 	-c $FWTOOL_CONFIG \
 	--mlo_path=$NERVES_SDK_IMAGES/MLO \
 	--uboot_path=$NERVES_SDK_IMAGES/u-boot.img \
@@ -26,7 +26,7 @@ PATH=$NERVES_SDK_ROOT/usr/bin:$PATH $FWTOOL \
 
 # Build the raw image for the bulk programmer
 echo Building raw firmware image...
-PATH=$NERVES_SDK_ROOT/usr/bin:$PATH $FWTOOL \
+PATH=$NERVES_SDK_ROOT/usr/bin:$NERVES_SDK_ROOT/usr/sbin:$PATH $FWTOOL \
 	-c $FWTOOL_CONFIG \
 	-d $NERVES_SDK_IMAGES/sdcard.img \
 	-t complete \
