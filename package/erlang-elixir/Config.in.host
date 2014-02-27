@@ -1,0 +1,7 @@
+config BR2_PACKAGE_HOST_ERLANG_ELIXIR
+	bool "host erlang-elixir"
+	depends on BR2_PACKAGE_ERLANG
+	help
+	  Elixir programming environemnt
+	  http://elixir-lang.org
+	  
