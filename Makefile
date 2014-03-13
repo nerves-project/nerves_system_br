@@ -36,7 +36,7 @@ all: br-make
 reset-buildroot: .buildroot-downloaded
 	# Reset buildroot to a pristine condition so that the
 	# patches can be applied again.
-	cd buildroot && git clean -fd && git reset --hard
+	cd buildroot && git clean -fdx && git reset --hard
 	rm -f .buildroot-patched
 
 update-patches: reset-buildroot .buildroot-patched

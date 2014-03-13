@@ -1,0 +1,39 @@
+From ead637d22d68af128b8269fdce713f8da5224fce Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Thu, 13 Mar 2014 14:29:48 -0400
+Subject: [PATCH 4/4] syslinux: install helper programs to the host
+
+Even though syslinux is built for the target, it does create some helper
+programs. This change installs the helper programs to the host so that
+they can be called by other programs.
+---
+ boot/syslinux/syslinux.mk | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/boot/syslinux/syslinux.mk b/boot/syslinux/syslinux.mk
+index eedc364..7289fe1 100644
+--- a/boot/syslinux/syslinux.mk
++++ b/boot/syslinux/syslinux.mk
+@@ -11,7 +11,6 @@ SYSLINUX_SITE    = $(BR2_KERNEL_MIRROR)/linux/utils/boot/syslinux/4.xx/
+ SYSLINUX_LICENSE = GPLv2+
+ SYSLINUX_LICENSE_FILES = COPYING
+ 
+-SYSLINUX_INSTALL_TARGET = NO
+ SYSLINUX_INSTALL_IMAGES = YES
+ 
+ SYSLINUX_DEPENDENCIES = host-nasm host-util-linux
+@@ -23,6 +22,11 @@ define SYSLINUX_BUILD_CMDS
+ 	$(TARGET_MAKE_ENV) $(MAKE) CC="$(HOSTCC) -idirafter $(HOST_DIR)/usr/include $(HOST_LDFLAGS)" AR="$(HOSTAR)" -C $(@D)
+ endef
+ 
++# The syslinux tools run on the host so install them on the host
++define SYSLINUX_INSTALL_TARGET_CMDS
++	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D) INSTALLROOT=$(HOST_DIR) install
++endef
++
+ SYSLINUX_IMAGES-$(BR2_TARGET_SYSLINUX_ISOLINUX) += isolinux.bin
+ SYSLINUX_IMAGES-$(BR2_TARGET_SYSLINUX_PXELINUX) += pxelinux.bin
+ 
+-- 
+1.8.3.2
+
