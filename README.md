@@ -19,7 +19,7 @@ a few host programs. If using Ubuntu, run the following:
     sudo apt-get install git g++ libssl-dev
 
     # If your system is 64-bit, also run this
-	sudo apt-get install libc6:i386 libstdc++6:i386 zlib1g:i386
+	sudo apt-get install libc6:i386 libstdc++6:i386 zlib1g:i386 gcc-multilib
 
 From there, change to the nerves-sdk directory and run:
 
