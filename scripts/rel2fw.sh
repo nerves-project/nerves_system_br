@@ -33,8 +33,7 @@ FWTOOL_CONFIG=$NERVES_SDK_IMAGES/fwtool.config
 # Build the firmware image
 echo Building $OUTPUT_DIR/bbb.fw...
 $FWTOOL -c $FWTOOL_CONFIG \
-	--mlo_path=$NERVES_SDK_IMAGES/MLO \
-	--uboot_path=$NERVES_SDK_IMAGES/u-boot.img \
+        --base_path=$NERVES_ROOT \
 	--rootfs_path=$OUTPUT_DIR/rootfs.ext2 \
 	create $OUTPUT_DIR/bbb.fw
 
