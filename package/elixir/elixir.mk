@@ -15,11 +15,11 @@ ELIXIR_LICENSE_FILES = LICENSE
 HOST_ELIXIR_DEPENDENCIES = host-erlang erlang
 
 define HOST_ELIXIR_BUILD_CMDS
-	$(MAKE) -C $(@D)
+	$(HOST_MAKE_ENV) $(MAKE) -C $(@D)
 endef
 
 define HOST_ELIXIR_INSTALL_CMDS
-	$(MAKE) -C $(@D) PREFIX=/usr DESTDIR=$(HOST_DIR) install
+	$(HOST_MAKE_ENV) $(MAKE) -C $(@D) PREFIX=/usr DESTDIR=$(HOST_DIR) install
 endef
 
 $(eval $(host-generic-package))
