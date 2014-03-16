@@ -16,7 +16,7 @@ Before building the SDK, it is important to have a few build tools
 already installed. Buildroot provides a lot, but it does depend on
 a few host programs. If using Ubuntu, run the following:
 
-    sudo apt-get install git g++ libssl-dev
+    sudo apt-get install git g++ libssl-dev bc
 
     # If your system is 64-bit, also run this
 	sudo apt-get install libc6:i386 libstdc++6:i386 zlib1g:i386
