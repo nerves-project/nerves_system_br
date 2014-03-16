@@ -1,7 +1,7 @@
 
 NERVES_BR_VERSION = 2014.02
 NERVES_BR_URL = git://git.buildroot.net/buildroot
-NERVES_BR_CONFIG ?= nerves_bbb_defconfig
+NERVES_BR_CONFIG ?= alix_defconfig
 
 # Optional place to download files to so that they don't need
 # to be redownloaded when working a lot with buildroot
