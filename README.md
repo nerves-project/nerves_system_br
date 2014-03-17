@@ -1,4 +1,5 @@
 # Nerves SDK
+[![Build Status](https://travis-ci.org/nerves-project/nerves-sdk.png?branch=master)](https://travis-ci.org/nerves-project/nerves-sdk)
 
 Build the cross-compiler, various tools, and the base root filesystem
 for creating embedded firmware images from Erlang/OTP releases. This
