@@ -1,4 +1,4 @@
-From ead637d22d68af128b8269fdce713f8da5224fce Mon Sep 17 00:00:00 2001
+From 5966c21f6f15bf0b18fc8ccaf496752bb164c509 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 13 Mar 2014 14:29:48 -0400
 Subject: [PATCH 4/4] syslinux: install helper programs to the host
