@@ -4,7 +4,7 @@
 #
 #############################################################
 
-ERLANG_FWTOOL_VERSION = bf3a4a1
+ERLANG_FWTOOL_VERSION = v0.1.1
 ERLANG_FWTOOL_SITE = $(call github,nerves-project,fwtool,$(ERLANG_FWTOOL_VERSION))
 ERLANG_FWTOOL_LICENSE = MIT
 ERLANG_FWTOOL_LICENSE_FILE = LICENSE.md
