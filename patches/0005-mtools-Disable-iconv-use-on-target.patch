@@ -1,0 +1,29 @@
+From 294254cf6eb6230edf655c666cbc7ef8543b5831 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 18 Mar 2014 13:14:22 -0400
+Subject: [PATCH 5/5] mtools: Disable iconv use on target
+
+Since the /usr/lib/gconv directory isn't copied over to the target
+with some toolchains, iconv_open will fail. This removes character set
+conversion in the target version of mtools.
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ package/mtools/mtools.mk | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/package/mtools/mtools.mk b/package/mtools/mtools.mk
+index 6d8f44b..00ca996 100644
+--- a/package/mtools/mtools.mk
++++ b/package/mtools/mtools.mk
+@@ -10,5 +10,7 @@ MTOOLS_SITE          = $(BR2_GNU_MIRROR)/mtools/
+ MTOOLS_LICENSE       = GPLv3+
+ MTOOLS_LICENSE_FILES = COPYING
+ 
++MTOOLS_CONF_OPT = ac_cv_header_iconv_h='no'
++
+ $(eval $(autotools-package))
+ $(eval $(host-autotools-package))
+-- 
+1.8.3.2
+
