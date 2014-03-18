@@ -4,7 +4,7 @@
 #
 #############################################################
 
-ERLINIT_VERSION = f07b7980b7ddc71d68953c952ad051fa2c3c7a11
+ERLINIT_VERSION = v0.1.1
 ERLINIT_SITE = $(call github,nerves-project,erlinit,$(ERLINIT_VERSION))
 ERLINIT_LICENSE = MIT
 

@@ -4,7 +4,7 @@
 #
 #############################################################
 
-NERVES_MINIMAL_VERSION = 716baaa09dac633b62aaf86102d7a035c8702090
+NERVES_MINIMAL_VERSION = ab6883fb9bdfa7d6d0eb63025e6aa047cc4805bd
 NERVES_MINIMAL_SITE = $(call github,nerves-project,nerves-minimal,$(NERVES_MINIMAL_VERSION))
 NERVES_MINIMAL_LICENSE = MIT
 NERVES_MINIMAL_INSTALL_DIR = $(TARGET_DIR)/srv/erlang
