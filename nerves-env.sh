@@ -35,7 +35,7 @@ PLATFORM_DIR=$NERVES_ROOT/sdk/$NERVES_PLATFORM
 
 ERTS_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*`
 ERL_INTERFACE_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*`
-CROSSCOMPILE=$NERVES_SDK_ROOT/usr/bin/arm-linux-gnueabihf
+CROSSCOMPILE=`ls $NERVES_SDK_ROOT/usr/bin/*gcc | sed -e s/-gcc//`
 
 
 export REBAR_PLT_DIR=$NERVES_SDK_SYSROOT/usr/lib/erlang
