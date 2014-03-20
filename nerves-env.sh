@@ -35,8 +35,27 @@ PLATFORM_DIR=$NERVES_ROOT/sdk/$NERVES_PLATFORM
 
 ERTS_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*`
 ERL_INTERFACE_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*`
-CROSSCOMPILE=`ls $NERVES_SDK_ROOT/usr/bin/*gcc | sed -e s/-gcc//`
-
+ALL_CROSSCOMPILE=`ls $NERVES_SDK_ROOT/usr/bin/*gcc | sed -e s/-gcc//`
+if [ "$ALL_CROSSCOMPILE" == "" ]; then
+    echo ERROR: Nerves SDK must be built first
+    echo
+    echo "make <board_defconfig>"
+    echo "make"
+    return 1
+fi
+# We usually just have one crosscompiler, but the buildroot toolchain symlinks
+# to the crosscompiler, so two entries show up. The logic below picks the first
+# crosscompiler by default or the one with buildroot in its name.
+CROSSCOMPILE=`echo $ALL_CROSSCOMPILE | head -n 1`
+for i in $ALL_CROSSCOMPILE; do
+    case `basename $i` in
+        *buildroot* )
+            CROSSCOMPILE=$i
+            ;;
+        * )
+            ;;
+    esac
+done
 
 export REBAR_PLT_DIR=$NERVES_SDK_SYSROOT/usr/lib/erlang
 export CC=$CROSSCOMPILE-gcc
@@ -72,3 +91,4 @@ pathadd $NERVES_SDK_ROOT/bin
 ldlibrarypathadd $NERVES_SDK_ROOT/usr/lib
 
 echo Shell environment updated for nerves
+echo Cross-compiler prefix: `basename $CROSSCOMPILE`
