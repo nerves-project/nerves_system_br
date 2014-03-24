@@ -7,9 +7,10 @@ project uses [Buildroot](http://buildroot.net/) to do all of the hard
 work. It just provides a configuration and a few helper scripts and
 patches to customize Buildroot for Erlang/OTP embedded projects.
 
-Currently, the BeagleBone Black is the only supported platform. This
-can be changed by adding new configurations to the `configs` directory and
-referencing them from the Makefile.
+Currently, most development is being done on the BeagleBone Black, but
+work is proceeding on embedded x86 platforms and the Raspberry Pi. Porting
+to other platforms is easy especially if they're already support by Buildroot.
+See the `configs` directory in the SDK for examples.
 
 ## First time build
 
@@ -22,14 +23,17 @@ a few host programs. If using Ubuntu, run the following:
     # If your system is 64-bit, also run this
 	sudo apt-get install libc6:i386 libstdc++6:i386 zlib1g:i386 gcc-multilib
 
-From there, change to the nerves-sdk directory and run:
+From there, you will need to choose an initial configuration for the SDK. Change
+to the nerves-sdk directory and run `make help` for an up-to-date list of options.
+Then run the following:
 
+    make <platform>_defconfig
     make
 
 The first time build takes a while since it has to download and
 build lot of code. For the most part, you will not need to rebuild
 the SDK unless you require a library or other application that
-cannot be pulled in by `rebar`.
+cannot be pulled in by `rebar` or `erlang.mk`.
 
 ## Using the SDK
 
