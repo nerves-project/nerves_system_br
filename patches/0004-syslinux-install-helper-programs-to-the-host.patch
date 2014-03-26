@@ -1,7 +1,7 @@
-From 5966c21f6f15bf0b18fc8ccaf496752bb164c509 Mon Sep 17 00:00:00 2001
+From a9096dacf03e7fdf6ba3f05644f1bee67440d3c8 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 13 Mar 2014 14:29:48 -0400
-Subject: [PATCH 4/4] syslinux: install helper programs to the host
+Subject: [PATCH 4/5] syslinux: install helper programs to the host
 
 Even though syslinux is built for the target, it does create some helper
 programs. This change installs the helper programs to the host so that

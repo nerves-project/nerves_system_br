@@ -1,7 +1,7 @@
-From 3a470f10cdb5d887b054185fe6a79dd2ff17948c Mon Sep 17 00:00:00 2001
+From 23e19847ff095365ac5844877b67d4b730229426 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:36:09 -0400
-Subject: [PATCH 1/4] am335x-pru-package: new package
+Subject: [PATCH 1/5] am335x-pru-package: new package
 
 am335x-pru-package provides an assembler and program loader for Texas
 Instrument's AM335x programmable real-time units.
@@ -19,7 +19,7 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/am335x-pru-package/am335x-pru-package.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 688ed4d..d1a013f 100644
+index cfa53d3..40b56e9 100644
 --- a/package/Config.in
 +++ b/package/Config.in
 @@ -264,6 +264,7 @@ source "package/zd1211-firmware/Config.in"
