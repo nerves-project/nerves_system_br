@@ -53,7 +53,7 @@ buildroot/.config: .buildroot-patched
 
 br-make: buildroot/.config
 	$(MAKE_BR) 
-	@echo SDK is ready to use. Demo image is in buildroot/output/images.
+	@echo SDK is ready to use. Demo images are in buildroot/output/images.
 
 menuconfig: buildroot/.config
 	$(MAKE_BR) menuconfig
