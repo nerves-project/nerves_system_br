@@ -39,7 +39,7 @@ echo Updating base firmware image with Erlang release...
 # isn't a problem as the only tool that gets called is strip and if
 # it falls out of the fakeroot environment, that's ok.
 fakeroot $NERVES_ROOT/scripts/create-fs.sh \
-	$NERVES_SDK_IMAGES/rootfs.tar.gz \
+	$NERVES_SDK_IMAGES/rootfs.tar \
 	$RELEASE_DIR \
 	$OUTPUT_DIR/rootfs \
     $OUTPUT_DIR/rootfs.ext2 2>&1 | (grep -v "LD_PRELOAD cannot be preloaded" || true)
