@@ -1,4 +1,4 @@
-From a0432f24ed4b60ee00226177e5d8107e1a5356a4 Mon Sep 17 00:00:00 2001
+From 4ac311ffe4ad233b212414fbcad5e84f01b5ff92 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 26 Mar 2014 12:03:22 -0400
 Subject: [PATCH 6/6] linux-ext-unionfs: add unionfs to the kernel
@@ -65,7 +65,7 @@ index 40c4684..07ac77f 100644
  endmenu
 diff --git a/linux/linux-ext-unionfs.mk b/linux/linux-ext-unionfs.mk
 new file mode 100644
-index 0000000..28b7a57
+index 0000000..f32bd25
 --- /dev/null
 +++ b/linux/linux-ext-unionfs.mk
 @@ -0,0 +1,28 @@
@@ -80,7 +80,7 @@ index 0000000..28b7a57
 +LINUX_KERNEL_EXT_UNIONFS_VERSION = 2.5.12
 +LINUX_KERNEL_EXT_UNIONFS_KERNEL_VERSION = $(call qstrip,$(BR2_LINUX_KERNEL_EXT_UNIONFS_KERNEL_VERSION))
 +LINUX_KERNEL_EXT_UNIONFS_SOURCE  = unionfs-$(LINUX_KERNEL_EXT_UNIONFS_VERSION)_for_$(LINUX_KERNEL_EXT_UNIONFS_KERNEL_VERSION).diff.gz
-+LINUX_KERNEL_EXT_UNIONFS_SITE    = http://download.filesystems.org/unionfs/unionfs-2.x-latest/
++LINUX_KERNEL_EXT_UNIONFS_SITE    = http://download.filesystems.org/unionfs/unionfs-2.x/
 +
 +# We need to manually download the patch since if LINUX_SITE_METHOD is set
 +# to anything that doesn't map to wget, this won't get downloaded.
