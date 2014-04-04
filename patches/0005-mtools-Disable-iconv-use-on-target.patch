@@ -1,4 +1,4 @@
-From 294254cf6eb6230edf655c666cbc7ef8543b5831 Mon Sep 17 00:00:00 2001
+From 6079f8519a83df138992c5c692705ef7a4934021 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 18 Mar 2014 13:14:22 -0400
 Subject: [PATCH 5/5] mtools: Disable iconv use on target
@@ -9,21 +9,23 @@ conversion in the target version of mtools.
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
- package/mtools/mtools.mk | 2 ++
- 1 file changed, 2 insertions(+)
+ package/mtools/mtools.mk | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/package/mtools/mtools.mk b/package/mtools/mtools.mk
-index 6d8f44b..00ca996 100644
+index 9dc72f3..2e3215b 100644
 --- a/package/mtools/mtools.mk
 +++ b/package/mtools/mtools.mk
-@@ -10,5 +10,7 @@ MTOOLS_SITE          = $(BR2_GNU_MIRROR)/mtools/
- MTOOLS_LICENSE       = GPLv3+
- MTOOLS_LICENSE_FILES = COPYING
+@@ -18,6 +18,9 @@ MTOOLS_DEPENDENCIES += libiconv
+ MTOOLS_CONF_ENV += LIBS=-liconv
+ # We have no host dependencies
+ HOST_MTOOLS_DEPENDENCIES =
++else
++# external toolchain doesn't install gconv. This fixes a runtime error.
++MTOOLS_CONF_OPT += ac_cv_header_iconv_h='no'
+ endif
  
-+MTOOLS_CONF_OPT = ac_cv_header_iconv_h='no'
-+
- $(eval $(autotools-package))
- $(eval $(host-autotools-package))
+ # Package does not build in parallel due to improper make rules
 -- 
 1.8.3.2
 

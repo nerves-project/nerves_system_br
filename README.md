@@ -7,9 +7,10 @@ project uses [Buildroot](http://buildroot.net/) to do all of the hard
 work. It just provides a configuration and a few helper scripts and
 patches to customize Buildroot for Erlang/OTP embedded projects.
 
-Currently, the BeagleBone Black is the only supported platform. This
-can be changed by adding new configurations to the `configs` directory and
-referencing them from the Makefile.
+Currently, most development is being done on the BeagleBone Black, but
+work is proceeding on embedded x86 platforms and the Raspberry Pi. Porting
+to other platforms is easy especially if they're already support by Buildroot.
+See the `configs` directory in the SDK for examples.
 
 ## First time build
 
@@ -17,19 +18,22 @@ Before building the SDK, it is important to have a few build tools
 already installed. Buildroot provides a lot, but it does depend on
 a few host programs. If using Ubuntu, run the following:
 
-    sudo apt-get install git g++ libssl-dev bc
+    sudo apt-get install git g++ libssl-dev libncurses5-dev bc
 
     # If your system is 64-bit, also run this
 	sudo apt-get install libc6:i386 libstdc++6:i386 zlib1g:i386 gcc-multilib
 
-From there, change to the nerves-sdk directory and run:
+From there, you will need to choose an initial configuration for the SDK. Change
+to the nerves-sdk directory and run `make help` for an up-to-date list of options.
+Then run the following:
 
+    make <platform>_defconfig
     make
 
 The first time build takes a while since it has to download and
 build lot of code. For the most part, you will not need to rebuild
 the SDK unless you require a library or other application that
-cannot be pulled in by `rebar`.
+cannot be pulled in by `rebar` or `erlang.mk`.
 
 ## Using the SDK
 
@@ -74,16 +78,25 @@ used directly or just as an examples for your own custom configuration.
 
 ### nerves_bbb_defconfig
 
-This is the default configuration for building images on the Beaglebone
+This is the default configuration for building images for the Beaglebone
 Black. It is a minimal image intended for applications that do not require
 a lot of hardware or C library support.
 
-### bbb_linux_defconfig
+### nerves_rpi_defconfig
 
-This configuration produces a Linux image. It is not useful for Erlang
-development, but it can be helpful when getting unfamiliar hardware to work.
-I use it to debug Linux kernel issues since most documentation and
-developers expect a traditional shell-based environment.
+This is an initial configuration for building images for the Raspberry Pi.
+It is a minimal image similar to the one built for the Beaglebone Black.
+If you use this one, please post to the mailing list as some work is needed
+to bring the firmware update side of the project up to the robustness that
+I can get on the Beaglebone. It appears to be limited by the Raspberry Pi's
+bootloader, but someone with more knowledge of the board may be able to get
+around this limitation.
+
+### ag150_defconfig and alix_defconfig
+
+These are 32-bit x86 platforms. The ag150 is Intel Atom-based and the Alix uses
+an AMD Geode CPU. Both are minimal system configurations that use Syslinux
+as the bootloader.
 
 ### nerves_camera_defconfig
 
@@ -97,7 +110,7 @@ for the rest.
 
 This configuration is a work-in-progress to support wifi within the Nerves
 environment. It is currently setup to support a Rosewill RNX-N150UBE (Realtek
-rtl8712 driver). To test, try run the following programs:
+rtl8712 driver). To test, try run the following programs (using `os:cmd/1`):
 
 ```
 modprobe musb_dsps
@@ -107,4 +120,10 @@ iwlist wlan0 scan
 wpa_supplicant -i wlan0 -c /tmp/wifi.conf
 ip addr add 192.168.1.40/24 dev wlan0
 ```
+### bbb_linux_defconfig
+
+This configuration produces a Linux image. It is not useful for Erlang
+development, but it can be helpful when getting unfamiliar hardware to work.
+I use it to debug Linux kernel issues since most documentation and
+developers expect a traditional shell-based environment.
 

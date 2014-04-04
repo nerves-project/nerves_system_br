@@ -1,24 +1,12 @@
 #!/bin/bash
 
-# Source this script to setup your environment to cross-compile
-# and build Erlang apps for this nerves-sdk build.
+# Helper script to setup the Nerves environment. This shouldn't be called
+# directly. See $NERVES_ROOT/nerves-env.sh.
 
-if [ "$SHELL" != "/bin/bash" ]; then
-    echo ERROR: This script currently only works from bash.
-    exit 1
-fi
-
-if [ "$0" != "bash" -a "$0" != "-bash" -a "$0" != "/bin/bash" ]; then
-    echo ERROR: This scripted should be sourced from bash:
-    echo
-    echo source $BASH_SOURCE
-    return 1
-    exit 1
-fi
-
-NERVES_ROOT=$(dirname $(readlink -f $BASH_SOURCE))
-
-# Check that the base buildroot image has been built
+NERVES_ROOT=$1
+NERVES_SDK_ROOT=$NERVES_ROOT/buildroot/output/host
+NERVES_SDK_IMAGES=$NERVES_ROOT/buildroot/output/images
+NERVES_SDK_SYSROOT=$NERVES_ROOT/buildroot/output/staging # Check that the base buildroot image has been built
 [ -d "$NERVES_ROOT/buildroot/output" ] || { echo "ERROR: Run \"make\" first to build the nerves SDK."; return 1; }
 
 # Past the checks, so export variables
@@ -32,8 +20,27 @@ PLATFORM_DIR=$NERVES_ROOT/sdk/$NERVES_PLATFORM
 
 ERTS_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*`
 ERL_INTERFACE_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*`
-CROSSCOMPILE=`ls $NERVES_SDK_ROOT/usr/bin/*gcc | grep "\-buildroot" | sed -e s/-gcc//`
-
+ALL_CROSSCOMPILE=`ls $NERVES_SDK_ROOT/usr/bin/*gcc | sed -e s/-gcc//`
+if [ "$ALL_CROSSCOMPILE" == "" ]; then
+    echo ERROR: Nerves SDK must be built first
+    echo
+    echo "make <board_defconfig>"
+    echo "make"
+    return 1
+fi
+# We usually just have one crosscompiler, but the buildroot toolchain symlinks
+# to the crosscompiler, so two entries show up. The logic below picks the first
+# crosscompiler by default or the one with buildroot in its name.
+CROSSCOMPILE=`echo $ALL_CROSSCOMPILE | head -n 1`
+for i in $ALL_CROSSCOMPILE; do
+    case `basename $i` in
+        *buildroot* )
+            CROSSCOMPILE=$i
+            ;;
+        * )
+            ;;
+    esac
+done
 
 export REBAR_PLT_DIR=$NERVES_SDK_SYSROOT/usr/lib/erlang
 export CC=$CROSSCOMPILE-gcc
@@ -67,6 +74,3 @@ pathadd $NERVES_SDK_ROOT/usr/bin
 pathadd $NERVES_SDK_ROOT/usr/sbin
 pathadd $NERVES_SDK_ROOT/bin
 ldlibrarypathadd $NERVES_SDK_ROOT/usr/lib
-
-echo Shell environment updated for nerves
-echo Cross-compiler prefix: `basename $CROSSCOMPILE`

@@ -19,6 +19,7 @@ IMG=$4
 TUNE2FS=$NERVES_SDK_ROOT/usr/sbin/tune2fs
 GENEXT2FS=$NERVES_SDK_ROOT/usr/bin/genext2fs
 E2FSCK=$NERVES_SDK_ROOT/usr/sbin/e2fsck
+RESIZE2FS=$NERVES_SDK_ROOT/usr/sbin/resize2fs
 
 # Create or cleanup our output directory
 mkdir -p $TMPDIR
@@ -56,11 +57,13 @@ find $TMPDIR/srv/erlang -type f -perm /111 -exec $STRIP "{}" ";"
 
 # calculate needed inodes
 INODES=$(find $TMPDIR | wc -l)
-INODES=$(expr $INODES + 400)
+INODES=$(expr $INODES + 100)
 
 # calculate needed blocks
 # size ~= superblock, block+inode bitmaps, inodes (8 per block), blocks
 # we scale inodes / blocks with 10% to compensate for bitmaps size + slack
+# Note: This doesn't need to be close since the resize2fs call shrinks the
+#       number of blocks used.
 BLOCKS=$(du -s -c -k $TMPDIR | grep total | sed -e "s/total//")
 BLOCKS=$(expr 500 + \( $BLOCKS + $INODES / 8 \) \* 11 / 10)
 
@@ -96,13 +99,21 @@ e2tunefsck() {
        *)   exit ${ret};;
     esac
 
-    # Remove count- and time-based checks, they are not welcome
-    # on embedded devices, where they can cause serious boot-time
-    # issues by tremendously slowing down the boot.
-    $TUNE2FS -c 0 -i 0 "${IMG}" >/dev/null
+    # tune2fs notes:
+    #
+    # 1. Remove count- and time-based checks, they are not welcome
+    #    on embedded devices, where they can cause serious boot-time
+    #    issues by tremendously slowing down the boot.
+    # 2. No reserved blocks since we mount read-only
+    $TUNE2FS -c 0 -i 0 -r 0 "${IMG}" >/dev/null
 
+    # Shrink the image size to the minimum size possible
+    $RESIZE2FS -M "${IMG}" 2>/dev/null >/dev/null
+
+    # Note: commenting out qemu support due to current lack of
+    #       use.
     # ext4 needs to be padded to work under qemu
-    dd if=/dev/zero count=1024 >> $IMG 2>/dev/null
+    #dd if=/dev/zero count=1024 >> $IMG 2>/dev/null
 }
 
 $GENEXT2FS -N $INODES -b $BLOCKS -d $TMPDIR $IMG

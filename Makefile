@@ -1,20 +1,24 @@
+TOPDIR := $(shell pwd)
 
-NERVES_BR_VERSION = 3749143418a2a735ceaed63667a8b3ef66bba9e5
+NERVES_BR_VERSION = 482757f537bc0364bf765f0da02310b6a48bf06e
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 NERVES_BR_CONFIG ?= nerves_bbb_defconfig
 
 # Optional place to download files to so that they don't need
 # to be redownloaded when working a lot with buildroot
-NERVES_BR_DL_DIR ?= ~/dl
+# Try the default directory first and if that doesn't work, use
+# a directory in the Nerves folder..
+DEFAULT_DL_DIR = ~/dl
+NERVES_BR_DL_DIR ?= $(if $(wildcard $(DEFAULT_DL_DIR)), $(DEFAULT_DL_DIR), $(TOPDIR)/dl)
 
-TOPDIR := $(shell pwd)
 MAKE_BR = make -C buildroot BR2_EXTERNAL=$(TOPDIR)
 
 all: br-make
 
 .buildroot-downloaded:
-	git clone $(NERVES_BR_URL)
-	cd buildroot && git checkout -b nerves $(NERVES_BR_VERSION)
+	echo Downloading Buildroot...
+	mkdir -p $(NERVES_BR_DL_DIR)
+	scripts/clone_or_dnload.sh $(NERVES_BR_URL) $(NERVES_BR_VERSION) $(NERVES_BR_DL_DIR)
 
 	touch .buildroot-downloaded
 
@@ -49,7 +53,7 @@ buildroot/.config: .buildroot-patched
 
 br-make: buildroot/.config
 	$(MAKE_BR) 
-	@echo SDK is ready to use. Demo image is in buildroot/output/images.
+	@echo SDK is ready to use. Demo images are in buildroot/output/images.
 
 menuconfig: buildroot/.config
 	$(MAKE_BR) menuconfig

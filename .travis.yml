@@ -9,5 +9,5 @@ before_install:
      - sudo apt-get install -qq bc g++ libssl-dev libc6:i386 libstdc++6:i386 zlib1g:i386
 
 script:
-    - make --silent bbb_nerves_elixir_defconfig
+    - make --silent nerves_bbb_defconfig
     - make --silent

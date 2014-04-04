@@ -1,0 +1,102 @@
+From 4ac311ffe4ad233b212414fbcad5e84f01b5ff92 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 26 Mar 2014 12:03:22 -0400
+Subject: [PATCH 6/6] linux-ext-unionfs: add unionfs to the kernel
+
+This patch adds support for the kernel-based unionfs implementation. It
+is different than the FUSE-based implementation that already exists in
+buildroot. Support is added by patching the kernel. The user must still
+enable unionfs by updating their kernel config.
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ linux/Config.ext.in        | 39 +++++++++++++++++++++++++++++++++++++++
+ linux/linux-ext-unionfs.mk | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 67 insertions(+)
+ create mode 100644 linux/linux-ext-unionfs.mk
+
+diff --git a/linux/Config.ext.in b/linux/Config.ext.in
+index 40c4684..07ac77f 100644
+--- a/linux/Config.ext.in
++++ b/linux/Config.ext.in
+@@ -42,4 +42,43 @@ config BR2_LINUX_KERNEL_EXT_RTAI_PATCH
+ 	help
+ 	  Optionally, explicitly specify the RTAI patch to use.
+ 
++# Unionfs
++config BR2_LINUX_KERNEL_EXT_UNIONFS
++	bool "Unionfs patch"
++	help
++	  Add support for the unionfs filesystem in the kernel.
++
++	  http://unionfs.filesystems.org/
++
++if BR2_LINUX_KERNEL_EXT_UNIONFS
++
++choice
++	prompt "Unionfs kernel version"
++
++config BR2_LINUX_KERNEL_EXT_UNIONFS_SAME_AS_KERNEL
++	bool "Same as kernel"
++	help
++	  This is recommended when a unionfs patch exists that exactly
++	  matches the kernel's version.
++
++config BR2_LINUX_KERNEL_EXT_UNIONFS_CUSTOM_VERSION
++	bool "Custom version"
++	help
++	  If a unionfs patch does not exist for the kernel that's in use,
++	  use this option to select the nearest match.
++
++endchoice
++
++config BR2_LINUX_KERNEL_EXT_UNIONFS_CUSTOM_VERSION_VALUE
++	string "Unionfs kernel version"
++	depends on BR2_LINUX_KERNEL_EXT_UNIONFS_CUSTOM_VERSION
++
++config BR2_LINUX_KERNEL_EXT_UNIONFS_KERNEL_VERSION
++	string
++	default BR2_LINUX_KERNEL_VERSION if BR2_LINUX_KERNEL_EXT_UNIONFS_SAME_AS_KERNEL
++	default BR2_LINUX_KERNEL_EXT_UNIONFS_CUSTOM_VERSION_VALUE \
++	        if BR2_LINUX_KERNEL_EXT_UNIONFS_CUSTOM_VERSION
++
++endif
++
+ endmenu
+diff --git a/linux/linux-ext-unionfs.mk b/linux/linux-ext-unionfs.mk
+new file mode 100644
+index 0000000..f32bd25
+--- /dev/null
++++ b/linux/linux-ext-unionfs.mk
+@@ -0,0 +1,28 @@
++################################################################################
++# Linux unionfs extensions
++#
++# Patch the linux kernel with unionfs extension
++################################################################################
++
++ifeq ($(BR2_LINUX_KERNEL_EXT_UNIONFS),y)
++
++LINUX_KERNEL_EXT_UNIONFS_VERSION = 2.5.12
++LINUX_KERNEL_EXT_UNIONFS_KERNEL_VERSION = $(call qstrip,$(BR2_LINUX_KERNEL_EXT_UNIONFS_KERNEL_VERSION))
++LINUX_KERNEL_EXT_UNIONFS_SOURCE  = unionfs-$(LINUX_KERNEL_EXT_UNIONFS_VERSION)_for_$(LINUX_KERNEL_EXT_UNIONFS_KERNEL_VERSION).diff.gz
++LINUX_KERNEL_EXT_UNIONFS_SITE    = http://download.filesystems.org/unionfs/unionfs-2.x/
++
++# We need to manually download the patch since if LINUX_SITE_METHOD is set
++# to anything that doesn't map to wget, this won't get downloaded.
++define LINUX_KERNEL_EXT_UNIONFS_DOWNLOAD_PATCH
++	$(call $(DL_MODE)_WGET,$(LINUX_KERNEL_EXT_UNIONFS_SITE)/$(LINUX_KERNEL_EXT_UNIONFS_SOURCE),$(LINUX_KERNEL_EXT_UNIONFS_SOURCE))
++endef
++
++define LINUX_KERNEL_EXT_UNIONFS_APPLY_PATCH
++	support/scripts/apply-patches.sh $(@D) $(DL_DIR) $(LINUX_KERNEL_EXT_UNIONFS_SOURCE)
++endef
++
++LINUX_POST_DOWNLOAD_HOOKS += LINUX_KERNEL_EXT_UNIONFS_DOWNLOAD_PATCH
++LINUX_POST_PATCH_HOOKS += LINUX_KERNEL_EXT_UNIONFS_APPLY_PATCH
++
++endif #BR2_LINUX_KERNEL_EXT_UNIONFS
++
+-- 
+1.8.3.2
+
