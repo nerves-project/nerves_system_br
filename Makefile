@@ -1,6 +1,6 @@
 TOPDIR := $(shell pwd)
 
-NERVES_BR_VERSION = 482757f537bc0364bf765f0da02310b6a48bf06e
+NERVES_BR_VERSION = 35df2e155cc641c4a0e2f464563c2e1a5feb3e9e
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 NERVES_BR_CONFIG ?= nerves_bbb_defconfig
 
