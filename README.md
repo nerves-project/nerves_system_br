@@ -21,19 +21,32 @@ a few host programs. If using Ubuntu, run the following:
     sudo apt-get install git g++ libssl-dev libncurses5-dev bc
 
     # If your system is 64-bit, also run this
-	sudo apt-get install libc6:i386 libstdc++6:i386 zlib1g:i386 gcc-multilib
+    sudo apt-get install libc6:i386 libstdc++6:i386 zlib1g:i386 gcc-multilib
 
-From there, you will need to choose an initial configuration for the SDK. Change
+Nerves downloads a large number of files to build the toolchain, Linux kernel,
+Erlang, and other tools. It is recommended that you create a top level directory
+to cache these files so that future builds can skip the download step. This step
+is optional, so you may skip it:
+
+    mkdir ~/.nerves-cache  # optional
+
+Next, you will need to choose an initial platform and configuration for the SDK. Change
 to the nerves-sdk directory and run `make help` for an up-to-date list of options.
 Then run the following:
 
     make <platform>_defconfig
+
+For example, if you're interested in a basic Raspberry Pi configuration, start
+out with the `nerves_rpi_defconfig`.
+
+To build, type:
+
     make
 
-The first time build takes a while since it has to download and
+The first time build takes a long time since it has to download and
 build lot of code. For the most part, you will not need to rebuild
-the SDK unless you require a library or other application that
-cannot be pulled in by `rebar` or `erlang.mk`.
+the SDK unless you switch platforms or need to add libraries and applications
+that cannot be pulled in by `rebar` or `erlang.mk`.
 
 ## Using the SDK
 
@@ -43,12 +56,9 @@ environment settings.
 
     source ./nerves-env.sh
 
-This step has to be done each time you launch a shell. If you use
-the SDK regularly, it may be convenient to add this to your `.bashrc`.
-
-The key environment settings updated by the script are the `PATH`
-variable and a set of variables that direct `rebar` to invoke the
-cross-compiler.
+This step has to be done each time you launch a shell. The key environment settings
+updated by the script are the `PATH` variable and a set of variables that direct
+`rebar` and other `Makefiles` to invoke the cross-compiler.
 
 ## Updating the SDK
 
@@ -70,6 +80,9 @@ Be aware that Buildroot caches the root filesystem between builds
 and that when you unselect a configuration option, it will not
 disappear from the Nerves SDK root file system image until a clean
 build.
+
+The [Buildroot documentation](http://buildroot.net/docs.html) is very helpful if
+you're having trouble.
 
 ## Built-in SDK Configurations
 
