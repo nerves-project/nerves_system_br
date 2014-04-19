@@ -8,7 +8,7 @@ BR2_TARGET_GENERIC_ISSUE=""
 BR2_INIT_NONE=y
 # BR2_TARGET_GENERIC_GETTY is not set
 # BR2_TARGET_GENERIC_REMOUNT_ROOTFS_RW is not set
-BR2_ROOTFS_OVERLAY="../board/nerves-common/rootfs-additions"
+BR2_ROOTFS_OVERLAY="../board/nerves-common/rootfs-additions ../board/raspberrypi/rootfs-additions"
 BR2_ROOTFS_POST_BUILD_SCRIPT="../board/raspberrypi/post-build.sh"
 BR2_ROOTFS_POST_IMAGE_SCRIPT="../board/raspberrypi/post-createfs.sh"
 BR2_LINUX_KERNEL=y
