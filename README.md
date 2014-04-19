@@ -99,6 +99,13 @@ a lot of hardware or C library support.
 
 This is an initial configuration for building images for the Raspberry Pi.
 It is a minimal image similar to the one built for the Beaglebone Black.
+
+The Erlang or Elixir shell can run on either the HDMI port or over the UART
+pins on the GPIO header. It's configured to run over the HDMI port, but if you'd
+like it to run over the UART pins, edit
+`board/raspberrypi/rootfs_additions/etc/erlinit.config` to force the controlling
+terminal to be `ttyAMA0`.
+
 If you use this one, please post to the mailing list as some work is needed
 to bring the firmware update side of the project up to the robustness that
 I can get on the Beaglebone. It appears to be limited by the Raspberry Pi's
