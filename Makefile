@@ -24,13 +24,9 @@ all: br-make
 
 	@touch .buildroot-downloaded
 
+# Apply our patches that either haven't been submitted or merged upstream yet
 .buildroot-patched: .buildroot-downloaded
-	# Apply patches not yet in upstream buildroot
-	cd buildroot; \
-	for p in `ls ../patches/*.patch` ; do \
-		echo Applying $$p; \
-		patch -p1 < $$p; \
-	done
+	buildroot/support/scripts/apply-patches.sh buildroot patches || exit 1
 	touch .buildroot-patched
 
 	# If there's a user dl directory, symlink it to avoid the big download
