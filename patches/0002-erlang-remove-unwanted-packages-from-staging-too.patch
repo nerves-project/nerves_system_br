@@ -1,4 +1,4 @@
-From dc5f6c2e5a588bd47455ee0204dbe14c486bf5b6 Mon Sep 17 00:00:00 2001
+From d28ee5aa59dfa3df583989706b88a8cb083abf07 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:47:10 -0400
 Subject: [PATCH 2/5] erlang: remove unwanted packages from staging too
@@ -13,7 +13,7 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 1572731..a873d9d 100644
+index 1278682..3c1fa92 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -54,7 +54,13 @@ ifneq ($(BR2_PACKAGE_ERLANG_MEGACO),y)
