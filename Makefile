@@ -68,12 +68,18 @@ linux-menuconfig: buildroot/.config
 	$(MAKE_BR) linux-menuconfig
 	$(MAKE_BR) linux-savedefconfig
 	@echo
-	@echo !!! Remember to copy buildroot/output/build/linux-x.y.z/defconfig to boards/.../linux-x.y.config
+	@echo Going to update your boards/.../linux-x.y.config. If you do not have one,
+	@echo you will get an error shortly. You will then have to make one and update,
+	@echo your buildroot configuration to use it.
+	$(MAKE_BR) linux-update-defconfig
 
 busybox-menuconfig: buildroot/.config
 	$(MAKE_BR) busybox-menuconfig
 	@echo
-	@echo !!! Remember to copy buildroot/output/build/busybox-x.y.z/.config to boards/.../busybox-x.y.config
+	@echo Going to update your boards/.../busybox-x.y.config. If you do not have one,
+	@echo you will get an error shortly. You will then have to make one and update
+	@echo your buildroot configuration to use it.
+	$(MAKE_BR) busybox-update-config
 
 clean:
 	$(MAKE_BR) clean
