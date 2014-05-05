@@ -62,7 +62,12 @@ menuconfig: buildroot/.config
 	$(MAKE_BR) menuconfig
 	$(MAKE_BR) savedefconfig
 	@echo
-	@echo !!! Remember to copy buildroot/defconfig to the configs directory to save the new settings.
+	@echo "!!! Important !!!"
+	@echo "1. Remember to copy buildroot/defconfig to the configs directory to save"
+	@echo "   the new settings."
+	@echo "2. Buildroot normally requires you to run 'make clean' and 'make' after"
+	@echo "   changing the configuration. You don't technically have to do this,"
+	@echo "   but if you're new to Buildroot, it's best to be safe."
 
 linux-menuconfig: buildroot/.config
 	$(MAKE_BR) linux-menuconfig
