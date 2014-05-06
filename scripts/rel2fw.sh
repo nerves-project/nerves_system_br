@@ -54,6 +54,12 @@ $FWTOOL -c $FWTOOL_CONFIG \
 	--rootfs_path=$OUTPUT_DIR/rootfs.ext2 \
 	create $OUTPUT_DIR/$FW_FILENAME
 
+# Erase the image file in case it exists from a previous build.
+# We use fwtool in "programming" mode to create the raw image so it expects there
+# to the destination to exist (like a MMC device). This provides the minimum image.
+rm -f $OUTPUT_DIR/$IMG_FILENAME
+touch $OUTPUT_DIR/$IMG_FILENAME
+
 # Build the raw image for the bulk programmer
 echo Building $OUTPUT_DIR/$IMG_FILENAME...
 $FWTOOL -c $FWTOOL_CONFIG \
