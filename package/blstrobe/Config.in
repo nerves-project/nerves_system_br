@@ -1,0 +1,6 @@
+config BR2_PACKAGE_BLSTROBE
+	bool "blstrobe"
+	help
+	  Control the backlight strobing feature on BENQ Z-series monitors 
+
+	  https://github.com/fhunleth/blstrobe

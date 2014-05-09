@@ -1,3 +1,4 @@
+source "$BR2_EXTERNAL/package/blstrobe/Config.in"
 source "$BR2_EXTERNAL/package/erlinit/Config.in"
 source "$BR2_EXTERNAL/package/mmccopy/Config.in"
 source "$BR2_EXTERNAL/package/nerves-demo/Config.in"
