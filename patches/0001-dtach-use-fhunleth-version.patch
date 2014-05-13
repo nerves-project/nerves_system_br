@@ -1,0 +1,29 @@
+From e62ca8d5b5dd4b6ea858545db57c92a163b55e63 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 13 May 2014 13:50:14 -0400
+Subject: [PATCH] dtach: use fhunleth version
+
+---
+ package/dtach/dtach.mk | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/package/dtach/dtach.mk b/package/dtach/dtach.mk
+index 56ab175..aff4622 100644
+--- a/package/dtach/dtach.mk
++++ b/package/dtach/dtach.mk
+@@ -4,8 +4,10 @@
+ #
+ ################################################################################
+ 
+-DTACH_VERSION = 0.8
+-DTACH_SITE = http://downloads.sourceforge.net/project/dtach/dtach/$(DTACH_VERSION)
++#DTACH_VERSION = 0.8
++#DTACH_SITE = http://downloads.sourceforge.net/project/dtach/dtach/$(DTACH_VERSION)
++DTACH_VERSION = f9791f9bf64ee987bc70d01421810dd429595dc1
++DTACH_SITE = $(call github,fhunleth,dtach,$(DTACH_VERSION))
+ DTACH_LICENSE = GPLv2+
+ DTACH_LICENSE_FILES = COPYING
+ 
+-- 
+1.9.1
+
