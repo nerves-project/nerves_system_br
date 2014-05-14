@@ -48,7 +48,7 @@ find $TMPDIR/srv/erlang -type d -empty -delete
 
 # Strip debug information from executables and libraries
 # Symbols are still available to the user in the release directory.
-find $TMPDIR/srv/erlang -type f -perm /111 -exec $STRIP "{}" ";"
+find $TMPDIR/srv/erlang -type f -perm /111 -exec $CROSSCOMPILE-strip "{}" ";"
 
 # Create sshd public keys
 #mkdir -p $TMPDIR/etc/ssh

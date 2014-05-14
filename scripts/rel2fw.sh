@@ -5,11 +5,13 @@ set -e
 BASE_DIR=`pwd`
 PROJECT_DIR=`basename $BASE_DIR`
 
+SCRIPT_NAME=$0
+
 if [ $# -lt 1 ]; then
-    echo "Usage: $0 <Release directory> [Firmware filename] [Image filename]"
+    echo "Usage: $SCRIPT_NAME <Release directory> [Firmware filename] [Image filename]"
     echo
     echo "Example:"
-    echo "$0 _rel ${PROJECT_DIR}.fw ${PROJECT_DIR}.img"
+    echo "$SCRIPT_NAME _rel $PROJECT_DIR.fw $PROJECT_DIR.img"
     exit 1
 fi
 
@@ -20,12 +22,12 @@ IMG_FILENAME=$3
 OUTPUT_DIR=$BASE_DIR/_images
 
 # Check that we have everything that we need
-[ -z "$NERVES_ROOT" ] && { echo "Error: Source nerves-env.sh and try again."; exit 1; }
-[ ! -d "$RELEASE_DIR" ] && { echo "Error: Check that your app's release directory exists. ($RELEASE_DIR)"; exit 1; }
+[ -z "$NERVES_ROOT" ] && { echo "$SCRIPT_NAME: Source nerves-env.sh and try again."; exit 1; }
+[ ! -d "$RELEASE_DIR" ] && { echo "$SCRIPT_NAME: Check that your app's release directory exists. ($RELEASE_DIR)"; exit 1; }
 [ -z "$FW_FILENAME" ] && FW_FILENAME=${PROJECT_DIR}.fw
 [ -z "$IMG_FILENAME" ] && IMG_FILENAME=`basename $FW_FILENAME .fw`.img
 
-command -v fakeroot >/dev/null 2>&1 || { echo "Error: This script requires fakeroot." >&2; exit 1; }
+command -v fakeroot >/dev/null 2>&1 || { echo "$SCRIPT_NAME: This script requires fakeroot." >&2; exit 1; }
 
 mkdir -p $OUTPUT_DIR
 

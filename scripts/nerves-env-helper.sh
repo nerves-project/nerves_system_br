@@ -42,6 +42,7 @@ for i in $ALL_CROSSCOMPILE; do
     esac
 done
 
+export CROSSCOMPILE
 export REBAR_PLT_DIR=$NERVES_SDK_SYSROOT/usr/lib/erlang
 export CC=$CROSSCOMPILE-gcc
 export CXX=$CROSSCOMPILE-g++
