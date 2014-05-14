@@ -21,7 +21,7 @@ rm -fr $TARGETDIR/srv/erlang/bin srv/erlang/erts-*
 
 # Remove all shell scripts. We're trying hard not to ever have to run
 # one, so this will hopefully keep us honest.
-find $TARGETDIR -type f | xargs file | grep "POSIX shell script" | cut -d : -f 1 | xargs rm
+find $TARGETDIR -type f | xargs file | grep "POSIX shell script" | cut -d : -f 1 | xargs rm -f
 rm -f $TARGETDIR/root/.bash* $TARGETDIR/etc/profile $TARGETDIR/etc/issue
 
 # Remove Erlang binaries that don't make sense on the target
