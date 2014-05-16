@@ -1,7 +1,7 @@
-From d28ee5aa59dfa3df583989706b88a8cb083abf07 Mon Sep 17 00:00:00 2001
+From 6604d2b019b103c9574ad8bcb915667d0d2ae7ca Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:47:10 -0400
-Subject: [PATCH 2/5] erlang: remove unwanted packages from staging too
+Subject: [PATCH 2/6] erlang: remove unwanted packages from staging too
 
 This fixes the issue where a 3rd party Erlang program compiles fine
 against the files in staging, but will not run on the target due to
@@ -42,5 +42,5 @@ index 1278682..3c1fa92 100644
  $(eval $(autotools-package))
  $(eval $(host-autotools-package))
 -- 
-1.8.3.2
+1.9.1
 

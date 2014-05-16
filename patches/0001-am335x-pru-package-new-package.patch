@@ -1,7 +1,7 @@
-From ac0b8df01cc5e0038bf3b7235031106466d040b8 Mon Sep 17 00:00:00 2001
+From 54059522bb6086dccc7e8a4ead771d6d89a14453 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:36:09 -0400
-Subject: [PATCH 1/5] am335x-pru-package: new package
+Subject: [PATCH 1/6] am335x-pru-package: new package
 
 am335x-pru-package provides an assembler and program loader for Texas
 Instrument's AM335x programmable real-time units.
@@ -19,10 +19,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/am335x-pru-package/am335x-pru-package.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 44c35ea..04ea9a5 100644
+index 3bc8d24..6f78297 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -267,6 +267,7 @@ source "package/zd1211-firmware/Config.in"
+@@ -268,6 +268,7 @@ source "package/zd1211-firmware/Config.in"
  endmenu
  source "package/a10disp/Config.in"
  source "package/acpid/Config.in"
@@ -31,7 +31,7 @@ index 44c35ea..04ea9a5 100644
  source "package/cdrkit/Config.in"
  source "package/cryptsetup/Config.in"
 diff --git a/package/Config.in.host b/package/Config.in.host
-index ac6091f..a364f4e 100644
+index c6997e9..9c11241 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -1,5 +1,6 @@
@@ -114,5 +114,5 @@ index 0000000..f70e679
 +$(eval $(generic-package))
 +$(eval $(host-generic-package))
 -- 
-1.8.3.2
+1.9.1
 

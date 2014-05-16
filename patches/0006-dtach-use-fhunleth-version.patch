@@ -1,7 +1,7 @@
-From e62ca8d5b5dd4b6ea858545db57c92a163b55e63 Mon Sep 17 00:00:00 2001
+From 7733c33e179efcff38f11aed91e7d13fe85ad889 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 13 May 2014 13:50:14 -0400
-Subject: [PATCH] dtach: use fhunleth version
+Subject: [PATCH 6/6] dtach: use fhunleth version
 
 ---
  package/dtach/dtach.mk | 6 ++++--
