@@ -46,28 +46,25 @@ fakeroot $NERVES_ROOT/scripts/create-fs.sh \
 	$OUTPUT_DIR/rootfs \
     $OUTPUT_DIR/rootfs.ext2 2>&1 | (grep -v "LD_PRELOAD cannot be preloaded" || true)
 
-FWTOOL=$NERVES_SDK_ROOT/usr/bin/fwtool
-FWTOOL_CONFIG=$NERVES_SDK_IMAGES/fwtool.config
+FWUP=$NERVES_SDK_ROOT/usr/bin/fwup
+FWUP_CONFIG=$NERVES_SDK_IMAGES/fwup.conf
 
 # Build the firmware image
 echo Building $OUTPUT_DIR/$FW_FILENAME...
-$FWTOOL -c $FWTOOL_CONFIG \
-        --base_path=$NERVES_ROOT \
-	--rootfs_path=$OUTPUT_DIR/rootfs.ext2 \
-	create $OUTPUT_DIR/$FW_FILENAME
+echo ROOTFS=$OUTPUT_DIR/rootfs.ext2 $FWUP -c -f $FWUP_CONFIG \
+	-o $OUTPUT_DIR/$FW_FILENAME
+ROOTFS=$OUTPUT_DIR/rootfs.ext2 $FWUP -c -f $FWUP_CONFIG \
+	-o $OUTPUT_DIR/$FW_FILENAME
 
 # Erase the image file in case it exists from a previous build.
-# We use fwtool in "programming" mode to create the raw image so it expects there
+# We use fwup in "programming" mode to create the raw image so it expects there
 # to the destination to exist (like a MMC device). This provides the minimum image.
 rm -f $OUTPUT_DIR/$IMG_FILENAME
 touch $OUTPUT_DIR/$IMG_FILENAME
 
 # Build the raw image for the bulk programmer
 echo Building $OUTPUT_DIR/$IMG_FILENAME...
-$FWTOOL -c $FWTOOL_CONFIG \
-	-d $OUTPUT_DIR/$IMG_FILENAME \
-	-t complete \
-	run $OUTPUT_DIR/$FW_FILENAME
+$FWUP -a -d $OUTPUT_DIR/$IMG_FILENAME -t complete -i $OUTPUT_DIR/$FW_FILENAME
 
 # Clean up
 rm -f $OUTPUT_DIR/rootfs.ext2

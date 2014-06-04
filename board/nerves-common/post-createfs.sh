@@ -7,15 +7,15 @@ set -e
 #
 
 if [ $# -ne 3 ]; then
-    echo "Usage: $0 <BR images directory> <Path to fwtool.config> <Base firmware name>"
+    echo "Usage: $0 <BR images directory> <Path to fwup.conf> <Base firmware name>"
     exit 1
 fi
 
 NERVES_SDK_IMAGES=$1
-FWTOOL_CONFIG=$2
+FWUP_CONFIG=$2
 BASE_FW_NAME=$3
 
-[ ! -f $FWTOOL_CONFIG ] && { echo "Error: $FWTOOL_CONFIG not found"; exit 1; }
+[ ! -f $FWUP_CONFIG ] && { echo "Error: $FWUP_CONFIG not found"; exit 1; }
 
 TARGETDIR=$NERVES_SDK_IMAGES/../target
 NERVES_ROOT=$NERVES_SDK_IMAGES/../../..
@@ -23,7 +23,7 @@ NERVES_SDK_ROOT=$NERVES_SDK_IMAGES/../host
 
 # Link the fwtool config to the images directory so that
 # it can be used to create images based on this one.
-ln -sf $FWTOOL_CONFIG $NERVES_SDK_IMAGES
+ln -sf $FWUP_CONFIG $NERVES_SDK_IMAGES
 
 # Use the rel2fw.sh tool to create the demo images
 OLD_DIR=`pwd`
