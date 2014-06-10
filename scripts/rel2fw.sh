@@ -51,8 +51,6 @@ FWUP_CONFIG=$NERVES_SDK_IMAGES/fwup.conf
 
 # Build the firmware image
 echo Building $OUTPUT_DIR/$FW_FILENAME...
-echo ROOTFS=$OUTPUT_DIR/rootfs.ext2 $FWUP -c -f $FWUP_CONFIG \
-	-o $OUTPUT_DIR/$FW_FILENAME
 ROOTFS=$OUTPUT_DIR/rootfs.ext2 $FWUP -c -f $FWUP_CONFIG \
 	-o $OUTPUT_DIR/$FW_FILENAME
 
