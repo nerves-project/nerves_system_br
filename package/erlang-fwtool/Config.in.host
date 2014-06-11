@@ -1,9 +1,0 @@
-config BR2_PACKAGE_HOST_ERLANG_FWTOOL
-	bool "host erlang-fwtool"
-	depends on BR2_PACKAGE_ERLANG
-	select BR2_PACKAGE_HOST_ERLANG_REBAR
-	help
-	  A firmware packaging and programming tool
-	  written in Erlang.
-
-	  http://github.com/nerves-project/fwtool
