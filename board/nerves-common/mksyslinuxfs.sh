@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# This helper script creates a FAT file system with the syslinux special
+# files. It should be passed the filename of the image, the size in
+# 512 byte blocks, and the path to syslinux.
+
+set -e
+
+if [ $# -lt 3 ]; then
+    echo "Usage: $0 <bootpart> <bootsize> <syslinux path>"
+    exit 1
+fi
+
+BOOTPART=$1
+BOOTSIZE=$2
+SYSLINUX=$3
+NERVES_ROOT=/home/fhunleth/nerves/nerves-sdk-rpi
+
+# Create the boot partition and run it through syslinux
+rm -f $BOOTPART
+dd if=/dev/zero of=$BOOTPART count=0 seek=$BOOTSIZE 2>/dev/null
+$NERVES_ROOT/buildroot/output/host/usr/sbin/mkfs.vfat -F 12 -n BOOT $BOOTPART >/dev/null
+$SYSLINUX -i $BOOTPART
+
