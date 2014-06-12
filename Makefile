@@ -86,9 +86,7 @@ busybox-menuconfig: buildroot/.config
 	@echo your buildroot configuration to use it.
 	$(MAKE_BR) busybox-update-config
 
-clean:
-	$(MAKE_BR) clean
-
+clean: realclean
 distclean: realclean
 realclean:
 	-rm -fr buildroot .buildroot-patched .buildroot-downloaded
@@ -98,15 +96,14 @@ help:
 	@echo '---------------'
 	@echo
 	@echo 'Cleaning:'
-	@echo '  clean				- clean Buildroot directory and config'
-	@echo '  realclean			- Clean up everything'
+	@echo '  clean				- Clean everything - run make xyz_defconfig after this'
 	@echo
 	@echo 'Build:'
-	@echo '  all				- build everything [default target]'
+	@echo '  all				- Build the current configuration'
 	@echo
 	@echo 'Configuration:'
-	@echo '  menuconfig			- run buildroots menuconfig'
-	@echo '  linux-menuconfig		- run menuconfig on the Linux kernel'
+	@echo "  menuconfig			- Run Buildroot's menuconfig"
+	@echo '  linux-menuconfig		- Run menuconfig on the Linux kernel'
 	@echo
 	@echo 'Nerves built-in configs:'
 	@$(foreach b, $(sort $(notdir $(wildcard configs/*_defconfig))), \
