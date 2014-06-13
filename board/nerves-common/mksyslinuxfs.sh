@@ -6,15 +6,15 @@
 
 set -e
 
-if [ $# -lt 3 ]; then
-    echo "Usage: $0 <bootpart> <bootsize> <syslinux path>"
+if [ $# -lt 4 ]; then
+    echo "Usage: $0 <nerves_root> <bootpart> <bootsize> <syslinux path>"
     exit 1
 fi
 
-BOOTPART=$1
-BOOTSIZE=$2
-SYSLINUX=$3
-NERVES_ROOT=/home/fhunleth/nerves/nerves-sdk-rpi
+NERVES_ROOT=$1
+BOOTPART=$2
+BOOTSIZE=$3
+SYSLINUX=$4
 
 # Create the boot partition and run it through syslinux
 rm -f $BOOTPART
