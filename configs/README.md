@@ -1,0 +1,24 @@
+This README documents Nerves-specific configuration of Buildroot that may not be obvious.
+
+## UTF-8
+
+If unchanged, the default locale is "C" using the latin1 encoding. This can be
+checked by calling `file:native_name_encoding/0`. Elixir produces a warning
+when loading if not using UTF-8. The following configuration items enable UTF-8 at
+the cost of adding the file `locale-archive` to the root filesystem.
+
+```
+BR2_ENABLE_LOCALE_PURGE=y
+BR2_ENABLE_LOCALE_WHITELIST="locale-archive"
+BR2_GENERATE_LOCALE="en_US.UTF-8"
+```
+
+## OpenSSL
+
+Buildroot can be configured to build a version of Erlang without OpenSSL, but it
+effectively prevents one from using Cowboy and other web frameworks, so it is
+enabled by default. See:
+
+```
+BR2_PACKAGE_OPENSSL=y
+```
