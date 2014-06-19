@@ -1,6 +1,6 @@
 TOPDIR := $(shell pwd)
 
-NERVES_BR_VERSION = 2014.05
+NERVES_BR_VERSION = 0053b5c10d1d7c20a018b546b9cc7abbc1c63dc9
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 
 # Optional place to download files to so that they don't need

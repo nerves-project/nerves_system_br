@@ -1,7 +1,7 @@
-From 54059522bb6086dccc7e8a4ead771d6d89a14453 Mon Sep 17 00:00:00 2001
+From 6673413d3b1bea96b7000efff048cef530ac3c87 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:36:09 -0400
-Subject: [PATCH 1/6] am335x-pru-package: new package
+Subject: [PATCH 1/8] am335x-pru-package: new package
 
 am335x-pru-package provides an assembler and program loader for Texas
 Instrument's AM335x programmable real-time units.
@@ -19,28 +19,28 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/am335x-pru-package/am335x-pru-package.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 3bc8d24..6f78297 100644
+index f43e985..bcdf2d0 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -268,6 +268,7 @@ source "package/zd1211-firmware/Config.in"
+@@ -271,6 +271,7 @@ menu "Firmware"
  endmenu
- source "package/a10disp/Config.in"
- source "package/acpid/Config.in"
-+source "package/am335x-pru-package/Config.in"
- source "package/avrdude/Config.in"
- source "package/cdrkit/Config.in"
- source "package/cryptsetup/Config.in"
+ 	source "package/a10disp/Config.in"
+ 	source "package/acpid/Config.in"
++	source "package/am335x-pru-package/Config.in"
+ 	source "package/avrdude/Config.in"
+ 	source "package/cdrkit/Config.in"
+ 	source "package/cryptsetup/Config.in"
 diff --git a/package/Config.in.host b/package/Config.in.host
-index c6997e9..9c11241 100644
+index cf09e46..75e8205 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -1,5 +1,6 @@
  menu "Host utilities"
  
-+source "package/am335x-pru-package/Config.in.host"
- source "package/dfu-util/Config.in.host"
- source "package/dosfstools/Config.in.host"
- source "package/e2fsprogs/Config.in.host"
++	source "package/am335x-pru-package/Config.in.host"
+ 	source "package/dfu-util/Config.in.host"
+ 	source "package/dosfstools/Config.in.host"
+ 	source "package/e2fsprogs/Config.in.host"
 diff --git a/package/am335x-pru-package/Config.in b/package/am335x-pru-package/Config.in
 new file mode 100644
 index 0000000..66d7773

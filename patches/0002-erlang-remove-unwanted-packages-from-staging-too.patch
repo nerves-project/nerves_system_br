@@ -1,7 +1,7 @@
-From 6604d2b019b103c9574ad8bcb915667d0d2ae7ca Mon Sep 17 00:00:00 2001
+From bae92eed8eb5fbd428f30ad747f61910414d90b0 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 29 Oct 2013 14:47:10 -0400
-Subject: [PATCH 2/6] erlang: remove unwanted packages from staging too
+Subject: [PATCH 2/8] erlang: remove unwanted packages from staging too
 
 This fixes the issue where a 3rd party Erlang program compiles fine
 against the files in staging, but will not run on the target due to

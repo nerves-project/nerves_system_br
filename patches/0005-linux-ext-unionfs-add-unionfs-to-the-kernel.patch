@@ -1,7 +1,7 @@
-From 543e4c034485828d7639df369f7f6982b198fe54 Mon Sep 17 00:00:00 2001
+From a351a79cfed5efbd626d46e869710d618e99fd3b Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 26 Mar 2014 12:03:22 -0400
-Subject: [PATCH 5/6] linux-ext-unionfs: add unionfs to the kernel
+Subject: [PATCH 5/8] linux-ext-unionfs: add unionfs to the kernel
 
 This patch adds support for the kernel-based unionfs implementation. It
 is different than the FUSE-based implementation that already exists in

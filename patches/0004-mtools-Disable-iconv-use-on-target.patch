@@ -1,7 +1,7 @@
-From 8589f2ac90f1b91c861b6e679b87cb5b73ce8386 Mon Sep 17 00:00:00 2001
+From 7b27f57a86b0aa80248de09b6bdf14b310cdd622 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 18 Mar 2014 13:14:22 -0400
-Subject: [PATCH 4/6] mtools: Disable iconv use on target
+Subject: [PATCH 4/8] mtools: Disable iconv use on target
 
 Since the /usr/lib/gconv directory isn't copied over to the target
 with some toolchains, iconv_open will fail. This removes character set

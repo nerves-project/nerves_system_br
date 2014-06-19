@@ -1,4 +1,4 @@
-From 4f64d183272d813b58c362b20ed337d304c2d450 Mon Sep 17 00:00:00 2001
+From e93d60860c314ee16c54d828f4afc9e2b46a98a3 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 3 Jun 2014 14:35:35 -0400
 Subject: [PATCH 8/8] libconfuse: add env substitution fix
