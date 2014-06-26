@@ -4,12 +4,12 @@
 #
 #############################################################
 
-ERLINIT_VERSION = v0.4.0
+ERLINIT_VERSION = v0.4.1
 ERLINIT_SITE = $(call github,nerves-project,erlinit,$(ERLINIT_VERSION))
 ERLINIT_LICENSE = MIT
 
 # Make sure erlinit gets installed after busybox init so that
-# it gets called
+# erlinit's /sbin/init is the one that is used
 ifeq ($(BR2_PACKAGE_BUSYBOX),y)
 ERLINIT_DEPENDENCIES += busybox
 endif
