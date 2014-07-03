@@ -4,7 +4,7 @@
 #
 #############################################################
 
-ELIXIR_VERSION = v0.14.1
+ELIXIR_VERSION = v0.14.2
 ELIXIR_SITE = $(call github,elixir-lang,elixir,$(ELIXIR_VERSION))
 ELIXIR_LICENSE = Apache-2.0
 ELIXIR_LICENSE_FILES = LICENSE
