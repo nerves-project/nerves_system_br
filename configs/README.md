@@ -13,6 +13,11 @@ BR2_ENABLE_LOCALE_WHITELIST="locale-archive"
 BR2_GENERATE_LOCALE="en_US.UTF-8"
 ```
 
+You will also need to update the environment variables being passed to start
+the Erlang VM. This can be done via the `erlinit` configuration. Specify:
+
+    -e LANG=en_US.UTF-8;LANGUAGE=en
+
 ## OpenSSL
 
 Buildroot can be configured to build a version of Erlang without OpenSSL, but it
