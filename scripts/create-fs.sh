@@ -11,6 +11,7 @@
 set -e
 export LC_ALL=C
 
+SCRIPT_NAME=`basename $0`
 BASE_FS_CONTENTS=$1
 RELEASE_DIR=$2
 TMPDIR=$3
@@ -28,27 +29,35 @@ rm -fr $TMPDIR/*
 # Populate it with the base file system
 tar -C $TMPDIR -xf $BASE_FS_CONTENTS
 
-# Overlay the Erlang release
-mkdir -p $TMPDIR/srv/erlang
-rm -fr $TMPDIR/srv/erlang/*
-cp -r $RELEASE_DIR/* $TMPDIR/srv/erlang
+# Overlay the Erlang release with the new one.
+# NOTE: It can be convenient to specify an empty release directory to
+#       skip this (see bbb_linux_defconfig). If the user does this,
+#       don't do the Nerves thing of erasing the Erlang install.
+if [ -d "$RELEASE_DIR" ]; then
+    mkdir -p $TMPDIR/srv/erlang
+    rm -fr $TMPDIR/srv/erlang/*
+    cp -r $RELEASE_DIR/* $TMPDIR/srv/erlang
 
-# Clean up the Erlang release of all the files that we don't need.
-# The user should create their releases without source code
-# unless they want really big images..
-rm -fr $TMPDIR/srv/erlang/bin $TMPDIR/srv/erlang/erts-*
+    # Clean up the Erlang release of all the files that we don't need.
+    # The user should create their releases without source code
+    # unless they want really big images..
+    rm -fr $TMPDIR/srv/erlang/bin $TMPDIR/srv/erlang/erts-*
 
-# Clean out the Erlang libraries that are no longer needed in /usr/lib/erlang
-# since the image will now reference what's in /srv/erlang
-rm -fr $TMPDIR/usr/lib/erlang/lib
+    # Clean out the Erlang libraries that are no longer needed in /usr/lib/erlang
+    # since the image will now reference what's in /srv/erlang
+    rm -fr $TMPDIR/usr/lib/erlang/lib
 
-# Delete empty directories
-find $TMPDIR/usr/lib/erlang -type d -empty -delete
-find $TMPDIR/srv/erlang -type d -empty -delete
+    # Delete empty directories
+    find $TMPDIR/usr/lib/erlang -type d -empty -delete
+    find $TMPDIR/srv/erlang -type d -empty -delete
 
-# Strip debug information from executables and libraries
-# Symbols are still available to the user in the release directory.
-find $TMPDIR/srv/erlang -type f -perm /111 -exec $CROSSCOMPILE-strip "{}" ";"
+    # Strip debug information from executables and libraries
+    # Symbols are still available to the user in the release directory.
+    find $TMPDIR/srv/erlang -type f -perm /111 -exec $CROSSCOMPILE-strip "{}" ";"
+else
+    echo "$SCRIPT_NAME: WARNING: Missing Erlang release directory: ($RELEASE_DIR)"
+    echo "$SCRIPT_NAME:          Keeping default Erlang installation in /usr/lib/erlang."
+fi
 
 # Create sshd public keys
 #mkdir -p $TMPDIR/etc/ssh

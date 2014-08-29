@@ -23,7 +23,7 @@ OUTPUT_DIR=$BASE_DIR/_images
 
 # Check that we have everything that we need
 [ -z "$NERVES_ROOT" ] && { echo "$SCRIPT_NAME: Source nerves-env.sh and try again."; exit 1; }
-[ ! -d "$RELEASE_DIR" ] && { echo "$SCRIPT_NAME: Check that your app's release directory exists. ($RELEASE_DIR)"; exit 1; }
+# The RELEASE_DIR can be missing in the case of non-Erlang debug configurations like bbb_linux_defconfig
 [ -z "$FW_FILENAME" ] && FW_FILENAME=${PROJECT_DIR}.fw
 [ -z "$IMG_FILENAME" ] && IMG_FILENAME=`basename $FW_FILENAME .fw`.img
 
