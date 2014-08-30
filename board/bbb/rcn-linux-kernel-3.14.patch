@@ -1,0 +1,5410 @@
+--- a/Makefile
++++ b/Makefile
+@@ -382,7 +382,8 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+ 		   -fno-strict-aliasing -fno-common \
+ 		   -Werror-implicit-function-declaration \
+ 		   -Wno-format-security \
+-		   -fno-delete-null-pointer-checks
++		   -fno-delete-null-pointer-checks \
++		   -Wno-pointer-sign
+ KBUILD_AFLAGS_KERNEL :=
+ KBUILD_CFLAGS_KERNEL :=
+ KBUILD_AFLAGS   := -D__ASSEMBLY__
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -226,6 +226,34 @@ dtb-$(CONFIG_ARCH_OMAP2PLUS) += omap2420-h4.dtb \
+ 	am335x-evmsk.dtb \
+ 	am335x-bone.dtb \
+ 	am335x-boneblack.dtb \
++	am335x-boneblack-ttyO5.dtb \
++	am335x-boneblack-ttyO4.dtb \
++	am335x-boneblack-ttyO2.dtb \
++	am335x-boneblack-ttyO1.dtb \
++	am335x-boneblack-rtc-01-00a1.dtb \
++	am335x-boneblack-lcd7-01-00a3.dtb \
++	am335x-boneblack-lcd7-01-00a2.dtb \
++	am335x-boneblack-lcd4-01-00a1.dtb \
++	am335x-boneblack-lcd3-01-00a2.dtb \
++	am335x-boneblack-4dcape-70t.dtb \
++	am335x-boneblack-4dcape-70.dtb \
++	am335x-boneblack-4dcape-43t.dtb \
++	am335x-boneblack-4dcape-43.dtb \
++	am335x-boneblack-crypto-00a0.dtb \
++	am335x-boneblack-cape-bone-argus.dtb \
++	am335x-boneblack-audio.dtb \
++	am335x-bone-ttyO5.dtb \
++	am335x-bone-ttyO4.dtb \
++	am335x-bone-ttyO2.dtb \
++	am335x-bone-ttyO1.dtb \
++	am335x-bone-rtc-01-00a1.dtb \
++	am335x-bone-lcd7-01-00a3.dtb \
++	am335x-bone-lcd7-01-00a2.dtb \
++	am335x-bone-lcd4-01-00a1.dtb \
++	am335x-bone-lcd3-01-00a2.dtb \
++	am335x-bone-crypto-00a0.dtb \
++	am335x-bone-cape-bone-argus.dtb \
++	am335x-bone-audio.dtb \
+ 	am335x-nano.dtb \
+ 	am335x-base0033.dtb \
+ 	am3517-evm.dtb \
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-4dcape-43.dtsi
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/* Led */
++/* #include "am335x-bone-led-gpio1-18.dtsi" */
++#include "am335x-bone-led-gpio1-28.dtsi"
++/* #include "am335x-bone-led-gpio3-19.dtsi" */
++
++/* Keypad */
++/* #include "am335x-bone-keymap0.dtsi" */
++#include "am335x-bone-keymap1.dtsi"
++/* #include "am335x-bone-keymap2.dtsi" */
++
++/* Backlight */
++#include "am335x-bone-bl-gpio1-18.dtsi"
++
++/* Touchscreen */
++/* #include "am335x-bone-ti-tscadc-4-wire.dtsi" */
++
++/* Panel */
++/* #include "am335x-bone-panel-320x240.dtsi" */
++#include "am335x-bone-panel-480x272.dtsi"
++/* #include "am335x-bone-panel-800x480.dtsi" */
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-4dcape-43t.dtsi
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/* Led */
++/* #include "am335x-bone-led-gpio1-18.dtsi" */
++#include "am335x-bone-led-gpio1-28.dtsi"
++/* #include "am335x-bone-led-gpio3-19.dtsi" */
++
++/* Keypad */
++/* #include "am335x-bone-keymap0.dtsi" */
++#include "am335x-bone-keymap1.dtsi"
++/* #include "am335x-bone-keymap2.dtsi" */
++
++/* Backlight */
++#include "am335x-bone-bl-gpio1-18.dtsi"
++
++/* Touchscreen */
++#include "am335x-bone-ti-tscadc-4-wire.dtsi"
++
++/* Panel */
++/* #include "am335x-bone-panel-320x240.dtsi" */
++#include "am335x-bone-panel-480x272.dtsi"
++/* #include "am335x-bone-panel-800x480.dtsi" */
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-4dcape-70.dtsi
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/* Led */
++/* #include "am335x-bone-led-gpio1-18.dtsi" */
++#include "am335x-bone-led-gpio1-28.dtsi"
++/* #include "am335x-bone-led-gpio3-19.dtsi" */
++
++/* Keypad */
++#include "am335x-bone-keymap0.dtsi"
++/* #include "am335x-bone-keymap1.dtsi" */
++/* #include "am335x-bone-keymap2.dtsi" */
++
++/* Backlight */
++#include "am335x-bone-bl-gpio1-18.dtsi"
++
++/* Touchscreen */
++/* #include "am335x-bone-ti-tscadc-4-wire.dtsi" */
++
++/* Panel */
++/* #include "am335x-bone-panel-320x240.dtsi" */
++/* #include "am335x-bone-panel-480x272.dtsi" */
++#include "am335x-bone-panel-800x480.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-4dcape-70t.dtsi
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/* Led */
++/* #include "am335x-bone-led-gpio1-18.dtsi" */
++#include "am335x-bone-led-gpio1-28.dtsi"
++/* #include "am335x-bone-led-gpio3-19.dtsi" */
++
++/* Keypad */
++#include "am335x-bone-keymap0.dtsi"
++/* #include "am335x-bone-keymap1.dtsi" */
++/* #include "am335x-bone-keymap2.dtsi" */
++
++/* Backlight */
++#include "am335x-bone-bl-gpio1-18.dtsi"
++
++/* Touchscreen */
++#include "am335x-bone-ti-tscadc-4-wire.dtsi"
++
++/* Panel */
++/* #include "am335x-bone-panel-320x240.dtsi" */
++/* #include "am335x-bone-panel-480x272.dtsi" */
++#include "am335x-bone-panel-800x480.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-argus.dtsi
+@@ -0,0 +1,46 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	argus-ups {
++		compatible = "argus-ups";
++		status = "okay";
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&argus_ups_pins>; /* Refer to previous label */
++		/* This section communicates the gpio numbers to the driver module */
++		/* Note that gpio controllers appear to be numbered from 1-n here rather than 0-(n-1)????? */
++		gpios = <&gpio0 30 0>,  /* Request */
++			<&gpio0 5 0>,  	/* Acknowledge */
++			<&gpio0 4 0>,   /* Watchdog */
++			<&gpio2 2 0>, 	/* LED 1 Green */
++			<&gpio2 3 0>, 	/* LED 1 Red */
++			<&gpio2 5 0>, 	/* LED 2 Green */
++			<&gpio2 4 0>, 	/* LED 2 Red */
++			<&gpio0 20 0>,	/* General Output #1 */
++			<&gpio0 7 0>;	/* General Output #2 */
++		debug = <1>;
++		shutdown = <1>;
++	};
++};
++
++&am33xx_pinmux {
++	argus_ups_pins: pinmux_argus_ups_pins { /* Set up pinmux */
++		pinctrl-single,pins = <
++			0x070 (PIN_INPUT_PULLDOWN | MUX_MODE7) /* gpmc_wait0.gpio0_30 */
++			0x15c (PIN_OUTPUT_PULLUP | MUX_MODE7) /* spi0_cs0.gpio0_5 */
++			0x158 (PIN_OUTPUT_PULLUP | MUX_MODE7) /* spi0_d1.gpio0_4 */
++			0x090 (PIN_OUTPUT_PULLUP | MUX_MODE7) /* gpmc_advn_ale.gpio_2 */
++			0x094 (PIN_OUTPUT_PULLUP | MUX_MODE7) /* gpmc_oen_ren.gpio2_3 */
++			0x09c (PIN_OUTPUT_PULLUP | MUX_MODE7) /* gpmc_ben0_cle.gpio2_5 */
++			0x098 (PIN_OUTPUT_PULLUP | MUX_MODE7) /* gpmc_gpmc_wen.gpio2_4 */
++			0x1b4 (PIN_OUTPUT_PULLUP | MUX_MODE7) /* xdma_event_intr1.gpio0_20 */
++			0x164 (PIN_OUTPUT_PULLUP | MUX_MODE7) /* ecap0_in_pwm0_out.gpio0_7 */
++		>;
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-audio.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-audio.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-audio.dtsi
+@@ -0,0 +1,60 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&i2c2 {
++	tlv320aic3x: tlv320aic3x@18 {
++		compatible = "ti,tlv320aic3x";
++		reg = <0x18>;
++		ai3x-micbias-vg = <1>;
++		status = "okay";
++
++		/* Regulators */
++		AVDD-supply = <&ldo4_reg>;
++		IOVDD-supply = <&ldo4_reg>;
++		DRVDD-supply = <&ldo4_reg>;
++		DVDD-supply = <&vbat>;
++	};
++};
++
++&mcasp0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&mcasp0_pins_audio>;
++	status = "okay";
++	op-mode = <0>;          /* MCASP_IIS_MODE */
++	tdm-slots = <2>;
++	num-serializer = <16>;
++	serial-dir = <  /* 0: INACTIVE, 1: TX, 2: RX */
++		2 0 1 0
++		0 0 0 0
++		0 0 0 0
++		0 0 0 0
++	>;
++	tx-num-evt = <1>;
++	rx-num-evt = <1>;
++};
++
++/ {
++	sound {
++		compatible = "ti,da830-evm-audio";
++		ti,model = "DA830 EVM";
++		ti,audio-codec = <&tlv320aic3x>;
++		ti,mcasp-controller = <&mcasp0>;
++		ti,codec-clock-rate = <12000000>;
++		ti,audio-routing =
++			"Headphone Jack",       "HPLOUT",
++			"Headphone Jack",       "HPROUT",
++			"Line Out",             "LLOUT",
++			"Line Out",             "RLOUT",
++			"MIC3L",                "Mic Jack",
++			"MIC3R",                "Mic Jack",
++			"LINE1L",               "Line In",
++			"LINE2L",               "Line In",
++			"LINE1R",               "Line In",
++			"LINE2R",               "Line In";
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-basic-proto-cape.dtsi
+@@ -0,0 +1,17 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++#include "am335x-bone-spi0-spidev.dtsi"
++#include "am335x-bone-ttyO1.dtsi"
++
++&tscadc {
++	status = "okay";
++	adc {
++		ti,adc-channels = <4 5 6>;
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-bl-gpio1-18.dtsi
+@@ -0,0 +1,18 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	backlight {
++		status = "okay";
++		compatible = "gpio-backlight";
++		pinctrl-names = "default";
++		pinctrl-0 = <&bbcape_backlight_pins>;
++		gpios = <&gpio1 18 GPIO_ACTIVE_HIGH>;
++		default-on;
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-cape-bone-argus.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	/* pinctrl-0 = <&clkout2_pin>; */
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-argus.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-common-pinmux.dtsi
+@@ -0,0 +1,311 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&am33xx_pinmux {
++	user_leds_s0: user_leds_s0 {
++		pinctrl-single,pins = <
++			0x54 (PIN_OUTPUT_PULLDOWN | MUX_MODE7)	/* gpmc_a5.gpio1_21 */
++			0x58 (PIN_OUTPUT_PULLUP | MUX_MODE7)	/* gpmc_a6.gpio1_22 */
++			0x5c (PIN_OUTPUT_PULLDOWN | MUX_MODE7)	/* gpmc_a7.gpio1_23 */
++			0x60 (PIN_OUTPUT_PULLUP | MUX_MODE7)	/* gpmc_a8.gpio1_24 */
++		>;
++	};
++
++	bbcape_backlight_pins: bbcape_backlight_pins {
++		pinctrl-single,pins = <
++			0x48  (PIN_OUTPUT | MUX_MODE7)	/* gpmc_a[2].GPIO1[18] (backlight control) */
++		>;
++	};
++
++	bbcape_crypto_pins: pinmux_bbcape_crypto_pins {
++		pinctrl-single,pins = <
++			0x044 0x17	/* gpio1_17 FAST | OUTPUT | PULLUP | MODE7 */
++			0x034 0x2F	/* gpio1_13 FAST | INPUT | PULLDOWN | MODE7 */
++		>;
++	};
++
++	bbcape_lcd_pins: bbcape_lcd_pins {
++		pinctrl-single,pins = <
++			0xa0 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data0.lcd_data0 */
++			0xa4 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data1.lcd_data1 */
++			0xa8 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data2.lcd_data2 */
++			0xac (PIN_OUTPUT | MUX_MODE0)	/* lcd_data3.lcd_data3 */
++			0xb0 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data4.lcd_data4 */
++			0xb4 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data5.lcd_data5 */
++			0xb8 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data6.lcd_data6 */
++			0xbc (PIN_OUTPUT | MUX_MODE0)	/* lcd_data7.lcd_data7 */
++			0xc0 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data8.lcd_data8 */
++			0xc4 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data9.lcd_data9 */
++			0xc8 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data10.lcd_data10 */
++			0xcc (PIN_OUTPUT | MUX_MODE0)	/* lcd_data11.lcd_data11 */
++			0xd0 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data12.lcd_data12 */
++			0xd4 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data13.lcd_data13 */
++			0xd8 (PIN_OUTPUT | MUX_MODE0)	/* lcd_data14.lcd_data14 */
++			0xdc (PIN_OUTPUT | MUX_MODE0)	/* lcd_data15.lcd_data15 */
++			0xe0 (PIN_OUTPUT | MUX_MODE0)	/* lcd_vsync.lcd_vsync */
++			0xe4 (PIN_OUTPUT | MUX_MODE0)	/* lcd_hsync.lcd_hsync */
++			0xe8 (PIN_OUTPUT | MUX_MODE0)	/* lcd_pclk.lcd_pclk */
++			0xec (PIN_OUTPUT | MUX_MODE0)	/* lcd_ac_bias_en.lcd_ac_bias_en (lcd_en) */
++		>;
++	};
++
++	bbcape_lcd4_disen_pins: bbcape_lcd4_disen_pins {
++		pinctrl-single,pins = <
++			0x1a4 (PIN_OUTPUT_PULLUP | MUX_MODE7)	/* mcasp0_fsr.gpio3[19] (lcd_disen) */
++		>;
++	};
++
++	clkout2_pin: pinmux_clkout2_pin {
++		pinctrl-single,pins = <
++			0x1b4 (PIN_OUTPUT_PULLDOWN | MUX_MODE3)	/* xdma_event_intr1.clkout2 */
++		>;
++	};
++
++	cpsw_default: cpsw_default {
++		pinctrl-single,pins = <
++			/* Slave 1 */
++			0x110 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxerr.mii1_rxerr */
++			0x114 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txen.mii1_txen */
++			0x118 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxdv.mii1_rxdv */
++			0x11c (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txd3.mii1_txd3 */
++			0x120 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txd2.mii1_txd2 */
++			0x124 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txd1.mii1_txd1 */
++			0x128 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txd0.mii1_txd0 */
++			0x12c (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_txclk.mii1_txclk */
++			0x130 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxclk.mii1_rxclk */
++			0x134 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxd3.mii1_rxd3 */
++			0x138 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxd2.mii1_rxd2 */
++			0x13c (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxd1.mii1_rxd1 */
++			0x140 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxd0.mii1_rxd0 */
++		>;
++	};
++
++	cpsw_sleep: cpsw_sleep {
++		pinctrl-single,pins = <
++			/* Slave 1 reset value */
++			0x110 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x114 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x118 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x11c (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x120 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x124 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x128 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x12c (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x130 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x134 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x138 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x13c (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x140 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++		>;
++	};
++
++	davinci_mdio_default: davinci_mdio_default {
++		pinctrl-single,pins = <
++			/* MDIO */
++			0x148 (PIN_INPUT_PULLUP | SLEWCTRL_FAST | MUX_MODE0)	/* mdio_data.mdio_data */
++			0x14c (PIN_OUTPUT_PULLUP | MUX_MODE0)			/* mdio_clk.mdio_clk */
++		>;
++	};
++
++	davinci_mdio_sleep: davinci_mdio_sleep {
++		pinctrl-single,pins = <
++			/* MDIO reset value */
++			0x148 (PIN_INPUT_PULLDOWN | MUX_MODE7)
++			0x14c (PIN_INPUT_PULLDOWN | MUX_MODE7)
++		>;
++	};
++
++	emmc_pins: pinmux_emmc_pins {
++		pinctrl-single,pins = <
++			0x80 (PIN_INPUT_PULLUP | MUX_MODE2) /* gpmc_csn1.mmc1_clk */
++			0x84 (PIN_INPUT_PULLUP | MUX_MODE2) /* gpmc_csn2.mmc1_cmd */
++			0x00 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad0.mmc1_dat0 */
++			0x04 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad1.mmc1_dat1 */
++			0x08 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad2.mmc1_dat2 */
++			0x0c (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad3.mmc1_dat3 */
++			0x10 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad4.mmc1_dat4 */
++			0x14 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad5.mmc1_dat5 */
++			0x18 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad6.mmc1_dat6 */
++			0x1c (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad7.mmc1_dat7 */
++		>;
++	};
++
++	/* lcd4-01-00a0 */
++	gpio1_18_led_pins: pinmux_gpio1_18_led_pins {
++		pinctrl-single,pins = <
++			0x48 0x07	/* gpmc_a2.gpio1_18, OUTPUT | MODE7 */
++		>;
++	};
++
++	/* lcd4-01-00a1/lcd7-01-00a2/lcd7-01-00a3 */
++	gpio1_28_led_pins: pinmux_gpio1_28_led_pins {
++		pinctrl-single,pins = <
++			0x078 0x2f	/* gpmc_ben1.gpio1_28, INPUT | PULLDIS | MODE7 */
++		>;
++	};
++
++	/* rtc-01-00a1 */
++	gpio1_29_pins: pinmux_gpio1_29_pins {
++		pinctrl-single,pins = <
++			0x07c 0x3f	/* gpmc_csn0.gpio1_29, INPUT | PULLDIS | MODE 7 */
++		>;
++	};
++
++	/* lcd3-01-00a2 */
++	gpio3_19_led_pins: pinmux_gpio3_19_led_pins {
++		pinctrl-single,pins = <
++			0x1a4 0x07	/* mcasp0_fsr.gpio3_19, OUTPUT | MODE7 */
++		>;
++	};
++
++	i2c0_pins: pinmux_i2c0_pins {
++		pinctrl-single,pins = <
++			0x188 (PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c0_sda.i2c0_sda */
++			0x18c (PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c0_scl.i2c0_scl */
++		>;
++	};
++
++	i2c1_pins: pinmux_i2c1_pins {
++		pinctrl-single,pins = <
++			0x158 0x72	/* spi0_d1.i2c1_sda, SLEWCTRL_SLOW | INPUT_PULLUP | MODE2 */
++			0x15c 0x72	/* spi0_cs0.i2c1_scl, SLEWCTRL_SLOW | INPUT_PULLUP | MODE2 */
++		>;
++	};
++
++	i2c2_pins: pinmux_i2c2_pins {
++		pinctrl-single,pins = <
++			0x178 0x73 /* (SLEWCTRL_SLOW | PIN_INPUT_PULLUP | MUX_MODE3) uart1_ctsn.i2c2_sda */
++			0x17c 0x73 /* (SLEWCTRL_SLOW | PIN_INPUT_PULLUP | MUX_MODE3) uart1_rtsn.i2c2_scl */
++		>;
++	};
++
++	/* lcd3-01-00a2/lcd7-01-00a3/4dcape-70(t) */
++	keymap0_pins: pinmux_keymap0_pins {
++		pinctrl-single,pins = <
++			0x040 0x2f	/* KEY_LEFT gpmc_a0.gpio1_16, INPUT | PULLDIS | MODE7 */
++			0x044 0x2f	/* KEY_RIGHT gpmc_a1.gpio1_17, INPUT | PULLDIS | MODE7 */
++			0x04c 0x2f 	/* KEY_UP gpmc_a3.gpio1_19, INPUT | PULLDIS | MODE7 */
++			0x198 0x2f	/* KEY_DOWN mcasp0_axr0.gpio3_16, INPUT | PULLDIS | MODE7 */
++			0x154 0x2f	/* KEY_ENTER spi0_d0.gpio0_3, INPUT | PULLDIS | MODE7 */
++		>;
++	};
++
++	/* lcd4-01-00a1/4dcape-43(t) */
++	keymap1_pins: pinmux_keymap1_pins {
++		pinctrl-single,pins = <
++			0x040 0x2f	/* KEY_LEFT gpmc_a0.gpio1_16, INPUT | PULLDIS | MODE7 */
++			0x044 0x2f	/* KEY_RIGHT gpmc_a1.gpio1_17, INPUT | PULLDIS | MODE7 */
++			0x04c 0x2f 	/* KEY_UP gpmc_a3.gpio1_19, INPUT | PULLDIS | MODE7 */
++			0x198 0x2f	/* KEY_DOWN mcasp0_axr0.gpio3_16, INPUT | PULLDIS | MODE7 */
++			0x184 0x2f	/* KEY_ENTER uart1_txd.gpio0_15, INPUT | PULLDIS | MODE7 */
++		>;
++	};
++
++	/* lcd7-01-00a2 */
++	keymap2_pins: pinmux_keymap2_pins {
++		pinctrl-single,pins = <
++			0x040 0x2f	/* KEY_LEFT gpmc_a0.gpio1_16, INPUT | PULLDIS | MODE7 */
++			0x044 0x2f	/* KEY_RIGHT gpmc_a1.gpio1_17, INPUT | PULLDIS | MODE7 */
++			0x04c 0x2f 	/* KEY_UP gpmc_a3.gpio1_19, INPUT | PULLDIS | MODE7 */
++			0x198 0x2f	/* KEY_DOWN mcasp0_axr0.gpio3_16, INPUT | PULLDIS | MODE7 */
++			0x1a4 0x2f	/* KEY_ENTER mcasp0_fsr.gpio3_19, INPUT | PULLDIS | MODE7 */
++		>;
++	};
++
++	mcasp0_pins_audio: mcasp0_pins_audio {
++		pinctrl-single,pins = <
++			0x1ac 0x00	/* mcasp0_ahclkx, OUTPUT | MODE0, Codec MCLK */
++			0x190 0x20	/* mcasp0_aclkx, INPUT | MODE0, Codec BCLK */
++			0x194 0x20	/* mcasp0_fsx, INPUT | MODE0, Codec WCLK */
++			0x198 0x20	/* mcasp0_axr0, INPUT | MODE0, Codec DOUT */
++			0x19c 0x22	/* mcasp0_axr2, INPUT | MODE2, Codec DIN */
++		>;
++	};
++
++	mmc1_pins: pinmux_mmc1_pins {
++		pinctrl-single,pins = <
++			0x160 (PIN_INPUT | MUX_MODE7) /* GPIO0_6 */
++		>;
++	};
++
++	nxp_hdmi_bonelt_pins: nxp_hdmi_bonelt_pins {
++		pinctrl-single,pins = <
++			0x1b0 0x03      /* xdma_event_intr0, OMAP_MUX_MODE3 | AM33XX_PIN_OUTPUT */
++			0xa0 0x08       /* lcd_data0.lcd_data0, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xa4 0x08       /* lcd_data1.lcd_data1, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xa8 0x08       /* lcd_data2.lcd_data2, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xac 0x08       /* lcd_data3.lcd_data3, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xb0 0x08       /* lcd_data4.lcd_data4, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xb4 0x08       /* lcd_data5.lcd_data5, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xb8 0x08       /* lcd_data6.lcd_data6, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xbc 0x08       /* lcd_data7.lcd_data7, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xc0 0x08       /* lcd_data8.lcd_data8, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xc4 0x08       /* lcd_data9.lcd_data9, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xc8 0x08       /* lcd_data10.lcd_data10, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xcc 0x08       /* lcd_data11.lcd_data11, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xd0 0x08       /* lcd_data12.lcd_data12, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xd4 0x08       /* lcd_data13.lcd_data13, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xd8 0x08       /* lcd_data14.lcd_data14, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xdc 0x08       /* lcd_data15.lcd_data15, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
++			0xe0 0x00       /* lcd_vsync.lcd_vsync, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT */
++			0xe4 0x00       /* lcd_hsync.lcd_hsync, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT */
++			0xe8 0x00       /* lcd_pclk.lcd_pclk, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT */
++			0xec 0x00       /* lcd_ac_bias_en.lcd_ac_bias_en, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT */
++		>;
++	};
++
++	nxp_hdmi_bonelt_off_pins: nxp_hdmi_bonelt_off_pins {
++		pinctrl-single,pins = <
++			0x1b0 0x03      /* xdma_event_intr0, OMAP_MUX_MODE3 | AM33XX_PIN_OUTPUT */
++		>;
++	};
++
++	spi0_pins: pinmux_spi0_pins {
++		pinctrl-single,pins = <
++			0x150 (PIN_INPUT_PULLUP | MUX_MODE0)	/* spi0_sclk.spi0_sclk */
++			0x154 (PIN_INPUT_PULLUP | MUX_MODE0)	/* spi0_d0.spi0_d0 */
++			0x158 (PIN_OUTPUT_PULLUP | MUX_MODE0)	/* spi0_d1.spi0_d1 */
++			0x15c (PIN_OUTPUT_PULLUP | MUX_MODE0)	/* spi0_cs0.spi0_cs0 */
++		>;
++	};
++
++	uart0_pins: pinmux_uart0_pins {
++		pinctrl-single,pins = <
++			0x170 (PIN_INPUT_PULLUP | MUX_MODE0)	/* uart0_rxd.uart0_rxd */
++			0x174 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* uart0_txd.uart0_txd */
++		>;
++	};
++
++	uart1_pins: pinmux_uart1_pins {
++		pinctrl-single,pins = <
++			0x180 (PIN_INPUT_PULLUP | MUX_MODE0)	/* uart1_rxd.uart1_rxd */
++			0x184 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* uart1_txd.uart1_txd */
++		>;
++	};
++
++	uart2_pins: pinmux_uart2_pins {
++		pinctrl-single,pins = <
++			0x150 0x21	/* spi0_sclk.uart2_rxd | MODE1 */
++			0x154 0x01	/* spi0_d0.uart2_txd | MODE1 */
++		>;
++	};
++
++	uart4_pins: pinmux_uart4_pins {
++		pinctrl-single,pins = <
++			0x070 0x26	/* gpmc_wait0.uart4_rxd | MODE6 */
++			0x074 0x06	/* gpmc_wpn.uart4_txd | MODE6 */
++		>;
++	};
++
++	uart5_pins: pinmux_uart5_pins {
++		pinctrl-single,pins = <
++			0x0C4 0x24	/* lcd_data9.uart5_rxd | MODE4 */
++			0x0C0 0x04	/* lcd_data8.uart5_txd | MODE4 */
++		>;
++	};
++};
+--- a/arch/arm/boot/dts/am335x-bone-common.dtsi
++++ b/arch/arm/boot/dts/am335x-bone-common.dtsi
+@@ -56,7 +56,15 @@
+ 		};
+ 	};
+ 
+-	vmmcsd_fixed: fixedregulator@0 {
++	vbat: fixedregulator@0 {
++		compatible = "regulator-fixed";
++		regulator-name = "vbat";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-boot-on;
++	};
++
++	vmmcsd_fixed: fixedregulator@1 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vmmcsd_fixed";
+ 		regulator-min-microvolt = <3300000>;
+@@ -64,115 +72,6 @@
+ 	};
+ };
+ 
+-&am33xx_pinmux {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&clkout2_pin>;
+-
+-	user_leds_s0: user_leds_s0 {
+-		pinctrl-single,pins = <
+-			0x54 (PIN_OUTPUT_PULLDOWN | MUX_MODE7)	/* gpmc_a5.gpio1_21 */
+-			0x58 (PIN_OUTPUT_PULLUP | MUX_MODE7)	/* gpmc_a6.gpio1_22 */
+-			0x5c (PIN_OUTPUT_PULLDOWN | MUX_MODE7)	/* gpmc_a7.gpio1_23 */
+-			0x60 (PIN_OUTPUT_PULLUP | MUX_MODE7)	/* gpmc_a8.gpio1_24 */
+-		>;
+-	};
+-
+-	i2c0_pins: pinmux_i2c0_pins {
+-		pinctrl-single,pins = <
+-			0x188 (PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c0_sda.i2c0_sda */
+-			0x18c (PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c0_scl.i2c0_scl */
+-		>;
+-	};
+-
+-	uart0_pins: pinmux_uart0_pins {
+-		pinctrl-single,pins = <
+-			0x170 (PIN_INPUT_PULLUP | MUX_MODE0)	/* uart0_rxd.uart0_rxd */
+-			0x174 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* uart0_txd.uart0_txd */
+-		>;
+-	};
+-
+-	clkout2_pin: pinmux_clkout2_pin {
+-		pinctrl-single,pins = <
+-			0x1b4 (PIN_OUTPUT_PULLDOWN | MUX_MODE3)	/* xdma_event_intr1.clkout2 */
+-		>;
+-	};
+-
+-	cpsw_default: cpsw_default {
+-		pinctrl-single,pins = <
+-			/* Slave 1 */
+-			0x110 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxerr.mii1_rxerr */
+-			0x114 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txen.mii1_txen */
+-			0x118 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxdv.mii1_rxdv */
+-			0x11c (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txd3.mii1_txd3 */
+-			0x120 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txd2.mii1_txd2 */
+-			0x124 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txd1.mii1_txd1 */
+-			0x128 (PIN_OUTPUT_PULLDOWN | MUX_MODE0)	/* mii1_txd0.mii1_txd0 */
+-			0x12c (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_txclk.mii1_txclk */
+-			0x130 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxclk.mii1_rxclk */
+-			0x134 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxd3.mii1_rxd3 */
+-			0x138 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxd2.mii1_rxd2 */
+-			0x13c (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxd1.mii1_rxd1 */
+-			0x140 (PIN_INPUT_PULLUP | MUX_MODE0)	/* mii1_rxd0.mii1_rxd0 */
+-		>;
+-	};
+-
+-	cpsw_sleep: cpsw_sleep {
+-		pinctrl-single,pins = <
+-			/* Slave 1 reset value */
+-			0x110 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x114 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x118 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x11c (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x120 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x124 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x128 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x12c (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x130 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x134 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x138 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x13c (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x140 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-		>;
+-	};
+-
+-	davinci_mdio_default: davinci_mdio_default {
+-		pinctrl-single,pins = <
+-			/* MDIO */
+-			0x148 (PIN_INPUT_PULLUP | SLEWCTRL_FAST | MUX_MODE0)	/* mdio_data.mdio_data */
+-			0x14c (PIN_OUTPUT_PULLUP | MUX_MODE0)			/* mdio_clk.mdio_clk */
+-		>;
+-	};
+-
+-	davinci_mdio_sleep: davinci_mdio_sleep {
+-		pinctrl-single,pins = <
+-			/* MDIO reset value */
+-			0x148 (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-			0x14c (PIN_INPUT_PULLDOWN | MUX_MODE7)
+-		>;
+-	};
+-
+-	mmc1_pins: pinmux_mmc1_pins {
+-		pinctrl-single,pins = <
+-			0x160 (PIN_INPUT | MUX_MODE7) /* GPIO0_6 */
+-		>;
+-	};
+-
+-	emmc_pins: pinmux_emmc_pins {
+-		pinctrl-single,pins = <
+-			0x80 (PIN_INPUT_PULLUP | MUX_MODE2) /* gpmc_csn1.mmc1_clk */
+-			0x84 (PIN_INPUT_PULLUP | MUX_MODE2) /* gpmc_csn2.mmc1_cmd */
+-			0x00 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad0.mmc1_dat0 */
+-			0x04 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad1.mmc1_dat1 */
+-			0x08 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad2.mmc1_dat2 */
+-			0x0c (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad3.mmc1_dat3 */
+-			0x10 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad4.mmc1_dat4 */
+-			0x14 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad5.mmc1_dat5 */
+-			0x18 (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad6.mmc1_dat6 */
+-			0x1c (PIN_INPUT_PULLUP | MUX_MODE1) /* gpmc_ad7.mmc1_dat7 */
+-		>;
+-	};
+-};
+-
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_pins>;
+@@ -220,6 +119,38 @@
+ 		reg = <0x24>;
+ 	};
+ 
++	baseboard_eeprom: baseboard_eeprom@50 {
++		compatible = "at,24c256";
++		reg = <0x50>;
++	};
++};
++
++&i2c2 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c2_pins>;
++
++	clock-frequency = <100000>;
++
++	cape_eeprom0: cape_eeprom0@54 {
++		compatible = "at,24c256";
++		reg = <0x54>;
++	};
++
++	cape_eeprom1: cape_eeprom1@55 {
++		compatible = "at,24c256";
++		reg = <0x55>;
++	};
++
++	cape_eeprom2: cape_eeprom2@56 {
++		compatible = "at,24c256";
++		reg = <0x56>;
++	};
++
++	cape_eeprom3: cape_eeprom3@57 {
++		compatible = "at,24c256";
++		reg = <0x57>;
++	};
+ };
+ 
+ /include/ "tps65217.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-crypto-00a0.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-crypto-00a0.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-crypto-00a0.dtsi
+@@ -0,0 +1,36 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/*
++ * FIXME: gpio
++ * (bbcape_crypto_pins)
++ * atmega_rst@1 {
++ * 	label = "atmega_rst";
++ * 	gpio = <&gpio1 17 0x00>;
++ * };
++ *
++ * ataes132_auth@2 {
++ * 	label = "test_input";
++ * 	gpio = <&gpio1 13 0x00>;
++ * };
++ */
++
++&i2c2 {
++	ds1307@68 {
++		compatible = "ds1307";
++		reg = <0x68>;
++	};
++
++	tpm_i2c_atmel@29 {
++		compatible = "tpm_i2c_atmel";
++		reg = <0x29>;
++	};
++};
++
++/* uart4: P9.11, P9.13 */
++#include "am335x-bone-ttyO4.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-keymap0.dtsi
+@@ -0,0 +1,58 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	gpio_keys {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&keymap0_pins>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		button@1 {
++			debounce_interval = <50>;
++			linux,code = <105>;
++			label = "left";
++			gpios = <&gpio1 16 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@2 {
++			debounce_interval = <50>;
++			linux,code = <106>;
++			label = "right";
++			gpios = <&gpio1 17 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@3 {
++			debounce_interval = <50>;
++			linux,code = <103>;
++			label = "up";
++			gpios = <&gpio1 19 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@4 {
++			debounce_interval = <50>;
++			linux,code = <108>;
++			label = "down";
++			gpios = <&gpio3 16 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@5 {
++			debounce_interval = <50>;
++			linux,code = <28>;
++			label = "enter";
++			gpios = <&gpio0 3 0x1>;
++			gpio-key,wakeup;
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-keymap1.dtsi
+@@ -0,0 +1,58 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	gpio_keys {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&keymap1_pins>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		button@1 {
++			debounce_interval = <50>;
++			linux,code = <105>;
++			label = "left";
++			gpios = <&gpio1 16 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@2 {
++			debounce_interval = <50>;
++			linux,code = <106>;
++			label = "right";
++			gpios = <&gpio1 17 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@3 {
++			debounce_interval = <50>;
++			linux,code = <103>;
++			label = "up";
++			gpios = <&gpio1 19 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@4 {
++			debounce_interval = <50>;
++			linux,code = <108>;
++			label = "down";
++			gpios = <&gpio3 16 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@5 {
++			debounce_interval = <50>;
++			linux,code = <28>;
++			label = "enter";
++			gpios = <&gpio0 15 0x1>;
++			gpio-key,wakeup;
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-keymap2.dtsi
+@@ -0,0 +1,58 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	gpio_keys {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&keymap2_pins>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		button@1 {
++			debounce_interval = <50>;
++			linux,code = <105>;
++			label = "left";
++			gpios = <&gpio1 16 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@2 {
++			debounce_interval = <50>;
++			linux,code = <106>;
++			label = "right";
++			gpios = <&gpio1 17 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@3 {
++			debounce_interval = <50>;
++			linux,code = <103>;
++			label = "up";
++			gpios = <&gpio1 19 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@4 {
++			debounce_interval = <50>;
++			linux,code = <108>;
++			label = "down";
++			gpios = <&gpio3 16 0x1>;
++			gpio-key,wakeup;
++			autorepeat;
++		};
++		button@5 {
++			debounce_interval = <50>;
++			linux,code = <28>;
++			label = "enter";
++			gpios = <&gpio3 19 0x1>;
++			gpio-key,wakeup;
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-lcd3-01-00a2.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-lcd3-01-00a2.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-lcd3-01-00a2.dtsi
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/* Led */
++/* #include "am335x-bone-led-gpio1-18.dtsi" */
++/* #include "am335x-bone-led-gpio1-28.dtsi" */
++#include "am335x-bone-led-gpio3-19.dtsi"
++
++/* Keypad */
++#include "am335x-bone-keymap0.dtsi"
++/* #include "am335x-bone-keymap1.dtsi" */
++/* #include "am335x-bone-keymap2.dtsi" */
++
++/* Backlight */
++#include "am335x-bone-bl-gpio1-18.dtsi"
++
++/* Touchscreen */
++#include "am335x-bone-ti-tscadc-4-wire.dtsi"
++
++/* Panel */
++#include "am335x-bone-panel-320x240.dtsi"
++/* #include "am335x-bone-panel-480x272.dtsi" */
++/* #include "am335x-bone-panel-800x480.dtsi" */
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-lcd4-01-00a1.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-lcd4-01-00a1.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-lcd4-01-00a1.dtsi
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/* Led */
++/* #include "am335x-bone-led-gpio1-18.dtsi" */
++#include "am335x-bone-led-gpio1-28.dtsi"
++/* #include "am335x-bone-led-gpio3-19.dtsi" */
++
++/* Keypad */
++/* #include "am335x-bone-keymap0.dtsi" */
++#include "am335x-bone-keymap1.dtsi"
++/* #include "am335x-bone-keymap2.dtsi" */
++
++/* Backlight */
++#include "am335x-bone-bl-gpio1-18.dtsi"
++
++/* Touchscreen */
++#include "am335x-bone-ti-tscadc-4-wire.dtsi"
++
++/* Panel */
++/* #include "am335x-bone-panel-320x240.dtsi" */
++#include "am335x-bone-panel-480x272.dtsi"
++/* #include "am335x-bone-panel-800x480.dtsi" */
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-lcd7-01-00a2.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-lcd7-01-00a2.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-lcd7-01-00a2.dtsi
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/* Led */
++/* #include "am335x-bone-led-gpio1-18.dtsi" */
++#include "am335x-bone-led-gpio1-28.dtsi"
++/* #include "am335x-bone-led-gpio3-19.dtsi" */
++
++/* Keypad */
++/* #include "am335x-bone-keymap0.dtsi" */
++/* #include "am335x-bone-keymap1.dtsi" */
++#include "am335x-bone-keymap2.dtsi"
++
++/* Backlight */
++#include "am335x-bone-bl-gpio1-18.dtsi"
++
++/* Touchscreen */
++#include "am335x-bone-ti-tscadc-4-wire.dtsi"
++
++/* Panel */
++/* #include "am335x-bone-panel-320x240.dtsi" */
++/* #include "am335x-bone-panel-480x272.dtsi" */
++#include "am335x-bone-panel-800x480.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-lcd7-01-00a3.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-lcd7-01-00a3.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-lcd7-01-00a3.dtsi
+@@ -0,0 +1,28 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/* Led */
++/* #include "am335x-bone-led-gpio1-18.dtsi" */
++#include "am335x-bone-led-gpio1-28.dtsi"
++/* #include "am335x-bone-led-gpio3-19.dtsi" */
++
++/* Keypad */
++#include "am335x-bone-keymap0.dtsi"
++/* #include "am335x-bone-keymap1.dtsi" */
++/* #include "am335x-bone-keymap2.dtsi" */
++
++/* Backlight */
++#include "am335x-bone-bl-gpio1-18.dtsi"
++
++/* Touchscreen */
++#include "am335x-bone-ti-tscadc-4-wire.dtsi"
++
++/* Panel */
++/* #include "am335x-bone-panel-320x240.dtsi" */
++/* #include "am335x-bone-panel-480x272.dtsi" */
++#include "am335x-bone-panel-800x480.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-led-gpio1-18.dtsi
+@@ -0,0 +1,23 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	gpio-leds-cape-lcd {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++
++		pinctrl-0 = <&gpio1_18_led_pins>;
++
++		lcd-led0 {
++			label = "lcd:green:usr0";
++			gpios = <&gpio1 18 0>;
++			linux,default-trigger = "heartbeat";
++			default-state = "off";
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-led-gpio1-28.dtsi
+@@ -0,0 +1,23 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	gpio-leds-cape-lcd {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++
++		pinctrl-0 = <&gpio1_28_led_pins>;
++
++		lcd-led0 {
++			label = "lcd:green:usr0";
++			gpios = <&gpio1 28 0>;
++			linux,default-trigger = "heartbeat";
++			default-state = "off";
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-led-gpio3-19.dtsi
+@@ -0,0 +1,23 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	gpio-leds-cape-lcd {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++
++		pinctrl-0 = <&gpio3_19_led_pins>;
++
++		lcd-led0 {
++			label = "lcd:green:usr0";
++			gpios = <&gpio3 19 0>;
++			linux,default-trigger = "heartbeat";
++			default-state = "off";
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-panel-320x240.dtsi
+@@ -0,0 +1,51 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&lcdc {
++	status = "okay";
++};
++
++/ {
++	panel {
++		status = "okay";
++		compatible = "ti,tilcdc,panel";
++		pinctrl-names = "default";
++		pinctrl-0 = <&bbcape_lcd_pins>;
++		panel-info {
++			ac-bias           = <255>;
++			ac-bias-intrpt    = <0>;
++			dma-burst-sz      = <16>;
++			bpp               = <16>;
++			fdd               = <0x80>;
++			sync-edge         = <0>;
++			sync-ctrl         = <1>;
++			raster-order      = <0>;
++			fifo-th           = <0>;
++			invert-pxl-clk;
++		};
++		display-timings {
++			/* Settings for CDTech_S035Q01 / LCD3 cape: */
++			native-mode = <&timing0>;
++			timing0: 320x240 {
++				clock-frequency = <8000000>;
++				hactive = <320>;
++				vactive = <240>;
++				hfront-porch = <59>;
++				hback-porch = <22>;
++				hsync-len = <48>;
++				vback-porch = <12>;
++				vfront-porch = <23>;
++				vsync-len = <2>;
++				hsync-active = <0>;
++				vsync-active = <0>;
++				de-active = <1>;
++				pixelclk-active = <0>;
++			};
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-panel-480x272.dtsi
+@@ -0,0 +1,50 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&lcdc {
++	status = "okay";
++};
++
++/ {
++	panel {
++		status = "okay";
++		compatible = "ti,tilcdc,panel";
++		pinctrl-names = "default";
++		pinctrl-0 = <&bbcape_lcd_pins &bbcape_lcd4_disen_pins>;
++		panel-info {
++			ac-bias           = <255>;
++			ac-bias-intrpt    = <0>;
++			dma-burst-sz      = <16>;
++			bpp               = <16>;
++			fdd               = <0x80>;
++			sync-edge         = <0>;
++			sync-ctrl         = <1>;
++			raster-order      = <0>;
++			fifo-th           = <0>;
++		};
++		display-timings {
++			native-mode = <&timing0>;
++			/* www.newhavendisplay.com/app_notes/OTA5180A.pdf */
++			timing0: 480x272 {
++				clock-frequency = <9200000>;
++				hactive = <480>;
++				vactive = <272>;
++				hfront-porch = <8>;
++				hback-porch = <47>;
++				hsync-len = <41>;
++				vback-porch = <2>;
++				vfront-porch = <3>;
++				vsync-len = <10>;
++				hsync-active = <0>;
++				vsync-active = <0>;
++				de-active = <1>;
++				pixelclk-active = <0>;
++			};
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-panel-800x480.dtsi
+@@ -0,0 +1,50 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&lcdc {
++	status = "okay";
++};
++
++/ {
++	panel {
++		status = "okay";
++		compatible = "ti,tilcdc,panel";
++		pinctrl-names = "default";
++		pinctrl-0 = <&bbcape_lcd_pins>;
++		panel-info {
++			ac-bias           = <255>;
++			ac-bias-intrpt    = <0>;
++			dma-burst-sz      = <16>;
++			bpp               = <16>;
++			fdd               = <0x80>;
++			sync-edge         = <0>;
++			sync-ctrl         = <1>;
++			raster-order      = <0>;
++			fifo-th           = <0>;
++		};
++		display-timings {
++			native-mode = <&timing0>;
++			/* Settings for ThreeFive S9700RTWV35TR / LCD7 cape: */
++			timing0: 800x480 {
++				clock-frequency = <30000000>;
++				hactive = <800>;
++				vactive = <480>;
++				hfront-porch = <40>;
++				hback-porch = <40>;
++				hsync-len = <48>;
++				vback-porch = <30>;
++				vfront-porch = <13>;
++				vsync-len = <3>;
++				hsync-active = <0>;
++				vsync-active = <0>;
++				de-active = <1>;
++				pixelclk-active = <0>;
++			};
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-rtc-01-00a1.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-rtc-01-00a1.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-rtc-01-00a1.dtsi
+@@ -0,0 +1,39 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	gpio_keys {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&gpio1_29_pins>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		rtc_mfp@1 {
++			label = "rtc_mfp";
++			gpios = <&gpio1 29 GPIO_ACTIVE_HIGH>;
++			linux,code = <143>; /* System Wake Up */
++			gpio-key,wakeup;
++		};
++	};
++};
++
++&i2c1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c1_pins>;
++
++	status = "okay";
++	clock-frequency = <100000>;
++
++	/* MCP79410 RTC module */
++	rtc@68 {
++		compatible = "maxim,ds1338";
++		reg = <0x68>;
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-spi0-spidev.dtsi
+@@ -0,0 +1,26 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&spi0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&spi0_pins>;
++	status = "okay";
++
++	spidev0: spi@0 {
++		compatible = "spidev";
++		reg = <0>;
++		spi-max-frequency = <16000000>;
++		spi-cpha;
++	};
++
++	spidev1: spi@1 {
++		compatible = "spidev";
++		reg = <1>;
++		spi-max-frequency = <16000000>;
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-ti-tscadc-4-wire.dtsi
+@@ -0,0 +1,21 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&tscadc {
++	status = "okay";
++	tsc {
++		ti,wires = <4>;
++		ti,x-plate-resistance = <200>;
++		ti,coordinate-readouts = <5>;
++		ti,wire-config = <0x00 0x11 0x22 0x33>;
++	};
++
++	adc {
++		ti,adc-channels = <4 5 6 7>;
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-ttyO1.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-ttyO1.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-ttyO1.dtsi
+@@ -0,0 +1,14 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart1_pins>;
++
++	status = "okay";
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-ttyO2.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-ttyO2.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-ttyO2.dtsi
+@@ -0,0 +1,14 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&uart2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart2_pins>;
++
++	status = "okay";
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-ttyO4.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-ttyO4.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-ttyO4.dtsi
+@@ -0,0 +1,14 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&uart4 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart4_pins>;
++
++	status = "okay";
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-ttyO5.dts
+@@ -0,0 +1,74 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&ldo3_reg>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++&sham {
++	status = "okay";
++};
++
++&aes {
++	status = "okay";
++};
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++#include "am335x-bone-ttyO5.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-bone-ttyO5.dtsi
+@@ -0,0 +1,14 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&uart5 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart5_pins>;
++
++	status = "okay";
++};
+--- a/arch/arm/boot/dts/am335x-bone.dts
++++ b/arch/arm/boot/dts/am335x-bone.dts
+@@ -9,6 +9,7 @@
+ 
+ #include "am33xx.dtsi"
+ #include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
+ 
+ &ldo3_reg {
+ 	regulator-min-microvolt = <1800000>;
+@@ -20,6 +21,11 @@
+ 	vmmc-supply = <&ldo3_reg>;
+ };
+ 
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
+ &sham {
+ 	status = "okay";
+ };
+@@ -27,3 +33,43 @@
+ &aes {
+ 	status = "okay";
+ };
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Capes */
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++
++/* http://elinux.org/CircuitCo:Basic_Proto_Cape */
++#include "am335x-bone-basic-proto-cape.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-1ghz.dtsi
+@@ -0,0 +1,27 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	cpus {
++		cpu@0 {
++			cpu0-supply = <&dcdc2_reg>;
++			/*
++			 * To consider voltage drop between PMIC and SoC,
++			 * tolerance value is reduced to 2% from 4% and
++			 * voltage value is increased as a precaution.
++			 */
++			operating-points = <
++				/* kHz    uV */
++				1000000	1325000
++				800000	1300000
++				600000	1112000
++				300000	969000
++			>;
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-4dcape-43.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++/* #include "am335x-boneblack-nxp-hdmi-no-audio.dtsi" */
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-4dcape-43.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-4dcape-43t.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++/* #include "am335x-boneblack-nxp-hdmi-no-audio.dtsi" */
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-4dcape-43t.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-4dcape-70.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++/* #include "am335x-boneblack-nxp-hdmi-no-audio.dtsi" */
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-4dcape-70.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-4dcape-70t.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++/* #include "am335x-boneblack-nxp-hdmi-no-audio.dtsi" */
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-4dcape-70t.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-800mhz.dtsi
+@@ -0,0 +1,26 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++/ {
++	cpus {
++		cpu@0 {
++			cpu0-supply = <&dcdc2_reg>;
++			/*
++			 * To consider voltage drop between PMIC and SoC,
++			 * tolerance value is reduced to 2% from 4% and
++			 * voltage value is increased as a precaution.
++			 */
++			operating-points = <
++				/* kHz    uV */
++				800000	1300000
++				600000	1112000
++				300000	969000
++			>;
++		};
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-audio.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++#include "am335x-boneblack-nxp-hdmi-no-audio.dtsi"
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-audio.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-cape-bone-argus.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	/* pinctrl-0 = <&clkout2_pin>; */
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++#include "am335x-boneblack-nxp-hdmi-no-audio.dtsi"
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-argus.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-crypto-00a0.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++#include "am335x-boneblack-nxp-hdmi-no-audio.dtsi"
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-crypto-00a0.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-emmc.dtsi
+@@ -0,0 +1,16 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&mmc2 {
++	vmmc-supply = <&vmmcsd_fixed>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&emmc_pins>;
++	bus-width = <8>;
++	status = "okay";
++	ti,vcc-aux-disable-is-sleep;
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-lcd3-01-00a2.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++/* #include "am335x-boneblack-nxp-hdmi-no-audio.dtsi" */
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-lcd3-01-00a2.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-lcd4-01-00a1.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++/* #include "am335x-boneblack-nxp-hdmi-no-audio.dtsi" */
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-lcd4-01-00a1.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-lcd7-01-00a2.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++/* #include "am335x-boneblack-emmc.dtsi" */
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++/* #include "am335x-boneblack-nxp-hdmi-no-audio.dtsi" */
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-lcd7-01-00a2.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-lcd7-01-00a3.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++/* #include "am335x-boneblack-nxp-hdmi-no-audio.dtsi" */
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-lcd7-01-00a3.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-nxp-hdmi-no-audio.dtsi
+@@ -0,0 +1,22 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++&lcdc {
++	status = "okay";
++};
++
++/ {
++	hdmi {
++		compatible = "ti,tilcdc,slave";
++		i2c = <&i2c0>;
++		pinctrl-names = "default", "off";
++		pinctrl-0 = <&nxp_hdmi_bonelt_pins>;
++		pinctrl-1 = <&nxp_hdmi_bonelt_off_pins>;
++		status = "okay";
++	};
++};
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-rtc-01-00a1.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++#include "am335x-boneblack-nxp-hdmi-no-audio.dtsi"
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-rtc-01-00a1.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-ttyO1.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++#include "am335x-boneblack-nxp-hdmi-no-audio.dtsi"
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-ttyO1.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-ttyO2.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++#include "am335x-boneblack-nxp-hdmi-no-audio.dtsi"
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-ttyO2.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-ttyO4.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++#include "am335x-boneblack-nxp-hdmi-no-audio.dtsi"
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-ttyO4.dtsi"
+--- /dev/null
++++ b/arch/arm/boot/dts/am335x-boneblack-ttyO5.dts
+@@ -0,0 +1,87 @@
++/*
++ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++/dts-v1/;
++
++#include "am33xx.dtsi"
++#include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
++
++&ldo3_reg {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-always-on;
++};
++
++&mmc1 {
++	vmmc-supply = <&vmmcsd_fixed>;
++};
++
++&am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&clkout2_pin>;
++};
++
++#include "am335x-boneblack-emmc.dtsi"
++
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
++
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++/* #include "am335x-boneblack-nxp-hdmi-no-audio.dtsi" */
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++#include "am335x-bone-ttyO5.dtsi"
+--- a/arch/arm/boot/dts/am335x-boneblack.dts
++++ b/arch/arm/boot/dts/am335x-boneblack.dts
+@@ -9,6 +9,7 @@
+ 
+ #include "am33xx.dtsi"
+ #include "am335x-bone-common.dtsi"
++#include "am335x-bone-common-pinmux.dtsi"
+ 
+ &ldo3_reg {
+ 	regulator-min-microvolt = <1800000>;
+@@ -20,59 +21,68 @@
+ 	vmmc-supply = <&vmmcsd_fixed>;
+ };
+ 
+-&mmc2 {
+-	vmmc-supply = <&vmmcsd_fixed>;
++&am33xx_pinmux {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&emmc_pins>;
+-	bus-width = <8>;
+-	status = "okay";
+-	ti,vcc-aux-disable-is-sleep;
++	pinctrl-0 = <&clkout2_pin>;
+ };
+ 
+-&am33xx_pinmux {
+-	nxp_hdmi_bonelt_pins: nxp_hdmi_bonelt_pins {
+-		pinctrl-single,pins = <
+-			0x1b0 0x03      /* xdma_event_intr0, OMAP_MUX_MODE3 | AM33XX_PIN_OUTPUT */
+-			0xa0 0x08       /* lcd_data0.lcd_data0, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xa4 0x08       /* lcd_data1.lcd_data1, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xa8 0x08       /* lcd_data2.lcd_data2, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xac 0x08       /* lcd_data3.lcd_data3, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xb0 0x08       /* lcd_data4.lcd_data4, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xb4 0x08       /* lcd_data5.lcd_data5, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xb8 0x08       /* lcd_data6.lcd_data6, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xbc 0x08       /* lcd_data7.lcd_data7, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xc0 0x08       /* lcd_data8.lcd_data8, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xc4 0x08       /* lcd_data9.lcd_data9, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xc8 0x08       /* lcd_data10.lcd_data10, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xcc 0x08       /* lcd_data11.lcd_data11, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xd0 0x08       /* lcd_data12.lcd_data12, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xd4 0x08       /* lcd_data13.lcd_data13, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xd8 0x08       /* lcd_data14.lcd_data14, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xdc 0x08       /* lcd_data15.lcd_data15, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT | AM33XX_PULL_DISA */
+-			0xe0 0x00       /* lcd_vsync.lcd_vsync, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT */
+-			0xe4 0x00       /* lcd_hsync.lcd_hsync, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT */
+-			0xe8 0x00       /* lcd_pclk.lcd_pclk, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT */
+-			0xec 0x00       /* lcd_ac_bias_en.lcd_ac_bias_en, OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT */
+-		>;
+-	};
+-	nxp_hdmi_bonelt_off_pins: nxp_hdmi_bonelt_off_pins {
+-		pinctrl-single,pins = <
+-			0x1b0 0x03      /* xdma_event_intr0, OMAP_MUX_MODE3 | AM33XX_PIN_OUTPUT */
+-		>;
+-	};
+-};
++#include "am335x-boneblack-emmc.dtsi"
+ 
+-&lcdc {
+-	status = "okay";
+-};
++/* Max Core Speed */
++#include "am335x-boneblack-1ghz.dtsi"
++/* #include "am335x-boneblack-800mhz.dtsi" */
+ 
+-/ {
+-	hdmi {
+-		compatible = "ti,tilcdc,slave";
+-		i2c = <&i2c0>;
+-		pinctrl-names = "default", "off";
+-		pinctrl-0 = <&nxp_hdmi_bonelt_pins>;
+-		pinctrl-1 = <&nxp_hdmi_bonelt_off_pins>;
+-		status = "okay";
+-	};
+-};
++/* spi0: P9.17, P9.18, P9.21, P9.22 */
++/* #include "am335x-bone-spi0-spidev.dtsi" */
++
++/* uart1: P9.24, P9.26 */
++/* #include "am335x-bone-ttyO1.dtsi" */
++/* uart2: P9.21, P9.22 */
++/* #include "am335x-bone-ttyO2.dtsi" */
++/* uart4: P9.11, P9.13 */
++/* #include "am335x-bone-ttyO4.dtsi" */
++/* uart5: P8.37, P8.38 am335x-boneblack: hdmi has to be disabled for ttyO5 */
++/* #include "am335x-bone-ttyO5.dtsi" */
++
++/* Display */
++#include "am335x-boneblack-nxp-hdmi-no-audio.dtsi"
++
++/* Capes */
++/* http://elinux.org/4D_4.3_LCD_CAPE */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-43.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-43t.dtsi" */
++
++/* http://www.4dsystems.com.au/product/4DCAPE_70T/ */
++/* 4DCAPE-43 (Non Touch version): */
++/* #include "am335x-bone-4dcape-70.dtsi" */
++/* 4DCAPE-43T (Resistive Touch version): */
++/* #include "am335x-bone-4dcape-70t.dtsi" */
++
++/* http://elinux.org/CircuitCo:Audio_Cape_RevB */
++/* Pins: P9.24, P9.28, P9.29, P9.31, P9.30 */
++/* #include "am335x-bone-audio.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD3 */
++/* #include "am335x-bone-lcd3-01-00a2.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD4 */
++/* #include "am335x-bone-lcd4-01-00a1.dtsi" */
++
++/* http://elinux.org/CircuitCo:BeagleBone_LCD7 */
++/* am335x-boneblack: emmc has to be disabled for lcd7-01-00a2 */
++/* #include "am335x-bone-lcd7-01-00a2.dtsi" */
++/* #include "am335x-bone-lcd7-01-00a3.dtsi" */
++
++/* http://elinux.org/CircuitCo:RTC_Cape */
++/* i2c1: P9.17, P9.18 */
++/* gpio: P8.26 (mfp: wakeup) */
++/* #include "am335x-bone-rtc-01-00a1.dtsi" */
++
++/* http://elinux.org/Cryptotronix:CryptoCape */
++/* uart4: P9.11, P9.13 */
++/* gpio: gpio1 13 gpio1 17 (gpio NOT IMPLEMENTED YET) */
++/* #include "am335x-bone-crypto-00a0.dtsi" */
++/* http://elinux.org/CircuitCo:Basic_Proto_Cape */
++#include "am335x-bone-basic-proto-cape.dtsi"
+--- a/arch/arm/boot/dts/am33xx.dtsi
++++ b/arch/arm/boot/dts/am33xx.dtsi
+@@ -105,7 +105,6 @@
+ 		prcm: prcm@44e00000 {
+ 			compatible = "ti,am3-prcm";
+ 			reg = <0x44e00000 0x4000>;
+-
+ 			prcm_clocks: clocks {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+@@ -818,6 +817,13 @@
+ 			reg = <0x48310000 0x2000>;
+ 			interrupts = <111>;
+ 		};
++
++		sgx@0x56000000 {
++			compatible = "ti,sgx";
++			ti,hwmods = "gfx";
++			reg = <0x56000000 0x1000000>;
++			interrupts = <37>;
++		};
+ 	};
+ };
+ 
+--- a/arch/arm/kernel/setup.c
++++ b/arch/arm/kernel/setup.c
+@@ -1080,3 +1080,12 @@ const struct seq_operations cpuinfo_op = {
+ 	.stop	= c_stop,
+ 	.show	= c_show
+ };
++
++/* export the cache management functions */
++#ifndef MULTI_CACHE
++
++EXPORT_SYMBOL(__glue(_CACHE,_dma_map_area));
++EXPORT_SYMBOL(__glue(_CACHE,_dma_unmap_area));
++EXPORT_SYMBOL(__glue(_CACHE,_dma_flush_range));
++
++#endif
+--- a/arch/arm/mach-omap2/omap-iommu.c
++++ b/arch/arm/mach-omap2/omap-iommu.c
+@@ -10,6 +10,7 @@
+  * published by the Free Software Foundation.
+  */
+ 
++#include <linux/of.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/err.h>
+@@ -58,6 +59,10 @@ static int __init omap_iommu_dev_init(struct omap_hwmod *oh, void *unused)
+ 
+ static int __init omap_iommu_init(void)
+ {
++	/* If dtb is there, the devices will be created dynamically */
++	if (of_have_populated_dt())
++		return -ENODEV;
++
+ 	return omap_hwmod_for_each_by_class("mmu", omap_iommu_dev_init, NULL);
+ }
+ /* must be ready before omap3isp is probed */
+--- a/arch/arm/mach-omap2/pdata-quirks.c
++++ b/arch/arm/mach-omap2/pdata-quirks.c
+@@ -16,6 +16,8 @@
+ #include <linux/wl12xx.h>
+ 
+ #include <linux/platform_data/pinctrl-single.h>
++#include <linux/platform_data/iommu-omap.h>
++#include <linux/platform_data/gfx-sgx.h>
+ 
+ #include "am35xx.h"
+ #include "common.h"
+@@ -24,6 +26,7 @@
+ #include "control.h"
+ #include "omap-secure.h"
+ #include "soc.h"
++#include "omap_device.h"
+ 
+ struct pdata_init {
+ 	const char *compatible;
+@@ -75,6 +78,13 @@ static inline void legacy_init_wl12xx(unsigned ref_clock,
+ }
+ #endif
+ 
++#if defined(CONFIG_SOC_AM33XX) || defined(CONFIG_SOC_AM43XX)
++static struct gfx_sgx_platform_data gfx_pdata = {
++	.reset_name = "gfx",
++	.deassert_reset = omap_device_deassert_hardreset,
++};
++#endif
++
+ #ifdef CONFIG_MACH_NOKIA_N8X0
+ static void __init omap2420_n8x0_legacy_init(void)
+ {
+@@ -94,6 +104,12 @@ static void __init hsmmc2_internal_input_clk(void)
+ 	omap_ctrl_writel(reg, OMAP343X_CONTROL_DEVCONF1);
+ }
+ 
++static struct iommu_platform_data omap3_iommu_pdata = {
++	.reset_name = "mmu",
++	.assert_reset = omap_device_assert_hardreset,
++	.deassert_reset = omap_device_deassert_hardreset,
++};
++
+ static int omap3_sbc_t3730_twl_callback(struct device *dev,
+ 					   unsigned gpio,
+ 					   unsigned ngpio)
+@@ -259,11 +275,17 @@ struct of_dev_auxdata omap_auxdata_lookup[] __initdata = {
+ 	OF_DEV_AUXDATA("ti,omap3-padconf", 0x48002030, "48002030.pinmux", &pcs_pdata),
+ 	OF_DEV_AUXDATA("ti,omap3-padconf", 0x480025a0, "480025a0.pinmux", &pcs_pdata),
+ 	OF_DEV_AUXDATA("ti,omap3-padconf", 0x48002a00, "48002a00.pinmux", &pcs_pdata),
++	OF_DEV_AUXDATA("ti,omap2-iommu", 0x5d000000, "5d000000.mmu",
++		       &omap3_iommu_pdata),
+ 	/* Only on am3517 */
+ 	OF_DEV_AUXDATA("ti,davinci_mdio", 0x5c030000, "davinci_mdio.0", NULL),
+ 	OF_DEV_AUXDATA("ti,am3517-emac", 0x5c000000, "davinci_emac.0",
+ 		       &am35xx_emac_pdata),
+ #endif
++#if defined(CONFIG_SOC_AM33XX) || defined(CONFIG_SOC_AM43XX)
++	OF_DEV_AUXDATA("ti,sgx", 0x56000000, "56000000.sgx",
++			&gfx_pdata),
++#endif
+ #ifdef CONFIG_ARCH_OMAP4
+ 	OF_DEV_AUXDATA("ti,omap4-padconf", 0x4a100040, "4a100040.pinmux", &pcs_pdata),
+ 	OF_DEV_AUXDATA("ti,omap4-padconf", 0x4a31e040, "4a31e040.pinmux", &pcs_pdata),
+--- a/drivers/gpu/drm/drm_fb_cma_helper.c
++++ b/drivers/gpu/drm/drm_fb_cma_helper.c
+@@ -25,6 +25,12 @@
+ #include <drm/drm_fb_cma_helper.h>
+ #include <linux/module.h>
+ 
++/*
++ * number of buffers to allocate from CMA pool, often increased for
++ * double/triple buffering
++ */
++#define DRM_NUM_FBDEV_BUFFERS 3
++
+ struct drm_fb_cma {
+ 	struct drm_framebuffer		fb;
+ 	struct drm_gem_cma_object	*obj[4];
+@@ -265,7 +271,7 @@ static int drm_fbdev_cma_create(struct drm_fb_helper *helper,
+ 	bytes_per_pixel = DIV_ROUND_UP(sizes->surface_bpp, 8);
+ 
+ 	mode_cmd.width = sizes->surface_width;
+-	mode_cmd.height = sizes->surface_height;
++	mode_cmd.height = sizes->surface_height * DRM_NUM_FBDEV_BUFFERS;
+ 	mode_cmd.pitches[0] = sizes->surface_width * bytes_per_pixel;
+ 	mode_cmd.pixel_format = drm_mode_legacy_fb_format(sizes->surface_bpp,
+ 		sizes->surface_depth);
+@@ -304,7 +310,7 @@ static int drm_fbdev_cma_create(struct drm_fb_helper *helper,
+ 	}
+ 
+ 	drm_fb_helper_fill_fix(fbi, fb->pitches[0], fb->depth);
+-	drm_fb_helper_fill_var(fbi, helper, fb->width, fb->height);
++	drm_fb_helper_fill_var(fbi, helper, fb->width, sizes->surface_height);
+ 
+ 	offset = fbi->var.xoffset * bytes_per_pixel;
+ 	offset += fbi->var.yoffset * fb->pitches[0];
+--- a/drivers/gpu/drm/omapdrm/omap_plane.c
++++ b/drivers/gpu/drm/omapdrm/omap_plane.c
+@@ -121,7 +121,8 @@ static void omap_plane_pre_apply(struct omap_drm_apply *apply)
+ 	struct drm_crtc *crtc = plane->crtc;
+ 	enum omap_channel channel;
+ 	bool enabled = omap_plane->enabled && crtc;
+-	bool ilace, replication;
++	//bool ilace, replication;
++	bool replication;
+ 	int ret;
+ 
+ 	DBG("%s, enabled=%d", omap_plane->name, enabled);
+@@ -146,7 +147,7 @@ static void omap_plane_pre_apply(struct omap_drm_apply *apply)
+ 			info->paddr, info->p_uv_addr);
+ 
+ 	/* TODO: */
+-	ilace = false;
++	//ilace = false;
+ 	replication = false;
+ 
+ 	/* and finally, update omapdss: */
+--- a/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
++++ b/drivers/gpu/drm/tilcdc/tilcdc_crtc.c
+@@ -30,6 +30,8 @@ struct tilcdc_crtc {
+ 	int dpms;
+ 	wait_queue_head_t frame_done_wq;
+ 	bool frame_done;
++	spinlock_t irq_lock;
++	int dma_completed_channel;
+ 
+ 	/* fb currently set to scanout 0/1: */
+ 	struct drm_framebuffer *scanout[2];
+@@ -37,6 +39,10 @@ struct tilcdc_crtc {
+ 	/* for deferred fb unref's: */
+ 	struct drm_flip_work unref_work;
+ };
++
++static vsync_callback_t vsync_cb_handler;
++static void *vsync_cb_arg;
++
+ #define to_tilcdc_crtc(x) container_of(x, struct tilcdc_crtc, base)
+ 
+ static void unref_worker(struct drm_flip_work *work, void *val)
+@@ -98,10 +104,23 @@ static void update_scanout(struct drm_crtc *crtc)
+ 			(crtc->mode.vdisplay * fb->pitches[0]);
+ 
+ 	if (tilcdc_crtc->dpms == DRM_MODE_DPMS_ON) {
+-		/* already enabled, so just mark the frames that need
+-		 * updating and they will be updated on vblank:
++		/*
++		 * already enabled, so just mark the frames that need
++		 * updating and they will be updated on vblank
++		 * and update the inactive DMA channel immediately
++		 * to avoid any tearing due to the DMA already starting
++		 * on the pending dma buffer when we hit the vblank IRQ
+ 		 */
+-		tilcdc_crtc->dirty |= LCDC_END_OF_FRAME0 | LCDC_END_OF_FRAME1;
++		if (tilcdc_crtc->dma_completed_channel == 0) {
++			tilcdc_crtc->dirty |= LCDC_END_OF_FRAME1;
++			set_scanout(crtc, 0);
++		}
++
++		if (tilcdc_crtc->dma_completed_channel == 1) {
++			tilcdc_crtc->dirty |= LCDC_END_OF_FRAME0;
++			set_scanout(crtc, 1);
++		}
++
+ 		drm_vblank_get(dev, 0);
+ 	} else {
+ 		/* not enabled yet, so update registers immediately: */
+@@ -576,12 +595,39 @@ out:
+ 	pm_runtime_put_sync(dev->dev);
+ }
+ 
++int register_vsync_cb(vsync_callback_t handler, void *arg, int idx)
++{
++	if ((vsync_cb_handler == NULL) && (vsync_cb_arg == NULL)) {
++		vsync_cb_arg = arg;
++		vsync_cb_handler = handler;
++	} else {
++		return -EEXIST;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(register_vsync_cb);
++
++int unregister_vsync_cb(vsync_callback_t handler, void *arg, int idx)
++{
++	if ((vsync_cb_handler == handler) && (vsync_cb_arg == arg)) {
++		vsync_cb_handler = NULL;
++		vsync_cb_arg = NULL;
++	} else {
++		return -ENXIO;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(unregister_vsync_cb);
++
+ irqreturn_t tilcdc_crtc_irq(struct drm_crtc *crtc)
+ {
+ 	struct tilcdc_crtc *tilcdc_crtc = to_tilcdc_crtc(crtc);
+ 	struct drm_device *dev = crtc->dev;
+ 	struct tilcdc_drm_private *priv = dev->dev_private;
+ 	uint32_t stat = tilcdc_read_irqstatus(dev);
++	unsigned long irq_flags;
+ 
+ 	if ((stat & LCDC_SYNC_LOST) && (stat & LCDC_FIFO_UNDERFLOW)) {
+ 		stop(crtc);
+@@ -597,11 +643,19 @@ irqreturn_t tilcdc_crtc_irq(struct drm_crtc *crtc)
+ 
+ 		tilcdc_clear_irqstatus(dev, stat);
+ 
+-		if (dirty & LCDC_END_OF_FRAME0)
++		spin_lock_irqsave(&tilcdc_crtc->irq_lock, irq_flags);
++
++		if (dirty & LCDC_END_OF_FRAME0) {
+ 			set_scanout(crtc, 0);
++			tilcdc_crtc->dma_completed_channel = 0;
++		}
+ 
+-		if (dirty & LCDC_END_OF_FRAME1)
++		if (dirty & LCDC_END_OF_FRAME1) {
+ 			set_scanout(crtc, 1);
++			tilcdc_crtc->dma_completed_channel = 1;
++		}
++
++		spin_unlock_irqrestore(&tilcdc_crtc->irq_lock, irq_flags);
+ 
+ 		drm_handle_vblank(dev, 0);
+ 
+@@ -610,6 +664,10 @@ irqreturn_t tilcdc_crtc_irq(struct drm_crtc *crtc)
+ 		tilcdc_crtc->event = NULL;
+ 		if (event)
+ 			drm_send_vblank_event(dev, 0, event);
++
++		if (vsync_cb_handler)
++			vsync_cb_handler(vsync_cb_arg);
++
+ 		spin_unlock_irqrestore(&dev->event_lock, flags);
+ 
+ 		if (dirty && !tilcdc_crtc->dirty)
+@@ -671,6 +729,8 @@ struct drm_crtc *tilcdc_crtc_create(struct drm_device *dev)
+ 		goto fail;
+ 	}
+ 
++	spin_lock_init(&tilcdc_crtc->irq_lock);
++
+ 	ret = drm_crtc_init(dev, crtc, &tilcdc_crtc_funcs);
+ 	if (ret < 0)
+ 		goto fail;
+--- a/drivers/gpu/drm/tilcdc/tilcdc_drv.h
++++ b/drivers/gpu/drm/tilcdc/tilcdc_drv.h
+@@ -170,4 +170,9 @@ void tilcdc_crtc_set_panel_info(struct drm_crtc *crtc,
+ int tilcdc_crtc_mode_valid(struct drm_crtc *crtc, struct drm_display_mode *mode);
+ int tilcdc_crtc_max_width(struct drm_crtc *crtc);
+ 
++/* used by SGX OMAPLFB drvier */
++typedef void (*vsync_callback_t)(void *arg);
++int register_vsync_cb(vsync_callback_t handler, void *arg, int idx);
++int unregister_vsync_cb(vsync_callback_t handler, void *arg, int idx);
++
+ #endif /* __TILCDC_DRV_H__ */
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -525,5 +525,6 @@ source "drivers/misc/altera-stapl/Kconfig"
+ source "drivers/misc/mei/Kconfig"
+ source "drivers/misc/vmw_vmci/Kconfig"
+ source "drivers/misc/mic/Kconfig"
++source "drivers/misc/cape_bone_argus/Kconfig"
+ source "drivers/misc/genwqe/Kconfig"
+ endmenu
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -53,4 +53,5 @@ obj-$(CONFIG_VMWARE_VMCI)	+= vmw_vmci/
+ obj-$(CONFIG_LATTICE_ECP3_CONFIG)	+= lattice-ecp3-config.o
+ obj-$(CONFIG_SRAM)		+= sram.o
+ obj-y				+= mic/
++obj-y				+= cape_bone_argus/
+ obj-$(CONFIG_GENWQE)		+= genwqe/
+--- /dev/null
++++ b/drivers/misc/cape_bone_argus/Kconfig
+@@ -0,0 +1,7 @@
++comment "Argus cape driver for beaglebone black"
++
++config CAPE_BONE_ARGUS
++	tristate "Argus Cape Driver"
++	default M
++	help
++	    Argus Cape Driver
+--- /dev/null
++++ b/drivers/misc/cape_bone_argus/Makefile
+@@ -0,0 +1,5 @@
++#
++# Makefile for Argus cape
++#
++
++obj-$(CONFIG_CAPE_BONE_ARGUS)	+= cape_bone_argus.o
+--- /dev/null
++++ b/drivers/misc/cape_bone_argus/cape_bone_argus.c
+@@ -0,0 +1,415 @@
++/* -*- linux-c -*- */
++
++/* Linux Kernel Module for Breakaway Systems UPS control.
++ *
++ * PUBLIC DOMAIN
++ */
++
++#include <linux/syscalls.h>
++#include <linux/module.h>
++#include <linux/kernel.h>
++#include <linux/reboot.h>
++#include <linux/fs.h>
++#include <linux/uaccess.h>
++#include <linux/delay.h>
++#include <linux/gpio.h>
++#include <linux/mount.h>
++#include <linux/workqueue.h>
++#include <linux/cdev.h>
++#include <linux/platform_device.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/pinctrl/pinctrl.h>
++#include <linux/pinctrl/pinmux.h>
++#include <linux/pinctrl/consumer.h>
++#include <linux/of_gpio.h>
++
++/* Module to sync file systems leaving them mounted read-only,
++ * then signal the UPS that it is safe to remove
++ * power, and finally halt the processor.
++ * Also to allow kicking the watchdog from user mode.
++ */
++#undef DEBUG_ARGUS
++
++#define N_GPIOS 9		/* Total number of GPIOS used */
++
++#define REQ_GPIO_IDX 0		/* Indices got GPIOS */
++#define ACK_GPIO_IDX 1
++#define WDG_GPIO_IDX 2
++#define LED1_GREEN_IDX 3
++#define LED1_RED_IDX 4
++#define LED2_GREEN_IDX 5
++#define LED2_RED_IDX 6
++#define GEN_OUT1_IDX 7
++#define GEN_OUT2_IDX 8
++
++static struct argus_ups_info {	/* As there is only one UPS device we can make this static */
++	struct fasync_struct *async_queue; /* asynchronous readers */
++	struct platform_device *pdev;
++	struct pwm_device *pwm_dev;
++	struct gpio gpios[N_GPIOS];
++} info = {NULL, NULL, NULL, /* Some fields filled in by device tree, probe, etc. */
++     {
++	     {-1, GPIOF_IN, "Powerdown request"},
++	     {-1, GPIOF_OUT_INIT_LOW, "Powerdown acknowledge" },
++	     {-1, GPIOF_OUT_INIT_LOW, "Watchdog"},
++	     {-1, GPIOF_OUT_INIT_LOW, "LED 1 Green"},
++	     {-1, GPIOF_OUT_INIT_LOW, "LED 1 Red"},
++	     {-1, GPIOF_OUT_INIT_LOW, "LED 2 Green"},
++	     {-1, GPIOF_OUT_INIT_LOW, "LED 2 Red"},
++	     {-1, GPIOF_OUT_INIT_LOW, "General Output #1"},
++	     {-1, GPIOF_OUT_INIT_LOW, "General Output #2"}
++     },
++};
++
++
++static const struct of_device_id argus_ups_of_ids[] = {
++	{ .compatible = "argus-ups" },
++	{ }
++};
++
++static int argus_ups_major;     /* Major device number */
++
++static struct class *argus_ups_class; /* /sys/class */
++
++dev_t argus_ups_dev;            /* Device number */
++
++static struct cdev *argus_ups_cdev; /* Character device details */
++
++static void argus_ups_function(struct work_struct *ignored); /* Work function */
++
++static DECLARE_DELAYED_WORK(argus_ups_work, argus_ups_function); /* Kernel workqueue glue */
++
++static struct workqueue_struct *argus_ups_workqueue; /* Kernel workqueue */
++
++static int debug = 0;
++module_param(debug, int, S_IRUGO);
++MODULE_PARM_DESC(debug, "Debug flag");
++
++static int shutdown = 1;
++module_param(shutdown, int, S_IRUGO);
++MODULE_PARM_DESC(shutdown, "Shutdown flag");
++
++#ifdef DEBUG_ARGUS
++static char* fs_type_names[] = {"vfat", "ext4"}; /* File system names that may need syncing. */
++#endif
++
++/* Just kick watchdog */
++
++static ssize_t argus_ups_write(struct file *filp, const char __user *buf, size_t count,
++                loff_t *f_pos)
++{
++	int i;
++        if (debug >= 3) {
++            printk("Writing to watchdog - count:%d\n", count);
++        }
++	for (i = 0; i < count; i++) {
++		gpio_set_value(info.gpios[WDG_GPIO_IDX].gpio, 1); /* Set it */
++		msleep(10);                       /* Wait */
++		gpio_set_value(info.gpios[WDG_GPIO_IDX].gpio, 0); /* End clearing it */
++		msleep(10);
++	}
++	return count;                     /* Always returns what we sent, regardsless */
++}
++
++static long argus_ups_ioctl(struct file *file,
++			   unsigned int ioctl,
++			   unsigned long param)
++{
++	if (debug >= 4) {
++		printk(KERN_ERR "ioctl: %d, param: %ld\n", ioctl, param);
++	}
++	switch(ioctl) {
++	case 10001: {
++		debug = param;
++		printk("Debug set to %d\n", debug);
++		break;
++	}
++	case 10002: {
++		unsigned char value = param & 0x0F;
++		unsigned char mask = (param >> 4) & 0x0F;
++		int i;		/* Loop iterator */
++		if (mask == 0) {
++			printk(KERN_ERR "Pointless mask of zero!\n");
++		}
++		for (i = 0; i < 4; i++) { /* For all four LEDS */
++			if (mask & (1 << i)) { /* Only masked values */
++				if (value & (1 << i)) { /* On - so gpio is hi */
++					if (debug >= 4) {
++						printk("Setting %d hi, ",
++						       info.gpios[LED1_GREEN_IDX + i].gpio);
++					}
++					gpio_set_value(info.gpios[LED1_GREEN_IDX + i].gpio, 1);
++				}
++				else {	/* Off - so gpio is lo */
++					if (debug >= 4) {
++						printk("Setting %d lo, ",
++						       info.gpios[LED1_GREEN_IDX + i].gpio);
++					}
++					gpio_set_value(info.gpios[LED1_GREEN_IDX + i].gpio, 0);
++				}
++			}
++		}
++		if (debug >= 4) {
++			printk("\n");
++		}
++		break;
++	}
++	case 10003: {
++		gpio_set_value(info.gpios[GEN_OUT1_IDX].gpio, param & 1);
++		break;
++	}
++	case 10004: {
++		gpio_set_value(info.gpios[GEN_OUT2_IDX].gpio, param & 1);
++		break;
++	}
++	default:
++	{
++		printk(KERN_ERR "Invalid ioctl %d\n", ioctl);
++		return -1;
++	}
++	}
++	return 0;
++}
++
++static int argus_ups_fasync(int fd, struct file *filp, int mode)
++{
++	printk(KERN_ERR "In argus_ups_fasync() fd:%d, filp:%p, mode:%d\n", fd, filp, mode);
++	return fasync_helper(fd, filp, mode, &info.async_queue);
++}
++
++static struct file_operations argus_ups_fops = { /* Only file operation is to kick watchdog via a write */
++	.owner =    THIS_MODULE,
++	.llseek =   NULL,
++	.read =     NULL,
++	.unlocked_ioctl = argus_ups_ioctl,
++	.write =    argus_ups_write,
++	.open =     NULL,
++	.release =  NULL,
++	.fasync = argus_ups_fasync,
++};
++
++#ifdef DEBUG_ARGUS
++static void remount_sb(struct super_block *sb)
++{
++	int flags =  MS_RDONLY;
++	int result = sb->s_op->remount_fs(sb, &flags, "");
++	if (debug) {
++		printk("Processing superblock %p\n", sb);
++		printk("Remount operation returned %d\n", result);
++	}
++}
++#endif
++
++static void argus_ups_function(struct work_struct *ignored)
++{
++	static int testdata = 0;       /* Data for test */
++	int i;                      /* Iterator */
++	testdata++;
++	if (!gpio_get_value(info.gpios[REQ_GPIO_IDX].gpio)) {
++                queue_delayed_work(argus_ups_workqueue, &argus_ups_work, HZ/100); /* Re-queue in 10mS*/
++		return;
++        }
++	printk(KERN_ERR "Request received\n");
++	if (debug) {
++		printk("Shutdown request received from UPS\n");
++	}
++	if (!shutdown) {
++		printk("Shutdown request ignored\n");
++		return;
++	}
++
++	if (debug) {
++		printk("Sending async kill SIGIO to %p\n", info.async_queue);
++	}
++	if (info.async_queue) { /* Try and tell usermode to halt system */
++		kill_fasync(&info.async_queue, SIGIO, POLL_IN);
++	}
++	gpio_set_value(info.gpios[LED1_GREEN_IDX].gpio, 0); /* Turn off green LED1 */
++	for (i = 0; i < 300; i++) { /* Toggle acknowledge at 10 Hz for 15 seconds */
++		if (debug >= 2) {
++			printk("Waiting for first shutdown request:%d\n", i);
++		}
++		gpio_set_value(info.gpios[ACK_GPIO_IDX].gpio, i & 1); /* Toggle acknowledge */
++		gpio_set_value(info.gpios[LED1_RED_IDX].gpio, i & 1); /* and LED1 red */
++		msleep(50); /* Wait in 50ms increments */
++	}
++
++	{
++		char *argv[] = { "/sbin/halt", NULL };
++		static char *envp[] = {
++			"HOME=/",
++			"TERM=linux",
++			"PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin", NULL };
++
++		call_usermodehelper( argv[0], argv, envp, UMH_WAIT_PROC );
++	}
++	for (i = 0; i < 300; i++) { /* Toggle acknowledge at 10 Hz for 15 more seconds */
++		if (debug >= 2) {
++			printk("Waiting for second shutdown request:%d\n", i);
++		}
++		gpio_set_value(info.gpios[ACK_GPIO_IDX].gpio, i & 1); /* Toggle acknowledge */
++		gpio_set_value(info.gpios[LED1_RED_IDX].gpio, i & 1); /* and LED1 red */
++		msleep(50); /* Wait in 50ms increments */
++	}
++	printk(KERN_ERR "Usermode failed to halt system\n");
++	kernel_halt();	       /* Last resort - may give some oopss */
++}
++
++
++static int argus_ups_probe(struct platform_device *pdev) /* Entry point */
++{
++	struct pinctrl *pinctrl;
++	struct device_node *pnode = pdev->dev.of_node;
++	int i;
++	int ret;
++        printk("Init UPS module - debug=%d, shutdown=%d\n",
++	       debug, shutdown);
++	platform_set_drvdata(pdev, &info);
++	info.pdev = pdev;
++	pinctrl = devm_pinctrl_get_select_default(&pdev->dev);
++	if (IS_ERR(pinctrl)) {
++		dev_warn(&pdev->dev,
++			"pins are not configured from the driver\n");
++		return -1;
++	}
++	ret = of_property_read_u32(pnode, "debug", &debug);
++	if (ret != 0) {
++		dev_err(&pdev->dev, "Unable to read debug parameter\n");
++	}
++	else {
++		printk("Debug parameter read from DT:%d\n", debug);
++	}
++
++	ret = of_property_read_u32(pnode, "shutdown", &shutdown);
++	if (ret != 0) {
++		dev_err(&pdev->dev, "Unable to read shutdown parameter\n");
++	}
++	else {
++		printk("Shutdown parameter read from DT:%d\n", shutdown);
++	}
++
++	ret = of_gpio_count(pnode);
++
++	if (ret != N_GPIOS) {
++		printk(KERN_ERR "Wrong number of gpios");
++		return -1;
++	}
++
++	for (i = 0; i < of_gpio_count(pnode); i++) {
++		ret = of_get_gpio_flags(pnode, i, NULL);
++		if (debug) {
++			printk("GPIO#%d:%d\n", i, ret);
++		}
++		if (IS_ERR_VALUE(ret)) {
++			dev_err(&pdev->dev, "unable to get GPIO %d\n", i);
++			goto err_no_gpio;
++		}
++		info.gpios[i].gpio = ret;
++	}
++
++
++        ret = alloc_chrdev_region(&argus_ups_dev, 0, 2, "argus_ups");
++        argus_ups_major = MAJOR(argus_ups_dev);
++        if (ret) {
++		printk(KERN_ERR "Error %d adding argus_ups\n", ret);
++		return -1;
++        }
++	if (debug) {
++		printk("argus_ups major: %d\n", argus_ups_major);
++	}
++        argus_ups_cdev = cdev_alloc(); /* Make this a character device */
++        argus_ups_cdev->ops = &argus_ups_fops; /* File operations */
++        argus_ups_cdev->owner = THIS_MODULE;   /* Top level device */
++        ret = cdev_add(argus_ups_cdev, argus_ups_dev, 1); /* Add it to the kernel */
++        if (ret) {
++		printk(KERN_ERR "cdev_add returned %d\n", ret);
++		unregister_chrdev_region(0, 1);
++		return -1;
++	}
++        ret = gpio_request_array(info.gpios, N_GPIOS);
++	if (ret) {
++		printk(KERN_ERR "Error %d requesting GPIOs\n", ret);
++		unregister_chrdev_region(0, 1);
++		return -1;
++        }
++
++        argus_ups_class = class_create(THIS_MODULE, "argus_ups"); /* /sys/class entry for udev */
++        if (IS_ERR(argus_ups_class)) {
++		printk(KERN_ERR "Error creating argus_ups_class\n");
++		unregister_chrdev_region(0, 1);
++		return -1;
++	}
++	device_create(argus_ups_class, NULL, MKDEV(argus_ups_major, 0), NULL, "argus_ups");
++        argus_ups_workqueue = create_singlethread_workqueue("argus_ups");
++        INIT_DELAYED_WORK(&argus_ups_work, argus_ups_function);
++        queue_delayed_work(argus_ups_workqueue, &argus_ups_work, 0); /* Start work immediately */
++
++        return 0;
++err_no_gpio:
++	return ret;
++
++}
++
++
++static void argus_ups_cleanup(void)
++{
++	printk("Module cleanup called\n");
++        while (cancel_delayed_work(&argus_ups_work) == 0) {
++		flush_workqueue(argus_ups_workqueue); /* Make sure all work is completed */
++	}
++	destroy_workqueue(argus_ups_workqueue);
++	gpio_free_array(info.gpios, N_GPIOS);
++	device_destroy(argus_ups_class, argus_ups_dev);
++	class_destroy(argus_ups_class);
++        unregister_chrdev_region(argus_ups_dev, 1);
++        cdev_del(argus_ups_cdev);
++}
++
++
++
++static int argus_ups_remove(struct platform_device *pdev)
++{
++	printk("In argus_ups_remove()\n");
++	argus_ups_cleanup();
++	printk("After cleanup\n");
++	return 0;
++}
++
++#define ARGUS_UPS_PM_OPS NULL
++
++struct platform_driver argus_ups_driver = {
++	.probe		= argus_ups_probe,
++	.remove		= argus_ups_remove,
++	.driver = {
++		.name		= "argus-ups",
++		.owner		= THIS_MODULE,
++		.pm		= ARGUS_UPS_PM_OPS,
++		.of_match_table = argus_ups_of_ids,
++	},
++};
++
++
++static int __init argus_ups_init(void)
++{
++	return platform_driver_probe(&argus_ups_driver,
++				     argus_ups_probe);
++}
++
++static void __exit argus_ups_exit(void)
++{
++	platform_driver_unregister(&argus_ups_driver);
++	printk("After driver unregister\n");
++}
++
++module_init(argus_ups_init);
++module_exit(argus_ups_exit);
++
++/*
++ * Get rid of taint message.
++ */
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("David Lambert");	/* Who wrote this module? */
++MODULE_DESCRIPTION("Argus UPS control"); /* What does this module do */
++MODULE_ALIAS("platform:argus-ups");
++MODULE_DEVICE_TABLE(of, argus_ups_of_ids);
+--- a/drivers/pinctrl/pinctrl-single.c
++++ b/drivers/pinctrl/pinctrl-single.c
+@@ -2053,7 +2053,17 @@ static struct platform_driver pcs_driver = {
+ #endif
+ };
+ 
+-module_platform_driver(pcs_driver);
++static int __init pcs_init(void)
++{
++	return platform_driver_register(&pcs_driver);
++}
++postcore_initcall(pcs_init);
++
++static void __exit pcs_exit(void)
++{
++	platform_driver_unregister(&pcs_driver);
++}
++module_exit(pcs_exit);
+ 
+ MODULE_AUTHOR("Tony Lindgren <tony@atomide.com>");
+ MODULE_DESCRIPTION("One-register-per-pin type device tree based pinctrl driver");
+--- a/drivers/usb/musb/musb_cppi41.c
++++ b/drivers/usb/musb/musb_cppi41.c
+@@ -39,6 +39,7 @@ struct cppi41_dma_channel {
+ 	u32 transferred;
+ 	u32 packet_sz;
+ 	struct list_head tx_check;
++	struct work_struct dma_completion;
+ };
+ 
+ #define MUSB_DMA_NUM_CHANNELS 15
+@@ -112,6 +113,18 @@ static bool musb_is_tx_fifo_empty(struct musb_hw_ep *hw_ep)
+ 	return true;
+ }
+ 
++static bool is_isoc(struct musb_hw_ep *hw_ep, bool in)
++{
++	if (in && hw_ep->in_qh) {
++		if (hw_ep->in_qh->type == USB_ENDPOINT_XFER_ISOC)
++			return true;
++	} else if (hw_ep->out_qh) {
++		if (hw_ep->out_qh->type == USB_ENDPOINT_XFER_ISOC)
++			return true;
++	}
++	return false;
++}
++
+ static void cppi41_dma_callback(void *private_data);
+ 
+ static void cppi41_trans_done(struct cppi41_dma_channel *cppi41_channel)
+@@ -165,6 +178,32 @@ static void cppi41_trans_done(struct cppi41_dma_channel *cppi41_channel)
+ 	}
+ }
+ 
++static void cppi_trans_done_work(struct work_struct *work)
++{
++	unsigned long flags;
++	struct cppi41_dma_channel *cppi41_channel =
++		container_of(work, struct cppi41_dma_channel, dma_completion);
++	struct cppi41_dma_controller *controller = cppi41_channel->controller;
++	struct musb *musb = controller->musb;
++	struct musb_hw_ep *hw_ep = cppi41_channel->hw_ep;
++	bool empty;
++
++	if (!cppi41_channel->is_tx && is_isoc(hw_ep, 1)) {
++			spin_lock_irqsave(&musb->lock, flags);
++			cppi41_trans_done(cppi41_channel);
++			spin_unlock_irqrestore(&musb->lock, flags);
++	} else {
++		empty = musb_is_tx_fifo_empty(hw_ep);
++		if (empty) {
++			spin_lock_irqsave(&musb->lock, flags);
++			cppi41_trans_done(cppi41_channel);
++			spin_unlock_irqrestore(&musb->lock, flags);
++		} else {
++			schedule_work(&cppi41_channel->dma_completion);
++		}
++	}
++}
++
+ static enum hrtimer_restart cppi41_recheck_tx_req(struct hrtimer *timer)
+ {
+ 	struct cppi41_dma_controller *controller;
+@@ -228,6 +267,14 @@ static void cppi41_dma_callback(void *private_data)
+ 			transferred < cppi41_channel->packet_sz)
+ 		cppi41_channel->prog_len = 0;
+ 
++	if (!cppi41_channel->is_tx) {
++		if (is_isoc(hw_ep, 1))
++			schedule_work(&cppi41_channel->dma_completion);
++		else
++			cppi41_trans_done(cppi41_channel);
++		goto out;
++	}
++
+ 	empty = musb_is_tx_fifo_empty(hw_ep);
+ 	if (empty) {
+ 		cppi41_trans_done(cppi41_channel);
+@@ -264,6 +311,10 @@ static void cppi41_dma_callback(void *private_data)
+ 				goto out;
+ 			}
+ 		}
++		if (is_isoc(hw_ep, 0)) {
++			schedule_work(&cppi41_channel->dma_completion);
++			goto out;
++		}
+ 		list_add_tail(&cppi41_channel->tx_check,
+ 				&controller->early_tx_list);
+ 		if (!hrtimer_is_queued(&controller->early_tx)) {
+@@ -448,12 +499,25 @@ static int cppi41_dma_channel_program(struct dma_channel *channel,
+ 				dma_addr_t dma_addr, u32 len)
+ {
+ 	int ret;
++	struct cppi41_dma_channel *cppi41_channel = channel->private_data;
++	int hb_mult = 0;
+ 
+ 	BUG_ON(channel->status == MUSB_DMA_STATUS_UNKNOWN ||
+ 		channel->status == MUSB_DMA_STATUS_BUSY);
+ 
++	if (is_host_active(cppi41_channel->controller->musb)) {
++		if (cppi41_channel->is_tx)
++			hb_mult = cppi41_channel->hw_ep->out_qh->hb_mult;
++		else
++			hb_mult = cppi41_channel->hw_ep->in_qh->hb_mult;
++	}
++
+ 	channel->status = MUSB_DMA_STATUS_BUSY;
+ 	channel->actual_len = 0;
++
++	if (hb_mult)
++		packet_sz = hb_mult * (packet_sz & 0x7FF);
++
+ 	ret = cppi41_configure_channel(channel, packet_sz, mode, dma_addr, len);
+ 	if (!ret)
+ 		channel->status = MUSB_DMA_STATUS_FREE;
+@@ -607,7 +671,8 @@ static int cppi41_dma_controller_start(struct cppi41_dma_controller *controller)
+ 		cppi41_channel->port_num = port;
+ 		cppi41_channel->is_tx = is_tx;
+ 		INIT_LIST_HEAD(&cppi41_channel->tx_check);
+-
++		INIT_WORK(&cppi41_channel->dma_completion,
++			  cppi_trans_done_work);
+ 		musb_dma = &cppi41_channel->channel;
+ 		musb_dma->private_data = cppi41_channel;
+ 		musb_dma->status = MUSB_DMA_STATUS_FREE;
+--- a/drivers/usb/musb/musb_host.c
++++ b/drivers/usb/musb/musb_host.c
+@@ -1692,9 +1692,11 @@ void musb_host_rx(struct musb *musb, u8 epnum)
+ 			| MUSB_RXCSR_H_AUTOREQ
+ 			| MUSB_RXCSR_AUTOCLEAR
+ 			| MUSB_RXCSR_RXPKTRDY);
++
+ 		musb_writew(hw_ep->regs, MUSB_RXCSR, val);
+ 
+-#if defined(CONFIG_USB_INVENTRA_DMA) || defined(CONFIG_USB_UX500_DMA)
++#if defined(CONFIG_USB_INVENTRA_DMA) || defined(CONFIG_USB_UX500_DMA) || \
++	defined(CONFIG_USB_TI_CPPI41_DMA)
+ 		if (usb_pipeisoc(pipe)) {
+ 			struct usb_iso_packet_descriptor *d;
+ 
+@@ -1709,8 +1711,28 @@ void musb_host_rx(struct musb *musb, u8 epnum)
+ 
+ 			if (++qh->iso_idx >= urb->number_of_packets)
+ 				done = true;
+-			else
++			else {
++#if defined(CONFIG_USB_TI_CPPI41_DMA)
++				struct dma_controller   *c;
++				dma_addr_t *buf;
++				u32 length, ret;
++
++				c = musb->dma_controller;
++				buf = (void *)
++					urb->iso_frame_desc[qh->iso_idx].offset
++					+ (u32)urb->transfer_dma;
++
++				length =
++					urb->iso_frame_desc[qh->iso_idx].length;
++
++				val |= MUSB_RXCSR_DMAENAB;
++				musb_writew(hw_ep->regs, MUSB_RXCSR, val);
++
++				ret = c->channel_program(dma, qh->maxpacket,
++						0, (u32) buf, length);
++#endif
+ 				done = false;
++			}
+ 
+ 		} else  {
+ 		/* done if urb buffer is full or short packet is recd */
+@@ -1750,7 +1772,8 @@ void musb_host_rx(struct musb *musb, u8 epnum)
+ 		}
+ 
+ 		/* we are expecting IN packets */
+-#if defined(CONFIG_USB_INVENTRA_DMA) || defined(CONFIG_USB_UX500_DMA)
++#if defined(CONFIG_USB_INVENTRA_DMA) || defined(CONFIG_USB_UX500_DMA) || \
++	defined(CONFIG_USB_TI_CPPI41_DMA)
+ 		if (dma) {
+ 			struct dma_controller	*c;
+ 			u16			rx_count;
+--- a/drivers/video/backlight/gpio_backlight.c
++++ b/drivers/video/backlight/gpio_backlight.c
+@@ -13,6 +13,8 @@
+ #include <linux/init.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_gpio.h>
+ #include <linux/platform_data/gpio_backlight.h>
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
+@@ -23,6 +25,7 @@ struct gpio_backlight {
+ 
+ 	int gpio;
+ 	int active;
++	int def_value;
+ };
+ 
+ static int gpio_backlight_update_status(struct backlight_device *bl)
+@@ -60,6 +63,29 @@ static const struct backlight_ops gpio_backlight_ops = {
+ 	.check_fb	= gpio_backlight_check_fb,
+ };
+ 
++static int gpio_backlight_probe_dt(struct platform_device *pdev,
++				   struct gpio_backlight *gbl)
++{
++	struct device_node *np = pdev->dev.of_node;
++	enum of_gpio_flags gpio_flags;
++
++	gbl->gpio = of_get_gpio_flags(np, 0, &gpio_flags);
++
++	if (!gpio_is_valid(gbl->gpio)) {
++		if (gbl->gpio != -EPROBE_DEFER) {
++			dev_err(&pdev->dev,
++				"Error: The gpios parameter is missing or invalid.\n");
++		}
++		return gbl->gpio;
++	}
++
++	gbl->active = (gpio_flags & OF_GPIO_ACTIVE_LOW) ? 0 : 1;
++
++	gbl->def_value = of_property_read_bool(np, "default-on");
++
++	return 0;
++}
++
+ static int gpio_backlight_probe(struct platform_device *pdev)
+ {
+ 	struct gpio_backlight_platform_data *pdata =
+@@ -67,10 +93,12 @@ static int gpio_backlight_probe(struct platform_device *pdev)
+ 	struct backlight_properties props;
+ 	struct backlight_device *bl;
+ 	struct gpio_backlight *gbl;
++	struct device_node *np = pdev->dev.of_node;
+ 	int ret;
+ 
+-	if (!pdata) {
+-		dev_err(&pdev->dev, "failed to find platform data\n");
++	if (!pdata && !np) {
++		dev_err(&pdev->dev,
++			"failed to find platform data or device tree node.\n");
+ 		return -ENODEV;
+ 	}
+ 
+@@ -79,14 +107,22 @@ static int gpio_backlight_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	gbl->dev = &pdev->dev;
+-	gbl->fbdev = pdata->fbdev;
+-	gbl->gpio = pdata->gpio;
+-	gbl->active = pdata->active_low ? 0 : 1;
++
++	if (np) {
++		ret = gpio_backlight_probe_dt(pdev, gbl);
++		if (ret)
++			return ret;
++	} else {
++		gbl->fbdev = pdata->fbdev;
++		gbl->gpio = pdata->gpio;
++		gbl->active = pdata->active_low ? 0 : 1;
++		gbl->def_value = pdata->def_value;
++	}
+ 
+ 	ret = devm_gpio_request_one(gbl->dev, gbl->gpio, GPIOF_DIR_OUT |
+ 				    (gbl->active ? GPIOF_INIT_LOW
+ 						 : GPIOF_INIT_HIGH),
+-				    pdata->name);
++				    pdata ? pdata->name : "backlight");
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "unable to request GPIO\n");
+ 		return ret;
+@@ -103,17 +139,25 @@ static int gpio_backlight_probe(struct platform_device *pdev)
+ 		return PTR_ERR(bl);
+ 	}
+ 
+-	bl->props.brightness = pdata->def_value;
++	bl->props.brightness = gbl->def_value;
+ 	backlight_update_status(bl);
+ 
+ 	platform_set_drvdata(pdev, bl);
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_OF
++static struct of_device_id gpio_backlight_of_match[] = {
++	{ .compatible = "gpio-backlight" },
++	{ /* sentinel */ }
++};
++#endif
++
+ static struct platform_driver gpio_backlight_driver = {
+ 	.driver		= {
+ 		.name		= "gpio-backlight",
+ 		.owner		= THIS_MODULE,
++		.of_match_table = of_match_ptr(gpio_backlight_of_match),
+ 	},
+ 	.probe		= gpio_backlight_probe,
+ };
+--- /dev/null
++++ b/include/linux/platform_data/gfx-sgx.h
+@@ -0,0 +1,22 @@
++/*
++ * SGX Graphics Driver Platform Data
++ *
++ * Copyright (C) 2014 Texas Instruments Incorporated - http://www.ti.com/
++ *	Darren Etheridge <detheridge@ti.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed "as is" WITHOUT ANY WARRANTY of any
++ * kind, whether express or implied; without even the implied warranty
++ * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++#include <linux/platform_device.h>
++
++struct gfx_sgx_platform_data {
++	const char *reset_name;
++
++	int (*deassert_reset)(struct platform_device *pdev, const char *name);
++};
+--- a/scripts/package/builddeb
++++ b/scripts/package/builddeb
+@@ -35,13 +35,15 @@ create_package() {
+ 	sparc*)
+ 		debarch=sparc ;;
+ 	s390*)
+-		debarch=s390 ;;
++		debarch=s390$(grep -q CONFIG_64BIT=y $KCONFIG_CONFIG && echo x || true) ;;
+ 	ppc*)
+ 		debarch=powerpc ;;
+ 	parisc*)
+ 		debarch=hppa ;;
+ 	mips*)
+ 		debarch=mips$(grep -q CPU_LITTLE_ENDIAN=y $KCONFIG_CONFIG && echo el || true) ;;
++	arm64)
++		debarch=arm64 ;;
+ 	arm*)
+ 		debarch=arm$(grep -q CONFIG_AEABI=y $KCONFIG_CONFIG && echo el || true) ;;
+ 	*)
+@@ -130,7 +132,7 @@ if [ "$ARCH" = "um" ] ; then
+ 	cp System.map "$tmpdir/usr/lib/uml/modules/$version/System.map"
+ 	cp $KCONFIG_CONFIG "$tmpdir/usr/share/doc/$packagename/config"
+ 	gzip "$tmpdir/usr/share/doc/$packagename/config"
+-else 
++else
+ 	cp System.map "$tmpdir/boot/System.map-$version"
+ 	cp $KCONFIG_CONFIG "$tmpdir/boot/config-$version"
+ fi
+@@ -165,6 +167,17 @@ if grep -q '^CONFIG_MODULES=y' $KCONFIG_CONFIG ; then
+ 	fi
+ fi
+ 
++if grep -q '^CONFIG_OF=y' $KCONFIG_CONFIG ; then
++	mkdir -p "$tmpdir/boot/dtbs/$version"
++	$MAKE KBUILD_SRC= dtbs
++	find arch/arm/boot/ -iname "*.dtb" -exec cp -v '{}' "$tmpdir/boot/dtbs/$version" \;
++
++	#make dtbs_install seems to add an .old directory
++	if [ -d "$tmpdir/boot/dtbs/$version.old" ] ; then
++		rm -rf "$tmpdir/boot/dtbs/$version.old"
++	fi
++fi
++
+ if [ "$ARCH" != "um" ]; then
+ 	$MAKE headers_check KBUILD_SRC=
+ 	$MAKE headers_install KBUILD_SRC= INSTALL_HDR_PATH="$libc_headers_dir/usr"
+@@ -287,14 +300,16 @@ EOF
+ 
+ fi
+ 
+-# Build header package
+-(cd $srctree; find . -name Makefile\* -o -name Kconfig\* -o -name \*.pl > "$objtree/debian/hdrsrcfiles")
+-(cd $srctree; find arch/$SRCARCH/include include scripts -type f >> "$objtree/debian/hdrsrcfiles")
+-(cd $objtree; find arch/$SRCARCH/include Module.symvers include scripts -type f >> "$objtree/debian/hdrobjfiles")
++# Build kernel header package
++(cd $srctree; find . -name Makefile\* -o -name Kconfig\* -o -name \*.pl) > "$objtree/debian/hdrsrcfiles"
++(cd $srctree; find arch/$SRCARCH/include include scripts -type f) >> "$objtree/debian/hdrsrcfiles"
++(cd $srctree; find arch/$SRCARCH -name module.lds -o -name Kbuild.platforms -o -name Platform) >> "$objtree/debian/hdrsrcfiles"
++(cd $srctree; find $(find arch/$SRCARCH -name include -o -name scripts -type d) -type f) >> "$objtree/debian/hdrsrcfiles"
++(cd $objtree; find arch/$SRCARCH/include Module.symvers include scripts -type f) >> "$objtree/debian/hdrobjfiles"
+ destdir=$kernel_headers_dir/usr/src/linux-headers-$version
+ mkdir -p "$destdir"
+-(cd $srctree; tar -c -f - -T "$objtree/debian/hdrsrcfiles") | (cd $destdir; tar -xf -)
+-(cd $objtree; tar -c -f - -T "$objtree/debian/hdrobjfiles") | (cd $destdir; tar -xf -)
++(cd $srctree; tar -c -f - -T -) < "$objtree/debian/hdrsrcfiles" | (cd $destdir; tar -xf -)
++(cd $objtree; tar -c -f - -T -) < "$objtree/debian/hdrobjfiles" | (cd $destdir; tar -xf -)
+ (cd $objtree; cp $KCONFIG_CONFIG $destdir/.config) # copy .config manually to be where it's expected to be
+ ln -sf "/usr/src/linux-headers-$version" "$kernel_headers_dir/lib/modules/$version/build"
+ rm -f "$objtree/debian/hdrsrcfiles" "$objtree/debian/hdrobjfiles"
