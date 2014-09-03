@@ -1,8 +1,12 @@
 config BR2_PACKAGE_FWUP
 	bool "fwup"
+	depends on BR2_USE_MMU
 	select BR2_PACKAGE_LIBARCHIVE
 	select BR2_PACKAGE_LIBCONFUSE
 	help
 	  Fwup is a scriptable embedded Linux firmware update creator and runner.
 
 	  https://github.com/fhunleth/fwup
+
+comment "fwup needs a toolchain w/ wchar"
+	depends on !BR2_USE_WCHAR
