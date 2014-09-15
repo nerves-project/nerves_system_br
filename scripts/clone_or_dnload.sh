@@ -17,16 +17,19 @@ DL=$3
 [ -z "$DL" ] && { echo "Need to specify the download directory"; exit 1; }
 
 BASENAME=`basename $URL .git`
-CACHED_PATH=$DL/$BASENAME-$HASHTAG.tgz
+CACHED_PATH_TGZ=$DL/$BASENAME-$HASHTAG.tgz
 
 # Clean up in case we were interrupted during a previous download
 rm -fr $BASENAME
 
-if [ -e "$CACHED_PATH" ]; then
-    tar xf $CACHED_PATH
+if [ -e "$CACHED_PATH_TGZ" ]; then
+    tar xzf $CACHED_PATH_TGZ
 else
     git clone $URL
     cd $BASENAME && git checkout -b nerves $HASHTAG
-    git archive --format=tar.gz --prefix=$BASENAME/ $HASHTAG > $CACHED_PATH
+
+    # NOTE: even though we could just use format=tar.gz, this doesn't
+    # work on old versions of git like the one on Debian 6.0
+    git archive --format=tar --prefix=$BASENAME/ $HASHTAG | gzip -c > $CACHED_PATH_TGZ
 fi
 
