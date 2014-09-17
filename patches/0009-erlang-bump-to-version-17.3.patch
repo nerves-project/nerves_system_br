@@ -1,0 +1,30 @@
+From 1fcceec3c6b28e468d97719d49c03faa4a2edd48 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 17 Sep 2014 08:47:28 -0400
+Subject: [PATCH 9/9] erlang: bump to version 17.3
+
+Erlang/OTP 17.3 is a service release on the 17 track with mostly bug
+fixes, but it does contain a number of new features and characteristics
+improvements as well.
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ package/erlang/erlang.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
+index 89b7c57..b04685c 100644
+--- a/package/erlang/erlang.mk
++++ b/package/erlang/erlang.mk
+@@ -4,7 +4,7 @@
+ #
+ ################################################################################
+ 
+-ERLANG_VERSION = 17.0
++ERLANG_VERSION = 17.3
+ ERLANG_SITE = http://www.erlang.org/download
+ ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
+ ERLANG_DEPENDENCIES = host-erlang
+-- 
+1.9.1
+

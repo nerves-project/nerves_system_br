@@ -1,7 +1,7 @@
-From 3f9ca44ed9f42d2e883d9b627dc6c41e3ad8ea98 Mon Sep 17 00:00:00 2001
+From 0ebf5ee826ca5094e8a9f0de9e275703e151a643 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 10 Aug 2014 17:12:32 -0400
-Subject: [PATCH] libconfuse: add patch to fix env bug
+Subject: [PATCH 8/9] libconfuse: add patch to fix env bug
 
 This patch has been integrated into the upstream project, but upstream
 has not released a new version yet.
