@@ -1,0 +1,7 @@
+config BR2_PACKAGE_HOST_LFE
+	bool "host lfe"
+	select BR2_PACKAGE_ERLANG
+	help
+	  LFE is a functional LISP-2 built on top of the Erlang VM.
+
+	  http://lfe.io/
