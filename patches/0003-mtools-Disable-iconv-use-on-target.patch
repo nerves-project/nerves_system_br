@@ -1,7 +1,7 @@
-From 7b27f57a86b0aa80248de09b6bdf14b310cdd622 Mon Sep 17 00:00:00 2001
+From 212479e8fe9aa60df58c7c20ca631b44d1f63469 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 18 Mar 2014 13:14:22 -0400
-Subject: [PATCH 4/8] mtools: Disable iconv use on target
+Subject: [PATCH 3/6] mtools: Disable iconv use on target
 
 Since the /usr/lib/gconv directory isn't copied over to the target
 with some toolchains, iconv_open will fail. This removes character set
@@ -13,7 +13,7 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/package/mtools/mtools.mk b/package/mtools/mtools.mk
-index 9dc72f3..2e3215b 100644
+index d331af2..a0a14ac 100644
 --- a/package/mtools/mtools.mk
 +++ b/package/mtools/mtools.mk
 @@ -18,6 +18,9 @@ MTOOLS_DEPENDENCIES += libiconv
@@ -22,7 +22,7 @@ index 9dc72f3..2e3215b 100644
  HOST_MTOOLS_DEPENDENCIES =
 +else
 +# external toolchain doesn't install gconv. This fixes a runtime error.
-+MTOOLS_CONF_OPT += ac_cv_header_iconv_h='no'
++MTOOLS_CONF_OPTS += ac_cv_header_iconv_h='no'
  endif
  
  # Package does not build in parallel due to improper make rules

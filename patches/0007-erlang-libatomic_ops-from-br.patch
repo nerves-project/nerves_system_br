@@ -1,0 +1,181 @@
+From 27ecaaded5b5a36bd06037bd8b875d4498002d42 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 30 Dec 2014 11:25:36 -0500
+Subject: [PATCH 7/7] erlang: libatomic_ops from br
+
+These fixes were found by Yann and Thomas to address the libatomic_ops
+issue.
+---
+ package/erlang/0001-build-fix.patch                | 13 ++++
+ ...d-instruct-libatomic_ops-we-do-require-CA.patch | 70 ++++++++++++++++++++++
+ package/erlang/Config.in                           |  8 ++-
+ package/erlang/erlang-build-fix.patch              | 13 ----
+ package/erlang/erlang.mk                           |  6 ++
+ 5 files changed, 95 insertions(+), 15 deletions(-)
+ create mode 100644 package/erlang/0001-build-fix.patch
+ create mode 100644 package/erlang/0002-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ delete mode 100644 package/erlang/erlang-build-fix.patch
+
+diff --git a/package/erlang/0001-build-fix.patch b/package/erlang/0001-build-fix.patch
+new file mode 100644
+index 0000000..ff821c9
+--- /dev/null
++++ b/package/erlang/0001-build-fix.patch
+@@ -0,0 +1,13 @@
++apply-patches.sh deletes this file from the source directory.
++
++--- erlang-R15B01.old/lib/tools/emacs/Makefile	2012-04-04
+++++ erlang-R15B01/lib/tools/emacs/Makefile	2012-04-04 15:55:16.978957307 +0100
++@@ -51,7 +51,7 @@
++
++ ELC_FILES = $(EMACS_FILES:%=%.elc)
++
++-TEST_FILES = test.erl.indented test.erl.orig
+++TEST_FILES = test.erl.indented
++
++ # ----------------------------------------------------
++ # Targets
+diff --git a/package/erlang/0002-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/0002-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+new file mode 100644
+index 0000000..8e40143
+--- /dev/null
++++ b/package/erlang/0002-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+@@ -0,0 +1,70 @@
++From 439fa2eae78a8900bda120072335be19d626498c Mon Sep 17 00:00:00 2001
++From: "Yann E. MORIN" <yann.morin.1998@free.fr>
++Date: Sun, 28 Dec 2014 23:39:40 +0100
++Subject: [PATCH] erts/ethread: instruct libatomic_ops we do require CAS
++
++We do require compare-and-swap (CAS), so we must instruct libatomic_ops
++to provide it, even if the architecture does not have instructions for
++it.
++
++For example, on ARM, LDREX is required for fast CAS. But LDREX is only
++available on ARMv6, so by default libatomic_ops will not have CAS for
++anything below, like ARMv5. But ARMv5 is always UP, so using an
++emulated CAS (that is signal-asyn-safe) is still possible (albeit much
++slower).
++
++Tell libatomic_ops to provide CAS, even if the hardware is not capable
++of it, by using emulated CAS, as per libatomic_ops dosc:
++    https://github.com/ivmai/libatomic_ops/blob/master/doc/README.txt#L28
++
++    If this is included after defining AO_REQUIRE_CAS, then the package
++    will make an attempt to emulate compare-and-swap in a way that (at
++    least on Linux) should still be async-signal-safe.
++
++Thanks go to Thomas for all this insight! :-)
++Thanks go to Frank for reporting the issue! :-)
++
++Signed-off-by: "Yann E. MORIN" <yann.morin.1998@free.fr>
++Cc: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
++Cc: Frank Hunleth <fhunleth@troodon-software.com>
++---
++ erts/include/internal/libatomic_ops/ethread.h | 1 +
++ 1 file changed, 1 insertion(+)
++
++diff --git a/erts/include/internal/libatomic_ops/ethread.h b/erts/include/internal/libatomic_ops/ethread.h
++index d65ee19..71d3598 100644
++--- a/erts/include/internal/libatomic_ops/ethread.h
+++++ b/erts/include/internal/libatomic_ops/ethread.h
++@@ -35,6 +35,7 @@
++ 
++ #define ETHR_NATIVE_IMPL__ "libatomic_ops"
++ 
+++#define AO_REQUIRE_CAS
++ #include "atomic_ops.h"
++ #include "ethr_membar.h"
++ #include "ethr_atomic.h"
++diff --git a/erts/aclocal.m4 b/erts/aclocal.m4
++index d65ee19..71d3598 100644
++--- a/erts/aclocal.m4
+++++ b/erts/aclocal.m4
++@@ -1414,7 +1414,8 @@
++ 	    	    fi;;
++ 	    esac
++ 	    ethr_have_libatomic_ops=no
++-	    AC_TRY_LINK([#include "atomic_ops.h"],
+++	    AC_TRY_LINK([#define AO_REQUIRE_CAS
+++                    #include "atomic_ops.h"],
++ 	    	        [
++ 	    	    	    volatile AO_t x;
++ 	    	    	    AO_t y;
++@@ -1455,6 +1455,7 @@
++ 	        AC_CHECK_SIZEOF(AO_t, ,
++ 	    	    	        [
++ 	    	    	    	    #include <stdio.h>
+++	    	    	    	    #define AO_REQUIRE_CAS
++ 	    	    	    	    #include "atomic_ops.h"
++ 	    	    	        ])
++ 	        AC_DEFINE_UNQUOTED(ETHR_SIZEOF_AO_T, $ac_cv_sizeof_AO_t, [Define to the size of AO_t if libatomic_ops is used])
++-- 
++1.9.1
++
+diff --git a/package/erlang/Config.in b/package/erlang/Config.in
+index 0566582..625b7c1 100644
+--- a/package/erlang/Config.in
++++ b/package/erlang/Config.in
+@@ -1,11 +1,15 @@
+ comment "erlang needs a toolchain w/ threads, shared library"
+-	depends on !BR2_TOOLCHAIN_HAS_THREADS && BR2_PREFER_STATIC_LIB
++	depends on BR2_USE_MMU # fork()
++	depends on BR2_PACKAGE_LIBATOMIC_ARCH_SUPPORTS
++	depends on !BR2_TOOLCHAIN_HAS_THREADS || BR2_STATIC_LIBS
+ 
+ config BR2_PACKAGE_ERLANG
+ 	bool "erlang"
+ 	depends on BR2_USE_MMU # fork()
+ 	depends on BR2_TOOLCHAIN_HAS_THREADS
+-	depends on !BR2_PREFER_STATIC_LIB
++	depends on !BR2_STATIC_LIBS
++	depends on BR2_PACKAGE_LIBATOMIC_ARCH_SUPPORTS
++	select BR2_PACKAGE_LIBATOMIC_OPS
+ 	help
+ 	  Erlang is a programming language used to build massively scalable
+ 	  soft real-time systems with requirements on high availability.
+diff --git a/package/erlang/erlang-build-fix.patch b/package/erlang/erlang-build-fix.patch
+deleted file mode 100644
+index ff821c9..0000000
+--- a/package/erlang/erlang-build-fix.patch
++++ /dev/null
+@@ -1,13 +0,0 @@
+-apply-patches.sh deletes this file from the source directory.
+-
+---- erlang-R15B01.old/lib/tools/emacs/Makefile	2012-04-04
+-+++ erlang-R15B01/lib/tools/emacs/Makefile	2012-04-04 15:55:16.978957307 +0100
+-@@ -51,7 +51,7 @@
+-
+- ELC_FILES = $(EMACS_FILES:%=%.elc)
+-
+--TEST_FILES = test.erl.indented test.erl.orig
+-+TEST_FILES = test.erl.indented
+-
+- # ----------------------------------------------------
+- # Targets
+diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
+index 4e3473e..b893b3e 100644
+--- a/package/erlang/erlang.mk
++++ b/package/erlang/erlang.mk
+@@ -13,6 +13,9 @@ ERLANG_LICENSE = EPL
+ ERLANG_LICENSE_FILES = EPLICENCE
+ ERLANG_INSTALL_STAGING = YES
+ 
++# Touching erts/configure.in
++ERLANG_AUTORECONF = YES
++
+ # The configure checks for these functions fail incorrectly
+ ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes
+ 
+@@ -22,6 +25,9 @@ ERLANG_CONF_ENV += erl_xcomp_sysroot=$(STAGING_DIR)
+ 
+ ERLANG_CONF_OPTS = --without-javac
+ 
++ERLANG_DEPENDENCIES += libatomic_ops
++ERLANG_CONF_OPTS += --with-libatomic_ops=$(STAGING_DIR)/usr LIBS=-latomic_ops
++
+ # erlang uses openssl for all things crypto. Since the host tools (such as
+ # rebar) uses crypto, we need to build host-erlang with support for openssl.
+ HOST_ERLANG_DEPENDENCIES = host-openssl
+-- 
+1.9.1
+

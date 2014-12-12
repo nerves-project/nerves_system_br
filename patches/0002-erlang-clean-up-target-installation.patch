@@ -1,7 +1,7 @@
-From e41f815f891199a1ac246a828f63d4ea3735bb84 Mon Sep 17 00:00:00 2001
+From 3b5767cd6c93e72b6a4afa650f7fa5a485ab995f Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 12 Feb 2014 23:20:28 -0500
-Subject: [PATCH 3/8] erlang: clean up target installation
+Subject: [PATCH 2/6] erlang: clean up target installation
 
 This patch removes source code, documentation, examples, static
 libraries, and other unnecessary files from being installed on
@@ -13,10 +13,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  1 file changed, 29 insertions(+), 2 deletions(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 3c1fa92..89b7c57 100644
+index dc17a5f..1923535 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -55,17 +55,44 @@ ERLANG_REMOVE_PACKAGES += megaco
+@@ -60,17 +60,44 @@ ERLANG_REMOVE_PACKAGES += megaco
  endif
  
  define ERLANG_REMOVE_STAGING_UNUSED

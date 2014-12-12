@@ -1,14 +1,14 @@
-From a92d07e4c25da06ceeb5c2c1bc8f4cabb36053e9 Mon Sep 17 00:00:00 2001
+From 26be776e73aa196c4bb9323ee2d9a6029e54e461 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 13 May 2014 13:50:14 -0400
-Subject: [PATCH 6/8] dtach: use fhunleth version
+Subject: [PATCH 4/6] dtach: use fhunleth version
 
 ---
  package/dtach/dtach.mk | 6 ++++--
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/package/dtach/dtach.mk b/package/dtach/dtach.mk
-index 56ab175..aff4622 100644
+index 5f5a903..6a1b0b3 100644
 --- a/package/dtach/dtach.mk
 +++ b/package/dtach/dtach.mk
 @@ -4,8 +4,10 @@
