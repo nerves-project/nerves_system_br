@@ -8,6 +8,9 @@ before_install:
      - sudo apt-get update -qq
      - sudo apt-get install -qq bc g++ libssl-dev libc6:i386 libstdc++6:i386 zlib1g:i386
 
+# Buildroot doesn't like the LD_LIBRARY_PATH including the current directory,
+# so just get rid of it since we don't need it on Travis.
 script:
+    - export LD_LIBRARY_PATH=
     - make --silent nerves_bbb_defconfig
     - make --silent
