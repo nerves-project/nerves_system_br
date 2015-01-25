@@ -5,8 +5,8 @@
 #############################################################
 
 ERLANG_REBAR_VERSION = 2.5.1
-ERLANG_REBAR_SITE = https://github.com/rebar/rebar/releases/download/$(ERLANG_REBAR_VERSION)
-ERLANG_REBAR_SOURCE = rebar
+ERLANG_REBAR_SITE = https://github.com/rebar/rebar/releases/download/$(ERLANG_REBAR_VERSION)/rebar\#
+ERLANG_REBAR_SOURCE = rebar-$(ERLANG_REBAR_VERSION)
 ERLANG_REBAR_LICENSE = Apache-2.0
 ERLANG_REBAR_LICENSE_FILE = LICENSE
 
