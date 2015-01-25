@@ -4,8 +4,9 @@
 #
 #############################################################
 
-ERLANG_REBAR_VERSION = ed88055a750736c5c9807ca4da4803ff8a6aef16
-ERLANG_REBAR_SITE = $(call github,rebar,rebar,$(ERLANG_REBAR_VERSION))
+ERLANG_REBAR_VERSION = 2.5.1
+ERLANG_REBAR_SITE = https://github.com/rebar/rebar/releases/download/$(ERLANG_REBAR_VERSION)
+ERLANG_REBAR_SOURCE = rebar
 ERLANG_REBAR_LICENSE = Apache-2.0
 ERLANG_REBAR_LICENSE_FILE = LICENSE
 
@@ -26,12 +27,13 @@ REBAR = $(HOST_MAKE_ENV) \
 	REBAR_PLT_DIR="$(STAGING_DIR)/usr/lib/erlang" \
 	$(HOST_DIR)/usr/bin/rebar -v
 
-define HOST_ERLANG_REBAR_BUILD_CMDS
-	(cd $(@D); $(HOST_MAKE_ENV) ./bootstrap)
+define HOST_ERLANG_REBAR_EXTRACT_CMDS
+	cp $(DL_DIR)/$(ERLANG_REBAR_SOURCE) $(@D)
 endef
 
 define HOST_ERLANG_REBAR_INSTALL_CMDS
-	cp $(@D)/rebar $(HOST_DIR)/usr/bin
+	$(INSTALL) -m 0755 -D $(@D)/$(ERLANG_REBAR_SOURCE) \
+		$(HOST_DIR)/usr/bin/rebar
 endef
 
 $(eval $(host-generic-package))
