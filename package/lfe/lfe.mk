@@ -8,18 +8,46 @@ LFE_VERSION = v0.9.0
 LFE_SITE = $(call github,rvirding,lfe,$(LFE_VERSION))
 LFE_LICENSE = Apache-2.0
 LFE_LICENSE_FILES = LICENSE
+LFE_INSTALL_STAGING = YES
+LFE_INSTALL_TARGET = NO
 
-# Technically we only depend on host-erlang to build the lfe
-# compiler, but the files built by it only run if erlang is on
-# the target.
-HOST_LFE_DEPENDENCIES = host-erlang erlang
+# LFE contains a platform-specific shared library, so the usual
+# configuration will have one built for the host and one for
+# the target. Project that use LFE should be careful to use the
+# host version to run lfe scripts and the target beam files when
+# making releases.
+LFE_DEPENDENCIES = host-erlang erlang host-lfe
+HOST_LFE_DEPENDENCIES = host-erlang host-erlang-rebar
+
+define LFE_BUILD_CMDS
+	(cd $(@D) && $(REBAR) compile)
+endef
+
+# Install the target LFE to staging. Projects that depend on LFE
+# should reference this staging directory when making releases.
+define LFE_INSTALL_STAGING_CMDS
+	$(INSTALL) -d $(STAGING_DIR)/usr/lib/lfe
+	for dir in bin ebin priv ; do \
+	    cp -r $(@D)/$${dir} $(STAGING_DIR)/usr/lib/lfe ; \
+	done
+endef
 
 define HOST_LFE_BUILD_CMDS
 	$(HOST_MAKE_ENV) $(MAKE) -C $(@D)
 endef
 
+# The LFE Makefile installs symlinks to its binaries in /usr/bin.
+# This is not convenient for packaging tools that need to reference
+# LFE's .beam files, so install everything to /usr/lib/lfe
 define HOST_LFE_INSTALL_CMDS
-	$(HOST_MAKE_ENV) $(MAKE) -C $(@D) DESTBINDIR=$(HOST_DIR)/usr/bin install
+	$(INSTALL) -d $(HOST_DIR)/usr/lib/lfe
+	for dir in bin ebin priv ; do \
+	    cp -r $(@D)/$${dir} $(HOST_DIR)/usr/lib/lfe ; \
+	done
+	for bin in lfe lfec lfescript ; do \
+		ln -sf $(HOST_DIR)/usr/lib/lfe/bin/$${bin} $(HOST_DIR)/usr/bin ; \
+	done
 endef
 
+$(eval $(generic-package))
 $(eval $(host-generic-package))
