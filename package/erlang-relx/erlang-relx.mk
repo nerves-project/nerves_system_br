@@ -5,8 +5,8 @@
 #############################################################
 
 ERLANG_RELX_VERSION = v1.1.0
-ERLANG_RELX_SITE = https://github.com/erlware/relx/releases/download/$(ERLANG_RELX_VERSION)
-ERLANG_RELX_SOURCE = relx
+ERLANG_RELX_SITE = https://github.com/erlware/relx/releases/download/$(ERLANG_RELX_VERSION)/relx\#
+ERLANG_RELX_SOURCE = relx-$(ERLANG_RELX_VERSION)
 ERLANG_RELX_LICENSE = Apache-2.0
 HOST_ERLANG_RELX_DEPENDENCIES = host-erlang
 
