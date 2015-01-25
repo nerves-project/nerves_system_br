@@ -1,0 +1,95 @@
+config BR2_PACKAGE_NERVES_CONFIG
+	bool "nerves-config"
+	select BR2_PACKAGE_ERLINIT
+	help
+	  Nerves SDK configuration helper
+
+	  https://github.com/nerves-project/nerves-sdk
+
+if BR2_PACKAGE_NERVES_CONFIG
+
+config BR2_PACKAGE_NERVES_CONFIG_PORT
+	string "console port"
+	default "ttyS0"
+	help
+	  Specify a port for console messages and shell.
+
+choice
+        prompt "shell"
+        default BR2_PACKAGE_NERVES_CONFIG_ERLANG
+        help
+          Set the shell to provide on the console port
+
+config BR2_PACKAGE_NERVES_CONFIG_ERLANG
+        bool "Erlang shell"
+        help
+          Boot to the Erlang shell.
+
+config BR2_PACKAGE_NERVES_CONFIG_ELIXIR
+        bool "Elixir shell"
+        select BR2_PACKAGE_HOST_ELIXIR
+        help
+          Boot to the Elixir interactive shell.
+
+config BR2_PACKAGE_NERVES_CONFIG_LFE
+        bool "LFE shell"
+        select BR2_PACKAGE_LFE
+        help
+          Boot to the LFE shell.
+endchoice
+
+config BR2_PACKAGE_NERVES_CONFIG_DISTRIBUTION
+        bool "Enable Erlang distribution"
+        default y
+        help
+          Enable Erlang distribution. You will also need to bring up the
+          appropriate network interfaces at runtime for this to work.
+
+if BR2_PACKAGE_NERVES_CONFIG_DISTRIBUTION
+config BR2_PACKAGE_NERVES_CONFIG_SNAME
+	string "sname"
+	default "demo"
+	help
+	  Use the specified simple name for this node. This will be the
+	  sname for all nodes running the firmware release, so if you have
+	  multiple nodes running the same firmware, it is better to set the
+	  node name at runtime.
+
+config BR2_PACKAGE_NERVES_CONFIG_COOKIE
+	string "cookie"
+	default "democookie"
+	help
+	  The cookie to use for distributed Erlang
+endif
+
+config BR2_PACKAGE_NERVES_CONFIG_RELEASE_PATHS
+	string "Erlang release paths"
+	default "/srv/erlang"
+	help
+	  Specify a colon-separated list of directories for where to search for
+	  Erlang releases.
+
+config BR2_PACKAGE_NERVES_CONFIG_EXTRA_MOUNTS
+	string "Additional mount point"
+	default ""
+	help
+	  Specify an additional mount point that erlinit should try to mount
+	  on boot before starting the Erlang release. This is useful for logging
+	  or searching a non-root fs for releases.
+
+config BR2_PACKAGE_NERVES_CONFIG_HANG_ON_EXIT
+	bool "Hang on exit"
+	default false
+	help
+	  If the Erlang VM exits, hang the board rather than rebooting. This is
+	  useful when debugging.
+
+config BR2_PACKAGE_NERVES_CONFIG_VERBOSE_INIT
+	bool "Verbose init"
+	default false
+	help
+	  If the Erlang VM isn't starting correctly, turning this on may help
+	  debug the problem.
+
+endif
+
