@@ -58,6 +58,19 @@ br-make: buildroot/.config
 	@echo
 	@echo SDK is ready to use. Demo images are in buildroot/output/images.
 
+# Replace everything on the SDCard with new bits
+burn-complete:
+	sudo buildroot/output/host/usr/bin/fwup -a -i buildroot/output/images/*.fw -t complete
+
+# Upgrade the image on the SDCard (app data won't be removed)
+# This is usually the fastest way to update an SDCard that's already
+# been programmed. It won't update bootloaders, so if something is
+# really messed up, burn-complete may be better.
+burn-upgrade:
+	sudo buildroot/output/host/usr/bin/fwup -a -i buildroot/output/images/*.fw -t upgrade
+	sudo buildroot/output/host/usr/bin/fwup -y -a -i /tmp/finalize.fw -t on-reboot
+	sudo rm /tmp/finalize.fw
+
 menuconfig: buildroot/.config
 	$(MAKE_BR) menuconfig
 	$(MAKE_BR) savedefconfig
@@ -95,11 +108,11 @@ help:
 	@echo 'Nerves SDK Help'
 	@echo '---------------'
 	@echo
-	@echo 'Cleaning:'
-	@echo '  clean				- Clean everything - run make xyz_defconfig after this'
-	@echo
-	@echo 'Build:'
+	@echo 'Targets:'
 	@echo '  all				- Build the current configuration'
+	@echo '  burn-complete			- Burn the most recent build to an SDCard (requires sudo)'
+	@echo '  burn-upgrade			- Upgrade the contents an SDCard (requires sudo)'
+	@echo '  clean				- Clean everything - run make xyz_defconfig after this'
 	@echo
 	@echo 'Configuration:'
 	@echo "  menuconfig			- Run Buildroot's menuconfig"
