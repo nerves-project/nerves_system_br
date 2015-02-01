@@ -100,17 +100,27 @@ a lot of hardware or C library support.
 This is an initial configuration for building images for the Raspberry Pi.
 It is a minimal image similar to the one built for the Beaglebone Black.
 
-The Erlang or Elixir shell can run on either the HDMI port or over the UART
-pins on the GPIO header. It's configured to run over the HDMI port, but if you'd
-like it to run over the UART pins, edit
-`board/raspberrypi/rootfs_additions/etc/erlinit.config` to force the controlling
-terminal to be `ttyAMA0`.
+An Erlang shell is run on the UART pins on the GPIO header. If you would like to
+use the shell on an attached HDMI monitor and USB keyboard, the terminal should
+be changed to tty1. To change, run the following:
 
-If you use this one, please post to the mailing list as some work is needed
-to bring the firmware update side of the project up to the robustness that
-I can get on the Beaglebone. It appears to be limited by the Raspberry Pi's
-bootloader, but someone with more knowledge of the board may be able to get
-around this limitation.
+    make nerves_rpi_defconfig
+    make menuconfig
+    # Go to "User-provided options" -> nerves-config-> console port
+    # Press enter to select, and change to tty1
+    # Exit the menuconfig
+    cp buildroot/defconfig configs/my_rpi_defconfig
+    make
+
+### nerves_rpi_elixir_defconfig
+
+This is the same as `nerves_rpi_defconfig` except that it boots to an Elixir
+shell.
+
+### nerves_rpi_lfe_defconfig
+
+This is the same as `nerves_rpi_defconfig` except that it boots to an LFE (Lisp
+Flavored Erlang) shell.
 
 ### ag150_defconfig and alix_defconfig
 
