@@ -43,6 +43,7 @@ reset-buildroot: .buildroot-downloaded
 update-patches: reset-buildroot .buildroot-patched
 
 %_defconfig: $(TOPDIR)/configs/%_defconfig .buildroot-patched
+	echo "$@" > .nerves-defconfig
 	$(MAKE_BR) $@
 
 buildroot/.config: .buildroot-patched
@@ -76,8 +77,8 @@ menuconfig: buildroot/.config
 	$(MAKE_BR) savedefconfig
 	@echo
 	@echo "!!! Important !!!"
-	@echo "1. Remember to copy buildroot/defconfig to the configs directory to save"
-	@echo "   the new settings."
+	@echo "1. Remember to copy buildroot/defconfig to configs/$(shell cat .nerves-defconfig)"
+	@echo "   or another file in the configs directory to save the new settings."
 	@echo "2. Buildroot normally requires you to run 'make clean' and 'make' after"
 	@echo "   changing the configuration. You don't technically have to do this,"
 	@echo "   but if you're new to Buildroot, it's best to be safe."
@@ -102,7 +103,7 @@ busybox-menuconfig: buildroot/.config
 clean: realclean
 distclean: realclean
 realclean:
-	-rm -fr buildroot .buildroot-patched .buildroot-downloaded
+	-rm -fr buildroot .buildroot-patched .buildroot-downloaded .nerves-defconfig
 
 help:
 	@echo 'Nerves SDK Help'
