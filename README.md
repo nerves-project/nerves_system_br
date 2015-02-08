@@ -1,4 +1,4 @@
-# Nerves SDK
+# Nerves
 [![Build Status](https://travis-ci.org/nerves-project/nerves-sdk.png?branch=master)](https://travis-ci.org/nerves-project/nerves-sdk)
 
 Build the cross-compiler, various tools, and the base root filesystem
@@ -10,11 +10,11 @@ patches to customize Buildroot for Erlang/OTP embedded projects.
 Currently, most development is being done on the BeagleBone Black, but
 work is proceeding on embedded x86 platforms and the Raspberry Pi. Porting
 to other platforms is easy especially if they're already support by Buildroot.
-See the `configs` directory in the SDK for examples.
+See the `configs` directory for examples.
 
 ## First time build
 
-Before building the SDK, it is important to have a few build tools
+Before building Nerves, it is important to have a few build tools
 already installed. Buildroot provides a lot, but it does depend on
 a few host programs. If using Ubuntu, run the following:
 
@@ -30,7 +30,7 @@ is optional, so you may skip it:
 
     mkdir ~/.nerves-cache  # optional
 
-Next, you will need to choose an initial platform and configuration for the SDK. Change
+Next, you will need to choose an initial platform and configuration. Change
 to the nerves-sdk directory and run `make help` for an up-to-date list of options.
 Then run the following:
 
@@ -45,10 +45,10 @@ To build, type:
 
 The first time build takes a long time since it has to download and
 build lot of code. For the most part, you will not need to rebuild
-the SDK unless you switch platforms or need to add libraries and applications
+Nerves unless you switch platforms or need to add libraries and applications
 that cannot be pulled in by `rebar` or `erlang.mk`.
 
-## Using the SDK
+## Using Nerves
 
 In order to use the cross-compiler and the version of Erlang built by
 Buildroot, you'll need to source a shell script to update various
@@ -60,7 +60,7 @@ This step has to be done each time you launch a shell. The key environment setti
 updated by the script are the `PATH` variable and a set of variables that direct
 `rebar` and other `Makefiles` to invoke the cross-compiler.
 
-## Updating the SDK
+## Updating Nerves
 
 If it turns out that you need another library or application on
 your target that can't be pulled in with `rebar`, you'll need
@@ -72,19 +72,19 @@ the nerves-sdk directory:
     make menuconfig
 
 You'll probably be interested in the "Package Selection for the target"
-menu option. After you're done, run `make` to rebuild the SDK. If you
+menu option. After you're done, run `make` to rebuild Nerves. If you
 want to save your set of options permanently, you'll need to copy
 `buildroot/defconfig` to the `configs` directory.
 
 Be aware that Buildroot caches the root filesystem between builds
 and that when you unselect a configuration option, it will not
-disappear from the Nerves SDK root file system image until a clean
+disappear from the Nerves root file system image until a clean
 build.
 
 The [Buildroot documentation](http://buildroot.net/docs.html) is very helpful if
 you're having trouble.
 
-## Built-in SDK Configurations
+## Built-in Configurations
 
 Nerves comes with several configurations out of the box. These can be
 used directly or just as an examples for your own custom configuration.
@@ -131,7 +131,7 @@ as the bootloader.
 ### nerves_camera_defconfig
 
 This is the configuration that I'm using for my camera project. Normally
-it wouldn't be a part of the Nerves SDK, but it may be useful to others as
+it wouldn't be a part of Nerves, but it may be useful to others as
 an example. It requires a custom cape for the BeagleBone Black and uses the
 AM3359's PRU for the hard real-time parts of the project. Erlang is used
 for the rest.
