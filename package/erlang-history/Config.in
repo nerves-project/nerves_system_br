@@ -1,0 +1,7 @@
+config BR2_PACKAGE_ERLANG_HISTORY
+	bool "erlang-history"
+	depends on BR2_PACKAGE_ERLANG
+	help
+	  Hacks to add shell history to Erlang's shell
+
+	  http://github.com/ferd/erlang-history

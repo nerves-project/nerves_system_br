@@ -1,0 +1,33 @@
+From 222bb63a3b851567e4e2eb2d9558a49b4ce8892d Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Sat, 14 Feb 2015 14:21:33 -0500
+Subject: [PATCH] More gracefully handle history file errors
+
+Turn off history if the history file is inaccessible for some reason.
+This makes it possible to get to a shell rather getting an "ERROR: Shell
+process terminated!" Persistent history won't be available, but you'll get
+an error report that hopefully be a hint as to what's wrong.
+---
+ src/3.1/group_history.erl | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/3.1/group_history.erl b/src/3.1/group_history.erl
+index 78ecc5c..7408f4e 100644
+--- a/src/3.1/group_history.erl
++++ b/src/3.1/group_history.erl
+@@ -27,7 +27,11 @@ load() ->
+             %% we wait to reply to ourselves in some circumstances.
+             case dets:open_file(?TABLE, [{file,F}, {auto_save, opt(hist_auto_save)}, {repair, false}]) of
+                 {ok, ?TABLE} -> load_history(S);
+-                {error, {needs_repair, F}} -> repair_table(F)
++                {error, {needs_repair, F}} -> repair_table(F);
++                {error, _} ->
++                    %% Turn off history if all fails
++                    application:set_env(kernel, hist, false),
++                    []
+             end
+     end.
+ 
+-- 
+1.9.1
+

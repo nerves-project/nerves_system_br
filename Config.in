@@ -1,4 +1,5 @@
 source "$BR2_EXTERNAL/package/blstrobe/Config.in"
+source "$BR2_EXTERNAL/package/erlang-history/Config.in"
 source "$BR2_EXTERNAL/package/erlinit/Config.in"
 source "$BR2_EXTERNAL/package/fwup/Config.in"
 source "$BR2_EXTERNAL/package/lfe/Config.in"
