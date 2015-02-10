@@ -13,21 +13,22 @@ NERVES_CONFIG_PACKAGE_DIR = $(TOPDIR)/../package/nerves-config
 NERVES_CONFIG_ERLANG_RELEASE_DIR = $(TARGET_DIR)/srv/erlang
 
 ifeq ($(BR2_PACKAGE_NERVES_CONFIG_ERLANG),y)
-NERVES_CONFIG_RELX_APPS = stdlib
+NERVES_CONFIG_EXTRA_APPS += stdlib
 endif
 ifeq ($(BR2_PACKAGE_NERVES_CONFIG_ELIXIR),y)
 NERVES_CONFIG_DEPENDENCIES += host-elixir
 NERVES_CONFIG_RELX_LIBDIRS = -l $(HOST_DIR)/usr/lib/elixir/lib/elixir -l $(HOST_DIR)/usr/lib/elixir/lib/iex
-NERVES_CONFIG_RELX_APPS = iex
+NERVES_CONFIG_EXTRA_APPS += iex
 endif
 ifeq ($(BR2_PACKAGE_NERVES_CONFIG_LFE),y)
 NERVES_CONFIG_DEPENDENCIES += lfe
-NERVES_CONFIG_RELX_APPS = lfe
+NERVES_CONFIG_EXTRA_APPS += lfe
 endif
+NERVES_CONFIG_ALL_APPS = $(subst $(space),$(comma),$(call qstrip,$(BR2_PACKAGE_NERVES_CONFIG_APPS) $(NERVES_CONFIG_EXTRA_APPS)))
 
 define NERVES_CONFIG_BUILD_CMDS
 	# Create the relx configuration file
-	m4 -DAPPS=$(NERVES_CONFIG_RELX_APPS) \
+	m4 -DAPPS="$(NERVES_CONFIG_ALL_APPS)" \
 	    $(NERVES_CONFIG_PACKAGE_DIR)/relx.config.m4 > $(@D)/relx.config
 
 	# Create the vm.args file for starting the Erlang runtime

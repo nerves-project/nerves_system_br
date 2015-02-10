@@ -38,6 +38,13 @@ config BR2_PACKAGE_NERVES_CONFIG_LFE
           Boot to the LFE shell.
 endchoice
 
+config BR2_PACKAGE_NERVES_CONFIG_APPS
+        string "Erlang apps to include"
+        help
+          Space-separated list of Erlang apps to include in the base
+          Nerves image. The apps must be already be built or relx will
+          fail.
+
 config BR2_PACKAGE_NERVES_CONFIG_DISTRIBUTION
         bool "Enable Erlang distribution"
         default y
