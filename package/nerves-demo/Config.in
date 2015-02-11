@@ -1,8 +1,0 @@
-config BR2_PACKAGE_NERVES_DEMO
-	bool "nerves-demo"
-	depends on BR2_PACKAGE_ERLANG
-	select BR2_PACKAGE_HOST_ERLANG_RELX
-	help
-	  Nerves demonstration application
-
-	  https://github.com/nerves-project/nerves-demo
