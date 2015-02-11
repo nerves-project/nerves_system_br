@@ -1,6 +1,6 @@
 TOPDIR := $(shell pwd)
 
-NERVES_BR_VERSION = 2014.11
+NERVES_BR_VERSION = 2015.02-rc1
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 
 # Optional place to download files to so that they don't need
@@ -77,8 +77,9 @@ menuconfig: buildroot/.config
 	$(MAKE_BR) savedefconfig
 	@echo
 	@echo "!!! Important !!!"
-	@echo "1. Remember to copy buildroot/defconfig to configs/$(shell cat .nerves-defconfig)"
-	@echo "   or another file in the configs directory to save the new settings."
+	@echo "1. The file configs/$(shell cat .nerves-defconfig) has been updated."
+	@echo "   Commit changes or copy them to another file in the configs directory"
+	@echo "   to save the new settings."
 	@echo "2. Buildroot normally requires you to run 'make clean' and 'make' after"
 	@echo "   changing the configuration. You don't technically have to do this,"
 	@echo "   but if you're new to Buildroot, it's best to be safe."

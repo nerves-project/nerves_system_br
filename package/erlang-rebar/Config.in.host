@@ -1,8 +1,0 @@
-config BR2_PACKAGE_HOST_ERLANG_REBAR
-	bool "host erlang-rebar"
-	depends on BR2_PACKAGE_ERLANG
-	help
-	  Erlang build tool that makes it easy to compile and test Erlang
-	  applications, port drivers and releases.
-
-	  http://github.com/rebar/rebar
