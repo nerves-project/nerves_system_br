@@ -18,7 +18,7 @@ if [ "$0" != "bash" -a "$0" != "-bash" -a "$0" != "/bin/bash" ]; then
 fi
 
 NERVES_ROOT=$(dirname $(readlink -f $BASH_SOURCE))
-NERVES_DEFCONFIG=`cat $NERVES_ROOT/.nerves-defconfig`
+NERVES_DEFCONFIG=`grep BR2_DEFCONFIG= buildroot/.config | sed -e 's/.*"\(.*\)"/\1/'`
 
 source $NERVES_ROOT/scripts/nerves-env-helper.sh $NERVES_ROOT
 
@@ -26,17 +26,3 @@ echo "Shell environment updated for Nerves"
 echo
 echo "Nerves configuration: $NERVES_DEFCONFIG"
 echo "Cross-compiler prefix: `basename $CROSSCOMPILE`"
-if ! diff $NERVES_ROOT/configs/$NERVES_DEFCONFIG $NERVES_ROOT/buildroot/defconfig >/dev/null; then
-    echo
-    echo "----------------------------------------------------------------------------"
-    echo "Your Nerves configuation (configs/$NERVES_DEFCONFIG) does not match"
-    echo "$NERVES_ROOT/buildroot/defconfig!"
-    echo "This means that you may have unsaved changes. This is ok if you're"
-    echo "experimenting with Buildroot, but be sure to save or revert your changes"
-    echo "when you are done."
-    echo
-    echo "Changes:"
-    diff $NERVES_ROOT/configs/$NERVES_DEFCONFIG $NERVES_ROOT/buildroot/defconfig
-    echo "----------------------------------------------------------------------------"
-    echo
-fi

@@ -2,6 +2,7 @@ TOPDIR := $(shell pwd)
 
 NERVES_BR_VERSION = 2015.02-rc1
 NERVES_BR_URL = git://git.buildroot.net/buildroot
+NERVES_DEFCONFIG = $(shell grep BR2_DEFCONFIG= buildroot/.config | sed -e 's/.*"\(.*\)"/\1/')
 
 # Optional place to download files to so that they don't need
 # to be redownloaded when working a lot with buildroot
@@ -43,7 +44,6 @@ reset-buildroot: .buildroot-downloaded
 update-patches: reset-buildroot .buildroot-patched
 
 %_defconfig: $(TOPDIR)/configs/%_defconfig .buildroot-patched
-	echo "$@" > .nerves-defconfig
 	$(MAKE_BR) $@
 
 buildroot/.config: .buildroot-patched
@@ -74,15 +74,17 @@ burn-upgrade:
 
 menuconfig: buildroot/.config
 	$(MAKE_BR) menuconfig
-	$(MAKE_BR) savedefconfig
 	@echo
 	@echo "!!! Important !!!"
-	@echo "1. The file configs/$(shell cat .nerves-defconfig) has been updated."
-	@echo "   Commit changes or copy them to another file in the configs directory"
-	@echo "   to save the new settings."
+	@echo "1. $(subst $(shell pwd)/,,$(NERVES_DEFCONFIG)) has NOT been updated."
+	@echo "   Changes will be lost if you run 'make distclean'."
+	@echo "   Run 'make savedefconfig' to update."
 	@echo "2. Buildroot normally requires you to run 'make clean' and 'make' after"
 	@echo "   changing the configuration. You don't technically have to do this,"
 	@echo "   but if you're new to Buildroot, it's best to be safe."
+
+savedefconfig: buildroot/.config
+	$(MAKE_BR) savedefconfig
 
 linux-menuconfig: buildroot/.config
 	$(MAKE_BR) linux-menuconfig
@@ -104,7 +106,7 @@ busybox-menuconfig: buildroot/.config
 clean: realclean
 distclean: realclean
 realclean:
-	-rm -fr buildroot .buildroot-patched .buildroot-downloaded .nerves-defconfig
+	-rm -fr buildroot .buildroot-patched .buildroot-downloaded
 
 help:
 	@echo 'Nerves SDK Help'
