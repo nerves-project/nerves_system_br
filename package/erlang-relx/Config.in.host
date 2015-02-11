@@ -1,7 +1,6 @@
 config BR2_PACKAGE_HOST_ERLANG_RELX
 	bool "host erlang-relx"
 	depends on BR2_PACKAGE_ERLANG
-	select BR2_PACKAGE_HOST_ERLANG_REBAR
 	help
 	  A release assembler for Erlang.
 
