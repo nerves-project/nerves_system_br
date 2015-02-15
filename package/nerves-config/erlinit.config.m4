@@ -18,7 +18,7 @@ ifelse(HANG_ON_EXIT, `y', `-h', `#-h')
 -e LANG=en_US.UTF-8;LANGUAGE=en
 
 # Mount the application partition
-ifelse(EXTRA_MOUNTS, `', `#-m /dev/mmcblk0p4:/mnt:vfat::utf8', `-m EXTRA_MOUNTS')
+ifelse(EXTRA_MOUNTS, `', `#-m /dev/mmcblk0p3:/mnt:vfat::utf8', `-m EXTRA_MOUNTS')
 
 # Erlang release search path
 ifelse(RELEASE_PATHS, `', `#-r /srv/erlang', `-r RELEASE_PATHS')
