@@ -4,7 +4,7 @@
 #
 #############################################################
 
-ERLANG_HISTORY_VERSION = b03c79d6bc0b27a4b1ea95cc0ff1b2260556f7c1
+ERLANG_HISTORY_VERSION = 56c58f693403ee8cc934ca0ebd4cb038ae26738c
 ERLANG_HISTORY_SITE = $(call github,ferd,erlang-history,$(ERLANG_HISTORY_VERSION))
 ERLANG_HISTORY_DEPENDENCIES = erlang host-erlang
 ERLANG_HISTORY_INSTALL_STAGING = YES
