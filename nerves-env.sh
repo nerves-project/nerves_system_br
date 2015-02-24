@@ -18,7 +18,7 @@ if [ "$0" != "bash" -a "$0" != "-bash" -a "$0" != "/bin/bash" ]; then
 fi
 
 NERVES_ROOT=$(dirname $(readlink -f $BASH_SOURCE))
-NERVES_DEFCONFIG=`grep BR2_DEFCONFIG= buildroot/.config | sed -e 's/.*"\(.*\)"/\1/'`
+NERVES_DEFCONFIG=`grep BR2_DEFCONFIG= $NERVES_ROOT/buildroot/.config | sed -e 's/.*"\(.*\)"/\1/'`
 
 source $NERVES_ROOT/scripts/nerves-env-helper.sh $NERVES_ROOT
 

@@ -36,6 +36,12 @@ tar -C $TMPDIR -xf $BASE_FS_CONTENTS
 if [ -d "$RELEASE_DIR" ]; then
     mkdir -p $TMPDIR/srv/erlang
     rm -fr $TMPDIR/srv/erlang/*
+
+    if [ ! -d "$RELEASE_DIR/lib" -o ! -d "$RELEASE_DIR/releases" ]; then
+        echo "$SCRIPT_NAME: ERROR: Expecting '$RELEASE_DIR' to contain 'lib' and 'releases' subdirectories"
+        exit 1
+    fi
+
     cp -r $RELEASE_DIR/* $TMPDIR/srv/erlang
 
     # Clean up the Erlang release of all the files that we don't need.
@@ -50,6 +56,10 @@ if [ -d "$RELEASE_DIR" ]; then
     # Delete empty directories
     find $TMPDIR/usr/lib/erlang -type d -empty -delete
     find $TMPDIR/srv/erlang -type d -empty -delete
+
+    # Delete any temp files, release tarballs, etc from the base release directory
+    # Nothing is supposed to be there.
+    find $TMPDIR/srv/erlang -maxdepth 1 -type f -delete
 
     # Strip debug information from executables and libraries
     # Symbols are still available to the user in the release directory.
