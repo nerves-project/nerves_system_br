@@ -61,9 +61,20 @@ if [ -d "$RELEASE_DIR" ]; then
     # Nothing is supposed to be there.
     find $TMPDIR/srv/erlang -maxdepth 1 -type f -delete
 
-    # Strip debug information from executables and libraries
+    # Strip debug information from ELF binaries
     # Symbols are still available to the user in the release directory.
-    find $TMPDIR/srv/erlang -type f -perm /111 -exec $CROSSCOMPILE-strip "{}" ";"
+    EXECUTABLES=$(find $TMPDIR/srv/erlang -type f -perm /111)
+    for EXECUTABLE in $EXECUTABLES; do
+        case $(file -b $EXECUTABLE) in
+            *ELF*)
+                $CROSSCOMPILE-strip $EXECUTABLE
+                ;;
+            *script*)
+                # Ignore shell scripts
+                ;;
+            *) ;;
+        esac
+    done
 else
     echo "$SCRIPT_NAME: WARNING: Missing Erlang release directory: ($RELEASE_DIR)"
     echo "$SCRIPT_NAME:          Keeping default Erlang installation in /usr/lib/erlang."
