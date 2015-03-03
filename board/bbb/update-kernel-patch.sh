@@ -25,8 +25,7 @@ update_kernel_patch() {
   rm -f $ORIGINAL_DIFF_GZ
 }
 
-KERNEL_VERSION=3.8.13-bone64
-update_kernel_patch 3.8.13-bone64 rcn-linux-kernel-3.8.patch
+update_kernel_patch 3.8.13-bone70 rcn-linux-kernel-3.8.patch
 update_kernel_patch 3.14.17-bone8 rcn-linux-kernel-3.14.patch
 
 echo Updated patches. Now rebuild the linux kernel.
