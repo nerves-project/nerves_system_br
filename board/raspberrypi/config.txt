@@ -3,11 +3,14 @@
 # You should override this file using a post-build script.
 # See http://buildroot.org/downloads/manual/manual.html#rootfs-custom
 # and http://elinux.org/RPiconfig for a description of config.txt syntax
+# Device tree options are documented at
+# https://github.com/raspberrypi/documentation/blob/master/configuration/device-tree.md
 
-arm_freq=700
 kernel=zImage
-disable_overscan=1
 
 # This, along with the Raspberry Pi "x" firmware is need for the camera
 # to work. See Target packages->Hardware handling->Firmware for "x" firmware.
 gpu_mem=128
+
+# Enable I2C and SPI
+dtparam=i2c_arm=on,spi=on
