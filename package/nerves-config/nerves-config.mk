@@ -5,7 +5,7 @@
 #############################################################
 
 NERVES_CONFIG_SOURCE =
-NERVES_CONFIG_VERSION = 0.1
+NERVES_CONFIG_VERSION = 0.2
 
 NERVES_CONFIG_DEPENDENCIES = erlinit erlang host-erlang-relx
 
@@ -52,6 +52,8 @@ define NERVES_CONFIG_INSTALL_TARGET_CMDS
 	    -DPORT=$(BR2_PACKAGE_NERVES_CONFIG_PORT) \
 	    -DRELEASE_PATHS=$(BR2_PACKAGE_NERVES_CONFIG_RELEASE_PATHS) \
 	    -DEXTRA_MOUNTS=$(BR2_PACKAGE_NERVES_CONFIG_EXTRA_MOUNTS) \
+	    -DUNIQUEID_PROG=$(BR2_PACKAGE_NERVES_CONFIG_UNIQUEID_PROG) \
+	    -DHOSTNAME_PATTERN=$(BR2_PACKAGE_NERVES_CONFIG_HOSTNAME_PATTERN) \
 	    $(NERVES_CONFIG_PACKAGE_DIR)/erlinit.config.m4 > $(TARGET_DIR)/etc/erlinit.config
 
 	# Copy the release that starts the shell over to the target

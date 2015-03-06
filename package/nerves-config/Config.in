@@ -98,5 +98,18 @@ config BR2_PACKAGE_NERVES_CONFIG_VERBOSE_INIT
 	  If the Erlang VM isn't starting correctly, turning this on may help
 	  debug the problem.
 
+config BR2_PACKAGE_NERVES_CONFIG_UNIQUEID_PROG
+	string "Program to get an id for the hostname"
+	default ""
+	help
+	  Specify an executable and any arguments to report an identifier for
+	  the board.
+
+config BR2_PACKAGE_NERVES_CONFIG_HOSTNAME_PATTERN
+	string "Pattern for generating the hostname"
+	default ""
+	help
+	  Specify a printf string for setting the hostname.
+
 endif
 

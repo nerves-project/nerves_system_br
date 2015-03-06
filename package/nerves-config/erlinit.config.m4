@@ -18,7 +18,13 @@ ifelse(HANG_ON_EXIT, `y', `-h', `#-h')
 -e LANG=en_US.UTF-8;LANGUAGE=en
 
 # Mount the application partition
+# See http://www.linuxfromscratch.org/lfs/view/6.3/chapter08/fstab.html about
+# ignoring warning the Linux kernel warning about using UTF8 with vfat.
 ifelse(EXTRA_MOUNTS, `', `#-m /dev/mmcblk0p3:/mnt:vfat::utf8', `-m EXTRA_MOUNTS')
 
 # Erlang release search path
 ifelse(RELEASE_PATHS, `', `#-r /srv/erlang', `-r RELEASE_PATHS')
+
+# Hostname
+ifelse(UNIQUEID_PROG, `', `#-d "/usr/bin/nerves-id 4"', `-d UNIQUEID_PROG')
+ifelse(HOSTNAME_PATTERN, `', `#-n nerves-%.4s', `-n HOSTNAME_PATTERN')
