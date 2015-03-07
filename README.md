@@ -58,7 +58,8 @@ environment settings.
 
 This step has to be done each time you launch a shell. The key environment settings
 updated by the script are the `PATH` variable and a set of variables that direct
-`rebar` and other `Makefiles` to invoke the cross-compiler.
+build tools such as `rebar`, `mix`, `relx`, and other `Makefiles` to invoke the
+cross-compiler.
 
 ## Updating Nerves
 
