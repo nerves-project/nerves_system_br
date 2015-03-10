@@ -29,6 +29,7 @@ NERVES_CONFIG_ALL_APPS = $(subst $(space),$(comma),$(call qstrip,$(BR2_PACKAGE_N
 define NERVES_CONFIG_BUILD_CMDS
 	# Create the relx configuration file
 	m4 -DAPPS="$(NERVES_CONFIG_ALL_APPS)" \
+	   -DIS_ELIXIR=$(BR2_PACKAGE_NERVES_CONFIG_ELIXIR) \
 	    $(NERVES_CONFIG_PACKAGE_DIR)/relx.config.m4 > $(@D)/relx.config
 
 	# Create the vm.args file for starting the Erlang runtime
