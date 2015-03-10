@@ -20,14 +20,35 @@ FWUP ?= $(shell which fwup)
 
 ELIXIR_APP_NAME ?= $(shell basename $(shell pwd))
 
-all: elixir-first-time-setup deps
-	mix compile
+all: elixir-first-time-setup deps compile release
+
+help:
+	@echo '-------------------------------------------------'
+	@echo '$(ELIXIR_APP_NAME) help'
+	@echo '-------------------------------------------------'
+	@echo
+	@echo 'Targets:'
+	@echo '  all                    - Build everything'
+	@echo '  deps                   - Run mix deps.get'
+	@echo '  compile                - Run mix compile'
+	@echo '  release                - Run mix release and package the firmware'
+	@echo '  burn-complete          - Burn the most recent build to an SDCard (requires sudo)'
+	@echo '  burn-upgrade           - Upgrade the contents an SDCard (requires sudo)'
+	@echo '  clean                  - Clean up the release and build directories'
+	@echo '  distclean              - Clean up everything'
+	@echo
+
+release:
 	mix release
 	$(REL2FW) rel/$(ELIXIR_APP_NAME)
 	@echo
 	@echo The firmware is in the _images directory and can be loaded onto the target.
 	@echo E.g., run \"make burn-complete\" or \"make burn-upgrade\" to program
 	@echo the image to an SDCard.
+
+
+compile:
+	mix compile
 
 deps:
 	mix deps.get
@@ -69,5 +90,5 @@ clean:
 distclean: clean
 	-rm -fr ebin deps
 
-.PHONY: deps burn-complete burn-upgrade clean distclean all elixir-first-time-setup
+.PHONY: deps burn-complete burn-upgrade clean distclean all elixir-first-time-setup compile release help
 
