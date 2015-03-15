@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RASPIJPGS_VERSION = 7cf0fce30a757945c4b65e176c9bbd660ded0d77
+RASPIJPGS_VERSION = ddeed781d379f1e146f087981ac18fcdceae678c
 RASPIJPGS_SITE = $(call github,fhunleth,raspijpgs,$(RASPIJPGS_VERSION))
 RASPIJPGS_LICENSE = BSD-3c
 RASPIJPGS_LICENSE_FILES = LICENCE
