@@ -1,0 +1,61 @@
+From 39cc9063878b6e89a4430da0ed3489dc70e8b89e Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Sun, 15 Mar 2015 11:05:11 -0400
+Subject: [PATCH 6/6] rpi-firmware: update to HEAD buildroot
+
+This fixes I2C and may make the RPI 2 work.
+---
+ package/rpi-firmware/Config.in       | 11 -----------
+ package/rpi-firmware/rpi-firmware.mk |  8 ++------
+ 2 files changed, 2 insertions(+), 17 deletions(-)
+
+diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
+index 80ba88a..cd45be4 100644
+--- a/package/rpi-firmware/Config.in
++++ b/package/rpi-firmware/Config.in
+@@ -45,15 +45,4 @@ config BR2_PACKAGE_RPI_FIRMWARE_BOOT
+ 	default "_x"    if BR2_PACKAGE_RPI_FIRMWARE_X
+ 	default "_cd"   if BR2_PACKAGE_RPI_FIRMWARE_CD
+ 
+-config BR2_PACKAGE_RPI_FIRMWARE_INSTALL_DTBS
+-	bool "Install Device Tree Blobs (DTBs)"
+-	help
+-	  Say 'y' here if you want to boot your kernel that has support
+-	  for the device tree.
+-
+-	  Note that the defconfig files in the Raspberry Pi fork of the
+-	  Linux kernel do not enable support for the Device Tree. You'll
+-	  have to provide your own Linux config or defconfig file with
+-	  device tree enabled, to make use of those DTBs.
+-
+ endif # BR2_PACKAGE_RPI_FIRMWARE
+diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
+index 945f890..cbcf790 100644
+--- a/package/rpi-firmware/rpi-firmware.mk
++++ b/package/rpi-firmware/rpi-firmware.mk
+@@ -11,20 +11,16 @@ RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
+ RPI_FIRMWARE_INSTALL_TARGET = NO
+ RPI_FIRMWARE_INSTALL_IMAGES = YES
+ 
+-ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_INSTALL_DTBS),y)
+ RPI_FIRMWARE_DEPENDENCIES += host-rpi-firmware
+-# The Device Tree blobs are not yet in the master branch of the
+-# raspberrypi firmware project, so we have to use a separate branch
+-# for now.
+-RPI_FIRMWARE_VERSION = 6c0acfbbdba9908a4a4d21eab63c49ab72cb528b
++
+ define RPI_FIRMWARE_INSTALL_DTB
+ 	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2708-rpi-b.dtb $(BINARIES_DIR)/rpi-firmware/bcm2708-rpi-b.dtb
+ 	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2708-rpi-b-plus.dtb $(BINARIES_DIR)/rpi-firmware/bcm2708-rpi-b-plus.dtb
++	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2709-rpi-2-b.dtb $(BINARIES_DIR)/rpi-firmware/bcm2709-rpi-2-b.dtb
+ 	for ovldtb in  $(@D)/boot/overlays/*.dtb; do \
+ 		$(INSTALL) -D -m 0644 $${ovldtb} $(BINARIES_DIR)/rpi-firmware/overlays/$${ovldtb##*/} || exit 1; \
+ 	done
+ endef
+-endif
+ 
+ define RPI_FIRMWARE_INSTALL_IMAGES_CMDS
+ 	$(INSTALL) -D -m 0644 $(@D)/boot/bootcode.bin $(BINARIES_DIR)/rpi-firmware/bootcode.bin
+-- 
+1.9.1
+

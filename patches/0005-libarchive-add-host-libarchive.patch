@@ -1,4 +1,4 @@
-From e70d7676d94ae2d28ba1a54506e75b6783176bee Mon Sep 17 00:00:00 2001
+From b5a7bc44e1affe056ddab5ebfbefc66f590a2ad0 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 2 Jun 2014 18:11:44 -0400
 Subject: [PATCH 5/6] libarchive: add host-libarchive
@@ -10,7 +10,7 @@ can be built with buildroot.
  1 file changed, 1 insertion(+)
 
 diff --git a/package/libarchive/libarchive.mk b/package/libarchive/libarchive.mk
-index 8522128..16bacda 100644
+index 61528d9..a9d07d4 100644
 --- a/package/libarchive/libarchive.mk
 +++ b/package/libarchive/libarchive.mk
 @@ -87,3 +87,4 @@ LIBARCHIVE_CONF_OPTS += --without-zlib
