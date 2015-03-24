@@ -1,4 +1,6 @@
 # Nerves
+
+[![Join the chat at https://gitter.im/nerves-project/nerves-sdk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nerves-project/nerves-sdk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/nerves-project/nerves-sdk.png?branch=master)](https://travis-ci.org/nerves-project/nerves-sdk)
 
 Build the cross-compiler, various tools, and the base root filesystem
