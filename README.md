@@ -113,6 +113,12 @@ be changed to tty1. To change, run the following:
     cp buildroot/defconfig configs/my_rpi_defconfig
     make
 
+### nerves_rpi2_defconfig
+
+If you have a Raspberry Pi 2, start with this defconfig. It is similar to
+`nerves_rpi_defconfig` except that it enables support for the quad core
+processor in the Pi 2. A multi-core version of the Erlang VM will also be built.
+
 ### nerves_rpi_elixir_defconfig
 
 This is the same as `nerves_rpi_defconfig` except that it boots to an Elixir
