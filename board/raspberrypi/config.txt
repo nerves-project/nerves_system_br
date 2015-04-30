@@ -14,3 +14,8 @@ gpu_mem=128
 
 # Enable I2C and SPI
 dtparam=i2c_arm=on,spi=on
+
+# Comment this in or modify to enable OneWire
+# NOTE: check that the overlay that you specify is in the boot partition or
+#       this won't work.
+#dtoverlay=w1-gpio-pullup,gpiopin=4
