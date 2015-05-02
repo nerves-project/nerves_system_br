@@ -124,6 +124,11 @@ processor in the Pi 2. A multi-core version of the Erlang VM will also be built.
 This is the same as `nerves_rpi_defconfig` except that it boots to an Elixir
 shell.
 
+### nerves_rpi2_elixir_defconfig
+
+This is the same as `nerves_rpi2_defconfig` except that it boots to an Elixir
+shell.
+
 ### nerves_rpi_lfe_defconfig
 
 This is the same as `nerves_rpi_defconfig` except that it boots to an LFE (Lisp
@@ -163,4 +168,3 @@ This configuration produces a Linux image. It is not useful for Erlang
 development, but it can be helpful when getting unfamiliar hardware to work.
 I use it to debug Linux kernel issues since most documentation and
 developers expect a traditional shell-based environment.
-
