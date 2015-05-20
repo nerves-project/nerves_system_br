@@ -1,0 +1,88 @@
+From 655f4fd8b8a61d0e654da6ee25c6dc444f17a474 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 19 May 2015 20:23:09 -0400
+Subject: [PATCH 8/8] erlang musl patches
+
+---
+ package/erlang/0004-remove-private-uint32.patch | 26 ++++++++++++++++++
+ package/erlang/0005-replace-glibc-check.patch   | 35 +++++++++++++++++++++++++
+ 2 files changed, 61 insertions(+)
+ create mode 100644 package/erlang/0004-remove-private-uint32.patch
+ create mode 100644 package/erlang/0005-replace-glibc-check.patch
+
+diff --git a/package/erlang/0004-remove-private-uint32.patch b/package/erlang/0004-remove-private-uint32.patch
+new file mode 100644
+index 0000000..14598da
+--- /dev/null
++++ b/package/erlang/0004-remove-private-uint32.patch
+@@ -0,0 +1,26 @@
++From 1b2a53be0f95e0358b9410acbc4748e387d19de5 Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Tue, 19 May 2015 20:18:28 -0400
++Subject: [PATCH 4/5] remove private uint32
++
++Patch from http://git.alpinelinux.org/cgit/aports/tree/testing/erlang.
++---
++ erts/emulator/sys/common/erl_poll.h | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/erts/emulator/sys/common/erl_poll.h b/erts/emulator/sys/common/erl_poll.h
++index 2f1c05f..2b4ef5a 100644
++--- a/erts/emulator/sys/common/erl_poll.h
+++++ b/erts/emulator/sys/common/erl_poll.h
++@@ -129,7 +129,7 @@ struct erts_sys_fd_type {
++ #include <sys/epoll.h>
++ 
++ #define ERTS_POLL_EV_E2N(EV) \
++-  ((__uint32_t) (EV))
+++  ((uint32_t) (EV))
++ #define ERTS_POLL_EV_N2E(EV) \
++   ((ErtsPollEvents) (EV))
++ 
++-- 
++2.1.4
++
+diff --git a/package/erlang/0005-replace-glibc-check.patch b/package/erlang/0005-replace-glibc-check.patch
+new file mode 100644
+index 0000000..497ffac
+--- /dev/null
++++ b/package/erlang/0005-replace-glibc-check.patch
+@@ -0,0 +1,35 @@
++From 54def3f6c759174d64c365720936b0008c8051d3 Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Tue, 19 May 2015 20:20:59 -0400
++Subject: [PATCH 5/5] replace glibc check
++
++This is from http://git.alpinelinux.org/cgit/aports/tree/testing/erlang.
++---
++ lib/erl_interface/src/connect/ei_resolve.c | 4 ++--
++ 1 file changed, 2 insertions(+), 2 deletions(-)
++
++diff --git a/lib/erl_interface/src/connect/ei_resolve.c b/lib/erl_interface/src/connect/ei_resolve.c
++index cffcac8..b9200b9 100644
++--- a/lib/erl_interface/src/connect/ei_resolve.c
+++++ b/lib/erl_interface/src/connect/ei_resolve.c
++@@ -615,7 +615,7 @@ struct hostent *ei_gethostbyaddr_r(const char *addr,
++ #ifndef HAVE_GETHOSTBYNAME_R
++   return my_gethostbyaddr_r(addr,length,type,hostp,buffer,buflen,h_errnop);
++ #else
++-#if (defined(__GLIBC__) || (__FreeBSD_version >= 602000) || defined(__DragonFly__))
+++#if (defined(__GLIBC__) || defined(_BSD_SOURCE) || (__FreeBSD_version >= 602000) || defined(__DragonFly__))
++   struct hostent *result;
++ 
++   gethostbyaddr_r(addr, length, type, hostp, buffer, buflen, &result,
++@@ -642,7 +642,7 @@ struct hostent *ei_gethostbyname_r(const char *name,
++ #ifndef HAVE_GETHOSTBYNAME_R
++   return my_gethostbyname_r(name,hostp,buffer,buflen,h_errnop);
++ #else
++-#if (defined(__GLIBC__) || (__FreeBSD_version >= 602000) || defined(__DragonFly__) || defined(__ANDROID__))
+++#if (defined(__GLIBC__) || defined(_BSD_SOURCE) || (__FreeBSD_version >= 602000) || defined(__DragonFly__) || defined(__ANDROID__))
++   struct hostent *result;
++ 
++   gethostbyname_r(name, hostp, buffer, buflen, &result, h_errnop);
++-- 
++2.1.4
++
+-- 
+2.1.4
+
