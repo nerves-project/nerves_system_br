@@ -7,10 +7,13 @@ project uses [Buildroot](http://buildroot.net/) to do all of the hard
 work. It just provides a configuration and a few helper scripts and
 patches to customize Buildroot for Erlang/OTP embedded projects.
 
-Currently, most development is being done on the BeagleBone Black, but
-work is proceeding on embedded x86 platforms and the Raspberry Pi. Porting
+Currently, most development is being done on the BeagleBone Black and Raspberry
+Pi, but some embedded x86 platforms have starter configs as well. Porting
 to other platforms is easy especially if they're already support by Buildroot.
 See the `configs` directory for examples.
+
+Discussion or questions? Join us on the \#nerves channel on the [elixir-lang
+Slack](https://elixir-slackin.herokuapp.com/).
 
 ## First time build
 
