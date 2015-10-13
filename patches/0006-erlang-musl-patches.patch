@@ -1,7 +1,7 @@
-From 655f4fd8b8a61d0e654da6ee25c6dc444f17a474 Mon Sep 17 00:00:00 2001
+From d964b77eda6726e748c2f5365af86d7f39225556 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 19 May 2015 20:23:09 -0400
-Subject: [PATCH 8/8] erlang musl patches
+Subject: [PATCH 6/7] erlang musl patches
 
 ---
  package/erlang/0004-remove-private-uint32.patch | 26 ++++++++++++++++++
