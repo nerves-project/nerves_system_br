@@ -106,6 +106,7 @@ busybox-menuconfig: buildroot/.config
 clean: realclean
 distclean: realclean
 realclean:
+	-[ ! -d buildroot ] || chmod -R u+w buildroot
 	-rm -fr buildroot .buildroot-patched .buildroot-downloaded
 
 help:
