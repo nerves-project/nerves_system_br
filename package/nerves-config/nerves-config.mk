@@ -63,4 +63,11 @@ define NERVES_CONFIG_INSTALL_TARGET_CMDS
 	cp -r $(@D)/_rel/*/* $(NERVES_CONFIG_ERLANG_RELEASE_DIR)
 endef
 
+# This is tricky. We want the squashfs created by Buildroot to have everything
+# except for the OTP release. The squashfs tools can only append to filesystems,
+# so we'll want to append OTP releases frequently. If it were possible to modify
+# a squashfs after the fact, then we could skip this part, but this isn't possible
+# on non-Linux platforms (i.e. no fakeroot).
+ROOTFS_SQUASHFS_ARGS += -e srv
+
 $(eval $(generic-package))

@@ -36,6 +36,9 @@ find $TARGETDIR -name typer -exec rm "{}" ";"
 # Remove soft links that aren't used
 rm -f $TARGETDIR/usr/bin/erl $TARGETDIR/usr/bin/epmd
 
+# Remove libatomic_ops readme files
+rm -fr $TARGETDIR/usr/share/libatomic_ops
+
 # Remove sys v init configs since we don't use them
 # NOTE: Can't remove inittab without causing a buildroot error when
 # it configures whether to mount to root file system read/write

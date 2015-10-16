@@ -29,9 +29,8 @@ ln -sf $FWUP_CONFIG $NERVES_SDK_IMAGES
 OLD_DIR=`pwd`
 (cd $NERVES_SDK_IMAGES && \
  source $NERVES_ROOT/scripts/nerves-env-helper.sh $NERVES_ROOT && \
- $NERVES_ROOT/scripts/rel2fw.sh $TARGETDIR/srv/erlang ${BASE_FW_NAME}.fw ${BASE_FW_NAME}.img && \
- mv _images/*.fw . && \
- mv _images/*.img . && \
- rm -fr _images) || (cd $OLD_DIR; echo rel2fw.sh failed; exit 1)
+ $NERVES_ROOT/scripts/rel2fw.sh $TARGETDIR/srv/erlang ${BASE_FW_NAME}.fw ${BASE_FW_NAME}.img) \
+ || (cd $OLD_DIR; echo rel2fw.sh failed; exit 1)
+
 cd $OLD_DIR
 

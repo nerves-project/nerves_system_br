@@ -1,154 +1,69 @@
 #~/bin/sh
 
 # Script for creating rootfs from Erlang release and the base tarball.
-# This should be run under fakeroot so that the file permissions are
-# right.
 #
-# create-fs.sh <base tarball> <Erlang release directory> <tmpdir> <rootfs.ext2 path>
-#
-# Block and Inode calculations are copied from Buildroot
+# create-fs.sh <base squashfs> <Erlang/OTP release directory> <tmpdir> <output rootfs.squashfs path>
 
 set -e
 export LC_ALL=C
 
 SCRIPT_NAME=`basename $0`
-BASE_FS_CONTENTS=$1
+BASE_FS=$1
 RELEASE_DIR=$2
 TMPDIR=$3
 IMG=$4
 
-TUNE2FS=$NERVES_SDK_ROOT/usr/sbin/tune2fs
-GENEXT2FS=$NERVES_SDK_ROOT/usr/bin/genext2fs
-E2FSCK=$NERVES_SDK_ROOT/usr/sbin/e2fsck
-RESIZE2FS=$NERVES_SDK_ROOT/usr/sbin/resize2fs
+MKSQUASHFS=$NERVES_SDK_ROOT/usr/bin/mksquashfs
 
 # Create or cleanup our output directory
 mkdir -p $TMPDIR
 rm -fr $TMPDIR/*
 
-# Populate it with the base file system
-tar -C $TMPDIR -xf $BASE_FS_CONTENTS
-
-# Overlay the Erlang release with the new one.
-# NOTE: It can be convenient to specify an empty release directory to
-#       skip this (see bbb_linux_defconfig). If the user does this,
-#       don't do the Nerves thing of erasing the Erlang install.
-if [ -d "$RELEASE_DIR" ]; then
-    mkdir -p $TMPDIR/srv/erlang
-    rm -fr $TMPDIR/srv/erlang/*
-
-    if [ ! -d "$RELEASE_DIR/lib" -o ! -d "$RELEASE_DIR/releases" ]; then
-        echo "$SCRIPT_NAME: ERROR: Expecting '$RELEASE_DIR' to contain 'lib' and 'releases' subdirectories"
-        exit 1
-    fi
-
-    cp -r $RELEASE_DIR/* $TMPDIR/srv/erlang
-
-    # Clean up the Erlang release of all the files that we don't need.
-    # The user should create their releases without source code
-    # unless they want really big images..
-    rm -fr $TMPDIR/srv/erlang/bin $TMPDIR/srv/erlang/erts-*
-
-    # Clean out the Erlang libraries that are no longer needed in /usr/lib/erlang
-    # since the image will now reference what's in /srv/erlang
-    rm -fr $TMPDIR/usr/lib/erlang/lib
-
-    # Delete empty directories
-    find $TMPDIR/usr/lib/erlang -type d -empty -delete
-    find $TMPDIR/srv/erlang -type d -empty -delete
-
-    # Delete any temp files, release tarballs, etc from the base release directory
-    # Nothing is supposed to be there.
-    find $TMPDIR/srv/erlang -maxdepth 1 -type f -delete
-
-    # Strip debug information from ELF binaries
-    # Symbols are still available to the user in the release directory.
-    EXECUTABLES=$(find $TMPDIR/srv/erlang -type f -perm /111)
-    for EXECUTABLE in $EXECUTABLES; do
-        case $(file -b $EXECUTABLE) in
-            *ELF*)
-                $CROSSCOMPILE-strip $EXECUTABLE
-                ;;
-            *script*)
-                # Ignore shell scripts
-                ;;
-            *) ;;
-        esac
-    done
-else
-    echo "$SCRIPT_NAME: WARNING: Missing Erlang release directory: ($RELEASE_DIR)"
-    echo "$SCRIPT_NAME:          Keeping default Erlang installation in /usr/lib/erlang."
+# Check that the release directory exists
+if [ ! -d "$RELEASE_DIR" ]; then
+    echo "$SCRIPT_NAME: ERROR: Missing Erlang release directory: ($RELEASE_DIR)"
+    exit 1
 fi
 
-# Create sshd public keys
-#mkdir -p $TMPDIR/etc/ssh
-#ssh-keygen -P "" -q -t dsa -f $TMPDIR/etc/ssh/ssh_host_dsa_key
-#ssh-keygen -P "" -q -t rsa -f $TMPDIR/etc/ssh/ssh_host_rsa_key
+if [ ! -d "$RELEASE_DIR/lib" -o ! -d "$RELEASE_DIR/releases" ]; then
+    echo "$SCRIPT_NAME: ERROR: Expecting '$RELEASE_DIR' to contain 'lib' and 'releases' subdirectories"
+    exit 1
+fi
 
-# calculate needed inodes
-INODES=$(find $TMPDIR | wc -l)
-INODES=$(expr $INODES + 100)
+# Construct the proper path for the Erlang/OTP release
+mkdir -p $TMPDIR/srv/erlang
+cp -r $RELEASE_DIR/* $TMPDIR/srv/erlang
 
-# calculate needed blocks
-# size ~= superblock, block+inode bitmaps, inodes (8 per block), blocks
-# we scale inodes / blocks with 10% to compensate for bitmaps size + slack
-# Note: This doesn't need to be close since the resize2fs call shrinks the
-#       number of blocks used.
-BLOCKS=$(du -s -c -k $TMPDIR | grep total | sed -e "s/total//")
-BLOCKS=$(expr 500 + \( $BLOCKS + $INODES / 8 \) \* 11 / 10)
+# Clean up the Erlang release of all the files that we don't need.
+# The user should create their releases without source code
+# unless they want really big images..
+rm -fr $TMPDIR/srv/erlang/bin $TMPDIR/srv/erlang/erts-*
 
-e2tunefsck() {
-    # Upgrade the file system
-    if [ $# -ne 0 ]; then
-        $TUNE2FS "$@" "${IMG}" >/dev/null
-    fi
+# Delete empty directories
+find $TMPDIR/srv/erlang -type d -empty -delete
 
-    # genext2fs does not generate a UUID, but fsck will whine if one is
-    # is missing, so we need to add a UUID.
-    # Of course, this has to happend _before_ we run fsck.
-    # Although a random UUID may seem bad for reproducibility, there
-    # already are so many things that are not reproducible in a
-    # filesystem: file dates, file ordering, content of the files...
-    $TUNE2FS -U random "${IMG}" >/dev/null
+# Delete any temp files, release tarballs, etc from the base release directory
+# Nothing is supposed to be there.
+find $TMPDIR/srv/erlang -maxdepth 1 -type f -delete
 
-    # After changing filesystem options, running fsck is required
-    # (see: man tune2fs). Running e2fsck in other cases will ensure
-    # coherency of the filesystem, although it is not required.
-    # 'e2fsck -pDf' means:
-    #  - automatically repair
-    #  - optimise and check for duplicate entries
-    #  - force checking
-    # Sending output to oblivion, as e2fsck can be *very* verbose,
-    # especially with filesystems generated by genext2fs.
-    # Exit codes 1 & 2 are OK, it means fs errors were successfully
-    # corrected, hence our little trick with $ret.
-    ret=0
-    $E2FSCK -pDf "${IMG}" >/dev/null || ret=$?
-    case ${ret} in
-       0|1|2) ;;
-       *)   exit ${ret};;
+# Strip debug information from ELF binaries
+# Symbols are still available to the user in the release directory.
+EXECUTABLES=$(find $TMPDIR/srv/erlang -type f -perm /111)
+for EXECUTABLE in $EXECUTABLES; do
+    case $(file -b $EXECUTABLE) in
+        *ELF*)
+            $CROSSCOMPILE-strip $EXECUTABLE
+            ;;
+        *script*)
+            # Ignore shell scripts
+            ;;
+        *) ;;
     esac
+done
 
-    # tune2fs notes:
-    #
-    # 1. Remove count- and time-based checks, they are not welcome
-    #    on embedded devices, where they can cause serious boot-time
-    #    issues by tremendously slowing down the boot.
-    # 2. No reserved blocks since we mount read-only
-    $TUNE2FS -c 0 -i 0 -r 0 "${IMG}" >/dev/null
-
-    # Shrink the image size to the minimum size possible
-    $RESIZE2FS -M "${IMG}" 2>/dev/null >/dev/null
-
-    # Note: commenting out qemu support due to current lack of
-    #       use.
-    # ext4 needs to be padded to work under qemu
-    #dd if=/dev/zero count=1024 >> $IMG 2>/dev/null
-}
-
-$GENEXT2FS -N $INODES -b $BLOCKS -d $TMPDIR $IMG
-
-e2tunefsck -O extents
+# Append the Erlang/OTP release onto the base image.
+cp "$BASE_FS" "$IMG"
+$MKSQUASHFS "$TMPDIR" "${IMG}" -no-recovery -no-progress -root-owned >/dev/null
 
 # Clean up
 #rm -fr $TMPDIR
