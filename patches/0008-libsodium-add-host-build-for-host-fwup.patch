@@ -1,0 +1,22 @@
+From a7f6406e923fde078f79aa907fd1ab10748a78e8 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 28 Oct 2015 21:12:45 -0400
+Subject: [PATCH 8/8] libsodium: add host build for host-fwup
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ package/libsodium/libsodium.mk | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/package/libsodium/libsodium.mk b/package/libsodium/libsodium.mk
+index 18035f3..918f414 100644
+--- a/package/libsodium/libsodium.mk
++++ b/package/libsodium/libsodium.mk
+@@ -15,3 +15,4 @@ LIBSODIUM_CONF_OPTS += --disable-pie
+ endif
+ 
+ $(eval $(autotools-package))
++$(eval $(host-autotools-package))
+-- 
+2.1.4
+
