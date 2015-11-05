@@ -46,6 +46,14 @@ find $TMPDIR/srv/erlang -type d -empty -delete
 # Nothing is supposed to be there.
 find $TMPDIR/srv/erlang -maxdepth 1 -type f -delete
 
+# Clean up the releases directory
+find $TMPDIR/srv/erlang/releases \( -name "*.sh" \
+                                 -o -name "*.bat" \
+                                 -o -name "*gz" \
+                                 -o -name "start.boot" \
+                                 -o -name "start_clean.boot" \
+                                 \) -delete
+
 # Strip debug information from ELF binaries
 # Symbols are still available to the user in the release directory.
 EXECUTABLES=$(find $TMPDIR/srv/erlang -type f -perm /111)
