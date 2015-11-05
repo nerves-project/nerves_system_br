@@ -40,7 +40,7 @@ help:
 
 release:
 	mix release
-	$(REL2FW) rel/$(ELIXIR_APP_NAME)
+	$(REL2FW) rel/$(ELIXIR_APP_NAME) _images/$(ELIXIR_APP_NAME).fw
 	@echo
 	@echo The firmware is in the _images directory and can be loaded onto the target.
 	@echo E.g., run \"make burn-complete\" or \"make burn-upgrade\" to program
