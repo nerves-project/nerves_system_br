@@ -21,7 +21,7 @@ PLATFORM_DIR=$NERVES_ROOT/sdk/$NERVES_PLATFORM
 ERTS_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*`
 ERL_INTERFACE_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*`
 ALL_CROSSCOMPILE=`ls $NERVES_SDK_ROOT/usr/bin/*gcc | sed -e s/-gcc//`
-if [ "$ALL_CROSSCOMPILE" == "" ]; then
+if [ "$ALL_CROSSCOMPILE" = "" ]; then
     echo ERROR: Nerves SDK must be built first
     echo
     echo "make <board_defconfig>"
@@ -75,3 +75,16 @@ pathadd $NERVES_SDK_ROOT/usr/bin
 pathadd $NERVES_SDK_ROOT/usr/sbin
 pathadd $NERVES_SDK_ROOT/bin
 ldlibrarypathadd $NERVES_SDK_ROOT/usr/lib
+
+# Since it is so important that the host and target Erlang installs
+# match, check it here.
+NERVES_HOST_ERL_VER=$(cat $(dirname $(which erl))/../lib/erlang/releases/*/OTP_VERSION)
+NERVES_TARGET_ERL_VER=$(cat $NERVES_SDK_SYSROOT/usr/lib/erlang/releases/*/OTP_VERSION)
+if [ "$NERVES_HOST_ERL_VER" != "$NERVES_TARGET_ERL_VER" ]; then
+    echo "ERROR: Version mismatch between host and target Erlang versions"
+    echo "    Host version: $NERVES_HOST_ERL_VER"
+    echo "    Target version: $NERVES_TARGET_ERL_VER"
+    return 1
+fi
+
+return 0

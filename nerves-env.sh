@@ -21,8 +21,12 @@ NERVES_ROOT=$(dirname $(readlink -f $BASH_SOURCE))
 NERVES_DEFCONFIG=`grep BR2_DEFCONFIG= $NERVES_ROOT/buildroot/.config | sed -e 's/.*"\(.*\)"/\1/'`
 
 source $NERVES_ROOT/scripts/nerves-env-helper.sh $NERVES_ROOT
-
-echo "Shell environment updated for Nerves"
-echo
-echo "Nerves configuration: $NERVES_DEFCONFIG"
-echo "Cross-compiler prefix: `basename $CROSSCOMPILE`"
+if [ $? != 0 ]; then
+    echo "Shell environment NOT updated for Nerves!"
+else
+    echo "Shell environment updated for Nerves"
+    echo
+    echo "Nerves configuration: $NERVES_DEFCONFIG"
+    echo "Cross-compiler prefix: `basename $CROSSCOMPILE`"
+    echo "Erlang version: $NERVES_TARGET_ERL_VER"
+fi
