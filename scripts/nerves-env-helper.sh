@@ -38,7 +38,7 @@ else
     # This is a pre-built toolchain + system build
 
     # TODO: Should this be passed in as a parameter?
-    NERVES_TOOLCHAIN=$NERVES_ROOT/nerves-toolchain
+    NERVES_TOOLCHAIN=$NERVES_ROOT/../nerves-toolchain
     ALL_CROSSCOMPILE=`ls $NERVES_TOOLCHAIN/bin/*gcc | sed -e s/-gcc//`
 
     pathadd $NERVES_TOOLCHAIN/bin
