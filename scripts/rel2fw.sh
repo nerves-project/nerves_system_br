@@ -22,8 +22,16 @@ RELEASE_DIR=$1
 FW_FILENAME=$2
 IMG_FILENAME=$3
 
-FWUP=$NERVES_SDK_ROOT/usr/bin/fwup
 FWUP_CONFIG=$NERVES_SDK_IMAGES/fwup.conf
+
+# If the toolchain contains a pre-built version of fwup,
+# use it; otherwise look for one in the path.
+FWUP=$NERVES_TOOLCHAIN/usr/bin/fwup
+[ -e "$FWUP" ] || FWUP=`command -v fwup`
+if [ ! -e "$FWUP" ]; then
+    echo "$SCRIPT_NAME: ERROR: Please install fwup first"
+    exit 1
+fi
 
 TMP_DIR=$BASE_DIR/_nerves-tmp
 rm -fr $TMP_DIR
@@ -65,4 +73,4 @@ if [ ! -z "$IMG_FILENAME" ]; then
 fi
 
 # Clean up
-#rm -fr $TMP_DIR
+rm -fr $TMP_DIR

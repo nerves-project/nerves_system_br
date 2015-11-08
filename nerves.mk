@@ -4,7 +4,7 @@
 #
 
 NERVES_ROOT:=$(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-NERVES_SDK_ROOT=$(NERVES_ROOT)/buildroot/output/host
+NERVES_TOOLCHAIN=$(NERVES_ROOT)/buildroot/output/host
 NERVES_SDK_IMAGES=$(NERVES_ROOT)/buildroot/output/images
 NERVES_SDK_SYSROOT=$(NERVES_ROOT)/buildroot/output/staging
 
@@ -15,7 +15,7 @@ NERVES_SDK_SYSROOT=$(NERVES_ROOT)/buildroot/output/staging
 
 ERTS_DIR=$(wildcard $(NERVES_SDK_SYSROOT)/usr/lib/erlang/erts-*)
 ERL_INTERFACE_DIR=$(wildcard $(NERVES_SDK_SYSROOT)/usr/lib/erlang/lib/erl_interface-*)
-CROSSCOMPILE=$(subst -gcc,,$(firstword $(wildcard $(NERVES_SDK_ROOT)/usr/bin/*gcc)))
+CROSSCOMPILE=$(subst -gcc,,$(firstword $(wildcard $(NERVES_TOOLCHAIN)/usr/bin/*gcc)))
 
 REBAR_PLT_DIR=$(NERVES_SDK_SYSROOT)/usr/lib/erlang
 CC=$(CROSSCOMPILE)-gcc
@@ -28,14 +28,14 @@ ERL_LDFLAGS="-L$(ERTS_DIR)/lib -L$(ERL_INTERFACE_DIR)/lib -lerts -lerl_interface
 ERL_EI_LIBDIR="$(ERL_INTERFACE_DIR)/lib"
 STRIP=$(CROSSCOMPILE)-strip
 
-PKG_CONFIG=$(NERVES_SDK_ROOT)/usr/bin/pkg-config
+PKG_CONFIG=$(NERVES_TOOLCHAIN)/usr/bin/pkg-config
 PKG_CONFIG_SYSROOT_DIR=/
-PKG_CONFIG_LIBDIR=$(NERVES_SDK_ROOT)/usr/lib/pkgconfig
-PERLLIB=$(NERVES_SDK_ROOT)/usr/lib/perl
+PKG_CONFIG_LIBDIR=$(NERVES_TOOLCHAIN)/usr/lib/pkgconfig
+PERLLIB=$(NERVES_TOOLCHAIN)/usr/lib/perl
 
 # Paths to utilities
-NERVES_PATH="$(NERVES_SDK_ROOT)/bin:$(NERVES_SDK_ROOT)/sbin:$(NERVES_SDK_ROOT)/usr/bin:$(NERVES_SDK_ROOT)/usr/sbin:$(PATH)"
-NERVES_LD_LIBRARY_PATH="$(NERVES_SDK_ROOT)/usr/lib:$(LD_LIBRARY_PATH)"
+NERVES_PATH="$(NERVES_TOOLCHAIN)/bin:$(NERVES_TOOLCHAIN)/sbin:$(NERVES_TOOLCHAIN)/usr/bin:$(NERVES_TOOLCHAIN)/usr/sbin:$(PATH)"
+NERVES_LD_LIBRARY_PATH="$(NERVES_TOOLCHAIN)/usr/lib:$(LD_LIBRARY_PATH)"
 
 # Combined environment
 NERVES_HOST_MAKE_ENV=PATH=$(NERVES_PATH) \
@@ -44,7 +44,7 @@ NERVES_HOST_MAKE_ENV=PATH=$(NERVES_PATH) \
 		     PKG_CONFIG_SYSROOT_DIR=$(PKG_CONFIG_SYSROOT_DIR) \
 		     PKG_CONFIG_LIBDIR=$(PKG_CONFIG_LIBDIR) \
 		     NERVES_ROOT=$(NERVES_ROOT) \
-		     NERVES_SDK_ROOT=$(NERVES_SDK_ROOT) \
+		     NERVES_TOOLCHAIN=$(NERVES_TOOLCHAIN) \
 		     NERVES_SDK_IMAGES=$(NERVES_SDK_IMAGES) \
 		     NERVES_SDK_SYSROOT=$(NERVES_SDK_SYSROOT) \
 		     CROSSCOMPILE=$(CROSSCOMPILE)
@@ -57,9 +57,9 @@ NERVES_ALL_VARS=CC=$(CC) \
 		ERL_CFLAGS=$(ERL_CFLAGS) \
 		ERL_LDFLAGS=$(ERL_LDFLAGS) \
 
-MIX=$(NERVES_HOST_MAKE_ENV) $(NERVES_ALL_VARS) $(NERVES_SDK_ROOT)/usr/bin/mix
-REBAR=$(NERVES_HOST_MAKE_ENV) $(NERVES_ALL_VARS) $(NERVES_ROOT)/usr/bin/rebar
-RELX=$(NERVES_HOST_MAKE_ENV) $(NERVES_SDK_ROOT)/usr/bin/relx --system_libs $(NERVES_SDK_SYSROOT)/usr/lib/erlang/lib
+MIX=$(NERVES_HOST_MAKE_ENV) $(NERVES_ALL_VARS) $(NERVES_TOOLCHAIN)/usr/bin/mix
+REBAR=$(NERVES_HOST_MAKE_ENV) $(NERVES_ALL_VARS) $(NERVES_TOOLCHAIN)/usr/bin/rebar
+RELX=$(NERVES_HOST_MAKE_ENV) $(NERVES_TOOLCHAIN)/usr/bin/relx --system_libs $(NERVES_SDK_SYSROOT)/usr/lib/erlang/lib
 REL2FW=$(NERVES_HOST_MAKE_ENV) $(NERVES_ROOT)/scripts/rel2fw.sh
 
 

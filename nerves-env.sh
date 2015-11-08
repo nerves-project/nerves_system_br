@@ -29,4 +29,5 @@ else
     echo "Nerves configuration: $NERVES_DEFCONFIG"
     echo "Cross-compiler prefix: `basename $CROSSCOMPILE`"
     echo "Erlang version: $NERVES_TARGET_ERL_VER"
+#    echo "Elixir version: $NERVES_TARGET_ELIXIR_VER"
 fi

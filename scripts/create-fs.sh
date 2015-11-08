@@ -13,7 +13,14 @@ RELEASE_DIR=$2
 TMPDIR=$3
 IMG=$4
 
-MKSQUASHFS=$NERVES_SDK_ROOT/usr/bin/mksquashfs
+# If the toolchain contains a pre-built version of mksquashfs,
+# use it; otherwise look for one in the path.
+MKSQUASHFS=$NERVES_TOOLCHAIN/usr/bin/mksquashfs
+[ -e "$MKSQUASHFS" ] || MKSQUASHFS=`command -v mksquashfs`
+if [ ! -e "$MKSQUASHFS" ]; then
+    echo "$SCRIPT_NAME: ERROR: Please install mksquashfs first"
+    exit 1
+fi
 
 # Create or cleanup our output directory
 mkdir -p $TMPDIR
@@ -74,4 +81,4 @@ cp "$BASE_FS" "$IMG"
 $MKSQUASHFS "$TMPDIR" "${IMG}" -no-recovery -no-progress -root-owned >/dev/null
 
 # Clean up
-#rm -fr $TMPDIR
+rm -fr $TMPDIR

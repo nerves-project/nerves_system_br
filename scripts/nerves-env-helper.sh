@@ -4,14 +4,59 @@
 # directly. See $NERVES_ROOT/nerves-env.sh.
 
 NERVES_ROOT=$1
-NERVES_SDK_ROOT=$NERVES_ROOT/buildroot/output/host
+
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="$1:$PATH"
+    fi
+}
+
+ldlibrarypathadd() {
+    if [ -d "$1" ] && [[ ":$LD_LIBRARY_PATH:" != *":$1:"* ]]; then
+        LD_LIBRARY_PATH="$1:$LD_LIBRARY_PATH"
+    fi
+}
+
+if [ -e $NERVES_ROOT/buildroot/output/host ]; then
+    # This is a Linux Buildroot build, so use tools as
+    # provided by Buildroot
+    NERVES_TOOLCHAIN=$NERVES_ROOT/buildroot/output/host
+    ALL_CROSSCOMPILE=`ls $NERVES_TOOLCHAIN/usr/bin/*gcc | sed -e s/-gcc//`
+
+    # For Buildroot builds, use the Buildroot provided versions of pkg-config
+    # and perl.
+    export PKG_CONFIG=$NERVES_TOOLCHAIN/usr/bin/pkg-config
+    export PKG_CONFIG_SYSROOT_DIR=/
+    export PKG_CONFIG_LIBDIR=$NERVES_TOOLCHAIN/usr/lib/pkgconfig
+    export PERLLIB=$NERVES_TOOLCHAIN/usr/lib/perl
+
+    pathadd $NERVES_TOOLCHAIN/usr/bin
+    pathadd $NERVES_TOOLCHAIN/usr/sbin
+    pathadd $NERVES_TOOLCHAIN/bin
+    ldlibrarypathadd $NERVES_TOOLCHAIN/usr/lib
+else
+    # This is a pre-built toolchain + system build
+
+    # TODO: Should this be passed in as a parameter?
+    NERVES_TOOLCHAIN=$NERVES_ROOT/nerves-toolchain
+    ALL_CROSSCOMPILE=`ls $NERVES_TOOLCHAIN/bin/*gcc | sed -e s/-gcc//`
+
+    pathadd $NERVES_TOOLCHAIN/bin
+fi
+
+# Verify that a crosscompiler was found.
+if [ "$ALL_CROSSCOMPILE" = "" ]; then
+    echo "ERROR: Can't find cross-compiler. Check that Nerves Toolchain is present."
+    return 1
+fi
+
 NERVES_SDK_IMAGES=$NERVES_ROOT/buildroot/output/images
 NERVES_SDK_SYSROOT=$NERVES_ROOT/buildroot/output/staging # Check that the base buildroot image has been built
 [ -d "$NERVES_ROOT/buildroot/output" ] || { echo "ERROR: Run \"make\" first to build the nerves SDK."; return 1; }
 
 # Past the checks, so export variables
 export NERVES_ROOT
-export NERVES_SDK_ROOT
+export NERVES_TOOLCHAIN
 export NERVES_SDK_IMAGES
 export NERVES_SDK_SYSROOT
 
@@ -20,14 +65,6 @@ PLATFORM_DIR=$NERVES_ROOT/sdk/$NERVES_PLATFORM
 
 ERTS_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*`
 ERL_INTERFACE_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*`
-ALL_CROSSCOMPILE=`ls $NERVES_SDK_ROOT/usr/bin/*gcc | sed -e s/-gcc//`
-if [ "$ALL_CROSSCOMPILE" = "" ]; then
-    echo ERROR: Nerves SDK must be built first
-    echo
-    echo "make <board_defconfig>"
-    echo "make"
-    return 1
-fi
 # We usually just have one crosscompiler, but the buildroot toolchain symlinks
 # to the crosscompiler, so two entries show up. The logic below picks the first
 # crosscompiler by default or the one with buildroot in its name.
@@ -54,27 +91,6 @@ export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lerl_interf
 export ERL_EI_LIBDIR="$ERL_INTERFACE_DIR/lib"
 export STRIP=$CROSSCOMPILE-strip
 
-export PKG_CONFIG=$NERVES_SDK_ROOT/usr/bin/pkg-config
-export PKG_CONFIG_SYSROOT_DIR=/
-export PKG_CONFIG_LIBDIR=$NERVES_SDK_ROOT/usr/lib/pkgconfig
-export PERLLIB=$NERVES_SDK_ROOT/usr/lib/perl
-
-pathadd() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-        PATH="$1:$PATH"
-    fi
-}
-
-ldlibrarypathadd() {
-    if [ -d "$1" ] && [[ ":$LD_LIBRARY_PATH:" != *":$1:"* ]]; then
-        LD_LIBRARY_PATH="$1:$LD_LIBRARY_PATH"
-    fi
-}
-
-pathadd $NERVES_SDK_ROOT/usr/bin
-pathadd $NERVES_SDK_ROOT/usr/sbin
-pathadd $NERVES_SDK_ROOT/bin
-ldlibrarypathadd $NERVES_SDK_ROOT/usr/lib
 
 # Since it is so important that the host and target Erlang installs
 # match, check it here.
