@@ -21,9 +21,9 @@ TARGETDIR=$NERVES_SDK_IMAGES/../target
 NERVES_ROOT=$NERVES_SDK_IMAGES/../../..
 NERVES_SDK_ROOT=$NERVES_SDK_IMAGES/../host
 
-# Link the fwup config to the images directory so that
+# Copy the fwup config to the images directory so that
 # it can be used to create images based on this one.
-ln -sf $FWUP_CONFIG $NERVES_SDK_IMAGES
+cp -f $FWUP_CONFIG $NERVES_SDK_IMAGES
 
 # Use the rel2fw.sh tool to create the demo images
 OLD_DIR=`pwd`
