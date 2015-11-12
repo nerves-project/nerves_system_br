@@ -27,7 +27,7 @@ FWUP_CONFIG=$NERVES_SDK_IMAGES/fwup.conf
 # If the toolchain contains a pre-built version of fwup,
 # use it; otherwise look for one in the path.
 FWUP=$NERVES_TOOLCHAIN/usr/bin/fwup
-[ -e "$FWUP" ] || FWUP=`command -v fwup`
+[ -e "$FWUP" ] || FWUP=$(command -v fwup || echo "/usr/bin/fwup")
 if [ ! -e "$FWUP" ]; then
     echo "$SCRIPT_NAME: ERROR: Please install fwup first"
     exit 1

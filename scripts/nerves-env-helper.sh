@@ -36,9 +36,14 @@ if [ -e $NERVES_ROOT/buildroot/output/host ]; then
     ldlibrarypathadd $NERVES_TOOLCHAIN/usr/lib
 else
     # This is a pre-built toolchain + system build
-
-    # TODO: Should this be passed in as a parameter?
-    NERVES_TOOLCHAIN=$NERVES_ROOT/../nerves-toolchain
+    if [ -z $NERVES_TOOLCHAIN ]; then
+        # Try to guess the location based on the platform
+        if [ $(uname -s) = "Darwin" ]; then
+            NERVES_TOOLCHAIN=/Volumes/nerves-toolchain
+        else
+            NERVES_TOOLCHAIN=$NERVES_ROOT/../nerves-toolchain
+        fi
+    fi
     ALL_CROSSCOMPILE=`ls $NERVES_TOOLCHAIN/bin/*gcc | sed -e s/-gcc//`
 
     pathadd $NERVES_TOOLCHAIN/bin
@@ -46,7 +51,7 @@ fi
 
 # Verify that a crosscompiler was found.
 if [ "$ALL_CROSSCOMPILE" = "" ]; then
-    echo "ERROR: Can't find cross-compiler. Check that Nerves Toolchain is present."
+    echo "ERROR: Can't find cross-compiler. Is this the path to the toolchain? $NERVES_TOOLCHAIN"
     return 1
 fi
 

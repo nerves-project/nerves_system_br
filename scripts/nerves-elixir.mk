@@ -82,7 +82,8 @@ rel/vm.args rel/relx.config:
 	    < $(NERVES_ROOT)/scripts/project-skel/elixir/$@ > $@
 
 rel/nerves_system_libs:
-	ln -sfT $(ERL_LIB) $@
+	rm -f $@
+	ln -s $(ERL_LIB) $@
 
 clean:
 	mix clean; rm -fr _build _images rel/$(ELIXIR_APP_NAME)

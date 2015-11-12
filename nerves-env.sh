@@ -17,7 +17,11 @@ if [ "$0" != "bash" -a "$0" != "-bash" -a "$0" != "/bin/bash" ]; then
     exit 1
 fi
 
-NERVES_ROOT=$(dirname $(readlink -f $BASH_SOURCE))
+# We need to find the path to this script file, since all of our
+# data files are relative to it.
+#
+# Mac note: Don't use "readlink -f" below since it doesn't work on BSD
+NERVES_ROOT=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 NERVES_DEFCONFIG=`grep BR2_DEFCONFIG= $NERVES_ROOT/buildroot/.config | sed -e 's/.*"\(.*\)"/\1/'`
 
 source $NERVES_ROOT/scripts/nerves-env-helper.sh $NERVES_ROOT

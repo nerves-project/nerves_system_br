@@ -63,7 +63,7 @@ find $TMPDIR/srv/erlang/releases \( -name "*.sh" \
 
 # Strip debug information from ELF binaries
 # Symbols are still available to the user in the release directory.
-EXECUTABLES=$(find $TMPDIR/srv/erlang -type f -perm /111)
+EXECUTABLES=$(find $TMPDIR/srv/erlang -type f -perm -100)
 for EXECUTABLE in $EXECUTABLES; do
     case $(file -b $EXECUTABLE) in
         *ELF*)

@@ -59,6 +59,9 @@ br-make: buildroot/.config
 	@echo
 	@echo SDK is ready to use. Demo images are in buildroot/output/images.
 
+system: br-make
+	scripts/mksystem.sh
+
 # Replace everything on the SDCard with new bits
 burn-complete:
 	sudo buildroot/output/host/usr/bin/fwup -a -i $(firstword $(wildcard buildroot/output/images/*.fw)) -t complete
@@ -114,15 +117,18 @@ help:
 	@echo '---------------'
 	@echo
 	@echo 'Targets:'
-	@echo '  all				- Build the current configuration'
-	@echo '  burn-complete			- Burn the most recent build to an SDCard (requires sudo)'
-	@echo '  burn-upgrade			- Upgrade the contents an SDCard (requires sudo)'
-	@echo '  clean				- Clean everything - run make xyz_defconfig after this'
+	@echo '  all                           - Build the current configuration'
+	@echo '  burn-complete                 - Burn the most recent build to an SDCard (requires sudo)'
+	@echo '  burn-upgrade                  - Upgrade the contents an SDCard (requires sudo)'
+	@echo '  system                        - Build a system image for use with bake'
+	@echo '  clean                         - Clean everything - run make xyz_defconfig after this'
 	@echo
 	@echo 'Configuration:'
-	@echo "  menuconfig			- Run Buildroot's menuconfig"
-	@echo '  linux-menuconfig		- Run menuconfig on the Linux kernel'
+	@echo "  menuconfig                    - Run Buildroot's menuconfig"
+	@echo '  linux-menuconfig              - Run menuconfig on the Linux kernel'
 	@echo
 	@echo 'Nerves built-in configs:'
 	@$(foreach b, $(sort $(notdir $(wildcard configs/*_defconfig))), \
 	  printf "  %-29s - Build for %s\\n" $(b) $(b:_defconfig=);)
+
+.PHONY: all burn-complete burn-upgrade system clean menuconfig linux-menuconfig
