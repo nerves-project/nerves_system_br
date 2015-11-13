@@ -104,14 +104,14 @@ a lot of hardware or C library support.
 This is an initial configuration for building images for the Raspberry Pi.
 It is a minimal image similar to the one built for the Beaglebone Black.
 
-An Erlang shell is run on the UART pins on the GPIO header. If you would like to
-use the shell on an attached HDMI monitor and USB keyboard, the terminal should
-be changed to tty1. To change, run the following:
+An Erlang shell is run on the attached HDMI monitor and USB keyboard. If you would like to
+use the shell on the UART pins on the GPIO hearer, the terminal should
+be changed to `ttyAMA0`. To change, run the following:
 
     make nerves_rpi_defconfig
     make menuconfig
     # Go to "User-provided options" -> nerves-config-> console port
-    # Press enter to select, and change to tty1
+    # Press enter to select, and change to ttyAMA0
     # Exit the menuconfig
     cp buildroot/defconfig configs/my_rpi_defconfig
     make
