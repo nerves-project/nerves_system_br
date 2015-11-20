@@ -16,9 +16,13 @@ IMG=$4
 # If the toolchain contains a pre-built version of mksquashfs,
 # use it; otherwise look for one in the path.
 MKSQUASHFS=$NERVES_TOOLCHAIN/usr/bin/mksquashfs
-[ -e "$MKSQUASHFS" ] || MKSQUASHFS=`command -v mksquashfs`
+[ -e "$MKSQUASHFS" ] || MKSQUASHFS=$(command -v mksquashfs || echo "/usr/bin/mksquashfs")
 if [ ! -e "$MKSQUASHFS" ]; then
     echo "$SCRIPT_NAME: ERROR: Please install mksquashfs first"
+    echo
+    echo "For example:"
+    echo "   sudo apt-get install squashfs"
+    echo "   brew install squashfs"
     exit 1
 fi
 
