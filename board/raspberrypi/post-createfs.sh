@@ -13,8 +13,9 @@ if [ -e $NERVES_ROOT/buildroot/output/host/usr/bin/mkknlimg ]; then
         $IMAGESDIR/zImage $IMAGESDIR/zImage.mkknlimg
 fi
 
-# Copy the boot config over
+# Copy the boot config files over
 cp $NERVES_ROOT/board/raspberrypi/config.txt $IMAGESDIR
+cp $NERVES_ROOT/board/raspberrypi/cmdline.txt $IMAGESDIR
 
 # Run the common post-image processing for nerves
 $NERVES_ROOT/board/nerves-common/post-createfs.sh $TARGETDIR $FWUP_CONFIG $BASE_FW_NAME

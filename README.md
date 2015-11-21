@@ -139,9 +139,14 @@ Flavored Erlang) shell.
 
 ### ag150_defconfig and alix_defconfig
 
+*UNSUPPORTED*
+
 These are 32-bit x86 platforms. The ag150 is Intel Atom-based and the Alix uses
 an AMD Geode CPU. Both are minimal system configurations that use Syslinux
 as the bootloader.
+
+If you need to run on an x86-based platform, please contact us about putting
+together a cross-compiler so that we can support it similar to other systems.
 
 ### nerves_camera_defconfig
 
