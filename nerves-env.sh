@@ -37,15 +37,15 @@ if [[ "$SHELL" = "/bin/bash" ]]; then
 # TODO: Figure out how to detect this error from other shells.
 fi
 
-# We need to find the path to this script file, since all of our
-# data files are relative to it.
-#
-NERVES_DEFCONFIG=`grep BR2_DEFCONFIG= $NERVES_ROOT/buildroot/.config | sed -e 's/.*"\(.*\)"/\1/'`
 
 source $NERVES_ROOT/scripts/nerves-env-helper.sh $NERVES_ROOT
 if [ $? != 0 ]; then
     echo "Shell environment NOT updated for Nerves!"
 else
+    # Found it. Print out some useful information so that the user can
+    # easily figure out whether the wrong nerves installation was used.
+    NERVES_DEFCONFIG=$(grep BR2_DEFCONFIG= $NERVES_ROOT/buildroot/.config | sed -e 's/BR2_DEFCONFIG=".*\/\(.*\)"/\1/')
+
     echo "Shell environment updated for Nerves"
     echo
     echo "Nerves configuration: $NERVES_DEFCONFIG"
