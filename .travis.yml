@@ -1,16 +1,31 @@
 language: c
+sudo: false
+addons:
+    apt:
+        packages:
+            - bc
+            - libc6:i386
+            - libstdc++6:i386
+            - zlib1g:i386
+            - gcc-multilib
+            - libssl-dev
+env:
+    matrix:
+        - DEFCONFIG_NAME=nerves_rpi_defconfig
 
 #branches:
 #    only:
 #        - master
 
-before_install:
-     - sudo apt-get update -qq
-     - sudo apt-get install -qq bc g++ libssl-dev libc6:i386 libstdc++6:i386 zlib1g:i386
 
-# Buildroot doesn't like the LD_LIBRARY_PATH including the current directory,
-# so just get rid of it since we don't need it on Travis.
+# Much of this was copied from the Buildroot .travis.yml. See
+# https://github.com/buildroot/buildroot-defconfig-testing/blob/master/.travis.yml
 script:
     - export LD_LIBRARY_PATH=
-    - make --silent nerves_bbb_defconfig
-    - make --silent
+    - make --silent ${DEFCONFIG_NAME}
+    - while true ; do echo "Still building" ; sleep 60 ; done &
+    - stupidpid=$!
+    - make > >(tee build.log | grep '>>>') 2>&1
+    - kill ${stupidpid}
+    - echo 'Display end of log'
+    - tail -1000 build.log
