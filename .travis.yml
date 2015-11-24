@@ -4,14 +4,11 @@ addons:
     apt:
         packages:
             - bc
-            - libc6:i386
-            - libstdc++6:i386
-            - zlib1g:i386
-            - gcc-multilib
             - libssl-dev
 env:
     matrix:
-        - DEFCONFIG_NAME=nerves_rpi_defconfig
+        - DEFCONFIG_NAME=nerves_bbb_defconfig
+          #        - DEFCONFIG_NAME=nerves_rpi_defconfig
 
 #branches:
 #    only:
