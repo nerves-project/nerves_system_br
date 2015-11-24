@@ -3,6 +3,8 @@
 # of all of the build tools.
 #
 
+NERVES_VERSION:=0.3.0-dev
+
 NERVES_ROOT:=$(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 NERVES_TOOLCHAIN=$(NERVES_ROOT)/buildroot/output/host
 NERVES_SDK_IMAGES=$(NERVES_ROOT)/buildroot/output/images

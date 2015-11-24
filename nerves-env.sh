@@ -45,11 +45,13 @@ else
     # Found it. Print out some useful information so that the user can
     # easily figure out whether the wrong nerves installation was used.
     NERVES_DEFCONFIG=$(grep BR2_DEFCONFIG= $NERVES_ROOT/buildroot/.config | sed -e 's/BR2_DEFCONFIG=".*\/\(.*\)"/\1/')
+    NERVES_VERSION=$(grep NERVES_VERSION:= $NERVES_ROOT/nerves.mk | sed -e 's/NERVES_VERSION\:=\(.*\)/\1/')
 
     echo "Shell environment updated for Nerves"
     echo
+    echo "Nerves version: $NERVES_VERSION"
     echo "Nerves configuration: $NERVES_DEFCONFIG"
-    echo "Cross-compiler prefix: `basename $CROSSCOMPILE`"
+    echo "Cross-compiler prefix: $(basename $CROSSCOMPILE)"
     echo "Erlang version: $NERVES_TARGET_ERL_VER"
 #    echo "Elixir version: $NERVES_TARGET_ELIXIR_VER"
 fi
