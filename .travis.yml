@@ -8,7 +8,8 @@ addons:
 env:
     matrix:
         - DEFCONFIG_NAME=nerves_bbb_defconfig
-          #        - DEFCONFIG_NAME=nerves_rpi_defconfig
+        - DEFCONFIG_NAME=nerves_rpi_elixir_defconfig
+        - DEFCONFIG_NAME=nerves_rpi2_elixir_defconfig
 
 #branches:
 #    only:
