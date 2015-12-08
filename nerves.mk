@@ -2,6 +2,11 @@
 # Include this Makefile in your project to pull in the Nerves versions
 # of all of the build tools.
 #
+# NOTE: If you source nerves-env.sh, then including this script is not
+# necessary. Basically, the rule is to do one or the other. Sourcing
+# nerves-env.sh has the advantage that the environment is set properly
+# on the commandline should you need to run commands manually.
+#
 
 NERVES_VERSION:=0.3.0-dev
 
@@ -28,6 +33,7 @@ LDFLAGS=""
 ERL_CFLAGS="-I$(ERTS_DIR)/include -I$(ERL_INTERFACE_DIR)/include"
 ERL_LDFLAGS="-L$(ERTS_DIR)/lib -L$(ERL_INTERFACE_DIR)/lib -lerts -lerl_interface -lei"
 ERL_EI_LIBDIR="$(ERL_INTERFACE_DIR)/lib"
+ERL_EI_INCLUDE_DIR="$(ERL_INTERFACE_DIR)/include"
 STRIP=$(CROSSCOMPILE)-strip
 
 PKG_CONFIG=$(NERVES_TOOLCHAIN)/usr/bin/pkg-config

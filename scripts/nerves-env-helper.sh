@@ -84,6 +84,13 @@ for i in $ALL_CROSSCOMPILE; do
     esac
 done
 
+# Export environment variables used by Elixir, Erlang, C/C++ and other tools
+# so that they use Nerves toolchain parameters and not the host's.
+#
+# This list is built up partially by adding environment variables from project
+# as issues are identified since there's not a fixed convention for how these
+# are used. The Rebar project source code for compiling C ports was very helpful
+# initially.
 export CROSSCOMPILE
 export REBAR_PLT_DIR=$NERVES_SDK_SYSROOT/usr/lib/erlang
 export CC=$CROSSCOMPILE-gcc
@@ -94,6 +101,8 @@ export LDFLAGS=""
 export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
 export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lerl_interface -lei"
 export ERL_EI_LIBDIR="$ERL_INTERFACE_DIR/lib"
+export ERL_EI_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
+
 export STRIP=$CROSSCOMPILE-strip
 
 
