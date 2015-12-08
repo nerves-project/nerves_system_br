@@ -18,6 +18,7 @@ mkdir -p $WORK_DIR/$ARCHIVE_NAME
 
 # Copy common nerves shell scripts over
 cp $NERVES_ROOT/nerves-env.sh $WORK_DIR/$ARCHIVE_NAME
+cp $NERVES_ROOT/nerves.mk $WORK_DIR/$ARCHIVE_NAME
 cp -r $NERVES_ROOT/scripts $WORK_DIR/$ARCHIVE_NAME
 
 # Copy the built configuration over
