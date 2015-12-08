@@ -3,27 +3,21 @@ sudo: false
 addons:
     apt:
         packages:
-            - bc
-            - libssl-dev
+        - bc
+        - libssl-dev
+    artifacts:
+        paths:
+          - artifacts
 env:
     matrix:
-        - DEFCONFIG_NAME=nerves_bbb_defconfig
-        - DEFCONFIG_NAME=nerves_rpi_elixir_defconfig
-        - DEFCONFIG_NAME=nerves_rpi2_elixir_defconfig
+    - NERVES_CONFIG=bbb
+    - NERVES_CONFIG=rpi_elixir
+    - NERVES_CONFIG=rpi2_elixir
+
+script: bash scripts/ci.sh
 
 #branches:
 #    only:
 #        - master
 
 
-# Much of this was copied from the Buildroot .travis.yml. See
-# https://github.com/buildroot/buildroot-defconfig-testing/blob/master/.travis.yml
-script:
-    - export LD_LIBRARY_PATH=
-    - make --silent ${DEFCONFIG_NAME}
-    - while true ; do echo "Still building" ; sleep 60 ; done &
-    - stupidpid=$!
-    - make > >(tee build.log | grep '>>>') 2>&1
-    - kill ${stupidpid}
-    - echo 'Display end of log'
-    - tail -1000 build.log
