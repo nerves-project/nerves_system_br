@@ -4,3 +4,4 @@ buildroot
 *~
 .nerves-defconfig
 /artifacts
+/nerves-system-*
