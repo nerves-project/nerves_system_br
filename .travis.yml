@@ -1,23 +1,56 @@
-language: c
+language: bash
+
+# Use the container-based infrastructure
 sudo: false
+
+# Install dependencies
 addons:
-    apt:
-        packages:
-        - bc
-        - libssl-dev
-    artifacts:
-        paths:
-          - artifacts
+  apt:
+    packages:
+    - bc
+    - libssl-dev
+
+# Cache downloaded files between builds
+cache:
+    directories:
+      - $HOME/.nerves-cache
+
+# Build the official configurations
 env:
-    matrix:
-    - NERVES_CONFIG=bbb
-    - NERVES_CONFIG=rpi_elixir
-    - NERVES_CONFIG=rpi2_elixir
+  matrix:
+  - NERVES_CONFIG=nerves_bbb
+  - NERVES_CONFIG=nerves_rpi_elixir
+  - NERVES_CONFIG=nerves_rpi2_elixir
 
-script: bash scripts/ci.sh
+# Inspect the cache and build
+script:
+    - mkdir -p $HOME/.nerves-cache
+    - ls -las $HOME/.nerves-cache
+    - ./scripts/ci-build.sh
 
-#branches:
-#    only:
-#        - master
-
-
+# Deploy the build products
+before_deploy:
+    - ./scripts/ci-deploy.sh
+deploy:
+  # Deploy tagged releases to GitHub
+  - provider: releases
+    api_key: $GITHUB_API_KEY
+    file:
+      - "artifacts/nerves-system-$NERVES_CONFIG-$TRAVIS_TAG.tar.gz"
+      - "artifacts/$NERVES_CONFIG-$TRAVIS_TAG.fw"
+    skip_cleanup: true
+    on:
+      repo: nerves-project/nerves-sdk
+      tags: true
+  # Copy all build products to S3
+  - provider: s3
+    access_key_id: $ARTIFACTS_KEY
+    secret_access_key: $ARTIFACTS_SECRET
+    bucket: $ARTIFACTS_BUCKET
+    skip_cleanup: true
+    local_dir: artifacts
+    upload-dir: nerves-sdk
+    storage_class: "REDUCED_REDUNDANCY"  # See https://github.com/travis-ci/dpl/issues/291
+    on:
+      repo: nerves-project/nerves-sdk
+      all_branches: true
