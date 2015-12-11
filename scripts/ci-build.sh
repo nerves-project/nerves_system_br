@@ -20,9 +20,7 @@ watchdogpid=$!
 make > >(tee build.log | grep '>>>') 2>&1
 RC=$?
 kill ${watchdogpid}
-if [ ! $RC ]; then
-    echo "End of log"
-    tail -1000 build.log
+if [ $RC -ne 0 ]; then
     exit 1
 fi
 

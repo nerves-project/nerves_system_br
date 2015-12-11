@@ -54,3 +54,7 @@ deploy:
     on:
       repo: nerves-project/nerves-sdk
       all_branches: true
+
+# Display build log on failure
+after_failure:
+    - tail -n 1000 build.log
