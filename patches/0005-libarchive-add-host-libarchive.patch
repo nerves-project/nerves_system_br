@@ -1,7 +1,7 @@
-From b5a7bc44e1affe056ddab5ebfbefc66f590a2ad0 Mon Sep 17 00:00:00 2001
+From 72f4f60f72ccb557778b6d5707b2a278af3a9556 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 2 Jun 2014 18:11:44 -0400
-Subject: [PATCH 5/6] libarchive: add host-libarchive
+Subject: [PATCH 5/9] libarchive: add host-libarchive
 
 This enables host compilation of libarchive so that host tools using it
 can be built with buildroot.
@@ -10,14 +10,14 @@ can be built with buildroot.
  1 file changed, 1 insertion(+)
 
 diff --git a/package/libarchive/libarchive.mk b/package/libarchive/libarchive.mk
-index 61528d9..a9d07d4 100644
+index 206de3f..f45335e 100644
 --- a/package/libarchive/libarchive.mk
 +++ b/package/libarchive/libarchive.mk
-@@ -87,3 +87,4 @@ LIBARCHIVE_CONF_OPTS += --without-zlib
+@@ -93,3 +93,4 @@ LIBARCHIVE_CONF_OPTS += --without-lzma
  endif
  
  $(eval $(autotools-package))
 +$(eval $(host-autotools-package))
 -- 
-1.9.1
+2.5.0
 

@@ -1,7 +1,7 @@
-From 47316a312639d4f7dfa0fb83a15b52680ca55c26 Mon Sep 17 00:00:00 2001
+From 5f2adc5899093e82c129672d4219c44bb7a5d567 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 13 Oct 2015 09:04:05 -0400
-Subject: [PATCH 7/7] erlang: bump version to 18.1
+Subject: [PATCH 7/9] erlang: bump version to 18.1
 
 This is a major release of Erlang that includes a licensing change from
 the EPL to the Apache License, significant changes to the timer APIs, better
@@ -109,7 +109,7 @@ index 2d6a39a..ade3a3f 100644
 -md5	346dd0136bf1cc28cebc140e505206bb	otp_src_17.5.tar.gz
 +md5	fa64015fdd133e155b5b19bf90ac8678	otp_src_18.1.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 5356d55..8518805 100644
+index 9c8d476..81bf4e7 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,13 +5,13 @@
@@ -130,5 +130,5 @@ index 5356d55..8518805 100644
  
  # Touching erts/configure.in
 -- 
-2.1.4
+2.5.0
 

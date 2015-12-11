@@ -1,7 +1,7 @@
-From 9f386573894f889146b5a1ba2b7a35a2bbcef7aa Mon Sep 17 00:00:00 2001
+From f0b046b3e71c228d50f47da927b486931b8c7bce Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 13 May 2014 13:50:14 -0400
-Subject: [PATCH 4/6] dtach: use fhunleth version
+Subject: [PATCH 4/9] dtach: use fhunleth version
 
 ---
  package/dtach/dtach.mk | 6 ++++--
@@ -25,5 +25,5 @@ index 5f5a903..6a1b0b3 100644
  DTACH_LICENSE_FILES = COPYING
  
 -- 
-1.9.1
+2.5.0
 

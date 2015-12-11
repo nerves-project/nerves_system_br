@@ -1,6 +1,6 @@
 TOPDIR := $(shell pwd)
 
-NERVES_BR_VERSION = 2015.08.1
+NERVES_BR_VERSION = 2015.11.1
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 NERVES_DEFCONFIG = $(shell grep BR2_DEFCONFIG= buildroot/.config | sed -e 's/.*"\(.*\)"/\1/')
 

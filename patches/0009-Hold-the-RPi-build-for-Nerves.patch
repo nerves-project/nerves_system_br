@@ -1,15 +1,10 @@
-From 18da40d4bc47c6896b1a91626424a19e19290754 Mon Sep 17 00:00:00 2001
+From 09e925293a1dde7463edd9e13da33c7887904e56 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
-Date: Sat, 21 Nov 2015 11:24:06 -0500
-Subject: [PATCH 12/12] Hold back RPI for Nerves
+Date: Thu, 10 Dec 2015 23:05:50 -0500
+Subject: [PATCH 9/9] Hold the RPi build for Nerves
 
-This patch is intended to be removed when there's time to upgrade to the
-4.1 kernel.
 ---
- package/rpi-firmware/Config.in                     |  31 -----
- package/rpi-firmware/cmdline.txt                   |   2 +-
- package/rpi-firmware/config.txt                    |  16 +--
- package/rpi-firmware/rpi-firmware.mk               |  17 +--
+ package/rpi-firmware/rpi-firmware.mk               |   2 +-
  ...es-for-the-OpenGLESv2-EGL-and-bcm_host-li.patch | 102 ---------------
  .../rpi-userland/0001-add-pkgconfig-files.patch    |  82 ++++++++++++
  ...make-vmcs.cmake-allow-to-override-VMCS_IN.patch |   7 +-
@@ -18,9 +13,9 @@ This patch is intended to be removed when there's time to upgrade to the
  package/rpi-userland/0004-fix-musl-compile.patch   | 113 +++++++++++++++++
  package/rpi-userland/0004-no-Werror.patch          | 138 ---------------------
  .../0005-disable-missing-all-apps.patch            |  30 -----
- package/rpi-userland/Config.in                     |   5 +-
+ ...ting-type-qualifiers-errors-when-building.patch |  23 ----
  package/rpi-userland/rpi-userland.mk               |   2 +-
- 14 files changed, 229 insertions(+), 370 deletions(-)
+ 11 files changed, 221 insertions(+), 332 deletions(-)
  delete mode 100644 package/rpi-userland/0001-Add-.pc-files-for-the-OpenGLESv2-EGL-and-bcm_host-li.patch
  create mode 100644 package/rpi-userland/0001-add-pkgconfig-files.patch
  delete mode 100644 package/rpi-userland/0003-interface-remove-faulty-assert-to-make-weston-happy-.patch
@@ -28,134 +23,21 @@ This patch is intended to be removed when there's time to upgrade to the
  create mode 100644 package/rpi-userland/0004-fix-musl-compile.patch
  delete mode 100644 package/rpi-userland/0004-no-Werror.patch
  delete mode 100644 package/rpi-userland/0005-disable-missing-all-apps.patch
+ delete mode 100644 package/rpi-userland/0006-Fix-conflicting-type-qualifiers-errors-when-building.patch
 
-diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
-index 405674f..cd45be4 100644
---- a/package/rpi-firmware/Config.in
-+++ b/package/rpi-firmware/Config.in
-@@ -45,35 +45,4 @@ config BR2_PACKAGE_RPI_FIRMWARE_BOOT
- 	default "_x"    if BR2_PACKAGE_RPI_FIRMWARE_X
- 	default "_cd"   if BR2_PACKAGE_RPI_FIRMWARE_CD
- 
--config BR2_PACKAGE_RPI_FIRMWARE_INSTALL_DTBS
--	bool "Install Device Tree Blobs (DTBs)"
--	depends on !BR2_LINUX_KERNEL_DTS_SUPPORT
--	default y
--	help
--	  If you are using a Linux kernel <= 3.18, you should say 'y' here.
--
--	  If you are using a Linux kernel >= 3.19, you should say 'n' here,
--	  and enable BR2_LINUX_KERNEL_DTS_SUPPORT to let the kernel build
--	  the DTB.
--
--config BR2_PACKAGE_RPI_FIRMWARE_INSTALL_DTB_OVERLAYS
--	bool "Install DTB overlays"
--	depends on BR2_PACKAGE_RPI_FIRMWARE_INSTALL_DTBS \
--		|| BR2_LINUX_KERNEL_DTS_SUPPORT
--	default y
--	help
--	  Say 'y' here if you need to load one or more of the DTB overlays,
--	  to support HATs (Hardware Attached on Top, add-on modules).
--
--config BR2_PACKAGE_RPI_FIRMWARE_INSTALL_VCDBG
--	bool "vcdbg"
--	depends on BR2_TOOLCHAIN_USES_GLIBC
--	depends on BR2_INSTALL_LIBSTDCPP # rpi-userland
--	select BR2_PACKAGE_RPI_USERLAND
--	help
--	  Install vcdbg, to help debug communication with the GPU.
--
--comment "vcdbg needs an (e)glibc toolchain w/ C++"
--	depends on !BR2_TOOLCHAIN_USES_GLIBC || !BR2_INSTALL_LIBSTDCPP
--
- endif # BR2_PACKAGE_RPI_FIRMWARE
-diff --git a/package/rpi-firmware/cmdline.txt b/package/rpi-firmware/cmdline.txt
-index 38aa378..061e54b 100644
---- a/package/rpi-firmware/cmdline.txt
-+++ b/package/rpi-firmware/cmdline.txt
-@@ -1 +1 @@
--root=/dev/mmcblk0p2 rootwait
-+dwc_otg.fiq_fix_enable=1 sdhci-bcm2708.sync_after_dma=0 dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootwait
-diff --git a/package/rpi-firmware/config.txt b/package/rpi-firmware/config.txt
-index 58cc966..994972b 100644
---- a/package/rpi-firmware/config.txt
-+++ b/package/rpi-firmware/config.txt
-@@ -1,20 +1,14 @@
- # Please note that this is only a sample, we recommend you to change it to fit
- # your needs.
- # You should override this file using a post-build script.
--# See http://buildroot.org/manual.html#rootfs-custom
-+# See http://buildroot.org/downloads/manual/manual.html#rootfs-custom
- # and http://elinux.org/RPiconfig for a description of config.txt syntax
- 
-+arm_freq=700
-+core_freq=250
- kernel=zImage
--
--# To use an external initramfs file
--#initramfs rootfs.cpio.gz
--
--# Disable overscan assuming the display supports displaying the full resolution
--# If the text shown on the screen disappears off the edge, comment this out
- disable_overscan=1
--
--# How much memory in MB to assign to the GPU on Pi models having
--# 256, 512 or 1024 MB total memory
- gpu_mem_256=100
- gpu_mem_512=100
--gpu_mem_1024=100
-+sdram_freq=400
-+over_voltage=0
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index 1ef15aa..cbcf790 100644
+index 2436376..5d904ba 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
 @@ -4,7 +4,7 @@
  #
  ################################################################################
  
--RPI_FIRMWARE_VERSION = 856e2e1907a7f7058289c30268515c8cbf3fa5e3
+-RPI_FIRMWARE_VERSION = 52f65ac4ad1ef1d2838fa2f921d5bc3ece4c777b
 +RPI_FIRMWARE_VERSION = b9fac65dd9ff607d0c2c4ea1bbba2bbf3fbc4a10
  RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
  RPI_FIRMWARE_LICENSE = BSD-3c
  RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
-@@ -13,28 +13,14 @@ RPI_FIRMWARE_INSTALL_IMAGES = YES
- 
- RPI_FIRMWARE_DEPENDENCIES += host-rpi-firmware
- 
--ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_INSTALL_DTBS),y)
- define RPI_FIRMWARE_INSTALL_DTB
- 	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2708-rpi-b.dtb $(BINARIES_DIR)/rpi-firmware/bcm2708-rpi-b.dtb
- 	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2708-rpi-b-plus.dtb $(BINARIES_DIR)/rpi-firmware/bcm2708-rpi-b-plus.dtb
- 	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2709-rpi-2-b.dtb $(BINARIES_DIR)/rpi-firmware/bcm2709-rpi-2-b.dtb
--endef
--endif
--
--ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_INSTALL_DTB_OVERLAYS),y)
--define RPI_FIRMWARE_INSTALL_DTB_OVERLAYS
- 	for ovldtb in  $(@D)/boot/overlays/*.dtb; do \
- 		$(INSTALL) -D -m 0644 $${ovldtb} $(BINARIES_DIR)/rpi-firmware/overlays/$${ovldtb##*/} || exit 1; \
- 	done
- endef
--endif
--
--ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_INSTALL_VCDBG),y)
--define RPI_FIRMWARE_INSTALL_TARGET_CMDS
--	$(INSTALL) -d -m 0700 $(@D)/$(if BR2_ARM_EABIHF,hardfp/)opt/vc/bin/vcdbg \
--		$(TARGET_DIR)/usr/sbin/vcdbg
--endef
--endif # INSTALL_VCDBG
- 
- define RPI_FIRMWARE_INSTALL_IMAGES_CMDS
- 	$(INSTALL) -D -m 0644 $(@D)/boot/bootcode.bin $(BINARIES_DIR)/rpi-firmware/bootcode.bin
-@@ -43,7 +29,6 @@ define RPI_FIRMWARE_INSTALL_IMAGES_CMDS
- 	$(INSTALL) -D -m 0644 package/rpi-firmware/config.txt $(BINARIES_DIR)/rpi-firmware/config.txt
- 	$(INSTALL) -D -m 0644 package/rpi-firmware/cmdline.txt $(BINARIES_DIR)/rpi-firmware/cmdline.txt
- 	$(RPI_FIRMWARE_INSTALL_DTB)
--	$(RPI_FIRMWARE_INSTALL_DTB_OVERLAYS)
- endef
- 
- # We have no host sources to get, since we already
 diff --git a/package/rpi-userland/0001-Add-.pc-files-for-the-OpenGLESv2-EGL-and-bcm_host-li.patch b/package/rpi-userland/0001-Add-.pc-files-for-the-OpenGLESv2-EGL-and-bcm_host-li.patch
 deleted file mode 100644
 index 352f95d..0000000
@@ -737,33 +619,48 @@ index 520c7be..0000000
 --- 
 -1.9.1
 -
-diff --git a/package/rpi-userland/Config.in b/package/rpi-userland/Config.in
-index 9bb2bfc..75c8208 100644
---- a/package/rpi-userland/Config.in
-+++ b/package/rpi-userland/Config.in
-@@ -45,7 +45,6 @@ config BR2_PACKAGE_RPI_USERLAND_HELLO
- 
- endif
- 
--comment "rpi-userland needs a toolchain w/ C++, threads, dynamic library"
-+comment "rpi-userland needs a toolchain w/ C++, largefile, threads"
- 	depends on BR2_arm
--	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS || \
--		BR2_STATIC_LIBS
-+	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_LARGEFILE || !BR2_TOOLCHAIN_HAS_THREADS
+diff --git a/package/rpi-userland/0006-Fix-conflicting-type-qualifiers-errors-when-building.patch b/package/rpi-userland/0006-Fix-conflicting-type-qualifiers-errors-when-building.patch
+deleted file mode 100644
+index 4db6014..0000000
+--- a/package/rpi-userland/0006-Fix-conflicting-type-qualifiers-errors-when-building.patch
++++ /dev/null
+@@ -1,23 +0,0 @@
+-Fix conflicting type qualifiers errors when building with musl.
+-
+-Signed-off-by: Sergio Prado <sergio.prado@e-labworks.com>
+----
+- host_applications/linux/apps/raspicam/RaspiVidYUV.c | 2 --
+- 1 file changed, 2 deletions(-)
+-
+-diff --git a/host_applications/linux/apps/raspicam/RaspiVidYUV.c b/host_applications/linux/apps/raspicam/RaspiVidYUV.c
+-index b340d63c913f..13e6a6ccf5bf 100644
+---- a/host_applications/linux/apps/raspicam/RaspiVidYUV.c
+-+++ b/host_applications/linux/apps/raspicam/RaspiVidYUV.c
+-@@ -106,8 +106,6 @@ const int ABORT_INTERVAL = 100; // ms
+- /// Run/record forever
+- #define WAIT_METHOD_FOREVER        4
+- 
+--extern FILE *stderr, *stdout;
+--
+- int mmal_status_to_int(MMAL_STATUS_T status);
+- static void signal_handler(int signal_number);
+- 
+--- 
+-1.9.1
+-
 diff --git a/package/rpi-userland/rpi-userland.mk b/package/rpi-userland/rpi-userland.mk
-index 403409d..fa8943b 100644
+index 0a25b2d..fa8943b 100644
 --- a/package/rpi-userland/rpi-userland.mk
 +++ b/package/rpi-userland/rpi-userland.mk
 @@ -4,7 +4,7 @@
  #
  ################################################################################
  
--RPI_USERLAND_VERSION = b834074d0c0d9d7e64c133ab14ed691999cee990
+-RPI_USERLAND_VERSION = 8306b7c757f4b8e8d9148789eeb64c666d9244a5
 +RPI_USERLAND_VERSION = ba753c1a7f68d7a2e00edaf03364eef001e233ef
  RPI_USERLAND_SITE = $(call github,raspberrypi,userland,$(RPI_USERLAND_VERSION))
  RPI_USERLAND_LICENSE = BSD-3c
  RPI_USERLAND_LICENSE_FILES = LICENCE
 -- 
-2.1.4
+2.5.0
 
