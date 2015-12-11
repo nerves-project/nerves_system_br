@@ -57,6 +57,10 @@ mkdir -p $WORK_DIR/$ARCHIVE_NAME/buildroot/output/staging
 cp -r $NERVES_ROOT/buildroot/output/images/* $WORK_DIR/$ARCHIVE_NAME/buildroot/output/images
 cp -r $NERVES_ROOT/buildroot/output/staging/* $WORK_DIR/$ARCHIVE_NAME/buildroot/output/staging
 
+# Clean up extra files that were copied over and aren't needed
+rm -f $WORK_DIR/$ARCHIVE_NAME/buildroot/output/images/*.fw
+rm -f $WORK_DIR/$ARCHIVE_NAME/buildroot/output/images/nerves-*.img
+
 tar c -z -f $NERVES_ROOT/$ARCHIVE_NAME.tar.gz -C $WORK_DIR $ARCHIVE_NAME
 
 rm -fr $WORK_DIR
