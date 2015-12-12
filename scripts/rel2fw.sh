@@ -50,7 +50,7 @@ TMP_DIR=$BASE_DIR/_nerves-tmp
 rm -fr $TMP_DIR
 
 # Check that we have everything that we need
-[ -z "$NERVES_ROOT" ] && { echo "$SCRIPT_NAME: Source nerves-env.sh and try again."; exit 1; }
+[ -z "$NERVES_SYSTEM" ] && { echo "$SCRIPT_NAME: Source nerves-env.sh and try again."; exit 1; }
 # The RELEASE_DIR can be missing in the case of non-Erlang debug configurations like bbb_linux_defconfig
 [ -z "$FW_FILENAME" ] && FW_FILENAME=${PROJECT_DIR}.fw
 
@@ -78,7 +78,7 @@ mkdir -p $TMP_DIR/rootfs-additions/srv/erlang
 cp -r $RELEASE_DIR/* $TMP_DIR/rootfs-additions/srv/erlang
 
 # Clean up the Erlang release of all the files that we don't need.
-$NERVES_ROOT/scripts/clean-release.sh $TMP_DIR/rootfs-additions/srv/erlang
+$NERVES_SYSTEM/scripts/clean-release.sh $TMP_DIR/rootfs-additions/srv/erlang
 
 # Append the Erlang/OTP release onto the base image.
 cp "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs"

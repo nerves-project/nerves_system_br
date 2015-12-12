@@ -11,7 +11,7 @@ if [ $# -lt 4 ]; then
     exit 1
 fi
 
-NERVES_ROOT=$1
+NERVES_SYSTEM=$1
 BOOTPART=$2
 BOOTSIZE=$3
 SYSLINUX=$4
@@ -19,6 +19,6 @@ SYSLINUX=$4
 # Create the boot partition and run it through syslinux
 rm -f $BOOTPART
 dd if=/dev/zero of=$BOOTPART count=0 seek=$BOOTSIZE 2>/dev/null
-$NERVES_ROOT/buildroot/output/host/usr/sbin/mkfs.vfat -F 12 -n BOOT $BOOTPART >/dev/null
+$NERVES_SYSTEM/buildroot/output/host/usr/sbin/mkfs.vfat -F 12 -n BOOT $BOOTPART >/dev/null
 $SYSLINUX -i $BOOTPART
 

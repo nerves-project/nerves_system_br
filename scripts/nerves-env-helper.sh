@@ -1,8 +1,11 @@
 #!/bin/bash
 
 # Helper script to setup the Nerves environment. This shouldn't be called
-# directly. See $NERVES_ROOT/nerves-env.sh.
+# directly. See $NERVES_SYSTEM/nerves-env.sh.
 
+# NERVES_SYSTEM is the new name for NERVES_ROOT. Define both in this period
+# of transition.
+NERVES_SYSTEM=$1
 NERVES_ROOT=$1
 
 pathadd() {
@@ -17,10 +20,10 @@ ldlibrarypathadd() {
     fi
 }
 
-if [ -e $NERVES_ROOT/buildroot/output/host ]; then
+if [ -e $NERVES_SYSTEM/buildroot/output/host ]; then
     # This is a Linux Buildroot build, so use tools as
     # provided by Buildroot
-    NERVES_TOOLCHAIN=$NERVES_ROOT/buildroot/output/host
+    NERVES_TOOLCHAIN=$NERVES_SYSTEM/buildroot/output/host
     ALL_CROSSCOMPILE=`ls $NERVES_TOOLCHAIN/usr/bin/*gcc | sed -e s/-gcc//`
 
     # For Buildroot builds, use the Buildroot provided versions of pkg-config
@@ -35,14 +38,10 @@ if [ -e $NERVES_ROOT/buildroot/output/host ]; then
     pathadd $NERVES_TOOLCHAIN/bin
     ldlibrarypathadd $NERVES_TOOLCHAIN/usr/lib
 else
-    # This is a pre-built toolchain + system build
+    # The user is using a prebuilt toolchain and system. Usually NERVES_TOOLCHAIN will be defined,
+    # but guess it just in case it isn't.
     if [ -z $NERVES_TOOLCHAIN ]; then
-        # Try to guess the location based on the platform
-        if [ $(uname -s) = "Darwin" ]; then
-            NERVES_TOOLCHAIN=/Volumes/nerves-toolchain
-        else
-            NERVES_TOOLCHAIN=$NERVES_ROOT/../nerves-toolchain
-        fi
+        NERVES_TOOLCHAIN=$NERVES_SYSTEM/../nerves-toolchain
     fi
     ALL_CROSSCOMPILE=`ls $NERVES_TOOLCHAIN/bin/*gcc | sed -e s/-gcc//`
 
@@ -55,18 +54,19 @@ if [ "$ALL_CROSSCOMPILE" = "" ]; then
     return 1
 fi
 
-NERVES_SDK_IMAGES=$NERVES_ROOT/buildroot/output/images
-NERVES_SDK_SYSROOT=$NERVES_ROOT/buildroot/output/staging # Check that the base buildroot image has been built
-[ -d "$NERVES_ROOT/buildroot/output" ] || { echo "ERROR: Run \"make\" first to build the nerves SDK."; return 1; }
+NERVES_SDK_IMAGES=$NERVES_SYSTEM/buildroot/output/images
+NERVES_SDK_SYSROOT=$NERVES_SYSTEM/buildroot/output/staging # Check that the base buildroot image has been built
+[ -d "$NERVES_SYSTEM/buildroot/output" ] || { echo "ERROR: Run \"make\" first to build the nerves SDK."; return 1; }
 
 # Past the checks, so export variables
+export NERVES_SYSTEM
 export NERVES_ROOT
 export NERVES_TOOLCHAIN
 export NERVES_SDK_IMAGES
 export NERVES_SDK_SYSROOT
 
 # Rebar environment variables
-PLATFORM_DIR=$NERVES_ROOT/sdk/$NERVES_PLATFORM
+#PLATFORM_DIR=$NERVES_ROOT/sdk/$NERVES_PLATFORM # Update when this is determined
 
 ERTS_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*`
 ERL_INTERFACE_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*`

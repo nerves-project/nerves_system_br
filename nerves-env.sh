@@ -17,10 +17,10 @@ done
 
 if [ "$BASH_SOURCE" = "" ]; then
     GET_NR_COMMAND="$0 $@ -get-nerves-root"
-    NERVES_ROOT=$(bash -c "$GET_NR_COMMAND")
+    NERVES_SYSTEM=$(bash -c "$GET_NR_COMMAND")
 else
     # Mac note: Don't use "readlink -f" below since it doesn't work on BSD
-    NERVES_ROOT=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
+    NERVES_SYSTEM=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 fi
 
 # Detect if this script has been run directly rather than sourced, since
@@ -38,14 +38,14 @@ if [[ "$SHELL" = "/bin/bash" ]]; then
 fi
 
 
-source $NERVES_ROOT/scripts/nerves-env-helper.sh $NERVES_ROOT
+source $NERVES_SYSTEM/scripts/nerves-env-helper.sh $NERVES_SYSTEM
 if [ $? != 0 ]; then
     echo "Shell environment NOT updated for Nerves!"
 else
     # Found it. Print out some useful information so that the user can
     # easily figure out whether the wrong nerves installation was used.
-    NERVES_DEFCONFIG=$(grep BR2_DEFCONFIG= $NERVES_ROOT/buildroot/.config | sed -e 's/BR2_DEFCONFIG=".*\/\(.*\)"/\1/')
-    NERVES_VERSION=$(grep NERVES_VERSION:= $NERVES_ROOT/nerves.mk | sed -e 's/NERVES_VERSION\:=\(.*\)/\1/')
+    NERVES_DEFCONFIG=$(grep BR2_DEFCONFIG= $NERVES_SYSTEM/buildroot/.config | sed -e 's/BR2_DEFCONFIG=".*\/\(.*\)"/\1/')
+    NERVES_VERSION=$(grep NERVES_VERSION:= $NERVES_SYSTEM/nerves.mk | sed -e 's/NERVES_VERSION\:=\(.*\)/\1/')
 
     echo "Shell environment updated for Nerves"
     echo

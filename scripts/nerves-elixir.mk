@@ -3,7 +3,7 @@
 # building a Nerves project
 #
 
-ifeq ($(NERVES_ROOT),)
+ifeq ($(NERVES_SYSTEM),)
     $(error Make sure that you source nerves-env.sh first)
 endif
 
@@ -12,7 +12,7 @@ ifeq ($(shell grep exrm mix.exs),)
 endif
 
 ERL_LIB = $(NERVES_SDK_SYSROOT)/usr/lib/erlang/lib
-REL2FW = $(NERVES_ROOT)/scripts/rel2fw.sh
+REL2FW = $(NERVES_SYSTEM)/scripts/rel2fw.sh
 
 # This should get the one built by nerves assuming that the Nerves
 # environment is loaded.
@@ -79,7 +79,7 @@ rel/vm.args rel/relx.config:
 	@echo $@ not found. Creating a default version...
 	@mkdir -p rel
 	@sed "s/APP_NAME/$(ELIXIR_APP_NAME)/" \
-	    < $(NERVES_ROOT)/scripts/project-skel/elixir/$@ > $@
+	    < $(NERVES_SYSTEM)/scripts/project-skel/elixir/$@ > $@
 
 rel/nerves_system_libs:
 	rm -f $@

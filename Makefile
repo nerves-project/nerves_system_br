@@ -4,14 +4,12 @@ NERVES_BR_VERSION = 2015.11.1
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 NERVES_DEFCONFIG = $(shell grep BR2_DEFCONFIG= buildroot/.config | sed -e 's/.*"\(.*\)"/\1/')
 
-# Optional place to download files to so that they don't need
+# Location to download files to so that they don't need
 # to be redownloaded when working a lot with buildroot
-# Try the default directory first and if that doesn't work, use
-# a directory in the Nerves folder..
-OLD_DEFAULT_DL_DIR = $(HOME)/dl
-DEFAULT_DL_DIR = $(HOME)/.nerves-cache
-IN_TREE_DL_DIR = $(TOPDIR)/dl
-NERVES_BR_DL_DIR ?= $(if $(wildcard $(DEFAULT_DL_DIR)), $(DEFAULT_DL_DIR), $(if $(wildcard $(OLD_DEFAULT_DL_DIR)), $(OLD_DEFAULT_DL_DIR), $(IN_TREE_DL_DIR)))
+#
+# NOTE: If you are a heavy Buildroot user and have an alternative location,
+#       override this environment variable or symlink this directory.
+NERVES_BR_DL_DIR ?= $(HOME)/.nerves/cache/buildroot
 
 MAKE_BR = make -C buildroot BR2_EXTERNAL=$(TOPDIR)
 
@@ -19,7 +17,7 @@ all: br-make
 
 .buildroot-downloaded:
 	@echo "Caching downloaded files in $(NERVES_BR_DL_DIR)."
-	@mkdir -p $(NERVES_BR_DL_DIR)
+	@[ -e $(NERVES_BR_DL_DIR) ] || mkdir -p $(NERVES_BR_DL_DIR)
 	@echo "Downloading Buildroot..."
 	@scripts/clone_or_dnload.sh $(NERVES_BR_URL) $(NERVES_BR_VERSION) $(NERVES_BR_DL_DIR)
 
@@ -30,9 +28,9 @@ all: br-make
 	buildroot/support/scripts/apply-patches.sh buildroot patches || exit 1
 	touch .buildroot-patched
 
-	# If there's a user dl directory, symlink it to avoid the big download
+	# Symlink Buildroot's dl directory so that it can be cached between builds
 	if [ -d $(NERVES_BR_DL_DIR) -a ! -e buildroot/dl ]; then \
-		ln -s $(NERVES_BR_DL_DIR) buildroot/dl; \
+		ln -sf $(NERVES_BR_DL_DIR) buildroot/dl; \
 	fi
 
 reset-buildroot: .buildroot-downloaded

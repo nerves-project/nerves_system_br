@@ -13,7 +13,7 @@ addons:
 # Cache downloaded files between builds
 cache:
     directories:
-      - $HOME/.nerves-cache
+      - $HOME/.nerves/cache/buildroot
 
 # Build the official configurations
 env:
@@ -24,8 +24,7 @@ env:
 
 # Inspect the cache and build
 script:
-    - mkdir -p $HOME/.nerves-cache
-    - ls -las $HOME/.nerves-cache
+    - ls -las $HOME/.nerves/cache/buildroot || true
     - ./scripts/ci-build.sh
 
 # Deploy the build products

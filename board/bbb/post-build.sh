@@ -3,8 +3,8 @@
 TARGETDIR=$1
 HOSTDIR=$TARGETDIR/../host
 IMAGEDIR=$TARGETDIR/../images
-NERVES_ROOT=$TARGETDIR/../../..
+NERVES_SYSTEM=$TARGETDIR/../../..
 
 # Run the common post-build processing for nerves
-$NERVES_ROOT/board/nerves-common/post-build.sh $TARGETDIR
+$NERVES_SYSTEM/board/nerves-common/post-build.sh $TARGETDIR
 

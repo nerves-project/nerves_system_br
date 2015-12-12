@@ -10,10 +10,13 @@
 
 NERVES_VERSION:=0.3.0-dev
 
-NERVES_ROOT:=$(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-NERVES_TOOLCHAIN=$(NERVES_ROOT)/buildroot/output/host
-NERVES_SDK_IMAGES=$(NERVES_ROOT)/buildroot/output/images
-NERVES_SDK_SYSROOT=$(NERVES_ROOT)/buildroot/output/staging
+NERVES_SYSTEM:=$(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+NERVES_TOOLCHAIN=$(NERVES_SYSTEM)/buildroot/output/host
+NERVES_SDK_IMAGES=$(NERVES_SYSTEM)/buildroot/output/images
+NERVES_SDK_SYSROOT=$(NERVES_SYSTEM)/buildroot/output/staging
+
+# Keep NERVES_ROOT defined for the transition period
+NERVES_ROOT=$(NERVES_SYSTEM)
 
 # Check that the base buildroot image has been built
 #ifeq ("$(wildcard $(NERVES_SDK_IMAGES)/rootfs.tar)","")
@@ -51,7 +54,8 @@ NERVES_HOST_MAKE_ENV=PATH=$(NERVES_PATH) \
 		     PKG_CONFIG=$(PKG_CONFIG) \
 		     PKG_CONFIG_SYSROOT_DIR=$(PKG_CONFIG_SYSROOT_DIR) \
 		     PKG_CONFIG_LIBDIR=$(PKG_CONFIG_LIBDIR) \
-		     NERVES_ROOT=$(NERVES_ROOT) \
+		     NERVES_SYSTEM=$(NERVES_SYSTEM) \
+		     NERVES_ROOT=$(NERVES_SYSTEM) \
 		     NERVES_TOOLCHAIN=$(NERVES_TOOLCHAIN) \
 		     NERVES_SDK_IMAGES=$(NERVES_SDK_IMAGES) \
 		     NERVES_SDK_SYSROOT=$(NERVES_SDK_SYSROOT) \
@@ -68,6 +72,6 @@ NERVES_ALL_VARS=CC=$(CC) \
 MIX=$(NERVES_HOST_MAKE_ENV) $(NERVES_ALL_VARS) $(NERVES_TOOLCHAIN)/usr/bin/mix
 REBAR=$(NERVES_HOST_MAKE_ENV) $(NERVES_ALL_VARS) $(NERVES_TOOLCHAIN)/usr/bin/rebar
 RELX=$(NERVES_HOST_MAKE_ENV) $(NERVES_TOOLCHAIN)/usr/bin/relx --system_libs $(NERVES_SDK_SYSROOT)/usr/lib/erlang/lib
-REL2FW=$(NERVES_HOST_MAKE_ENV) $(NERVES_ROOT)/scripts/rel2fw.sh
+REL2FW=$(NERVES_HOST_MAKE_ENV) $(NERVES_SYSTEM)/scripts/rel2fw.sh
 
 
