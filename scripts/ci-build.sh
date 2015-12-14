@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script is invoked by the CI system to build a nerves-sdk configuration.
+# This script is invoked by the CI system to build a nerves-system-br configuration.
 
 # The following environment variables should be set:
 #  NERVES_CONFIG - e.g. nerves_bbb

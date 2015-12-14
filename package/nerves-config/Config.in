@@ -2,9 +2,9 @@ config BR2_PACKAGE_NERVES_CONFIG
 	bool "nerves-config"
 	select BR2_PACKAGE_ERLINIT
 	help
-	  Nerves SDK configuration helper
+	  Nerves system configuration helper
 
-	  https://github.com/nerves-project/nerves-sdk
+	  https://github.com/nerves-project/nerves-system-br
 
 if BR2_PACKAGE_NERVES_CONFIG
 

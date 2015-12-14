@@ -1,5 +1,5 @@
 # Nerves
-[![Build Status](https://travis-ci.org/nerves-project/nerves-sdk.png?branch=master)](https://travis-ci.org/nerves-project/nerves-sdk)
+[![Build Status](https://travis-ci.org/nerves-project/nerves-system-br.png?branch=master)](https://travis-ci.org/nerves-project/nerves-system-br)
 
 Build the cross-compiler, various tools, and the base root filesystem
 for creating embedded firmware images from Erlang/OTP releases. This
@@ -34,7 +34,7 @@ is optional, so you may skip it:
     mkdir ~/.nerves-cache  # optional
 
 Next, you will need to choose an initial platform and configuration. Change
-to the nerves-sdk directory and run `make help` for an up-to-date list of options.
+to the nerves-system-br directory and run `make help` for an up-to-date list of options.
 Then run the following:
 
     make <platform>_defconfig
@@ -71,7 +71,7 @@ your target that can't be pulled in with `rebar`, you'll need
 to update the Buildroot configuration. Luckily, Buildroot comes
 with recipes for cross-compiling tons of packages. To change the
 configuration, first run the Buildroot configuration utility from
-the nerves-sdk directory:
+the nerves-system-br directory:
 
     make menuconfig
 

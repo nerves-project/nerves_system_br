@@ -4,7 +4,7 @@
 # and build Erlang apps for this Nerves build.
 
 # If the script is called with the -get-nerves-root flag it just returns the
-# Nerves SDK directory. This is so that other shells can execute the script
+# Nerves system directory. This is so that other shells can execute the script
 # without needing to implement the equivalent of $BASH_SOURCE for every shell.
 for arg in $*
 do

@@ -31,7 +31,7 @@ git describe --dirty >$WORK_DIR/$ARCHIVE_NAME/nerves-system.tag
 cat << EOT > $WORK_DIR/$ARCHIVE_NAME/README.md
 # Nerves system image
 
-This is an automatically generated archive created by \`nerves-sdk\`. It is
+This is an automatically generated archive created by \`nerves-system-br\`. It is
 useful for building embedded Elixir projects without worrying too much
 about the cross-compiler and Linux parts. See http://nerves-project.org
 for more information.
