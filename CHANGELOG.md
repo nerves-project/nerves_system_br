@@ -1,11 +1,17 @@
 # Changelog
 
-## v0.3.0-dev
+## v0.3.0
 
 This release updates many packages and Buildroot to later versions. Most
 platforms have been changed to use custom crosscompilers from
 `nerves-toolchain`, so that it is possible to compile much of a project
 locally on non-Linux systems (Macs are the first priority).
+
+The project has also changed names from `nerves-sdk` to `nerves-system-br`. This
+reflects its use as a system image builder for Nerves. In Nerves terminology, a
+toolchain + a system + your Elixir, Erlang, or LFE app = a firmware image.
+Buildroot is the initial system image builder, but other system builders are
+possible in the future.
 
   * New features
     * Use squashfs instead of ext4 for rootfs (smaller roots; enables firmware
