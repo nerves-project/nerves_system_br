@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.3.1-dev
+
+  * New features
+    * To burn a firmware image, you can just run `make burn`. `make
+      burn-complete` is alias for now.
+
 ## v0.3.0
 
 This release updates many packages and Buildroot to later versions. Most
