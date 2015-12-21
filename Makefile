@@ -61,7 +61,8 @@ system: br-make
 	scripts/mksystem.sh
 
 # Replace everything on the SDCard with new bits
-burn-complete:
+burn-complete: burn
+burn:
 	sudo buildroot/output/host/usr/bin/fwup -a -i $(firstword $(wildcard buildroot/output/images/*.fw)) -t complete
 
 # Upgrade the image on the SDCard (app data won't be removed)
@@ -116,8 +117,7 @@ help:
 	@echo
 	@echo 'Targets:'
 	@echo '  all                           - Build the current configuration'
-	@echo '  burn-complete                 - Burn the most recent build to an SDCard (requires sudo)'
-	@echo '  burn-upgrade                  - Upgrade the contents an SDCard (requires sudo)'
+	@echo '  burn                          - Burn the most recent build to an SDCard (requires sudo)'
 	@echo '  system                        - Build a system image for use with bake'
 	@echo '  clean                         - Clean everything - run make xyz_defconfig after this'
 	@echo
@@ -129,4 +129,4 @@ help:
 	@$(foreach b, $(sort $(notdir $(wildcard configs/*_defconfig))), \
 	  printf "  %-29s - Build for %s\\n" $(b) $(b:_defconfig=);)
 
-.PHONY: all burn-complete burn-upgrade system clean menuconfig linux-menuconfig
+.PHONY: all burn burn-complete burn-upgrade system clean menuconfig linux-menuconfig

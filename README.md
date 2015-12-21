@@ -51,6 +51,15 @@ build lot of code. For the most part, you will not need to rebuild
 Nerves unless you switch platforms or need to add libraries and applications
 that cannot be pulled in by `rebar` or `erlang.mk`.
 
+If you'd like to try out the base image on your platform and your platform
+supports running code from SDCards, insert an SDCard into your computer (via USB
+SDCard reader or otherwise) and run:
+
+    make burn
+
+It should automatically find the SDCard. If it doesn't, you may have to run
+`fwup` manually. The `fwup` invocation that it tries is displayed for help.
+
 ## Using Nerves
 
 In order to use the cross-compiler and the version of Erlang built by

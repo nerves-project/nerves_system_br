@@ -32,8 +32,7 @@ help:
 	@echo '  deps                   - Run mix deps.get'
 	@echo '  compile                - Run mix compile'
 	@echo '  release                - Run mix release and package the firmware'
-	@echo '  burn-complete          - Burn the most recent build to an SDCard (requires sudo)'
-	@echo '  burn-upgrade           - Upgrade the contents an SDCard (requires sudo)'
+	@echo '  burn                   - Burn the most recent build to an SDCard (requires sudo)'
 	@echo '  clean                  - Clean up the release and build directories'
 	@echo '  distclean              - Clean up everything'
 	@echo
@@ -43,8 +42,7 @@ release:
 	$(REL2FW) rel/$(ELIXIR_APP_NAME) _images/$(ELIXIR_APP_NAME).fw
 	@echo
 	@echo The firmware is in the _images directory and can be loaded onto the target.
-	@echo E.g., run \"make burn-complete\" or \"make burn-upgrade\" to program
-	@echo the image to an SDCard.
+	@echo E.g., run \"make burn\" to program the image to an SDCard.
 
 
 compile:
@@ -54,13 +52,14 @@ deps:
 	mix deps.get
 
 # Replace everything on the SDCard with new bits
-burn-complete:
+burn:
 	sudo $(FWUP) -a -i $(firstword $(wildcard _images/*.fw)) -t complete
+burn-complete: burn
 
 # Upgrade the image on the SDCard (app data won't be removed)
 # This is usually the fastest way to update an SDCard that's already
 # been programmed. It won't update bootloaders, so if something is
-# really messed up, do a burn-complete.
+# really messed up, do a "make burn".
 burn-upgrade:
 	sudo $(FWUP) -a -i $(firstword $(wildcard _images/*.fw)) -t upgrade
 	sudo $(FWUP) -y -a -i /tmp/finalize.fw -t on-reboot
@@ -91,5 +90,5 @@ clean:
 distclean: clean
 	-rm -fr ebin deps
 
-.PHONY: deps burn-complete burn-upgrade clean distclean all elixir-first-time-setup compile release help
+.PHONY: deps burn burn-complete burn-upgrade clean distclean all elixir-first-time-setup compile release help
 
