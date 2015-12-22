@@ -1,5 +1,7 @@
 # Nerves
-[![Build Status](https://travis-ci.org/nerves-project/nerves-sdk.png?branch=master)](https://travis-ci.org/nerves-project/nerves-sdk)
+
+[![Join the chat at https://gitter.im/nerves-project/nerves-system-br](https://badges.gitter.im/nerves-project/nerves-system-br.svg)](https://gitter.im/nerves-project/nerves-system-br?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/nerves-project/nerves-system-br.png?branch=master)](https://travis-ci.org/nerves-project/nerves-system-br)
 
 Build the cross-compiler, various tools, and the base root filesystem
 for creating embedded firmware images from Erlang/OTP releases. This
@@ -7,10 +9,13 @@ project uses [Buildroot](http://buildroot.net/) to do all of the hard
 work. It just provides a configuration and a few helper scripts and
 patches to customize Buildroot for Erlang/OTP embedded projects.
 
-Currently, most development is being done on the BeagleBone Black, but
-work is proceeding on embedded x86 platforms and the Raspberry Pi. Porting
+Currently, most development is being done on the BeagleBone Black and Raspberry
+Pi, but some embedded x86 platforms have starter configs as well. Porting
 to other platforms is easy especially if they're already support by Buildroot.
 See the `configs` directory for examples.
+
+Discussion or questions? Join us on the \#nerves channel on the [elixir-lang
+Slack](https://elixir-slackin.herokuapp.com/).
 
 ## First time build
 
@@ -18,7 +23,7 @@ Before building Nerves, it is important to have a few build tools
 already installed. Buildroot provides a lot, but it does depend on
 a few host programs. If using Ubuntu, run the following:
 
-    sudo apt-get install git g++ libssl-dev libncurses5-dev bc
+    sudo apt-get install git g++ libssl-dev libncurses5-dev bc m4 make unzip
 
     # If your system is 64-bit, also run this
     sudo apt-get install libc6:i386 libstdc++6:i386 zlib1g:i386 gcc-multilib
@@ -31,7 +36,7 @@ is optional, so you may skip it:
     mkdir ~/.nerves-cache  # optional
 
 Next, you will need to choose an initial platform and configuration. Change
-to the nerves-sdk directory and run `make help` for an up-to-date list of options.
+to the nerves-system-br directory and run `make help` for an up-to-date list of options.
 Then run the following:
 
     make <platform>_defconfig
@@ -47,6 +52,15 @@ The first time build takes a long time since it has to download and
 build lot of code. For the most part, you will not need to rebuild
 Nerves unless you switch platforms or need to add libraries and applications
 that cannot be pulled in by `rebar` or `erlang.mk`.
+
+If you'd like to try out the base image on your platform and your platform
+supports running code from SDCards, insert an SDCard into your computer (via USB
+SDCard reader or otherwise) and run:
+
+    make burn
+
+It should automatically find the SDCard. If it doesn't, you may have to run
+`fwup` manually. The `fwup` invocation that it tries is displayed for help.
 
 ## Using Nerves
 
@@ -68,7 +82,7 @@ your target that can't be pulled in with `rebar`, you'll need
 to update the Buildroot configuration. Luckily, Buildroot comes
 with recipes for cross-compiling tons of packages. To change the
 configuration, first run the Buildroot configuration utility from
-the nerves-sdk directory:
+the nerves-system-br directory:
 
     make menuconfig
 
@@ -101,21 +115,32 @@ a lot of hardware or C library support.
 This is an initial configuration for building images for the Raspberry Pi.
 It is a minimal image similar to the one built for the Beaglebone Black.
 
-An Erlang shell is run on the UART pins on the GPIO header. If you would like to
-use the shell on an attached HDMI monitor and USB keyboard, the terminal should
-be changed to tty1. To change, run the following:
+An Erlang shell is run on the attached HDMI monitor and USB keyboard. If you would like to
+use the shell on the UART pins on the GPIO hearer, the terminal should
+be changed to `ttyAMA0`. To change, run the following:
 
     make nerves_rpi_defconfig
     make menuconfig
     # Go to "User-provided options" -> nerves-config-> console port
-    # Press enter to select, and change to tty1
+    # Press enter to select, and change to ttyAMA0
     # Exit the menuconfig
     cp buildroot/defconfig configs/my_rpi_defconfig
     make
 
+### nerves_rpi2_defconfig
+
+If you have a Raspberry Pi 2, start with this defconfig. It is similar to
+`nerves_rpi_defconfig` except that it enables support for the quad core
+processor in the Pi 2. A multi-core version of the Erlang VM will also be built.
+
 ### nerves_rpi_elixir_defconfig
 
 This is the same as `nerves_rpi_defconfig` except that it boots to an Elixir
+shell.
+
+### nerves_rpi2_elixir_defconfig
+
+This is the same as `nerves_rpi2_defconfig` except that it boots to an Elixir
 shell.
 
 ### nerves_rpi_lfe_defconfig
@@ -125,9 +150,14 @@ Flavored Erlang) shell.
 
 ### ag150_defconfig and alix_defconfig
 
+*UNSUPPORTED*
+
 These are 32-bit x86 platforms. The ag150 is Intel Atom-based and the Alix uses
 an AMD Geode CPU. Both are minimal system configurations that use Syslinux
 as the bootloader.
+
+If you need to run on an x86-based platform, please contact us about putting
+together a cross-compiler so that we can support it similar to other systems.
 
 ### nerves_camera_defconfig
 
@@ -157,4 +187,3 @@ This configuration produces a Linux image. It is not useful for Erlang
 development, but it can be helpful when getting unfamiliar hardware to work.
 I use it to debug Linux kernel issues since most documentation and
 developers expect a traditional shell-based environment.
-
