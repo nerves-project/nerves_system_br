@@ -11,6 +11,15 @@ NERVES_DEFCONFIG = $(shell grep BR2_DEFCONFIG= buildroot/.config | sed -e 's/.*"
 #       override this environment variable or symlink this directory.
 NERVES_BR_DL_DIR ?= $(HOME)/.nerves/cache/buildroot
 
+# Check the OS and architecture to give more helpful errors
+ifneq ($(shell uname -s),Linux)
+$(error Nerves system images can only be built using Linux)
+endif
+ifneq ($(shell uname -p),x86_64)
+$(error 64-bit Linux required for supported cross-compilers)
+endif
+
+
 MAKE_BR = make -C buildroot BR2_EXTERNAL=$(TOPDIR)
 
 all: br-make
@@ -112,8 +121,8 @@ realclean:
 	-rm -fr buildroot .buildroot-patched .buildroot-downloaded
 
 help:
-	@echo 'Nerves SDK Help'
-	@echo '---------------'
+	@echo 'Nerves System Help'
+	@echo '------------------'
 	@echo
 	@echo 'Targets:'
 	@echo '  all                           - Build the current configuration'

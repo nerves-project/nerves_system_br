@@ -17,14 +17,19 @@ Slack](https://elixir-slackin.herokuapp.com/).
 
 ## First time build
 
-Before building Nerves, it is important to have a few build tools
+If you're using OSX or Windows, you'll either need to use a pre-built version of
+a Nerves system (see the releases tab on GitHub or the [CI build
+products](http://nerves-releases.s3.amazonaws.com/list.html)) or create a Linux
+VM on your machine.
+
+Only 64-bit Linux systems are supported for building Nerves system images due to
+the crosscompilers being used.
+
+Before building a Nerves system image, it is important to have a few build tools
 already installed. Buildroot provides a lot, but it does depend on
 a few host programs. If using Ubuntu, run the following:
 
     sudo apt-get install git g++ libssl-dev libncurses5-dev bc m4 make unzip
-
-    # If your system is 64-bit, also run this
-    sudo apt-get install libc6:i386 libstdc++6:i386 zlib1g:i386 gcc-multilib
 
 Nerves downloads a large number of files to build the toolchain, Linux kernel,
 Erlang, and other tools. It is recommended that you create a top level directory
