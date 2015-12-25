@@ -1,6 +1,7 @@
 TOPDIR := $(shell pwd)
 
-NERVES_BR_VERSION = 2015.11.1
+# Unreleased version of BR required for Galileo support
+NERVES_BR_VERSION = 7fed757456d30aae7be381f6a4aa463523ae1bb8
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 NERVES_DEFCONFIG = $(shell grep BR2_DEFCONFIG= buildroot/.config | sed -e 's/.*"\(.*\)"/\1/')
 
