@@ -98,13 +98,18 @@ export CXX=$CROSSCOMPILE-g++
 export CFLAGS="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -Os"
 export CXXFLAGS="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -Os"
 export LDFLAGS=""
+export STRIP=$CROSSCOMPILE-strip
 export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
 export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lerl_interface -lei"
+
+# Rebar naming
 export ERL_EI_LIBDIR="$ERL_INTERFACE_DIR/lib"
 export ERL_EI_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
 
-export STRIP=$CROSSCOMPILE-strip
-
+# erlang.mk naming
+export ERTS_INCLUDE_DIR="$ERTS_DIR/include"
+export ERL_INTERFACE_LIB_DIR="$ERL_INTERFACE_DIR/lib"
+export ERL_INTERFACE_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
 
 # Since it is so important that the host and target Erlang installs
 # match, check it here.
