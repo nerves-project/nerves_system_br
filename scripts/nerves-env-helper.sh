@@ -105,6 +105,10 @@ export ERL_EI_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
 
 export STRIP=$CROSSCOMPILE-strip
 
+# Add these environment vars to work with erlang.mk
+export ERTS_INCLUDE_DIR="$ERTS_DIR/include"
+export ERL_INTERFACE_LIB_DIR="$ERL_INTERFACE_DIR/lib"
+export ERL_INTERFACE_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
 
 # Since it is so important that the host and target Erlang installs
 # match, check it here.
