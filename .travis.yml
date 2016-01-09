@@ -21,6 +21,7 @@ env:
   - NERVES_CONFIG=nerves_bbb
   - NERVES_CONFIG=nerves_rpi_elixir
   - NERVES_CONFIG=nerves_rpi2_elixir
+  - NERVES_CONFIG=nerves_galileo_elixir
 
 # Inspect the cache and build
 script:
