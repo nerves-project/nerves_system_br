@@ -18,7 +18,7 @@ cache:
 # Build the official configurations
 env:
   matrix:
-  - NERVES_CONFIG=nerves_bbb
+  - NERVES_CONFIG=nerves_bbb_elixir
   - NERVES_CONFIG=nerves_rpi_elixir
   - NERVES_CONFIG=nerves_rpi2_elixir
   - NERVES_CONFIG=nerves_galileo_elixir

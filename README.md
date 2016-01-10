@@ -106,23 +106,36 @@ you're having trouble.
 
 Nerves comes with several configurations out of the box. These can be
 used directly or just as an examples for your own custom configuration.
+Some old configurations of interest may also be in the `configs/unsupported`
+directory. Nerves configurations have the form
+`nerves_<target>_<language>_defconfig`. Languages include Erlang, Elixir, and
+LFE. The language really only specifies the prompt that gets shown on boot, so
+do not be discouraged if a default configuration doesn't exist for your desired
+language (Run `make nerves_xxx_defconfig` where `xxx` is the closest config for
+your target, then run `make menuconfig` and go to `User-provided
+options->nerves-config`.)
 
-### nerves_bbb_defconfig
+Ignoring the language options, the following defconfigs are supported:
+
+### nerves_bbb_<language>_defconfig
 
 This is the default configuration for building images for the Beaglebone
 Black. It is a minimal image intended for applications that do not require
 a lot of hardware or C library support.
 
-### nerves_rpi_defconfig
+To use USB on the Beaglebone Black, you will need to run `os:cmd("modprobe musb_dsps").`
+as part of your Erlang program's initialization.
+
+### nerves_rpi_<language>_defconfig
 
 This is an initial configuration for building images for the Raspberry Pi.
 It is a minimal image similar to the one built for the Beaglebone Black.
 
-An Erlang shell is run on the attached HDMI monitor and USB keyboard. If you would like to
+A shell is run on the attached HDMI monitor and USB keyboard. If you would like to
 use the shell on the UART pins on the GPIO hearer, the terminal should
 be changed to `ttyAMA0`. To change, run the following:
 
-    make nerves_rpi_defconfig
+    make nerves_rpi_<language>_defconfig
     make menuconfig
     # Go to "User-provided options" -> nerves-config-> console port
     # Press enter to select, and change to ttyAMA0
@@ -130,60 +143,12 @@ be changed to `ttyAMA0`. To change, run the following:
     cp buildroot/defconfig configs/my_rpi_defconfig
     make
 
-### nerves_rpi2_defconfig
+### nerves_rpi2_<language>_defconfig
 
 If you have a Raspberry Pi 2, start with this defconfig. It is similar to
 `nerves_rpi_defconfig` except that it enables support for the quad core
 processor in the Pi 2. A multi-core version of the Erlang VM will also be built.
 
-### nerves_rpi_elixir_defconfig
-
-This is the same as `nerves_rpi_defconfig` except that it boots to an Elixir
-shell.
-
-### nerves_rpi2_elixir_defconfig
-
-This is the same as `nerves_rpi2_defconfig` except that it boots to an Elixir
-shell.
-
-### nerves_rpi_lfe_defconfig
-
-This is the same as `nerves_rpi_defconfig` except that it boots to an LFE (Lisp
-Flavored Erlang) shell.
-
-### ag150_defconfig and alix_defconfig
-
-*UNSUPPORTED*
-
-These are 32-bit x86 platforms. The ag150 is Intel Atom-based and the Alix uses
-an AMD Geode CPU. Both are minimal system configurations that use Syslinux
-as the bootloader.
-
-If you need to run on an x86-based platform, please contact us about putting
-together a cross-compiler so that we can support it similar to other systems.
-
-### nerves_camera_defconfig
-
-This is the configuration that I'm using for my camera project. Normally
-it wouldn't be a part of Nerves, but it may be useful to others as
-an example. It requires a custom cape for the BeagleBone Black and uses the
-AM3359's PRU for the hard real-time parts of the project. Erlang is used
-for the rest.
-
-### nerves_bbb_wifi_defconfig
-
-This configuration is a work-in-progress to support wifi within the Nerves
-environment. It is currently setup to support a Rosewill RNX-N150UBE (Realtek
-rtl8712 driver). To test, try run the following programs (using `os:cmd/1`):
-
-```
-modprobe musb_dsps
-ip link set wlan0 up
-iwlist wlan0 scan
-[use wpa_passphrase to generate a configuration for the wpa_supplicant]
-wpa_supplicant -i wlan0 -c /tmp/wifi.conf
-ip addr add 192.168.1.40/24 dev wlan0
-```
 ### bbb_linux_defconfig
 
 This configuration produces a Linux image. It is not useful for Erlang
