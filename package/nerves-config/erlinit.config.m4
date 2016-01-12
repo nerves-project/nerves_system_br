@@ -7,6 +7,10 @@ ifelse(VERBOSE_INIT, `y', `-v', `#-v')
 # Specify the UART port that the shell should use.
 -c PORT
 
+# If more than one tty are available, always warn if the user is looking at
+# the wrong one.
+--warn-unused-tty
+
 # Use dtach to capture the iex session so that it can be redirected
 # to the app's GUI
 #-s "/usr/bin/dtach -N /tmp/iex_prompt"

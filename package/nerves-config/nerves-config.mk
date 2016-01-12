@@ -4,8 +4,10 @@
 #
 #############################################################
 
+# Remember to bump the version when anything changes in this
+# directory.
 NERVES_CONFIG_SOURCE =
-NERVES_CONFIG_VERSION = 0.2
+NERVES_CONFIG_VERSION = 0.3
 
 NERVES_CONFIG_DEPENDENCIES = erlinit erlang host-erlang-relx
 
