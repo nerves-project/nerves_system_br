@@ -16,7 +16,7 @@ NERVES_BR_DL_DIR ?= $(HOME)/.nerves/cache/buildroot
 ifneq ($(shell uname -s),Linux)
 $(error Nerves system images can only be built using Linux)
 endif
-ifneq ($(shell uname -p),x86_64)
+ifneq ($(shell uname -m),x86_64)
 $(error 64-bit Linux required for supported cross-compilers)
 endif
 
