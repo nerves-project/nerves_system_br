@@ -50,13 +50,26 @@ fi
 
 # Verify that a crosscompiler was found.
 if [ "$ALL_CROSSCOMPILE" = "" ]; then
-    echo "ERROR: Can't find cross-compiler. Is this the path to the toolchain? $NERVES_TOOLCHAIN"
+    echo "ERROR: Can't find cross-compiler."
+    echo "    Is this the path to the toolchain? $NERVES_TOOLCHAIN"
+    echo
+    echo "    You may also set the NERVES_TOOLCHAIN environment variable before"
+    echo "    calling this script. Be sure that \$NERVES_TOOLCHAIN/bin/ contains"
+    echo "    the right cross-compiler, though."
     return 1
 fi
 
 NERVES_SDK_IMAGES=$NERVES_SYSTEM/buildroot/output/images
-NERVES_SDK_SYSROOT=$NERVES_SYSTEM/buildroot/output/staging # Check that the base buildroot image has been built
-[ -d "$NERVES_SYSTEM/buildroot/output" ] || { echo "ERROR: Run \"make\" first to build the nerves SDK."; return 1; }
+NERVES_SDK_SYSROOT=$NERVES_SYSTEM/buildroot/output/staging
+
+# Check that the base buildroot image has been built
+if [ ! -d "$NERVES_SYSTEM/buildroot/output" ]; then
+    echo "ERROR: It looks like the system hasn't been built!"
+    echo "    If this is nerves-system-br, then run \"make your_defconfig\""
+    echo "    and then \"make\" to build it. If this is a prepackaged system"
+    echo "    image, then something failed when it was extracted."
+    return 1
+fi
 
 # Past the checks, so export variables
 export NERVES_SYSTEM
