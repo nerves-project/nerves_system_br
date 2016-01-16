@@ -3,8 +3,23 @@
 ## v0.3.1-dev
 
   * New features
+    * Basic Intel Galileo support
+    * erlang.mk support (thanks to mdsebald)
     * To burn a firmware image, you can just run `make burn`. `make
-      burn-complete` is alias for now.
+      burn-complete` is aliased to `make burn`.
+
+  * Bug fixes
+    * `nerves_xxx_defconfig` config naming and docs have been cleaned up. With
+      the recent changes many had become out of date.
+    * Enforce 64-bit system for build since 32-bit systems can't run the Nerves
+      toolchains
+
+  * Package updates
+    * erlang 18.2.1
+    * elixir 1.2.1
+    * erlinit v0.7.0
+    * nerves-toolchain v0.5.0
+    * fwup v0.5.0
 
 ## v0.3.0
 
