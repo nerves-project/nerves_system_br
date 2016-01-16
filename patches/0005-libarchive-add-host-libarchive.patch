@@ -1,7 +1,7 @@
-From 72f4f60f72ccb557778b6d5707b2a278af3a9556 Mon Sep 17 00:00:00 2001
+From 1315c88bb3a77a555ec11317ff20aa01ed731afa Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 2 Jun 2014 18:11:44 -0400
-Subject: [PATCH 5/9] libarchive: add host-libarchive
+Subject: [PATCH 5/8] libarchive: add host-libarchive
 
 This enables host compilation of libarchive so that host tools using it
 can be built with buildroot.

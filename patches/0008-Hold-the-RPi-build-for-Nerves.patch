@@ -1,7 +1,7 @@
-From 09e925293a1dde7463edd9e13da33c7887904e56 Mon Sep 17 00:00:00 2001
+From 91fd466837d4757c5fbe54139b9a387d4266ea50 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 10 Dec 2015 23:05:50 -0500
-Subject: [PATCH 9/9] Hold the RPi build for Nerves
+Subject: [PATCH 8/8] Hold the RPi build for Nerves
 
 ---
  package/rpi-firmware/rpi-firmware.mk               |   2 +-

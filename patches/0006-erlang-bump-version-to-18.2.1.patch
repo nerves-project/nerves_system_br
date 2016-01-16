@@ -1,7 +1,7 @@
-From 5f2adc5899093e82c129672d4219c44bb7a5d567 Mon Sep 17 00:00:00 2001
+From fca039e8fd6a8148a06a963b70d99a20f7fd07d2 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 13 Oct 2015 09:04:05 -0400
-Subject: [PATCH 7/9] erlang: bump version to 18.1
+Subject: [PATCH 6/8] erlang: bump version to 18.2.1
 
 This is a major release of Erlang that includes a licensing change from
 the EPL to the Apache License, significant changes to the timer APIs, better
@@ -11,8 +11,8 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
  ...04-erts-fix-incorrect-use-of-ac-egrep-cpp.patch | 79 ----------------------
  package/erlang/erlang.hash                         |  2 +-
- package/erlang/erlang.mk                           |  6 +-
- 3 files changed, 4 insertions(+), 83 deletions(-)
+ package/erlang/erlang.mk                           |  8 +--
+ 3 files changed, 5 insertions(+), 84 deletions(-)
  delete mode 100644 package/erlang/0004-erts-fix-incorrect-use-of-ac-egrep-cpp.patch
 
 diff --git a/package/erlang/0004-erts-fix-incorrect-use-of-ac-egrep-cpp.patch b/package/erlang/0004-erts-fix-incorrect-use-of-ac-egrep-cpp.patch
@@ -101,15 +101,15 @@ index bc08697..0000000
 -2.1.0
 -
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 2d6a39a..ade3a3f 100644
+index 2d6a39a..e04893e 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,2 +1,2 @@
  # From http://www.erlang.org/download/MD5
 -md5	346dd0136bf1cc28cebc140e505206bb	otp_src_17.5.tar.gz
-+md5	fa64015fdd133e155b5b19bf90ac8678	otp_src_18.1.tar.gz
++md5	ebb226d51f89ec54cc83ce5d417ce55e	otp_src_18.2.1.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 9c8d476..81bf4e7 100644
+index 9c8d476..dd7bb46 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,13 +5,13 @@
@@ -117,7 +117,7 @@ index 9c8d476..81bf4e7 100644
  
  # See note below when updating Erlang
 -ERLANG_VERSION = 17.5
-+ERLANG_VERSION = 18.1
++ERLANG_VERSION = 18.2.1
  ERLANG_SITE = http://www.erlang.org/download
  ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
  ERLANG_DEPENDENCIES = host-erlang
@@ -129,6 +129,15 @@ index 9c8d476..81bf4e7 100644
  ERLANG_INSTALL_STAGING = YES
  
  # Touching erts/configure.in
+@@ -19,7 +19,7 @@ ERLANG_AUTORECONF = YES
+ 
+ # Whenever updating Erlang, this value should be updated as well, to the
+ # value of EI_VSN in the file lib/erl_interface/vsn.mk
+-ERLANG_EI_VSN = 3.7.20
++ERLANG_EI_VSN = 3.8.1
+ 
+ # The configure checks for these functions fail incorrectly
+ ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes
 -- 
 2.5.0
 
