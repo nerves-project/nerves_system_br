@@ -113,13 +113,32 @@ export ERL_INTERFACE_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
 
 # Since it is so important that the host and target Erlang installs
 # match, check it here.
+NERVES_HOST_ERL_MAJOR_VER_RAW=$(erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell)
+NERVES_HOST_ERL_MAJOR_VER=${NERVES_HOST_ERL_MAJOR_VER_RAW//\"}       # Trim double quotes
+NERVES_HOST_ERL_MAJOR_VER=${NERVES_HOST_ERL_MAJOR_VER//[[:space:]]/} # Trim whitespace
 NERVES_HOST_ERL_VER=$(cat $(dirname $(which erl))/../lib/erlang/releases/*/OTP_VERSION)
 NERVES_TARGET_ERL_VER=$(cat $NERVES_SDK_SYSROOT/usr/lib/erlang/releases/*/OTP_VERSION)
-if [ "$NERVES_HOST_ERL_VER" != "$NERVES_TARGET_ERL_VER" ]; then
-    echo "ERROR: Version mismatch between host and target Erlang versions"
+NERVES_TARGET_ERL_MAJOR_VER=${NERVES_TARGET_ERL_VER%%.*}
+if [ "$NERVES_HOST_ERL_MAJOR_VER" != "$NERVES_TARGET_ERL_MAJOR_VER" ]; then
+    echo "ERROR: Major version mismatch between host and target Erlang/OTP versions"
     echo "    Host version: $NERVES_HOST_ERL_VER"
     echo "    Target version: $NERVES_TARGET_ERL_VER"
+    echo
+    echo "This will likely cause Erlang code compiled for the target to fail in"
+    echo "unexpected ways. Install an Erlang OTP release that matches the target"
+    echo "version before continuing."
+    echo
     return 1
+fi
+if [ "$NERVES_HOST_ERL_VER" != "$NERVES_TARGET_ERL_VER" ]; then
+    echo "WARNING: Minor version mismatch between host and target Erlang/OTP versions"
+    echo "    Host version: $NERVES_HOST_ERL_VER"
+    echo "    Target version: $NERVES_TARGET_ERL_VER"
+    echo
+    echo "It is good practice to use the same Erlang OTP release on the host (this"
+    echo "computer) and target to ensure reproduceable builds. Differences in"
+    echo "minor versions should still work, though."
+    echo
 fi
 
 return 0
