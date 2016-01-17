@@ -1,4 +1,4 @@
-config BR2_PACKAGE_NERVES_CONFIG
+menuconfig BR2_PACKAGE_NERVES_CONFIG
 	bool "nerves-config"
 	select BR2_PACKAGE_ERLINIT
 	help
