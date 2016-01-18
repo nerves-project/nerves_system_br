@@ -15,8 +15,24 @@ readlink_f () {
     fi
 }
 
-SELF=$(readlink_f "$0")
-NERVES_SYSTEM=$(dirname "$SELF")
+# If the script is called with the -get-nerves-root flag it just returns the
+# Nerves system directory. This is so that other shells can execute the script
+# without needing to implement the equivalent of $BASH_SOURCE for every shell.
+for arg in $*
+do
+    if [ $arg = "-get-nerves-root" ];
+    then
+        echo $(dirname $(readlink_f "${BASH_SOURCE[0]}"))
+        exit 0
+    fi
+done
+
+if [ "$BASH_SOURCE" = "" ]; then
+    GET_NR_COMMAND="$0 $@ -get-nerves-root"
+    NERVES_SYSTEM=$(bash -c "$GET_NR_COMMAND")
+else
+    NERVES_SYSTEM=$(dirname $(readlink_f "${BASH_SOURCE[0]}"))
+fi
 
 # Detect if this script has been run directly rather than sourced, since
 # that won't work.
