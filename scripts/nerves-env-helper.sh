@@ -129,7 +129,13 @@ export ERL_INTERFACE_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
 NERVES_HOST_ERL_MAJOR_VER_RAW=$(erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell)
 NERVES_HOST_ERL_MAJOR_VER=${NERVES_HOST_ERL_MAJOR_VER_RAW//\"}       # Trim double quotes
 NERVES_HOST_ERL_MAJOR_VER=${NERVES_HOST_ERL_MAJOR_VER//[[:space:]]/} # Trim whitespace
-NERVES_HOST_ERL_VER=$(cat $(dirname $(which erl))/../lib/erlang/releases/*/OTP_VERSION)
+
+# The OTP_VERSION file's location depends on where erl is located. Try both locations
+ERL_DIR=$(dirname $(which erl))
+HOST_OTP_VERSION_PATH=$ERL_DIR/../lib/erlang/releases/$NERVES_HOST_ERL_MAJOR_VER/OTP_VERSION
+[ -e "$HOST_OTP_VERSION_PATH" ] || HOST_OTP_VERSION_PATH=$ERL_DIR/../../releases/$NERVES_HOST_ERL_MAJOR_VER/OTP_VERSION
+
+NERVES_HOST_ERL_VER=$(cat $HOST_OTP_VERSION_PATH)
 NERVES_TARGET_ERL_VER=$(cat $NERVES_SDK_SYSROOT/usr/lib/erlang/releases/*/OTP_VERSION)
 NERVES_TARGET_ERL_MAJOR_VER=${NERVES_TARGET_ERL_VER%%.*}
 if [ "$NERVES_HOST_ERL_MAJOR_VER" != "$NERVES_TARGET_ERL_MAJOR_VER" ]; then
