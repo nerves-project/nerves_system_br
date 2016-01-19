@@ -51,6 +51,7 @@ fi
 source $NERVES_SYSTEM/scripts/nerves-env-helper.sh $NERVES_SYSTEM
 if [ $? != 0 ]; then
     echo "Shell environment NOT updated for Nerves!"
+    return 1
 else
     # Found it. Print out some useful information so that the user can
     # easily figure out whether the wrong nerves installation was used.
