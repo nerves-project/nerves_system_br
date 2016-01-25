@@ -1,12 +1,13 @@
 # Changelog
 
-## v0.3.1-dev
+## v0.3.1
 
   * New features
     * Basic Intel Galileo support
     * erlang.mk support (thanks to mdsebald)
     * To burn a firmware image, you can just run `make burn`. `make
       burn-complete` is aliased to `make burn`.
+    * Improved host/target Erlang version checking
 
   * Bug fixes
     * `nerves_xxx_defconfig` config naming and docs have been cleaned up. With
@@ -18,7 +19,7 @@
     * erlang 18.2.1
     * elixir 1.2.1
     * erlinit v0.7.0
-    * nerves-toolchain v0.5.0
+    * nerves-toolchain v0.6.0
     * fwup v0.5.0
 
 ## v0.3.0
