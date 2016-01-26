@@ -7,10 +7,6 @@ ifeq ($(NERVES_SYSTEM),)
     $(error Make sure that you source nerves-env.sh first)
 endif
 
-ifeq ($(shell grep exrm mix.exs),)
-    $(error Please add '{ :exrm, "~> 0.15.0" }' to the deps in mix.exs)
-endif
-
 ERL_LIB = $(NERVES_SDK_SYSROOT)/usr/lib/erlang/lib
 REL2FW = $(NERVES_SYSTEM)/scripts/rel2fw.sh
 
