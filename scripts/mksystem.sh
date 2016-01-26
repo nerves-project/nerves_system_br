@@ -61,6 +61,7 @@ cp -r $NERVES_SYSTEM/buildroot/output/staging/* $WORK_DIR/$ARCHIVE_NAME/buildroo
 rm -f $WORK_DIR/$ARCHIVE_NAME/buildroot/output/images/*.fw
 rm -f $WORK_DIR/$ARCHIVE_NAME/buildroot/output/images/nerves-*.img
 
-tar c -z -f $NERVES_SYSTEM/$ARCHIVE_NAME.tar.gz -C $WORK_DIR $ARCHIVE_NAME
+# The --format=ustar makes it possible for erl_tar to extract these archives
+tar c -z -f $NERVES_SYSTEM/$ARCHIVE_NAME.tar.gz -C $WORK_DIR --format=ustar $ARCHIVE_NAME
 
 rm -fr $WORK_DIR
