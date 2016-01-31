@@ -12,12 +12,8 @@ TARGETDIR=$1
 # the release, so we don't need anything in here.
 rm -fr $TARGETDIR/usr/lib/erlang/lib/*
 
-# Clean up the Erlang release
-find $TARGETDIR/srv/erlang -name "*~" -type f -exec rm "{}" ";"
-find $TARGETDIR/srv/erlang -name "src" -type d -exec rm -fr "{}" ";"
-find $TARGETDIR/srv/erlang -name "include" -type d -exec rm -fr "{}" ";"
-find $TARGETDIR/srv/erlang -name "obj" -type d -exec rm -fr "{}" ";"
-rm -fr $TARGETDIR/srv/erlang/bin srv/erlang/erts-*
+# Clean up the Erlang/OTP release
+../scripts/clean-release.sh $TARGETDIR/srv/erlang
 
 # Remove all shell scripts. We're trying hard not to ever have to run
 # one, so this will hopefully keep us honest.

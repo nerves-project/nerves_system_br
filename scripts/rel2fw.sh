@@ -78,7 +78,7 @@ mkdir -p $TMP_DIR/rootfs-additions/srv/erlang
 cp -r $RELEASE_DIR/* $TMP_DIR/rootfs-additions/srv/erlang
 
 # Clean up the Erlang release of all the files that we don't need.
-$NERVES_SYSTEM/scripts/clean-release.sh $TMP_DIR/rootfs-additions/srv/erlang
+$NERVES_SYSTEM/scripts/scrub-otp-release.sh $TMP_DIR/rootfs-additions/srv/erlang
 
 # Append the Erlang/OTP release onto the base image.
 cp "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs"
