@@ -13,8 +13,7 @@ BOOTSIZE=31232
 BOOTPART=$NERVES_SYSTEM/buildroot/output/images/bootpart.bin
 SYSLINUX=$NERVES_SYSTEM/buildroot/output/host/usr/bin/syslinux
 
-$NERVES_SYSTEM/board/nerves-common/mksyslinuxfs.sh $NERVES_SYSTEM $BOOTPART $BOOTSIZE $SYSLINUX
+$NERVES_SYSTEM/scripts/mksyslinuxfs.sh $NERVES_SYSTEM $BOOTPART $BOOTSIZE $SYSLINUX
 
 # Run the common post-image processing for nerves
 $NERVES_SYSTEM/board/nerves-common/post-createfs.sh $TARGETDIR $FWUP_CONFIG $BASE_FW_NAME
-
