@@ -23,8 +23,10 @@ ifneq ($(shell uname -m),x86_64)
 $(error 64-bit Linux required for supported cross-compilers)
 endif
 
-
 MAKE_BR = make -C buildroot BR2_EXTERNAL=$(NERVES_SYSTEM)
+ifneq ($(O),)
+    MAKE_BR += O=$(abspath $(O))
+endif
 
 all: br-make
 
@@ -56,6 +58,11 @@ update-patches: reset-buildroot .buildroot-patched
 
 %_defconfig: $(NERVES_SYSTEM)/configs/%_defconfig .buildroot-patched
 	$(MAKE_BR) $@
+
+config: $(NERVES_CONFIG)/nerves_defconfig .buildroot-patched
+	$(MAKE_BR) NERVES_CONFIG=$(abspath $(NERVES_CONFIG)) \
+	    BR2_DEFCONFIG=$(abspath $(NERVES_CONFIG)/nerves_defconfig) \
+	    DEFCONFIG=$(abspath $(NERVES_CONFIG)/nerves_defconfig) defconfig
 
 buildroot/.config: .buildroot-patched
 	@echo
