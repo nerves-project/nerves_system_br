@@ -19,20 +19,20 @@ BR2_TARGET_GENERIC_ISSUE=""
 BR2_INIT_NONE=y
 # BR2_TARGET_GENERIC_GETTY is not set
 # BR2_TARGET_GENERIC_REMOUNT_ROOTFS_RW is not set
-BR2_ROOTFS_OVERLAY="../board/nerves-common/rootfs-additions"
-BR2_ROOTFS_POST_BUILD_SCRIPT="../board/raspberrypi/post-build.sh"
-BR2_ROOTFS_POST_IMAGE_SCRIPT="../board/raspberrypi/post-createfs.sh"
-BR2_ROOTFS_POST_SCRIPT_ARGS="../board/raspberrypi/rpi2-fwup.conf"
+BR2_ROOTFS_OVERLAY="${NERVES_SYSTEM}/board/nerves-common/rootfs-additions"
+BR2_ROOTFS_POST_BUILD_SCRIPT="${NERVES_SYSTEM}/board/raspberrypi/post-build.sh"
+BR2_ROOTFS_POST_IMAGE_SCRIPT="${NERVES_SYSTEM}/board/raspberrypi/post-createfs.sh"
+BR2_ROOTFS_POST_SCRIPT_ARGS="${NERVES_SYSTEM}/board/raspberrypi/rpi2-fwup.conf"
 BR2_LINUX_KERNEL=y
 BR2_LINUX_KERNEL_CUSTOM_GIT=y
 BR2_LINUX_KERNEL_CUSTOM_REPO_URL="https://github.com/raspberrypi/linux.git"
 BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="d33d0293e245badc4ca6ede3984d8bb8ea63cb1a"
 BR2_LINUX_KERNEL_USE_CUSTOM_CONFIG=y
-BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE="../board/raspberrypi/rpi2-linux-4.1.defconfig"
+BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE="${NERVES_SYSTEM}/board/raspberrypi/rpi2-linux-4.1.defconfig"
 BR2_LINUX_KERNEL_ZIMAGE=y
 BR2_LINUX_KERNEL_DTS_SUPPORT=y
 BR2_LINUX_KERNEL_INTREE_DTS_NAME="bcm2709-rpi-2-b"
-BR2_PACKAGE_BUSYBOX_CONFIG="../board/nerves-common/busybox-1.22.config"
+BR2_PACKAGE_BUSYBOX_CONFIG="${NERVES_SYSTEM}/board/nerves-common/busybox-1.22.config"
 BR2_PACKAGE_E2FSPROGS=y
 # BR2_PACKAGE_E2FSPROGS_BADBLOCKS is not set
 # BR2_PACKAGE_E2FSPROGS_CHATTR is not set

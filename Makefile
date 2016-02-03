@@ -1,4 +1,7 @@
-TOPDIR := $(shell pwd)
+# Currently, make must be called from the NERVES_SYSTEM directory
+# or "make -C <dir>" will point it there, so the following is
+# guaranteed to work.
+NERVES_SYSTEM := $(shell pwd)
 
 # Unreleased version of BR required for Galileo support
 NERVES_BR_VERSION = 2016.02-rc1
@@ -21,7 +24,7 @@ $(error 64-bit Linux required for supported cross-compilers)
 endif
 
 
-MAKE_BR = make -C buildroot BR2_EXTERNAL=$(TOPDIR)
+MAKE_BR = make -C buildroot BR2_EXTERNAL=$(NERVES_SYSTEM)
 
 all: br-make
 
@@ -51,7 +54,7 @@ reset-buildroot: .buildroot-downloaded
 
 update-patches: reset-buildroot .buildroot-patched
 
-%_defconfig: $(TOPDIR)/configs/%_defconfig .buildroot-patched
+%_defconfig: $(NERVES_SYSTEM)/configs/%_defconfig .buildroot-patched
 	$(MAKE_BR) $@
 
 buildroot/.config: .buildroot-patched
@@ -70,19 +73,12 @@ br-make: buildroot/.config
 system: br-make
 	scripts/mksystem.sh
 
-# Replace everything on the SDCard with new bits
 burn-complete: burn
 burn:
-	sudo buildroot/output/host/usr/bin/fwup -a -i $(firstword $(wildcard buildroot/output/images/*.fw)) -t complete
+	$(MAKE_BR) $@
 
-# Upgrade the image on the SDCard (app data won't be removed)
-# This is usually the fastest way to update an SDCard that's already
-# been programmed. It won't update bootloaders, so if something is
-# really messed up, burn-complete may be better.
 burn-upgrade:
-	sudo buildroot/output/host/usr/bin/fwup -a -i $(firstword $(wildcard buildroot/output/images/*.fw)) -t upgrade
-	sudo buildroot/output/host/usr/bin/fwup -y -a -i /tmp/finalize.fw -t on-reboot
-	sudo rm /tmp/finalize.fw
+	$(MAKE_BR) $@
 
 menuconfig: buildroot/.config
 	$(MAKE_BR) menuconfig

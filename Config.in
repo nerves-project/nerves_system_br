@@ -1,3 +1,11 @@
+# Configure Nerves
+
+# NERVES_SYSTEM is an alias for BR2_EXTERNAL
+config NERVES_SYSTEM
+	string
+	default BR2_EXTERNAL
+
+# Load Nerves packages
 source "$BR2_EXTERNAL/package/blstrobe/Config.in"
 source "$BR2_EXTERNAL/package/erlang-history/Config.in"
 source "$BR2_EXTERNAL/package/erlinit/Config.in"
