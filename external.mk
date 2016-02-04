@@ -40,5 +40,21 @@ burn-upgrade:
 		echo "and that a firmware (.fw) file is in $(BINARIES_DIR)."; \
 	fi
 
+help:
+	@echo 'Nerves System Help'
+	@echo '------------------'
+	@echo
+	@echo 'Building:'
+	@echo '  all                           - Build the current configuration'
+	@echo '  burn                          - Burn the most recent build to an SDCard (requires sudo)'
+	@echo '  system                        - Build a system image for use with bake'
+	@echo '  clean                         - Clean everything'
+	@echo
+	@echo 'Configuration:'
+	@echo "  menuconfig                    - Run Buildroot's menuconfig"
+	@echo '  linux-menuconfig              - Run menuconfig on the Linux kernel'
+	@echo
+	@echo 'For much more information about the targets in this Makefile, run make buildroot-help'
+	@echo 'and see the Buildroot documentation.'
 
-.PHONY: burn burn-complete burn-upgrade system
+.PHONY: burn burn-complete burn-upgrade system help

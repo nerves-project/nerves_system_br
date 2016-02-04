@@ -124,22 +124,4 @@ realclean:
 	-[ ! -d buildroot ] || chmod -R u+w buildroot
 	-rm -fr buildroot .buildroot-patched .buildroot-downloaded
 
-help:
-	@echo 'Nerves System Help'
-	@echo '------------------'
-	@echo
-	@echo 'Targets:'
-	@echo '  all                           - Build the current configuration'
-	@echo '  burn                          - Burn the most recent build to an SDCard (requires sudo)'
-	@echo '  system                        - Build a system image for use with bake'
-	@echo '  clean                         - Clean everything - run make xyz_defconfig after this'
-	@echo
-	@echo 'Configuration:'
-	@echo "  menuconfig                    - Run Buildroot's menuconfig"
-	@echo '  linux-menuconfig              - Run menuconfig on the Linux kernel'
-	@echo
-	@echo 'Nerves built-in configs:'
-	@$(foreach b, $(sort $(notdir $(wildcard configs/*_defconfig))), \
-	  printf "  %-29s - Build for %s\\n" $(b) $(b:_defconfig=);)
-
 .PHONY: all burn burn-complete burn-upgrade system clean menuconfig linux-menuconfig
