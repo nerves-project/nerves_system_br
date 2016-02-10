@@ -65,7 +65,7 @@ if [ ! -d "$RELEASE_DIR/lib" -o ! -d "$RELEASE_DIR/releases" ]; then
 fi
 
 # Make sure that the firmware output directories are there.
-mkdir -p `dirname $FW_FILENAME`
+mkdir -p $(dirname $FW_FILENAME)
 
 # Update the file system bundle
 echo Updating base firmware image with Erlang release...

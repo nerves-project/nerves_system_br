@@ -9,7 +9,7 @@
 export LD_LIBRARY_PATH=
 
 # Configure platform
-make --silent ${NERVES_CONFIG}_defconfig || exit 1
+make --silent O=output ${NERVES_CONFIG}_defconfig || exit 1
 
 # Build the SDK
 
@@ -17,9 +17,9 @@ make --silent ${NERVES_CONFIG}_defconfig || exit 1
 # https://github.com/buildroot/buildroot-defconfig-testing/blob/master/.travis.yml
 while true ; do echo "Still building" ; sleep 60 ; done &
 watchdogpid=$!
-make > >(tee build.log | grep '>>>') 2>&1
+make -C output > >(tee build.log | grep '>>>') 2>&1
 RC=$?
-kill ${watchdogpid}
+kill $watchdogpid
 if [ $RC -ne 0 ]; then
     exit 1
 fi

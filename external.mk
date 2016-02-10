@@ -10,7 +10,7 @@ NERVES_CONFIG=$(dir $(BR2_DEFCONFIG))
 # Create a system image for use by Bakeware and for creating
 # firmware images without Buildroot
 system:
-	$(BR2_EXTERNAL)/scripts/mksystem.sh
+	$(BR2_EXTERNAL)/scripts/mksystem.sh nerves-system
 
 NERVES_FIRMWARE=$(firstword $(wildcard $(BINARIES_DIR)/*.fw))
 

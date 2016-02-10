@@ -3,7 +3,7 @@
 # sudo-mmccopy
 
 # This script addresses the issue where mmccopy has been installed
-# to the buildroot/output/host/usr/bin directory, but since that directory
+# to the $HOST_DIR/usr/bin directory, but since that directory
 # is not in the sudo path, the user can't easily run it via sudo.
 # All this script does is figure out the absolute path to mmcopy and
 # launch sudo. The user could do this manually, but it's easier to

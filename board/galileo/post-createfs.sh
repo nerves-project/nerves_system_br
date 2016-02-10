@@ -2,7 +2,6 @@
 
 TARGETDIR=$1
 
-NERVES_SYSTEM=$TARGETDIR/../../..
 IMAGESDIR=$TARGETDIR/../images
 FWUP_CONFIG=$NERVES_SYSTEM/board/galileo/fwup.conf
 BASE_FW_NAME=nerves-galileo-base

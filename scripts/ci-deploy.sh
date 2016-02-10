@@ -32,4 +32,4 @@ fi
 rm -fr artifacts
 mkdir artifacts
 cp nerves-system.tar.gz artifacts/nerves-system-$NERVES_CONFIG-$BRANCH_OR_TAG.tar.gz
-cp buildroot/output/images/*.fw artifacts/$NERVES_CONFIG-$BRANCH_OR_TAG.fw # only one .fw file in images
+cp output/images/*.fw artifacts/$NERVES_CONFIG-$BRANCH_OR_TAG.fw # only one .fw file in images

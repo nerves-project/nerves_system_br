@@ -3,5 +3,5 @@
 TARGETDIR=$1
 
 # Run the common post-build processing for nerves
-$TARGETDIR/../../../board/nerves-common/post-build.sh $TARGETDIR
+$BR2_EXTERNAL/board/nerves-common/post-build.sh $TARGETDIR
 

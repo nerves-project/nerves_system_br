@@ -8,4 +8,4 @@ set -e
 
 TARGETDIR=$1
 
-../scripts/scrub-target.sh
+$BR2_EXTERNAL/scripts/scrub-target.sh $TARGETDIR

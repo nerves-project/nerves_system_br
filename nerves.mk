@@ -11,9 +11,9 @@
 NERVES_VERSION:=0.3.3
 
 NERVES_SYSTEM:=$(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-NERVES_TOOLCHAIN=$(NERVES_SYSTEM)/buildroot/output/host
-NERVES_SDK_IMAGES=$(NERVES_SYSTEM)/buildroot/output/images
-NERVES_SDK_SYSROOT=$(NERVES_SYSTEM)/buildroot/output/staging
+NERVES_TOOLCHAIN=$(NERVES_SYSTEM)/host
+NERVES_SDK_IMAGES=$(NERVES_SYSTEM)/images
+NERVES_SDK_SYSROOT=$(NERVES_SYSTEM)/staging
 
 # Keep NERVES_ROOT defined for the transition period
 NERVES_ROOT=$(NERVES_SYSTEM)

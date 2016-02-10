@@ -5,8 +5,8 @@ set -e
 TARGETDIR=$1
 
 # Copy over the grub config to the EFI directory
-cp $TARGETDIR/../../../board/galileo/grub.cfg ${BINARIES_DIR}/efi-part/EFI/BOOT/grub.cfg
+cp $BR2_EXTERNAL/board/galileo/grub.cfg $BINARIES_DIR/efi-part/EFI/BOOT/grub.cfg
 
 # Run the common post-build processing for nerves
-$TARGETDIR/../../../board/nerves-common/post-build.sh $TARGETDIR
+$BR2_EXTERNAL/board/nerves-common/post-build.sh $TARGETDIR
 

@@ -29,9 +29,9 @@ done
 
 if [ "$BASH_SOURCE" = "" ]; then
     GET_NR_COMMAND="$0 $@ -get-nerves-root"
-    NERVES_SYSTEM=$(bash -c "$GET_NR_COMMAND")
+    SCRIPT_DIR=$(bash -c "$GET_NR_COMMAND")
 else
-    NERVES_SYSTEM=$(dirname $(readlink_f "${BASH_SOURCE[0]}"))
+    SCRIPT_DIR=$(dirname $(readlink_f "${BASH_SOURCE[0]}"))
 fi
 
 # Detect if this script has been run directly rather than sourced, since
@@ -48,14 +48,29 @@ if [[ "$SHELL" = "/bin/bash" ]]; then
 # TODO: Figure out how to detect this error from other shells.
 fi
 
-source $NERVES_SYSTEM/scripts/nerves-env-helper.sh $NERVES_SYSTEM
+# Determine the location of the NERVES_SYSTEM directory. This script is
+# either being sourced from the directory or from the base of nerves-system-br.
+# If it's the latter, then point the helper script at the appropriate place.
+if [ -e "$SCRIPT_DIR/.config" ]; then
+    NERVES_SYSTEM=$SCRIPT_DIR
+elif [ -e "$SCRIPT_DIR/buildroot/output" ]; then
+    NERVES_SYSTEM=$SCRIPT_DIR/buildroot/output
+else
+    echo "ERROR: Can't find Nerves system directory. Has Nerves been built?"
+    echo " If sourcing from the nerves-system-br directory, then the build products"
+    echo " aren't in the default location. The new way is to source nerves-env.sh"
+    echo " from nerves-system-br's output directory."
+    return 1
+fi
+
+source $SCRIPT_DIR/scripts/nerves-env-helper.sh $NERVES_SYSTEM
 if [ $? != 0 ]; then
     echo "Shell environment NOT updated for Nerves!"
     return 1
 else
     # Found it. Print out some useful information so that the user can
     # easily figure out whether the wrong nerves installation was used.
-    NERVES_DEFCONFIG=$(grep BR2_DEFCONFIG= $NERVES_SYSTEM/buildroot/.config | sed -e 's/BR2_DEFCONFIG=".*\/\(.*\)"/\1/')
+    NERVES_DEFCONFIG=$(grep BR2_DEFCONFIG= $NERVES_SYSTEM/.config | sed -e 's/BR2_DEFCONFIG=".*\/\(.*\)"/\1/')
     NERVES_VERSION=$(grep NERVES_VERSION:= $NERVES_SYSTEM/nerves.mk | sed -e 's/NERVES_VERSION\:=\(.*\)/\1/')
     NERVES_ELIXIR_VERSION_FILE=$(dirname $(readlink_f $(which iex)))/../VERSION
 

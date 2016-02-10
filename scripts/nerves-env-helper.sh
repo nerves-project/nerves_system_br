@@ -20,10 +20,10 @@ ldlibrarypathadd() {
     fi
 }
 
-if [ -e $NERVES_SYSTEM/buildroot/output/host ]; then
+if [ -e $NERVES_SYSTEM/host ]; then
     # This is a Linux Buildroot build, so use tools as
     # provided by Buildroot
-    NERVES_TOOLCHAIN=$NERVES_SYSTEM/buildroot/output/host
+    NERVES_TOOLCHAIN=$NERVES_SYSTEM/host
     ALL_CROSSCOMPILE=`ls $NERVES_TOOLCHAIN/usr/bin/*gcc | sed -e s/-gcc//`
 
     # For Buildroot builds, use the Buildroot provided versions of pkg-config
@@ -59,15 +59,13 @@ if [ "$ALL_CROSSCOMPILE" = "" ]; then
     return 1
 fi
 
-NERVES_SDK_IMAGES=$NERVES_SYSTEM/buildroot/output/images
-NERVES_SDK_SYSROOT=$NERVES_SYSTEM/buildroot/output/staging
+NERVES_SDK_IMAGES=$NERVES_SYSTEM/images
+NERVES_SDK_SYSROOT=$NERVES_SYSTEM/staging
 
 # Check that the base buildroot image has been built
-if [ ! -d "$NERVES_SYSTEM/buildroot/output" ]; then
+if [ ! -d "$NERVES_SDK_IMAGES" ]; then
     echo "ERROR: It looks like the system hasn't been built!"
-    echo "    If this is nerves-system-br, then run \"make your_defconfig\""
-    echo "    and then \"make\" to build it. If this is a prepackaged system"
-    echo "    image, then something failed when it was extracted."
+    echo "    Expected to find the $NERVES_SDK_IMAGES directory, but didn't."
     return 1
 fi
 
