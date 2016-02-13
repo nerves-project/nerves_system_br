@@ -6,6 +6,4 @@ set -e
 # Nerves common post-build hook
 #
 
-TARGETDIR=$1
-
-$BR2_EXTERNAL/scripts/scrub-target.sh $TARGETDIR
+$BR2_EXTERNAL/scripts/scrub-target.sh $1

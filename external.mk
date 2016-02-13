@@ -3,9 +3,9 @@ include $(sort $(wildcard $(BR2_EXTERNAL)/package/*/*.mk))
 
 # Nerves targets
 
-# NERVES_CONFIG is used to reference files in configurations
+# NERVES_DEFCONFIG_DIR is used to reference files in configurations
 # relative to wherever the _defconfig is stored.
-NERVES_CONFIG=$(dir $(BR2_DEFCONFIG))
+NERVES_DEFCONFIG_DIR=$(dir $(BR2_DEFCONFIG))
 
 # Create a system image for use by Bakeware and for creating
 # firmware images without Buildroot
@@ -41,20 +41,24 @@ burn-upgrade:
 	fi
 
 help:
-	@echo 'Nerves System Help'
-	@echo '------------------'
+	@echo "Nerves System Help"
+	@echo "------------------"
 	@echo
-	@echo 'Building:'
-	@echo '  all                           - Build the current configuration'
-	@echo '  burn                          - Burn the most recent build to an SDCard (requires sudo)'
-	@echo '  system                        - Build a system image for use with bake'
-	@echo '  clean                         - Clean everything'
+	@echo "This build directory is configured to create the system described in:"
 	@echo
-	@echo 'Configuration:'
+	@echo "$(BR2_DEFCONFIG)"
+	@echo
+	@echo "Building:"
+	@echo "  all                           - Build the current configuration"
+	@echo "  burn                          - Burn the most recent build to an SDCard (requires sudo)"
+	@echo "  system                        - Build a system image for use with bake"
+	@echo "  clean                         - Clean everything"
+	@echo
+	@echo "Configuration:"
 	@echo "  menuconfig                    - Run Buildroot's menuconfig"
-	@echo '  linux-menuconfig              - Run menuconfig on the Linux kernel'
+	@echo "  linux-menuconfig              - Run menuconfig on the Linux kernel"
 	@echo
-	@echo 'For much more information about the targets in this Makefile, run make buildroot-help'
-	@echo 'and see the Buildroot documentation.'
+	@echo "For much more information about the targets in this Makefile, run 'make buildroot-help'"
+	@echo "and see the Buildroot documentation."
 
 .PHONY: burn burn-complete burn-upgrade system help

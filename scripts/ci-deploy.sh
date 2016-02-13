@@ -4,11 +4,12 @@
 # for Travis-CI to publish
 
 # The following environment variables are used:
-#  NERVES_CONFIG - e.g. nerves_bbb
-#  TRAVIS - On Travis-CI, this is "true"
+#  CI_DEFCONFIG_DIR    - the name of the directory under configs
+#  CI_DEFCONFIG        - the part of the filename that comes before _defconfig
+#  TRAVIS              - On Travis-CI, this is "true"
 #  TRAVIS_PULL_REQUEST - Must be "false". Travis should not invoke this script on pull requests
-#  TRAVIS_TAG - The tag name if a tagged build
-#  TRAVIS_BRANCH - The branch name
+#  TRAVIS_TAG          - The tag name if a tagged build
+#  TRAVIS_BRANCH       - The branch name
 
 # Check if we're building under Travis-ci
 if [ "$TRAVIS" = "true" ]; then
@@ -31,5 +32,5 @@ fi
 # Copy the artifacts to a location that's easy to reference in the .travis.yml
 rm -fr artifacts
 mkdir artifacts
-cp nerves-system.tar.gz artifacts/nerves-system-$NERVES_CONFIG-$BRANCH_OR_TAG.tar.gz
-cp output/images/*.fw artifacts/$NERVES_CONFIG-$BRANCH_OR_TAG.fw # only one .fw file in images
+cp ${CI_DEFCONFIG_DIR}.tar.gz artifacts/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.tar.gz
+cp output/images/${CI_DEFCONFIG_DIR}.fw artifacts/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.fw # only one .fw file in images

@@ -5,6 +5,13 @@ config NERVES_SYSTEM
 	string
 	default BR2_EXTERNAL
 
+config BR2_NERVES_SYSTEM_NAME
+	string "Nerves system name"
+	default "nerves_system"
+	help
+	  Specify a name for this system configuration. This name is
+	  used in various places to help identify images.
+
 # Load Nerves packages
 source "$BR2_EXTERNAL/package/blstrobe/Config.in"
 source "$BR2_EXTERNAL/package/erlang-history/Config.in"

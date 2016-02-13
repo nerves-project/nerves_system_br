@@ -18,10 +18,10 @@ cache:
 # Build the official configurations
 env:
   matrix:
-  - NERVES_CONFIG=nerves_bbb_elixir
-  - NERVES_CONFIG=nerves_rpi_elixir
-  - NERVES_CONFIG=nerves_rpi2_elixir
-  - NERVES_CONFIG=nerves_galileo_elixir
+  - CI_DEFCONFIG_DIR=nerves_system_bbb CI_DEFCONFIG=elixir
+  - CI_DEFCONFIG_DIR=nerves_system_rpi CI_DEFCONFIG=elixir
+  - CI_DEFCONFIG_DIR=nerves_system_rpi2 CI_DEFCONFIG=elixir
+  - CI_DEFCONFIG_DIR=nerves_system_galileo CI_DEFCONFIG=elixir
 
 # Inspect the cache and build
 script:
@@ -36,8 +36,8 @@ deploy:
   - provider: releases
     api_key: $GITHUB_API_KEY
     file:
-      - "artifacts/nerves-system-$NERVES_CONFIG-$TRAVIS_TAG.tar.gz"
-      - "artifacts/$NERVES_CONFIG-$TRAVIS_TAG.fw"
+      - "artifacts/$CI_DEFCONFIG_DIR-$CI_DEFCONFIG-$TRAVIS_TAG.tar.gz"
+      - "artifacts/$CI_DEFCONFIG_DIR-$CI_DEFCONFIG-$TRAVIS_TAG.fw"
     skip_cleanup: true
     on:
       repo: nerves-project/nerves-system-br

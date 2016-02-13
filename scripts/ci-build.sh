@@ -1,15 +1,24 @@
 #!/bin/bash
 
+# Not using "set -e" due to watchdog clean code below (FIXME)
+
 # This script is invoked by the CI system to build a nerves-system-br configuration.
 
 # The following environment variables should be set:
-#  NERVES_CONFIG - e.g. nerves_bbb
+#  CI_DEFCONFIG_DIR - the name of the directory under configs
+#  CI_DEFCONFIG     - the part of the filename that comes before _defconfig
+#
+# For example, to build configs/nerves_system_bbb/elixir_defconfig, the above variables
+# are:
+#  CI_DEFCONFIG_DIR=nerves_system_bbb
+#  CI_DEFCONFIG=elixir
+#
 
 # Buildroot doesn't like LD_LIBRARY_PATH set
 export LD_LIBRARY_PATH=
 
 # Configure platform
-make --silent O=output ${NERVES_CONFIG}_defconfig || exit 1
+make --silent O=output DEFCONFIG=configs/${CI_DEFCONFIG_DIR}/${CI_DEFCONFIG}_defconfig config || exit 1
 
 # Build the SDK
 
@@ -26,4 +35,4 @@ fi
 
 # Create a system image
 echo "Creating system image..."
-scripts/mksystem.sh nerves-system || exit 1
+make -C output system || exit 1
