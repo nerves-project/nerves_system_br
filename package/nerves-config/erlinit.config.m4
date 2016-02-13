@@ -18,8 +18,8 @@ ifelse(VERBOSE_INIT, `y', `-v', `#-v')
 # Uncomment to hang the board rather than rebooting when Erlang exits
 ifelse(HANG_ON_EXIT, `y', `-h', `#-h')
 
-# Enable UTF-8 filename handling in Erlang
--e LANG=en_US.UTF-8;LANGUAGE=en
+# Enable UTF-8 filename handling in Erlang and custom inet configuration
+-e LANG=en_US.UTF-8;LANGUAGE=en;ERL_INETRC=/etc/erl_inetrc
 
 # Mount the application partition
 # See http://www.linuxfromscratch.org/lfs/view/6.3/chapter08/fstab.html about
