@@ -15,8 +15,8 @@ set -e
 # $BINARIES_DIR the path to the images directory (normally $BASE_DIR/images)
 
 
-if [ $# -ne 3 ]; then
-    echo "Usage: $0 <BR images directory> <Path to fwup.conf> <Base firmware name>"
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 <BR images directory> <Path to fwup.conf> [Base firmware name]"
     exit 1
 fi
 
@@ -24,6 +24,14 @@ FWUP_CONFIG=$2
 BASE_FW_NAME=$3
 
 [ ! -f $FWUP_CONFIG ] && { echo "Error: $FWUP_CONFIG not found"; exit 1; }
+
+if [ -z $BASE_FW_NAME ]; then
+    # Read the system name from the .config, trim off the
+    # the BR2_NERVES_SYSTEM_NAME= part, and dequote.
+    BR2_NERVES_SYSTEM_NAME=$(grep BR2_NERVES_SYSTEM_NAME $BASE_DIR/.config)
+    BASE_FW_NAME=${BR2_NERVES_SYSTEM_NAME#BR2_NERVES_SYSTEM_NAME=\"}
+    BASE_FW_NAME=${BASE_FW_NAME%\"}
+fi
 
 # Copy the fwup config to the images directory so that
 # it can be used to create images based on this one.
