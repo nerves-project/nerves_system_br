@@ -1,0 +1,42 @@
+From 68c89d1922a0d433e268580f95a90463965d1f3f Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 3 Feb 2016 22:11:29 -0500
+Subject: [PATCH 09/11] Beautify Buildroot for Nerves
+
+Make several modifications to Buildroot's help and menus so that it
+makes more sense for Nerves users who may not have used Buildroot
+before.
+---
+ Config.in | 2 +-
+ Makefile  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Config.in b/Config.in
+index 30e88e3..8e7572a 100644
+--- a/Config.in
++++ b/Config.in
+@@ -708,7 +708,7 @@ source "package/Config.in.host"
+ 
+ source "Config.in.legacy"
+ 
+-menu "User-provided options"
++menu "Nerves options"
+ 	depends on BR2_EXTERNAL != "support/dummy-external"
+ 
+ source "$BR2_EXTERNAL/Config.in"
+diff --git a/Makefile b/Makefile
+index 71735b5..d80aab5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -893,7 +893,7 @@ endif
+ 	rm -rf $(BR2_CONFIG) $(CONFIG_DIR)/.config.old $(CONFIG_DIR)/..config.tmp \
+ 		$(CONFIG_DIR)/.auto.deps $(BR2_EXTERNAL_FILE)
+ 
+-help:
++buildroot-help:
+ 	@echo 'Cleaning:'
+ 	@echo '  clean                  - delete all files created by build'
+ 	@echo '  distclean              - delete all non-source files (including .config)'
+-- 
+2.5.0
+
