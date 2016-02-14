@@ -1,7 +1,7 @@
-From 91fd466837d4757c5fbe54139b9a387d4266ea50 Mon Sep 17 00:00:00 2001
+From 40fbabf8ad5bbd799edebc564564e590629fe143 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 10 Dec 2015 23:05:50 -0500
-Subject: [PATCH 8/8] Hold the RPi build for Nerves
+Subject: [PATCH 8/9] Hold the RPi build for Nerves
 
 ---
  package/rpi-firmware/rpi-firmware.mk               |   2 +-
@@ -26,14 +26,14 @@ Subject: [PATCH 8/8] Hold the RPi build for Nerves
  delete mode 100644 package/rpi-userland/0006-Fix-conflicting-type-qualifiers-errors-when-building.patch
 
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index 2436376..5d904ba 100644
+index 4b92a50..5d904ba 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
 @@ -4,7 +4,7 @@
  #
  ################################################################################
  
--RPI_FIRMWARE_VERSION = 52f65ac4ad1ef1d2838fa2f921d5bc3ece4c777b
+-RPI_FIRMWARE_VERSION = 22d8c910f4c53118f9cf85c038d7d8e307efc110
 +RPI_FIRMWARE_VERSION = b9fac65dd9ff607d0c2c4ea1bbba2bbf3fbc4a10
  RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
  RPI_FIRMWARE_LICENSE = BSD-3c
@@ -649,7 +649,7 @@ index 4db6014..0000000
 -1.9.1
 -
 diff --git a/package/rpi-userland/rpi-userland.mk b/package/rpi-userland/rpi-userland.mk
-index 0a25b2d..fa8943b 100644
+index fbf6fb4..a5ca1b7 100644
 --- a/package/rpi-userland/rpi-userland.mk
 +++ b/package/rpi-userland/rpi-userland.mk
 @@ -4,7 +4,7 @@

@@ -1,7 +1,7 @@
-From fca039e8fd6a8148a06a963b70d99a20f7fd07d2 Mon Sep 17 00:00:00 2001
+From ce5a1470d2be01c5fa8185681a1b33b9c9ce295a Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 13 Oct 2015 09:04:05 -0400
-Subject: [PATCH 6/8] erlang: bump version to 18.2.1
+Subject: [PATCH 6/9] erlang: bump version to 18.2.1
 
 This is a major release of Erlang that includes a licensing change from
 the EPL to the Apache License, significant changes to the timer APIs, better
