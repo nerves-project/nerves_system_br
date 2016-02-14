@@ -4,6 +4,7 @@ config BR2_PACKAGE_FWUP
 	select BR2_PACKAGE_LIBARCHIVE
 	select BR2_PACKAGE_ZLIB        # required by libarchive to include zip compression
 	select BR2_PACKAGE_LIBCONFUSE
+	select BR2_PACKAGE_LIBSODIUM
 	help
 	  Fwup is a scriptable embedded Linux firmware update creator and runner.
 
