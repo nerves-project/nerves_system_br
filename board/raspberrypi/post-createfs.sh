@@ -6,8 +6,8 @@ set -e
 FWUP_CONFIG=$2
 
 # Process the kernel if using device tree
-if [ -e $BR2_EXTERNAL/host/usr/bin/mkknlimg ]; then
-    $BR2_EXTERNAL/host/usr/bin/mkknlimg \
+if [ -e $HOST_DIR/usr/bin/mkknlimg ]; then
+    $HOST_DIR/usr/bin/mkknlimg \
         $BINARIES_DIR/zImage $BINARIES_DIR/zImage.mkknlimg
 fi
 
