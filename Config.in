@@ -5,6 +5,12 @@ config NERVES_SYSTEM
 	string
 	default BR2_EXTERNAL
 
+# NERVES_DEFCONFIG_DIR is the directory that contains
+# the active defconfig
+config NERVES_DEFCONFIG_DIR
+	string
+	option env="NERVES_DEFCONFIG_DIR"
+
 config BR2_NERVES_SYSTEM_NAME
 	string "Nerves system name"
 	default "nerves_system"
@@ -24,3 +30,10 @@ source "$BR2_EXTERNAL/package/elixir/Config.in.host"
 source "$BR2_EXTERNAL/package/erlang-relsync/Config.in.host"
 source "$BR2_EXTERNAL/package/erlang-relx/Config.in.host"
 source "$BR2_EXTERNAL/package/fwup/Config.in.host"
+
+# Load user options
+menu "User-provided options"
+
+source "$NERVES_DEFCONFIG_DIR/Config.in"
+
+endmenu

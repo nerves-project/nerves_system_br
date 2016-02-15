@@ -56,7 +56,7 @@ reset-buildroot: .buildroot-downloaded
 	rm -f .buildroot-patched
 
 config: $(DEFCONFIG) .buildroot-patched
-	$(MAKE_BR) NERVES_DEFCONFIG_DIR=$(dirname $(abspath $(DEFCONFIG))) \
+	$(MAKE_BR) NERVES_DEFCONFIG_DIR=$(dir $(abspath $(DEFCONFIG))) \
 	    BR2_DEFCONFIG=$(abspath $(DEFCONFIG)) \
 	    DEFCONFIG=$(abspath $(DEFCONFIG)) defconfig
 

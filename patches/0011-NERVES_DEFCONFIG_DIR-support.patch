@@ -1,0 +1,51 @@
+From c6a5faadeb652913fe80259299a4a2fdc1a86404 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Mon, 15 Feb 2016 10:21:17 -0500
+Subject: [PATCH 11/11] NERVES_DEFCONFIG_DIR support
+
+---
+ Makefile | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index d80aab5..f8eae33 100644
+--- a/Makefile
++++ b/Makefile
+@@ -168,6 +168,26 @@ else
+   $(shell echo BR2_EXTERNAL ?= $(BR2_EXTERNAL) > $(BR2_EXTERNAL_FILE))
+ endif
+ 
++# Handling of NERVES_DEFCONFIG_DIR.
++#
++# While NERVES_DEFCONFIG_DIR can be derived from BR2_DEFCONFIG,
++# the latter variable isn't always defined. This is a copy/paste of the
++# BR2_EXTERNAL support. It should be vastly simpler, but this works.
++
++NERVES_DEFCONFIG_DIR_FILE = $(BASE_DIR)/.br-defconfig-dir
++-include $(NERVES_DEFCONFIG_DIR_FILE)
++ifeq ($(NERVES_DEFCONFIG_DIR),)
++  override NERVES_DEFCONFIG_DIR = support/dummy-external
++  $(shell rm -f $(NERVES_DEFCONFIG_DIR_FILE))
++else
++  _NERVES_DEFCONFIG_DIR = $(shell cd $(NERVES_DEFCONFIG_DIR) >/dev/null 2>&1 && pwd)
++  ifeq ($(_NERVES_DEFCONFIG_DIR),)
++    $(error NERVES_DEFCONFIG_DIR='$(NERVES_DEFCONFIG_DIR)' does not exist)
++  endif
++  override NERVES_DEFCONFIG_DIR := $(_NERVES_DEFCONFIG_DIR)
++  $(shell echo NERVES_DEFCONFIG_DIR ?= $(NERVES_DEFCONFIG_DIR) > $(NERVES_DEFCONFIG_DIR_FILE))
++endif
++
+ # To make sure that the environment variable overrides the .config option,
+ # set this before including .config.
+ ifneq ($(BR2_DL_DIR),)
+@@ -765,6 +785,7 @@ COMMON_CONFIG_ENV = \
+ 	KCONFIG_TRISTATE=$(BUILD_DIR)/buildroot-config/tristate.config \
+ 	BR2_CONFIG=$(BR2_CONFIG) \
+ 	BR2_EXTERNAL=$(BR2_EXTERNAL) \
++	NERVES_DEFCONFIG_DIR='$(NERVES_DEFCONFIG_DIR)' \
+ 	HOST_GCC_VERSION="$(HOSTCC_VERSION)" \
+ 	SKIP_LEGACY=
+ 
+-- 
+2.5.0
+

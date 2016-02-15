@@ -1,0 +1,2 @@
+# Load custom packages
+source "$NERVES_DEFCONFIG_DIR/package/my-package/Config.in"

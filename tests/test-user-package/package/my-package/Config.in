@@ -1,0 +1,7 @@
+config BR2_PACKAGE_MY_PACKAGE
+	bool "my-package"
+	help
+	  This is a test of adding your non-BEAM packages to Nerves.
+	  Of course, it's nice to push your custom packages upstream
+	  to Buildroot or Nerves, but if you have something new or
+	  proprietary, this is a place to put it.

@@ -5,7 +5,11 @@ include $(sort $(wildcard $(BR2_EXTERNAL)/package/*/*.mk))
 
 # NERVES_DEFCONFIG_DIR is used to reference files in configurations
 # relative to wherever the _defconfig is stored.
-NERVES_DEFCONFIG_DIR=$(dir $(BR2_DEFCONFIG))
+NERVES_DEFCONFIG_DIR = $(dir $(call qstrip,$(BR2_DEFCONFIG)))
+export NERVES_DEFCONFIG_DIR
+
+# Pull in any configuration-specific packages
+-include $(NERVES_DEFCONFIG_DIR)/external.mk
 
 # Create a system image for use by Bakeware and for creating
 # firmware images without Buildroot
