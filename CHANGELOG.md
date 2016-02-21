@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.3.2
+
+  * New features
+    * Updated Linux kernel to 4.1 on Raspberry Pi platforms. The Raspberry Pi
+      Zero now works. This is not thoroughly tested.
+    * Enable WiFi on Raspberry Pi. Application support is needed, so this is
+      only one step to getting WiFi working out of the box.
+    * Update buildroot to 2016.02-rc1 to pull in current Raspberry Pi support.
+    * Switch default DNS resolver to use Erlang's internal support
+
+  * Bug fixes
+    * Remove exrm check from nerves-elixir.mk since it's also possible to
+      use the nerves application to package the release
+
+  * Package updates
+    * fwup v0.6.0
+    * Many others from the Buildroot update
+
 ## v0.3.1
 
   * New features
