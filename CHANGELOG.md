@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.3.3
+
+  * Bug fixes
+    * Re-enable CONFIG_LEDS_GPIO in Raspberry Pi kernel
+
+  * Package updates
+    * Elixir 1.2.3
+
 ## v0.3.2
 
   * New features

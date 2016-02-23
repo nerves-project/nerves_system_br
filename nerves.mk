@@ -8,7 +8,7 @@
 # on the commandline should you need to run commands manually.
 #
 
-NERVES_VERSION:=0.3.2
+NERVES_VERSION:=0.3.3
 
 NERVES_SYSTEM:=$(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 NERVES_TOOLCHAIN=$(NERVES_SYSTEM)/buildroot/output/host
