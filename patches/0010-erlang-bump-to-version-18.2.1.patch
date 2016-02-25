@@ -1,18 +1,20 @@
-From ce5a1470d2be01c5fa8185681a1b33b9c9ce295a Mon Sep 17 00:00:00 2001
+From 6e53922210eda46389f453df45520293e5fbc1e5 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
-Date: Tue, 13 Oct 2015 09:04:05 -0400
-Subject: [PATCH 6/9] erlang: bump version to 18.2.1
+Date: Tue, 2 Feb 2016 14:57:27 -0500
+Subject: [PATCH] erlang: bump to version 18.2.1
 
 This is a major release of Erlang that includes a licensing change from
 the EPL to the Apache License, significant changes to the timer APIs, better
 support for large maps, and security improvements.
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+Reviewed-by: Romain Naour <romain.naour@gmail.com>
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
 ---
  ...04-erts-fix-incorrect-use-of-ac-egrep-cpp.patch | 79 ----------------------
- package/erlang/erlang.hash                         |  2 +-
- package/erlang/erlang.mk                           |  8 +--
- 3 files changed, 5 insertions(+), 84 deletions(-)
+ package/erlang/erlang.hash                         |  5 +-
+ package/erlang/erlang.mk                           | 10 +--
+ 3 files changed, 8 insertions(+), 86 deletions(-)
  delete mode 100644 package/erlang/0004-erts-fix-incorrect-use-of-ac-egrep-cpp.patch
 
 diff --git a/package/erlang/0004-erts-fix-incorrect-use-of-ac-egrep-cpp.patch b/package/erlang/0004-erts-fix-incorrect-use-of-ac-egrep-cpp.patch
@@ -101,18 +103,20 @@ index bc08697..0000000
 -2.1.0
 -
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 2d6a39a..e04893e 100644
+index 2d6a39a..f6519af 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
-@@ -1,2 +1,2 @@
- # From http://www.erlang.org/download/MD5
+@@ -1,2 +1,3 @@
+-# From http://www.erlang.org/download/MD5
 -md5	346dd0136bf1cc28cebc140e505206bb	otp_src_17.5.tar.gz
++# md5 from http://www.erlang.org/download/MD5, sha256 locally computed
 +md5	ebb226d51f89ec54cc83ce5d417ce55e	otp_src_18.2.1.tar.gz
++sha256	82d76ebfeeda5db64ea5b0f1a04aa0e9ac63380b278722e0e6052249bd3fe39a  otp_src_18.2.1.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 9c8d476..dd7bb46 100644
+index 9c8d476..db6bef9 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -5,13 +5,13 @@
+@@ -5,21 +5,21 @@
  ################################################################################
  
  # See note below when updating Erlang
@@ -128,8 +132,9 @@ index 9c8d476..dd7bb46 100644
 +ERLANG_LICENSE_FILES = LICENSE.txt
  ERLANG_INSTALL_STAGING = YES
  
- # Touching erts/configure.in
-@@ -19,7 +19,7 @@ ERLANG_AUTORECONF = YES
+-# Touching erts/configure.in
++# Patched erts/aclocal.m4
+ ERLANG_AUTORECONF = YES
  
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk

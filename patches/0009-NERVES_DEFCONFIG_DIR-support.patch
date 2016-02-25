@@ -1,14 +1,14 @@
-From c6a5faadeb652913fe80259299a4a2fdc1a86404 Mon Sep 17 00:00:00 2001
+From a367544caafb9ebc810b17aa8dc3b2a80a53be93 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 15 Feb 2016 10:21:17 -0500
-Subject: [PATCH 11/11] NERVES_DEFCONFIG_DIR support
+Subject: [PATCH] NERVES_DEFCONFIG_DIR support
 
 ---
  Makefile | 21 +++++++++++++++++++++
  1 file changed, 21 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index d80aab5..f8eae33 100644
+index d8914a4..4e19546 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -168,6 +168,26 @@ else

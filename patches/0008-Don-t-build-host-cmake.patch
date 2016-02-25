@@ -1,7 +1,7 @@
-From f37e169668cd73cc6e7ec775896ae0fef2500673 Mon Sep 17 00:00:00 2001
+From 80ac61b6f634d65e3aa3ebd83d8eefce0452d59c Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 14 Feb 2016 11:12:04 -0500
-Subject: [PATCH 10/10] Don't build host-cmake
+Subject: [PATCH] Don't build host-cmake
 
 This actually fails on Travis due to a gcc internal compiler error. For
 other systems, building cmake takes a long time and can be trivially

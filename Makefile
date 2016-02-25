@@ -4,7 +4,7 @@
 NERVES_SYSTEM := $(shell pwd)
 
 # Unreleased version of BR required for Galileo support
-NERVES_BR_VERSION = 2016.02-rc1
+NERVES_BR_VERSION = 2016.02-rc2
 NERVES_BR_URL = git://git.buildroot.net/buildroot
 NERVES_DEFCONFIG = $(shell grep BR2_DEFCONFIG= buildroot/.config | sed -e 's/.*"\(.*\)"/\1/')
 

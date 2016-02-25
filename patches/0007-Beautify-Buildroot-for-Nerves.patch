@@ -1,7 +1,7 @@
-From 68c89d1922a0d433e268580f95a90463965d1f3f Mon Sep 17 00:00:00 2001
+From c71e4751687113802b9c758011cb6ac746617ad5 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 3 Feb 2016 22:11:29 -0500
-Subject: [PATCH 09/11] Beautify Buildroot for Nerves
+Subject: [PATCH] Beautify Buildroot for Nerves
 
 Make several modifications to Buildroot's help and menus so that it
 makes more sense for Nerves users who may not have used Buildroot
@@ -25,7 +25,7 @@ index 30e88e3..8e7572a 100644
  
  source "$BR2_EXTERNAL/Config.in"
 diff --git a/Makefile b/Makefile
-index 71735b5..d80aab5 100644
+index 90018b4..d8914a4 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -893,7 +893,7 @@ endif
