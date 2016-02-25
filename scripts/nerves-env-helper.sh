@@ -114,6 +114,7 @@ export LDFLAGS=""
 export STRIP=$CROSSCOMPILE-strip
 export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
 export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lerl_interface -lei"
+export REBAR_TARGET_ARCH=$(basename $CROSSCOMPILE)
 
 # Rebar naming
 export ERL_EI_LIBDIR="$ERL_INTERFACE_DIR/lib"

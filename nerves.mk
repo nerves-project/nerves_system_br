@@ -36,6 +36,7 @@ LDFLAGS=""
 STRIP=$(CROSSCOMPILE)-strip
 ERL_CFLAGS="-I$(ERTS_DIR)/include -I$(ERL_INTERFACE_DIR)/include"
 ERL_LDFLAGS="-L$(ERTS_DIR)/lib -L$(ERL_INTERFACE_DIR)/lib -lerts -lerl_interface -lei"
+REBAR_TARGET_ARCH=$(notdir $(CROSSCOMPILE))
 
 # Rebar naming
 ERL_EI_LIBDIR="$(ERL_INTERFACE_DIR)/lib"
