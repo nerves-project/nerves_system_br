@@ -31,5 +31,9 @@ else
     # NOTE: even though we could just use format=tar.gz, this doesn't
     # work on old versions of git like the one on Debian 6.0
     git archive --format=tar --prefix=$BASENAME/ $HASHTAG | gzip -c > $CACHED_PATH_TGZ
+
+    # Remove the git metadata directory to avoid this looking like a
+    # repository on first checkout and causing confusion.
+    rm -fr $BASENAME/.git
 fi
 
