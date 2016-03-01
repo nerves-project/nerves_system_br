@@ -13,7 +13,7 @@
 
 set -e
 
-NERVES_BR_VERSION=2016.02-rc3
+NERVES_BR_VERSION=2016.02
 
 DEFCONFIG=$1
 BUILD_DIR=$2
@@ -42,8 +42,8 @@ NERVES_DEFCONFIG=$(readlink_f $DEFCONFIG)
 NERVES_DEFCONFIG_DIR=$(dirname $NERVES_DEFCONFIG)
 NERVES_BUILD_DIR=$(readlink_f $BUILD_DIR)
 
-if [[ ! -e $NERVES_DEFCONFIG ]]; then
-    echo "ERROR: Can't find $NERVES_DEFCONFIG. Please check that it exists"
+if [[ ! -f $NERVES_DEFCONFIG ]]; then
+    echo "ERROR: Can't find $NERVES_DEFCONFIG. Please check that it exists."
     exit 1
 fi
 
