@@ -1,7 +1,4 @@
-buildroot
-.buildroot-downloaded
-.buildroot-patched
+/buildroot*
 *~
-.nerves-defconfig
 /artifacts
 /nerves-system-*

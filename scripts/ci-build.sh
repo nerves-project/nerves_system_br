@@ -18,7 +18,7 @@
 export LD_LIBRARY_PATH=
 
 # Configure platform
-make --silent O=output DEFCONFIG=configs/${CI_DEFCONFIG_DIR}/${CI_DEFCONFIG}_defconfig config || exit 1
+./create-build.sh configs/${CI_DEFCONFIG_DIR}/${CI_DEFCONFIG}_defconfig output || exit 1
 
 # Build the SDK
 

@@ -91,12 +91,12 @@ a supported configuration for the new board.
 Change to the nerves-system-br directory and run following to create a build directory
 for your configuration:
 
-    ./create_build.sh <path to defconfig> <build directory>
+    ./create-build.sh <path to defconfig> <build directory>
 
 For example, if you're interested in a Raspberry Pi Model A+, B+ or Zero configuration, start
 out with the `configs/nerves_system_rpi/elixir_defconfig`:
 
-    ./create_build.sh configs/nerves_system_rpi/elixir_defconfig rpi-build
+    ./create-build.sh configs/nerves_system_rpi/elixir_defconfig rpi-build
 
 Feel free to replace `elixir_defconfig` with `erlang_defconfig` or `lfe_defconfig`. The difference
 is less important in the long run since Nerves packages the Erlang/OTP releases of your app,
