@@ -29,6 +29,18 @@ if [ -z $ARCHIVE_NAME ]; then
     exit 1
 fi
 
+# Check the working directory
+if [ ! -f $PWD/package/pkg-generic.mk ]; then
+    echo "ERROR: mksystem.sh must be run from the buildroot directory"
+    exit 1
+fi
+
+# Check BASE_DIR
+if [ -z $BASE_DIR ]; then
+    echo "ERROR: BASE_DIR undefined? Script should be called from Buildroot."
+    exit 1
+fi
+
 NERVES_DEFCONFIG=$(grep BR2_DEFCONFIG= $BASE_DIR/.config | sed -e 's/BR2_DEFCONFIG=".*\/\(.*\)"/\1/')
 
 WORK_DIR=$BASE_DIR/tmp-system

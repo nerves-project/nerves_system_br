@@ -32,5 +32,6 @@ fi
 # Copy the artifacts to a location that's easy to reference in the .travis.yml
 rm -fr artifacts
 mkdir artifacts
-cp ${CI_DEFCONFIG_DIR}.tar.gz artifacts/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.tar.gz
-cp output/images/${CI_DEFCONFIG_DIR}.fw artifacts/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.fw # only one .fw file in images
+cp ci/out/${CI_DEFCONFIG_DIR}.tar.gz artifacts/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.tar.gz
+cp ci/out/images/${CI_DEFCONFIG_DIR}.fw artifacts/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.fw # only one .fw file in images
+

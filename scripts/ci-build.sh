@@ -17,8 +17,12 @@
 # Buildroot doesn't like LD_LIBRARY_PATH set
 export LD_LIBRARY_PATH=
 
+# Run build in a subdirectory so that we're testing out of tree builds
+mkdir -p ci
+cd ci
+
 # Configure platform
-./create-build.sh configs/${CI_DEFCONFIG_DIR}/${CI_DEFCONFIG}_defconfig output || exit 1
+../create-build.sh ../configs/${CI_DEFCONFIG_DIR}/${CI_DEFCONFIG}_defconfig out || exit 1
 
 # Build the SDK
 
@@ -26,7 +30,7 @@ export LD_LIBRARY_PATH=
 # https://github.com/buildroot/buildroot-defconfig-testing/blob/master/.travis.yml
 while true ; do echo "Still building" ; sleep 60 ; done &
 watchdogpid=$!
-make -C output > >(tee build.log | grep '>>>') 2>&1
+make -C out > >(tee build.log | grep '>>>') 2>&1
 RC=$?
 kill $watchdogpid
 if [ $RC -ne 0 ]; then
@@ -35,4 +39,4 @@ fi
 
 # Create a system image
 echo "Creating system image..."
-make -C output system || exit 1
+make -C out system || exit 1
