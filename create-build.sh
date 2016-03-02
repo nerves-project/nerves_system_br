@@ -37,6 +37,9 @@ if [[ -z $DEFCONFIG || -z $BUILD_DIR ]]; then
     exit 1
 fi
 
+# Create the build directory if it doesn't already exist
+mkdir -p $BUILD_DIR
+
 # Normalize paths that were specified
 NERVES_DEFCONFIG=$(readlink_f $DEFCONFIG)
 NERVES_DEFCONFIG_DIR=$(dirname $NERVES_DEFCONFIG)
