@@ -34,6 +34,7 @@ help:
 	@echo
 
 release:
+	rm -fr rel/$(ELIXIR_APP_NAME) # Clean up unused apps
 	mix release
 	$(REL2FW) rel/$(ELIXIR_APP_NAME) _images/$(ELIXIR_APP_NAME).fw
 	@echo
