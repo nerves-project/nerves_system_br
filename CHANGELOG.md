@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.0-dev
+
+  * New features
+    * Major updates to the configuration process to support storing configs more
+      easily outside of nerves-system-br
+    * Support building out-of-tree
+    * Added more checks for compiler mismatches when building releases
+
+  * Package updates
+    * Buildroot 2016.02
+
 ## v0.3.3
 
   * Bug fixes
