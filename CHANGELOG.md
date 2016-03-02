@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.4.0-dev
+## v0.4.0-rc1
 
   * New features
     * Major updates to the configuration process to support storing configs more
