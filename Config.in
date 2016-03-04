@@ -19,6 +19,7 @@ config BR2_NERVES_SYSTEM_NAME
 	  used in various places to help identify images.
 
 # Load Nerves packages
+source "$BR2_EXTERNAL/package/boardid/Config.in"
 source "$BR2_EXTERNAL/package/erlang-history/Config.in"
 source "$BR2_EXTERNAL/package/erlinit/Config.in"
 source "$BR2_EXTERNAL/package/fwup/Config.in"
