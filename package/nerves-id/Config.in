@@ -1,5 +1,0 @@
-config BR2_PACKAGE_NERVES_ID
-	bool "nerves-id"
-	help
-	  Print out a unique IDs to identify a board.
-	  Doesn't something like this already exist?
