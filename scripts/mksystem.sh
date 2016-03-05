@@ -69,15 +69,15 @@ EOT
 # Copy common nerves shell scripts over
 cp $BR2_EXTERNAL/nerves-env.sh $WORK_DIR/$ARCHIVE_NAME
 cp $BR2_EXTERNAL/nerves.mk $WORK_DIR/$ARCHIVE_NAME
-cp -r $BR2_EXTERNAL/scripts $WORK_DIR/$ARCHIVE_NAME
+cp -R $BR2_EXTERNAL/scripts $WORK_DIR/$ARCHIVE_NAME
 
 # Copy the built configuration over
 cp $BASE_DIR/.config $WORK_DIR/$ARCHIVE_NAME
 
 # Copy the staging and images directories over
 mkdir -p $WORK_DIR/$ARCHIVE_NAME/images $WORK_DIR/$ARCHIVE_NAME/staging
-cp -r $BASE_DIR/images/* $WORK_DIR/$ARCHIVE_NAME/images
-cp -r $BASE_DIR/staging/* $WORK_DIR/$ARCHIVE_NAME/staging
+cp -R $BASE_DIR/images/* $WORK_DIR/$ARCHIVE_NAME/images
+cp -R $BASE_DIR/staging/* $WORK_DIR/$ARCHIVE_NAME/staging
 
 # Clean up extra files that were copied over and aren't needed
 rm -f $WORK_DIR/$ARCHIVE_NAME/images/*.fw
