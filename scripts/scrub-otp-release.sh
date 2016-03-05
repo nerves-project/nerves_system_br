@@ -54,12 +54,14 @@ find $RELEASE_DIR/releases \( -name "*.sh" \
 
 executable_type()
 {
-    # Run 'file' on $1 and trim out parts
-    # that can vary on a platform
+    # Run 'file' on $1, trim out parts
+    # that can vary on a platform, and
+    # normalize whitespace
     file -b $1 \
         | sed 's/, BuildID[^,]*,/,/g' \
         | sed 's/, dynamically linked,/,/g' \
-        | sed 's/,[^,]*stripped//g'
+        | sed 's/,[^,]*stripped//g' \
+        | sed 's/[[:space:]]\+/ /g'
 }
 
 get_expected_executable_type()
