@@ -75,7 +75,7 @@ mkdir -p $TMP_DIR/rootfs-additions
 
 # Construct the proper path for the Erlang/OTP release
 mkdir -p $TMP_DIR/rootfs-additions/srv/erlang
-cp -r $RELEASE_DIR/* $TMP_DIR/rootfs-additions/srv/erlang
+cp -R $RELEASE_DIR/* $TMP_DIR/rootfs-additions/srv/erlang
 
 # Clean up the Erlang release of all the files that we don't need.
 $NERVES_SYSTEM/scripts/scrub-otp-release.sh $TMP_DIR/rootfs-additions/srv/erlang
