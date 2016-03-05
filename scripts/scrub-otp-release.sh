@@ -72,20 +72,40 @@ get_expected_executable_type()
     rm $tmpfile
 }
 
+get_expected_library_type()
+{
+    # Compile a trivial C shared library with the crosscompiler
+    # so that we know what the `file` output should look like.
+    tmpfile=$(mktemp /tmp/scrub-otp-release.XXXXXX)
+    echo "void doit() {}" | $CROSSCOMPILE-gcc --shared -x c -o $tmpfile -
+    echo $(executable_type $tmpfile)
+    rm $tmpfile
+}
+
 EXECUTABLES=$(find $RELEASE_DIR -type f -perm -100)
-EXPECTED_TYPE=$(get_expected_executable_type)
+EXPECTED_BIN_TYPE=$(get_expected_executable_type)
+EXPECTED_SO_TYPE=$(get_expected_library_type)
 
 for EXECUTABLE in $EXECUTABLES; do
     case $(file -b $EXECUTABLE) in
         *ELF*)
             # Verify that the executable was compiled for the target
             TYPE=$(executable_type $EXECUTABLE)
-            if [ "$TYPE" != "$EXPECTED_TYPE" ]; then
+            if [ "$TYPE" != "$EXPECTED_BIN_TYPE" -a "$TYPE" != "$EXPECTED_SO_TYPE" ]; then
                 echo "$SCRIPT_NAME: ERROR: Unexpected executable format for '$EXECUTABLE'"
-                echo "   Expected: $EXPECTED_TYPE"
-                echo "        Got: $TYPE"
+                echo
+                echo "Got:"
+                echo " $TYPE"
+                echo
+                echo "If binary, expecting:"
+                echo " $EXPECTED_BIN_TYPE"
+                echo
+                echo "If shared library, expecting:"
+                echo " $EXPECTED_SO_TYPE"
+                echo
                 echo " This file may have been compiled for the host or a different target."
                 echo " Make sure that nerves-env.sh has been sourced and rebuild to fix this."
+                echo
                 exit 1
             fi
 
