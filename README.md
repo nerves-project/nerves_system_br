@@ -208,6 +208,26 @@ the Busybox configuration.
 
 ## Configuration Notes
 
+The default configurations have two purposes. The first is to generate the
+system images required for `bake` and for anyone getting started and not
+building `nerves-system-br` themselves. The second is as a simple regression
+test for the main platforms on travis. For regression testing, some Erlang
+applications are enabled to exercise cross-compile scenarios. Rest assured, if
+your application doesn't use these, they won't be included in the firmware
+images that you build.
+
+### nerves-config
+
+The `nerves-config` project generates a simple OTP application for the default
+firmware. It creates a firmware image with the following features:
+
+  * Almost minimal - Nerves images can be smaller, but these represent a
+    reasonable lower bound on size
+  * Boots to an Erlang/Elixir/LFE prompt
+  * Includes at least on NIF - To test NIF support (`crypto`)
+  * Supports Erlang Distribution (uses sname and `democookie`)
+
+The images don't bring up networking automatically.
 
 ### configs/nerves_system_bbb/\<language\>_defconfig
 
