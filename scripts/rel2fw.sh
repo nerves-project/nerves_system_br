@@ -80,9 +80,8 @@ cp -R $RELEASE_DIR/* $TMP_DIR/rootfs-additions/srv/erlang
 # Clean up the Erlang release of all the files that we don't need.
 $NERVES_SYSTEM/scripts/scrub-otp-release.sh $TMP_DIR/rootfs-additions/srv/erlang
 
-# Append the Erlang/OTP release onto the base image.
-cp "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs"
-$MKSQUASHFS "$TMP_DIR/rootfs-additions" "$TMP_DIR/combined.squashfs" -no-recovery -no-progress -root-owned >/dev/null
+# Merge the Erlang/OTP release onto the base image
+$NERVES_SYSTEM/scripts/merge-squashfs "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs" "$TMP_DIR/rootfs-additions"
 
 # Build the firmware image
 echo Building $FW_FILENAME...

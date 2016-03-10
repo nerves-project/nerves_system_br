@@ -1,0 +1,152 @@
+#!/bin/bash
+
+# Merge an overlay directory into a squashfs
+#
+# Usage: merge-squashfs input.squashfs output.squashfs overlay-dir
+#
+
+set -e
+LC_ALL=C
+
+# This implementation could be improved.
+# The list below hits the combinations that I see.
+perm_to_num() {
+    case $1 in
+        ?rwsr-xr-x) echo "4755" ;;
+        ?rws--x--x) echo "4711" ;;
+        ?rwxrwxrwt) echo "1777" ;;
+        ?rwxrwxrwx) echo "777" ;;
+        ?rwxrwxr-x) echo "775" ;;
+        ?rwxrwx---) echo "770" ;;
+        ?rwxr-xr-x) echo "755" ;;
+        ?rwxr-x---) echo "750" ;;
+        ?rwx------) echo "700" ;;
+        ?rw-rw-rw-) echo "666" ;;
+        ?rw-rw-r--) echo "664" ;;
+        ?rw-rw----) echo "660" ;;
+        ?rw-r--r--) echo "644" ;;
+        ?rw--w--w-) echo "622" ;;
+        ?rw-------) echo "600" ;;
+        ?r--r--r--) echo "444" ;;
+        ?r--r-----) echo "440" ;;
+        ?r--------) echo "400" ;;
+        *) echo "huh"
+    esac
+}
+
+owner_to_uid_gid() {
+    echo $1 | sed -e "s/\// /g"
+}
+
+get_path() {
+    # trim the squashfs-root and escape any spaces
+    echo $* | sed -e 's/squashfs-root//' | sed -e 's/ /\\ /g'
+}
+
+char_device_file() {
+    echo "$(get_path $7) c $(perm_to_num $1) $(owner_to_uid_gid $2) $(echo $3 | sed -e 's/,//g') $4"
+}
+
+block_device_file() {
+    echo "$(get_path $7) b $(perm_to_num $1) $(owner_to_uid_gid $2) $(echo $3 | sed -e 's/,//g') $4"
+}
+
+symlink_file() {
+    # symlinks are the handled the same as files currently.
+    echo "$(get_path $6) m $(perm_to_num $1) $(owner_to_uid_gid $2)"
+}
+
+directory_file() {
+    pathname=$(get_path $6)
+    # mksquashfs doesn't support setting permissions and ownership
+    # on the root directory
+    if [[ ! -z $pathname ]]; then
+        echo "$pathname m $(perm_to_num $1) $(owner_to_uid_gid $2)"
+    fi
+}
+
+regular_file() {
+    echo "$(get_path $6) m $(perm_to_num $1) $(owner_to_uid_gid $2)"
+}
+
+unsquash_to_pseudofile() {
+    input=$1
+    while read perms owner rest; do
+        case $perms in
+            c*)
+                char_device_file $perms $owner $rest
+                ;;
+            b*)
+                block_device_file $perms $owner $rest
+                ;;
+            l*)
+                symlink_file $perms $owner $rest
+                ;;
+            d*)
+                directory_file $perms $owner $rest
+                ;;
+            -*)
+                regular_file $perms $owner $rest
+                ;;
+            *)
+        esac
+    done < <(unsquashfs -n -ll $input)
+}
+
+find_to_pseudofile() {
+    inputdir=$1
+    while read mode path; do
+        path=$(echo $path | sed -e "s^$inputdir^^" | sed -e "s/ /\\\\ /g")
+        if [[ ! -z $path ]]; then
+            echo "$path m $mode root root"
+        fi
+    done < <(find $inputdir -exec stat -c "%a %n" "{}" ";")
+}
+
+
+# "readlink -f" implementation for BSD
+# This code was extracted from the Elixir shell scripts
+readlink_f () {
+    cd "$(dirname "$1")" > /dev/null
+    filename="$(basename "$1")"
+    if [[ -h "$filename" ]]; then
+        readlink_f "$(readlink "$filename")"
+    else
+        echo "`pwd -P`/$filename"
+    fi
+}
+
+if [[ $# -ne 3 ]]; then
+    echo "Usage: merge-squashfs input.squashfs output.squashfs overlay-dir"
+    exit 1
+fi
+
+input_squashfs=$(readlink_f $1)
+output_squashfs=$(readlink_f $2)
+overlay_dir=$(readlink_f $3)
+
+if [[ ! -f $input_squashfs ]]; then
+    echo "Can't open $input_squashfs"
+    exit 1
+fi
+if [[ ! -d $overlay_dir ]]; then
+    echo "Can't find $overlay_dir"
+    exit 1
+fi
+
+workdir=`mktemp -d 2>/dev/null || mktemp -d -t 'merge-squashfs-tmp'`
+pushd $workdir >/dev/null
+
+unsquash_to_pseudofile $input_squashfs >pseudofile.in
+find_to_pseudofile $overlay_dir >>pseudofile.in
+
+# remove repeated entries to avoid warnings from mksquashfs
+awk '!x[$1]++' pseudofile.in > pseudofile
+
+unsquashfs $input_squashfs >/dev/null 2>/dev/null
+cp -R $overlay_dir/. $workdir/squashfs-root
+mksquashfs squashfs-root $output_squashfs -pf pseudofile -noappend -no-recovery -no-progress
+
+# cleanup
+popd >/dev/null
+rm -fr $workdir
