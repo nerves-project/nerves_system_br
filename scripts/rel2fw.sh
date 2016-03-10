@@ -30,6 +30,8 @@ FWUP=$NERVES_TOOLCHAIN/usr/bin/fwup
 [ -e "$FWUP" ] || FWUP=$(command -v fwup || echo "/usr/bin/fwup")
 if [ ! -e "$FWUP" ]; then
     echo "$SCRIPT_NAME: ERROR: Please install fwup first"
+    echo
+    echo "See https://github.com/fhunleth/fwup"
     exit 1
 fi
 
