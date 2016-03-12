@@ -8,6 +8,13 @@
 set -e
 LC_ALL=C
 
+# Account for Mac differences
+if [[ "$(uname)" = "Darwin" ]]; then
+    STAT=gstat
+else
+    STAT=stat
+fi
+
 # This implementation could be improved.
 # The list below hits the combinations that I see.
 perm_to_num() {
@@ -98,9 +105,9 @@ find_to_pseudofile() {
     while read mode path; do
         path=$(echo $path | sed -e "s^$inputdir^^" | sed -e "s/ /\\\\ /g")
         if [[ ! -z $path ]]; then
-            echo "$path m $mode root root"
+            echo "$path m $mode 0 0"
         fi
-    done < <(find $inputdir -exec stat -c "%a %n" "{}" ";")
+    done < <(find $inputdir -exec $STAT -c "%a %n" "{}" ";")
 }
 
 
