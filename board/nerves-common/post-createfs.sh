@@ -47,6 +47,6 @@ ln -sf $BR2_EXTERNAL/scripts $BASE_DIR
 OLD_DIR=$(pwd)
 (cd $BINARIES_DIR && \
  source $BASE_DIR/scripts/nerves-env-helper.sh $BASE_DIR && \
- $BASE_DIR/scripts/rel2fw.sh $TARGET_DIR/srv/erlang ${BASE_FW_NAME}.fw ${BASE_FW_NAME}.img) \
+ $BASE_DIR/scripts/rel2fw.sh -f ${BASE_FW_NAME}.fw -o ${BASE_FW_NAME}.img $TARGET_DIR/srv/erlang) \
  || (cd $OLD_DIR; echo rel2fw.sh failed; exit 1)
 
