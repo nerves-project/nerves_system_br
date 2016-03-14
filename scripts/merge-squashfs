@@ -50,12 +50,22 @@ get_path() {
     echo $* | sed -e 's/squashfs-root//' | sed -e 's/ /\\ /g'
 }
 
-char_device_file() {
-    echo "$(get_path $7) c $(perm_to_num $1) $(owner_to_uid_gid $2) $(echo $3 | sed -e 's/,//g') $4"
-}
+device_file() {
+    perm=$1
+    owner=$2
 
-block_device_file() {
-    echo "$(get_path $7) b $(perm_to_num $1) $(owner_to_uid_gid $2) $(echo $3 | sed -e 's/,//g') $4"
+    # Depending on the major and minor numbers, you either get
+    # major,minor or major, minor. Remove the comma and account
+    # for the optional space.
+    if [[ $3 =~ ,.+ ]]; then
+        major_minor=$(echo $3 | sed -e 's/,/ /')
+        filename=$6
+    else
+        major_minor="$(echo $3 | sed -e 's/,/ /') $4"
+        filename=$7
+    fi
+
+    echo "$(get_path $filename) ${perm:0:1} $(perm_to_num $perm) $(owner_to_uid_gid $owner) $major_minor"
 }
 
 symlink_file() {
@@ -81,10 +91,10 @@ unsquash_to_pseudofile() {
     while read perms owner rest; do
         case $perms in
             c*)
-                char_device_file $perms $owner $rest
+                device_file $perms $owner $rest
                 ;;
             b*)
-                block_device_file $perms $owner $rest
+                device_file $perms $owner $rest
                 ;;
             l*)
                 symlink_file $perms $owner $rest
@@ -151,7 +161,7 @@ find_to_pseudofile $overlay_dir >>pseudofile.in
 awk '!x[$1]++' pseudofile.in > pseudofile
 
 unsquashfs $input_squashfs >/dev/null 2>/dev/null
-cp -R $overlay_dir/. $workdir/squashfs-root
+cp -Rf $overlay_dir/. $workdir/squashfs-root
 mksquashfs squashfs-root $output_squashfs -pf pseudofile -noappend -no-recovery -no-progress
 
 # cleanup
