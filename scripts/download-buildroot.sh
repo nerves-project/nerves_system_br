@@ -26,7 +26,7 @@ if [[ -z "$DL" ]]; then
 fi
 
 EXTRACTED_DIRNAME=$WHERE/buildroot-$HASHTAG
-TARBALL_NAME=buildroot-$HASHTAG.tar.gz
+TARBALL_NAME=buildroot-$HASHTAG.tar.bz2
 CACHED_TARBALL_PATH=$DL/$TARBALL_NAME
 BUILDROOT_PATH=$WHERE/buildroot
 
@@ -43,7 +43,7 @@ if [[ ! -e "$CACHED_TARBALL_PATH" ]]; then
     else
         # This is an intermediate release and can be downloaded from
         # Buildroot's cgit instance.
-        DOWNLOAD_URL=https://git.busybox.net/buildroot/snapshot/$TARBALL_NAME
+        DOWNLOAD_URL=https://buildroot.org/downloads/snapshots/$TARBALL_NAME
     fi
 
     pushd $DL
@@ -55,7 +55,7 @@ fi
 # We can't rely on the first level directory naming, so force it to
 # the expected path
 mkdir -p $EXTRACTED_DIRNAME
-tar xzf $CACHED_TARBALL_PATH -C $EXTRACTED_DIRNAME --strip-components=1
+tar xjf $CACHED_TARBALL_PATH -C $EXTRACTED_DIRNAME --strip-components=1
 
 # Symlink for easier access
 ln -s $EXTRACTED_DIRNAME $BUILDROOT_PATH
