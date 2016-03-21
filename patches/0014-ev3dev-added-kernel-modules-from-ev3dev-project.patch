@@ -1,0 +1,101 @@
+From c4699b093d085a927768bc81c3420891b7cce5a4 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Sun, 20 Mar 2016 20:17:28 -0400
+Subject: [PATCH] ev3dev: added kernel modules from ev3dev project
+
+The source for these is https://github.com/ev3dev/buildroot. I
+repackaged the commit for only the part that was needed.
+---
+ linux/Config.ext.in       |  7 +++++++
+ linux/linux-ext-ev3dev.mk | 13 +++++++++++++
+ package/Config.in         |  1 +
+ package/ev3dev/Config.in  | 10 ++++++++++
+ package/ev3dev/ev3dev.mk  | 11 +++++++++++
+ 5 files changed, 42 insertions(+)
+ create mode 100644 linux/linux-ext-ev3dev.mk
+ create mode 100644 package/ev3dev/Config.in
+ create mode 100644 package/ev3dev/ev3dev.mk
+
+diff --git a/linux/Config.ext.in b/linux/Config.ext.in
+index e51e8a3..8024d73 100644
+--- a/linux/Config.ext.in
++++ b/linux/Config.ext.in
+@@ -72,4 +72,11 @@ config BR2_LINUX_KERNEL_EXT_FBTFT
+ 
+ 	  https://github.com/notro/fbtft
+ 
++# ev3dev
++config BR2_LINUX_KERNEL_EXT_EV3DEV
++	bool "ev3dev drivers"
++	select BR2_PACKAGE_EV3DEV
++	help
++	  ev3dev drivers for LEGO MINDSTORMS EV3, etc.
++
+ endmenu
+diff --git a/linux/linux-ext-ev3dev.mk b/linux/linux-ext-ev3dev.mk
+new file mode 100644
+index 0000000..b0b1276
+--- /dev/null
++++ b/linux/linux-ext-ev3dev.mk
+@@ -0,0 +1,13 @@
++################################################################################
++# Linux ev3dev extensions
++#
++# Patch the linux kernel with ev3dev extension
++################################################################################
++
++LINUX_EXTENSIONS += ev3dev
++
++# install to drivers/lego
++define EV3DEV_PREPARE_KERNEL
++	mkdir -p $(LINUX_DIR)/drivers/lego; \
++	cp -dpfr $(EV3DEV_DIR)/* $(LINUX_DIR)/drivers/lego/
++endef
+diff --git a/package/Config.in b/package/Config.in
+index 3eb3618..ed58395 100644
+--- a/package/Config.in
++++ b/package/Config.in
+@@ -361,6 +361,7 @@ endif
+ 	source "package/edid-decode/Config.in"
+ 	source "package/eeprog/Config.in"
+ 	source "package/eudev/Config.in"
++	source "package/ev3dev/Config.in"
+ 	source "package/evemu/Config.in"
+ 	source "package/evtest/Config.in"
+ 	source "package/fan-ctrl/Config.in"
+diff --git a/package/ev3dev/Config.in b/package/ev3dev/Config.in
+new file mode 100644
+index 0000000..a49c2c1
+--- /dev/null
++++ b/package/ev3dev/Config.in
+@@ -0,0 +1,10 @@
++# Prompt-less option, because this package is not doing anything
++# except downloading the sources. The real work is done by a
++# Linux extension.
++config BR2_PACKAGE_EV3DEV
++    bool
++    depends on BR2_LINUX_KERNEL
++    help
++      ev3dev drivers for LEGO MINDSTORMS EV3, etc.
++
++      This is only the download helper for the kernel extension.
+diff --git a/package/ev3dev/ev3dev.mk b/package/ev3dev/ev3dev.mk
+new file mode 100644
+index 0000000..5925950
+--- /dev/null
++++ b/package/ev3dev/ev3dev.mk
+@@ -0,0 +1,11 @@
++################################################################################
++#
++# ev3dev-drivers
++#
++################################################################################
++
++EV3DEV_VERSION = 6941249ebac882a8f87544bebff232cdd2c293d8
++EV3DEV_SITE = $(call github,ev3dev,lego-linux-drivers,$(EV3DEV_VERSION))
++EV3DEV_LICENSE = GPLv2
++
++$(eval $(generic-package))
+-- 
+2.5.0
+
