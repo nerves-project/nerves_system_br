@@ -11,6 +11,8 @@
 #  TRAVIS_TAG          - The tag name if a tagged build
 #  TRAVIS_BRANCH       - The branch name
 
+ARTIFACT_SUBDIR=.
+
 # Check if we're building under Travis-ci
 if [ "$TRAVIS" = "true" ]; then
     if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
@@ -22,6 +24,9 @@ if [ "$TRAVIS" = "true" ]; then
         BRANCH_OR_TAG=$TRAVIS_TAG
     else
         BRANCH_OR_TAG=$TRAVIS_BRANCH
+        if [ "$TRAVIS_BRANCH" != "master" ]; then
+            ARTIFACT_SUBDIR=branch
+        fi
     fi
 else
     # Use git to figure out the branch or tag. This doesn't
@@ -31,7 +36,7 @@ fi
 
 # Copy the artifacts to a location that's easy to reference in the .travis.yml
 rm -fr artifacts
-mkdir artifacts
-cp ci/out/${CI_DEFCONFIG_DIR}.tar.gz artifacts/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.tar.gz
-cp ci/out/images/${CI_DEFCONFIG_DIR}.fw artifacts/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.fw # only one .fw file in images
+mkdir -p artifacts/$ARTIFACT_SUBDIR
+cp ci/out/${CI_DEFCONFIG_DIR}.tar.gz artifacts/$ARTIFACT_SUBDIR/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.tar.gz
+cp ci/out/images/${CI_DEFCONFIG_DIR}.fw artifacts/$ARTIFACT_SUBDIR/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.fw # only one .fw file in images
 

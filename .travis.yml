@@ -21,7 +21,9 @@ cache:
 # Build the official configurations
 env:
   matrix:
+  - CI_DEFCONFIG_DIR=nerves_system_qemu_arm CI_DEFCONFIG=elixir
   - CI_DEFCONFIG_DIR=nerves_system_bbb CI_DEFCONFIG=elixir
+  - CI_DEFCONFIG_DIR=nerves_system_ev3 CI_DEFCONFIG=elixir
   - CI_DEFCONFIG_DIR=nerves_system_rpi CI_DEFCONFIG=elixir
   - CI_DEFCONFIG_DIR=nerves_system_rpi2 CI_DEFCONFIG=elixir
   - CI_DEFCONFIG_DIR=nerves_system_rpi3 CI_DEFCONFIG=elixir
