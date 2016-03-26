@@ -24,6 +24,7 @@ env:
   - CI_DEFCONFIG_DIR=nerves_system_bbb CI_DEFCONFIG=elixir
   - CI_DEFCONFIG_DIR=nerves_system_rpi CI_DEFCONFIG=elixir
   - CI_DEFCONFIG_DIR=nerves_system_rpi2 CI_DEFCONFIG=elixir
+  - CI_DEFCONFIG_DIR=nerves_system_rpi3 CI_DEFCONFIG=elixir
   - CI_DEFCONFIG_DIR=nerves_system_galileo CI_DEFCONFIG=elixir
 
 # Inspect the cache and build
