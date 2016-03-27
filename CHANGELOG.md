@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.4.0-rc2, v0.4.0-rc1
+## v0.4.0 - rc1-3
 
   * New features
     * Major updates to the configuration process to support storing configs more
@@ -8,6 +8,10 @@
     * Support building out-of-tree
     * Added more checks for compiler mismatches when building releases
     * Extract nerves-id code to boardid project; add BBB support
+    * Basic RPi 3 support and experimental Lego EV3, Alix, AG150, and qemu
+      configs
+    * Enable Busybox ntpd and date to work around lack of Elixir package for
+      setting the system time
 
   * Bug fixes
     * Enable ADCs in Beaglebone Black configuration
