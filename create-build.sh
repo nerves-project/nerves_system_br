@@ -80,8 +80,11 @@ if [[ -z $NERVES_BR_DL_DIR ]]; then
 fi
 mkdir -p $NERVES_BR_DL_DIR
 
-NERVES_BR_PATCHED_FILE=$NERVES_SYSTEM/buildroot-$NERVES_BR_VERSION/.nerves-patched
-if [[ ! -e $NERVES_BR_PATCHED_FILE ]]; then
+NERVES_BR_STATE_FILE=$NERVES_SYSTEM/buildroot-$NERVES_BR_VERSION/.nerves-br-state
+NERVES_BR_EXPECTED_STATE_FILE=$BUILD_DIR/.nerves-expected-br-state
+$NERVES_SYSTEM/scripts/buildroot-state.sh $NERVES_BR_VERSION $NERVES_SYSTEM/patches > $NERVES_BR_EXPECTED_STATE_FILE
+
+create_buildroot_dir() {
     # Clean up any old versions of Buildroot
     rm -fr $NERVES_SYSTEM/buildroot*
 
@@ -94,7 +97,22 @@ if [[ ! -e $NERVES_BR_PATCHED_FILE ]]; then
     # Symlink Buildroot's dl directory so that it can be cached between builds
     ln -sf $NERVES_BR_DL_DIR $NERVES_SYSTEM/buildroot/dl
 
-    touch $NERVES_BR_PATCHED_FILE
+    cp $NERVES_BR_EXPECTED_STATE_FILE $NERVES_BR_STATE_FILE
+}
+
+if [[ ! -e $NERVES_BR_STATE_FILE ]]; then
+    create_buildroot_dir
+elif ! diff $NERVES_BR_STATE_FILE $NERVES_BR_EXPECTED_STATE_FILE >/dev/null; then
+    echo "Detected a difference in the Buildroot source tree either due"
+    echo "to an change in Buildroot or a change in the patches that Nerves"
+    echo "applies to Buildroot. The Buildroot source tree will be updated."
+    echo
+    echo "It is highly recommended to rebuild clean."
+    echo "To do this, go to $BUILD_DIR, and run 'make clean'."
+    echo
+    echo "Press return to acknowledge or CTRL-C to stop"
+    read
+    create_buildroot_dir
 fi
 
 # Configure the build directory - finally!
