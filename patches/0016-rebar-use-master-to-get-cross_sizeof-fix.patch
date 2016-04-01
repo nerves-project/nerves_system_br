@@ -1,0 +1,25 @@
+From a1fb10ef45fdf97fd08dc24f794bc983f6970044 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Thu, 31 Mar 2016 20:18:05 -0400
+Subject: [PATCH] rebar: use master to get cross_sizeof fix
+
+---
+ package/erlang-rebar/erlang-rebar.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package/erlang-rebar/erlang-rebar.mk b/package/erlang-rebar/erlang-rebar.mk
+index 61904cc..a7be344 100644
+--- a/package/erlang-rebar/erlang-rebar.mk
++++ b/package/erlang-rebar/erlang-rebar.mk
+@@ -4,7 +4,7 @@
+ #
+ ################################################################################
+ 
+-ERLANG_REBAR_VERSION = 2.6.1
++ERLANG_REBAR_VERSION = ef73556df92dd3b31daaf1cc6d97fb220dfcaa0c
+ 
+ # Upstream publishes a release, but we can not use it as it is a release of
+ # a generated rebar script, when we want the sources. So we have to use the
+-- 
+2.5.0
+
