@@ -22,3 +22,6 @@
 [submodule "configs/nerves_system_galileo"]
 	path = configs/nerves_system_galileo
 	url = https://github.com/nerves-project/nerves_system_galileo
+[submodule "configs/nerves_system_qemu_arm"]
+	path = configs/nerves_system_qemu_arm
+	url = https://github.com/nerves-project/nerves_system_qemu_arm
