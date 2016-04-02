@@ -1,0 +1,27 @@
+[submodule "configs/nerves_system_bbb"]
+	path = configs/nerves_system_bbb
+	url = https://github.com/nerves-project/nerves_system_bbb
+[submodule "configs/nerves_system_rpi2"]
+	path = configs/nerves_system_rpi2
+	url = https://github.com/nerves-project/nerves_system_rpi2
+[submodule "configs/nerves_system_rpi"]
+	path = configs/nerves_system_rpi
+	url = https://github.com/nerves-project/nerves_system_rpi
+[submodule "configs/nerves_system_ag150"]
+	path = configs/nerves_system_ag150
+	url = https://github.com/nerves-project/nerves_system_ag150
+[submodule "configs/nerves_system_alix"]
+	path = configs/nerves_system_alix
+	url = https://github.com/nerves-project/nerves_system_alix
+[submodule "configs/nerves_system_rpi3"]
+	path = configs/nerves_system_rpi3
+	url = https://github.com/nerves-project/nerves_system_rpi3
+[submodule "configs/nerves_system_ev3"]
+	path = configs/nerves_system_ev3
+	url = https://github.com/nerves-project/nerves_system_ev3
+[submodule "configs/nerves_system_galileo"]
+	path = configs/nerves_system_galileo
+	url = https://github.com/nerves-project/nerves_system_galileo
+[submodule "configs/nerves_system_qemu_arm"]
+	path = configs/nerves_system_qemu_arm
+	url = https://github.com/nerves-project/nerves_system_qemu_arm
