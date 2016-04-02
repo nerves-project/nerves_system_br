@@ -4,7 +4,6 @@ config :nerves_system_br, :nerves_env,
   type:  :system_build_platform,
   package_files: [
     "board",
-    "buildroot-*",
     "configs",
     "package",
     "patches",
