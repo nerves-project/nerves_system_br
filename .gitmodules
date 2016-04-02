@@ -4,3 +4,6 @@
 [submodule "configs/nerves_system_rpi2"]
 	path = configs/nerves_system_rpi2
 	url = https://github.com/nerves-project/nerves_system_rpi2
+[submodule "configs/nerves_system_rpi"]
+	path = configs/nerves_system_rpi
+	url = https://github.com/nerves-project/nerves_system_rpi
