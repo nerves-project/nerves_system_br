@@ -8,10 +8,13 @@ repository's name didn't have to be quoted. Please update all links.
 
   * New features
     * Major updates to the configuration process to support storing configs more
-      easily outside of nerves-system-br
+      easily outside of `nerves_system_br`. This enables reference board
+      configurations as Hex packages or as their own git repos. Our supported
+      configs are pulled in via git submodules so they can still be built
+      by travis.
     * Support building out-of-tree
     * Added more checks for compiler mismatches when building releases
-    * Extract nerves-id code to boardid project; add BBB support
+    * Extract nerves-id code to boardid project; add BBB and some x86 support
     * Basic RPi 3 support and experimental Lego EV3, Alix, AG150, and qemu
       configs
     * Enable Busybox ntpd and date to work around lack of Elixir package for
@@ -22,6 +25,7 @@ repository's name didn't have to be quoted. Please update all links.
 
   * Package updates
     * Buildroot 2016.02
+    * Elixir 1.2.4
 
 ## v0.3.3
 
