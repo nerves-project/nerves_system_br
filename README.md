@@ -1,5 +1,5 @@
 # Nerves System BR
-[![Build Status](https://travis-ci.org/nerves-project/nerves-system-br.png?branch=master)](https://travis-ci.org/nerves-project/nerves-system-br)
+[![Build Status](https://travis-ci.org/nerves-project/nerves_system_br.png?branch=master)](https://travis-ci.org/nerves-project/nerves_system_br)
 
 ## IMPORTANT: Configuring builds has changed since the 0.3.3 release. Please reread this document.
 
@@ -51,7 +51,7 @@ is to compile for the target hardware rather than your PC.
 
 At this point it's useful to see one of the [examples](https://github.com/nerves-project/nerves-examples).
 If you'd like to see something boot to an Erlang or Elixir prompt on your board, download
-a firmware image (.fw) file on the [releases tab](https://github.com/nerves-project/nerves-system-br/releases).
+a firmware image (.fw) file on the [releases tab](https://github.com/nerves-project/nerves_system_br/releases).
 Then,
 
    1. Install the [fwup](https://github.com/fhunleth/fwup) utility
@@ -71,7 +71,7 @@ If you want to modify a configuration, for example to add a C library or build s
 a different board, you'll need to build a new system image. This requires a 64-bit Linux
 machine or a Linux VM.
 
-First, make sure your system has a base set of packages needed to build `nerves-system-br`.
+First, make sure your system has a base set of packages needed to build `nerves_system_br`.
 On Ubuntu, run the following:
 
     sudo apt-get install git g++ libssl-dev libncurses5-dev bc m4 make unzip cmake
@@ -88,7 +88,7 @@ platform doesn't exist, we recommend that you try out Nerves on a supported plat
 to learn how it works, then port Buildroot to that platform, and then modify
 a supported configuration for the new board.
 
-Change to the nerves-system-br directory and run following to create a build directory
+Change to the nerves_system_br directory and run following to create a build directory
 for your configuration:
 
     ./create-build.sh <path to defconfig> <build directory>
@@ -210,7 +210,7 @@ the Busybox configuration.
 
 The default configurations have two purposes. The first is to generate the
 system images required for `bake` and for anyone getting started and not
-building `nerves-system-br` themselves. The second is as a simple regression
+building `nerves_system_br` themselves. The second is as a simple regression
 test for the main platforms on travis. For regression testing, some Erlang
 applications are enabled to exercise cross-compile scenarios. Rest assured, if
 your application doesn't use these, they won't be included in the firmware

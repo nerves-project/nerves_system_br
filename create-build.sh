@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# Create and initialize a directory for building nerves-system-br.
+# Create and initialize a directory for building nerves_system_br.
 #
 # Inputs:
 #   $1 = the path to the configuration file (a _defconfig file)
@@ -134,5 +134,5 @@ echo "   2. make"
 echo
 echo "For additional options, run 'make help' in the build directory."
 echo
-echo "IMPORTANT: If you update nerves-system-br, you should rerun this script."
+echo "IMPORTANT: If you update nerves_system_br, you should rerun this script."
 

@@ -2,6 +2,10 @@
 
 ## v0.4.0 - rc1-3
 
+Important: The repository changed names to `nerves_system_br`. Previously it
+had used hyphens. This was done as part of the `mix` integration so that the
+repository's name didn't have to be quoted. Please update all links.
+
   * New features
     * Major updates to the configuration process to support storing configs more
       easily outside of nerves-system-br

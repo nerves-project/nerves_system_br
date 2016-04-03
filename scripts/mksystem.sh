@@ -55,7 +55,7 @@ echo $TAG >$WORK_DIR/$ARCHIVE_NAME/nerves-system.tag
 cat << EOT > $WORK_DIR/$ARCHIVE_NAME/README.md
 # Nerves system image
 
-This is an automatically generated archive created by \`nerves-system-br\`. It is
+This is an automatically generated archive created by \`nerves_system_br\`. It is
 useful for building embedded Elixir projects without worrying too much
 about the cross-compiler and Linux parts. See http://nerves-project.org
 for more information.
@@ -63,7 +63,7 @@ for more information.
 ## Build information
 
 Configuration: $NERVES_DEFCONFIG
-nerves-system-br: $TAG
+nerves_system_br: $TAG
 EOT
 
 # Copy common nerves shell scripts over

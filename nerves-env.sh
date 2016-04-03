@@ -49,7 +49,7 @@ if [[ "$SHELL" = "/bin/bash" ]]; then
 fi
 
 # Determine the location of the NERVES_SYSTEM directory. This script is
-# either being sourced from the directory or from the base of nerves-system-br.
+# either being sourced from the directory or from the base of nerves_system_br.
 # If it's the latter, then point the helper script at the appropriate place.
 if [ -e "$SCRIPT_DIR/.config" ]; then
     NERVES_SYSTEM=$SCRIPT_DIR
@@ -57,9 +57,9 @@ elif [ -e "$SCRIPT_DIR/buildroot/output" ]; then
     NERVES_SYSTEM=$SCRIPT_DIR/buildroot/output
 else
     echo "ERROR: Can't find Nerves system directory. Has Nerves been built?"
-    echo " If sourcing from the nerves-system-br directory, then the build products"
+    echo " If sourcing from the nerves_system_br directory, then the build products"
     echo " aren't in the default location. The new way is to source nerves-env.sh"
-    echo " from nerves-system-br's output directory."
+    echo " from nerves_system_br's output directory."
     return 1
 fi
 

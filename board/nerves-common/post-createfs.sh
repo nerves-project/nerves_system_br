@@ -9,7 +9,7 @@ set -e
 #   $1  the images directory (where to put the .fw output)
 #   $2  the path to fwup.conf
 #   $3  the base name for the firmware
-# $BR2_EXTERNAL the path to the nerves-system-br directory
+# $BR2_EXTERNAL the path to the nerves_system_br directory
 # $BASE_DIR     the path to the buildroot output directory
 # $TARGET_DIR   the path to the target directory (normally $BASE_DIR/target)
 # $BINARIES_DIR the path to the images directory (normally $BASE_DIR/images)

@@ -2,7 +2,7 @@
 
 # Not using "set -e" due to watchdog clean code below (FIXME)
 
-# This script is invoked by the CI system to build a nerves-system-br configuration.
+# This script is invoked by the CI system to build a nerves_system_br configuration.
 
 # The following environment variables should be set:
 #  CI_DEFCONFIG_DIR - the name of the directory under configs

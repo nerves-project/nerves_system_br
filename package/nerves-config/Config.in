@@ -4,7 +4,7 @@ menuconfig BR2_PACKAGE_NERVES_CONFIG
 	help
 	  Nerves system configuration helper
 
-	  https://github.com/nerves-project/nerves-system-br
+	  https://github.com/nerves-project/nerves_system_br
 
 if BR2_PACKAGE_NERVES_CONFIG
 

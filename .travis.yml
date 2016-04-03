@@ -46,7 +46,7 @@ deploy:
       - "artifacts/$CI_DEFCONFIG_DIR-$CI_DEFCONFIG-$TRAVIS_TAG.fw"
     skip_cleanup: true
     on:
-      repo: nerves-project/nerves-system-br
+      repo: nerves-project/nerves_system_br
       tags: true
   # Copy all build products to S3
   - provider: s3
@@ -55,10 +55,10 @@ deploy:
     bucket: $ARTIFACTS_BUCKET
     skip_cleanup: true
     local_dir: artifacts
-    upload-dir: nerves-system-br
+    upload-dir: nerves_system_br
     storage_class: "REDUCED_REDUNDANCY"  # See https://github.com/travis-ci/dpl/issues/291
     on:
-      repo: nerves-project/nerves-system-br
+      repo: nerves-project/nerves_system_br
       all_branches: true
 
 # Display build log on failure
