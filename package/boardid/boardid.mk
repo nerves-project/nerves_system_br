@@ -4,7 +4,7 @@
 #
 #############################################################
 
-BOARDID_VERSION = v0.2.0
+BOARDID_VERSION = v0.3.0
 BOARDID_SITE = $(call github,fhunleth,boardid,$(BOARDID_VERSION))
 BOARDID_LICENSE = Apache-2.0
 BOARDID_LICENSE_FILES = LICENSE
