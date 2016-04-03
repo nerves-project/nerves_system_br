@@ -16,7 +16,8 @@ ifelse(VERBOSE_INIT, `y', `-v', `#-v')
 #-s "/usr/bin/dtach -N /tmp/iex_prompt"
 
 # Uncomment to hang the board rather than rebooting when Erlang exits
-ifelse(HANG_ON_EXIT, `y', `-h', `#-h')
+ifelse(HANG_ON_EXIT, `y', `--hang-on-exit', `#--hang-on-exit')
+ifelse(POWEROFF_ON_EXIT, `y', `--poweroff-on-exit', `')
 
 # Enable UTF-8 filename handling in Erlang and custom inet configuration
 -e LANG=en_US.UTF-8;LANGUAGE=en;ERL_INETRC=/etc/erl_inetrc

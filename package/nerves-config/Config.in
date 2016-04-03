@@ -91,6 +91,13 @@ config BR2_PACKAGE_NERVES_CONFIG_HANG_ON_EXIT
 	  If the Erlang VM exits, hang the board rather than rebooting. This is
 	  useful when debugging.
 
+config BR2_PACKAGE_NERVES_CONFIG_POWEROFF_ON_EXIT
+	bool "Power off on exit"
+	default false
+	help
+	  If the Erlang VM exits, poweroff the board rather than rebooting. This is
+	  useful when debugging on boards that don't have a reset button.
+
 config BR2_PACKAGE_NERVES_CONFIG_VERBOSE_INIT
 	bool "Verbose init"
 	default false
