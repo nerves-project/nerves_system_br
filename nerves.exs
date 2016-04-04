@@ -1,7 +1,7 @@
 use Mix.Config
 
 config :nerves_system_br, :nerves_env,
-  type:  :system_build_platform,
+  type: :system_platform,
   package_files: [
     "board",
     "configs",
