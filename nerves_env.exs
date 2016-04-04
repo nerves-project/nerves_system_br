@@ -20,7 +20,8 @@ defmodule System.Env do
   end
 end
 
-system_path = System.get_env("NERVES_SYSTEM") || raise "You must set NERVES_SYSTEM to the system dir prior to requiring this file"
+system_path = System.get_env("NERVES_SYSTEM") ||
+  raise Nerves.Env.Exception, message: "You must set NERVES_SYSTEM to the system dir prior to requiring this file"
 
 {_toolchain_path, crosscompile} =
   if File.dir?(Path.join(system_path, "host")) do
@@ -72,7 +73,7 @@ system_path = System.get_env("NERVES_SYSTEM") || raise "You must set NERVES_SYST
   end
 
 if crosscompile == "" do
-  raise "Cannot find a cross compiler"
+  raise Nerves.Env.Exception, message: "Cannot find a cross compiler"
 end
 
 sdk_sysroot = Path.join(system_path, "staging")
@@ -81,10 +82,10 @@ System.put_env("NERVES_SDK_IMAGES", Path.join(system_path, "images"))
 System.put_env("NERVES_SDK_SYSROOT", sdk_sysroot)
 
 unless File.dir?(Path.join(system_path, "staging")) do
-  raise "ERROR: It looks like the system hasn't been built!"
+  raise Nerves.Env.Exception, message: "ERROR: It looks like the system hasn't been built!"
 end
 
-System.put_env("CROSSCOMPILE", "")
+System.put_env("CROSSCOMPILE", crosscompile)
 
 erts_dir =
   Path.join(sdk_sysroot, "usr/lib/erlang/erts-*")
