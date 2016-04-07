@@ -21,11 +21,28 @@ update_kernel_patch() {
 
   echo "Downloading files..."
 
+  local RCN_PATCH_URL
+  local KERNEL_URL
+
+  case $KERNEL_VERSION in
+      3*)
+          RCN_PATCH_URL=http://rcn-ee.net/deb/sid-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_GZ
+          KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v3.x/$KERNEL_TARBALL
+          ;;
+      4*)
+          RCN_PATCH_URL=http://rcn-ee.net/deb/jessie-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_GZ
+          KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v4.x/$KERNEL_TARBALL
+          ;;
+      *)
+          echo "Unexpected kernel version: $KERNEL_VERSION"
+          exit 1
+  esac
+
   # Download the master patch file for the RCN kernel
-  wget http://rcn-ee.net/deb/sid-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_GZ
+  wget $RCN_PATCH_URL
 
   # Download the kernel that it will patch
-  wget https://www.kernel.org/pub/linux/kernel/v3.x/$KERNEL_TARBALL
+  wget $KERNEL_URL
 
   # Extract the kernel twice so that the patch can be compared
   echo "Extracting..."
@@ -57,7 +74,7 @@ update_kernel_patch() {
   return 0
 }
 
-update_kernel_patch 3.8.13-bone73 3.8.13 rcn-linux-kernel-3.8.patch
-update_kernel_patch 3.14.51-ti-r74 3.14.51 rcn-linux-kernel-3.14.patch
+update_kernel_patch 3.8.13-bone79 3.8.13 rcn-linux-kernel-3.8.patch
+update_kernel_patch 4.1.18-ti-r56 4.1.18 rcn-linux-kernel-4.1.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
