@@ -70,6 +70,18 @@ if [[ ! -e $NERVES_SYSTEM ]]; then
     exit 1
 fi
 
+# If a Config.in doesn't exist, make it as a convenience. This
+# is required since KConfig doesn't support optional Config.in
+# files.
+if [[ ! -e $NERVES_DEFCONFIG_DIR/Config.in ]]; then
+    cat >$NERVES_DEFCONFIG_DIR/Config.in <<EOF
+# Add project-specific packages for Buildroot here
+#
+# If these are non-proprietary, please consider contributing them back to
+# Nerves or Buildroot.
+EOF
+fi
+
 # Location to download files to so that they don't need
 # to be redownloaded when working a lot with buildroot
 #
