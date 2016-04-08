@@ -14,6 +14,7 @@ fi
 # Copy the boot config files over
 cp $BR2_EXTERNAL/board/raspberrypi/config.txt $BINARIES_DIR
 cp $BR2_EXTERNAL/board/raspberrypi/cmdline.txt $BINARIES_DIR
+cp $BR2_EXTERNAL/board/raspberrypi/rpi3-cmdline.txt $BINARIES_DIR
 cp $FWUP_CONFIG $BINARIES_DIR/fwup.conf
 
 # Run the common post-image processing for nerves
