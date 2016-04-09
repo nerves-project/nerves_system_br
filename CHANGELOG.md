@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.4.0 - rc1-3
+## v0.4.0
 
 Important: The repository changed names to `nerves_system_br`. Previously it
 had used hyphens. This was done as part of the `mix` integration so that the
