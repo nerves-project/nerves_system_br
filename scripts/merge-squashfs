@@ -10,7 +10,15 @@ LC_ALL=C
 
 # Account for Mac differences
 if [[ "$(uname)" = "Darwin" ]]; then
-    STAT=gstat
+    # Use gstat on the Mac, but make sure that it exists first.
+    STAT=$(command -v gstat || echo "/usr/local/bin/gstat")
+    if [[ ! -e "$STAT" ]]; then
+        echo "merge-squashfs: ERROR: Please install gstat first"
+        echo
+        echo "For example:"
+        echo "   brew install coreutils"
+        exit 1
+    fi
 else
     STAT=stat
 fi
