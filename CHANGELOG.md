@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.1
+
+  * Bug fixes
+    * syslinux fails to boot when compiled on some gcc 5 systems
+
+  * Package updates
+    * Erlang 18.3
+    * Elixir 1.2.5
+
 ## v0.4.0
 
 Important: The repository changed names to `nerves_system_br`. Previously it

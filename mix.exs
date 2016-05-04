@@ -3,7 +3,7 @@ defmodule Nerves.System.BR do
 
   def project do
     [app: :nerves_system_br,
-     version: "0.4.0-rc3",
+     version: "0.4.1",
      elixir: "~> 1.2",
      compilers: [:app]
     ]
