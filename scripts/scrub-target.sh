@@ -22,7 +22,9 @@ rm -fr $TARGET_DIR/usr/lib/erlang/lib/*
 
 # Remove all shell scripts. We're trying hard not to ever have to run
 # one, so this keeps us honest in the base image.
-find $TARGET_DIR -type f | xargs file | grep "POSIX shell script" | cut -d : -f 1 | xargs rm -f
+# COMMENT OUT THE NEXT LINE TO SUPPORT config-pin ON THE BBB. WE DIDN'T START
+# NERVES TO CONTINUE PROGRAMMING WITH SHELL SCRIPTS, BUT SIGH...
+#find $TARGET_DIR -type f | xargs file | grep "POSIX shell script" | cut -d : -f 1 | xargs rm -f
 
 # Remove shell script configuration
 rm -f $TARGET_DIR/root/.bash* $TARGET_DIR/etc/profile $TARGET_DIR/etc/issue
