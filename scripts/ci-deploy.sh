@@ -37,6 +37,5 @@ fi
 # Copy the artifacts to a location that's easy to reference in the .travis.yml
 rm -fr artifacts
 mkdir -p artifacts/$ARTIFACT_SUBDIR
-cp ci/out/${CI_DEFCONFIG_DIR}.tar.gz artifacts/$ARTIFACT_SUBDIR/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.tar.gz
-cp ci/out/images/${CI_DEFCONFIG_DIR}.fw artifacts/$ARTIFACT_SUBDIR/${CI_DEFCONFIG_DIR}-${CI_DEFCONFIG}-$BRANCH_OR_TAG.fw # only one .fw file in images
-
+cp _build/*/nerves/system/${CI_SYSTEM_NAME}.tar.gz artifacts/$ARTIFACT_SUBDIR/${CI_SYSTEM_NAME}-$BRANCH_OR_TAG.tar.gz
+cp _build/*/nerves/system/images/${CI_SYSTEM_NAME}.fw artifacts/$ARTIFACT_SUBDIR/${CI_SYSTEM_NAME}-$BRANCH_OR_TAG.fw # only one .fw file in images
