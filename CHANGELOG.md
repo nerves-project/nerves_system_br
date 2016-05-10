@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.2
+
+  * New features
+    * WiFi drivers enabled by default on RPi2 and RPi3
+
 ## v0.4.1
 
   * Bug fixes
