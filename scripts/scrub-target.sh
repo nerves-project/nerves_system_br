@@ -36,6 +36,19 @@ rm -fr $TARGET_DIR/usr/share/bash-completion
 rm -fr $TARGET_DIR/etc/init.d $TARGET_DIR/etc/random-seed $TARGET_DIR/etc/network \
     $TARGET_DIR/etc/protocols $TARGET_DIR/etc/services
 
+# Remove the Buildroot default wpa_supplicant.conf since it is
+# wrong and confusing. The wpa_supplicant.conf file must be
+# dynamically created based on the regulatory domain, so it
+# shouldn't be in a root filesystem anyway.
+rm -f $TARGET_DIR/etc/wpa_supplicant.conf
+
+# Remove the Buildroot default fstab since it isn't used.
+# erlinit mounts the pseudo filesystems automatically and it
+# has parameters to do a best-effort mount attempt on real
+# partitions. Erlang/Elixir applications need to handle
+# anything complicated.
+rm -f $TARGET_DIR/etc/fstab
+
 # Nerves currently does not use /home at all
 rm -fr $TARGET_DIR/home
 
