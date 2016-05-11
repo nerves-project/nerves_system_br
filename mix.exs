@@ -19,7 +19,9 @@ defmodule Nerves.System.BR do
 
   defp package do
    [maintainers: ["Frank Hunleth", "Justin Schneck"],
-    licenses: ["Apache 2.0"],
+    files: ["board", "package", "patches", "scripts", "Config.in", "create-build.sh", "external.mk", "LICENSE", "mix.exs", "nerves_env.exs",
+    "nerves-env.sh", "nerves.exs", "nerves.mk", "README.md"],
+    licenses: ["Apache 2.0", "GPLv2"],
     links: %{"Github" => "https://github.com/nerves-project/nerves_system_br"}]
   end
 

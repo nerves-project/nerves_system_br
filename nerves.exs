@@ -10,5 +10,6 @@ config :nerves_system_br, :nerves_env,
     "scripts",
     "Config.in",
     "create-build.sh",
+    "nerves_evv.sh",
     "mix.exs"
   ]
