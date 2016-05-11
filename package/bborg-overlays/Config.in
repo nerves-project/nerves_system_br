@@ -1,0 +1,7 @@
+config BR2_PACKAGE_BBORG_OVERLAYS
+	bool "bb.org-overlays"
+	select BR2_PACKAGE_HOST_DTC
+	help
+	  Device Tree Overlays for bb.org boards
+
+	  https://github.com/beagleboard/bb.org-overlays
