@@ -21,9 +21,9 @@ echo "Running Nerves U-Boot script"
 # When debugging, create a uEnv.txt file in the BOOT partition
 # to override these arguments. For example, if you want the
 # kernel debug messages, put this in a uEnv.txt:
-#   optargs="capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN uio_pruss.extram_pool_sz=0x100000"
+#   optargs="bone_capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN"
 
-env set optargs "quiet capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN uio_pruss.extram_pool_sz=0x100000"
+env set optargs "quiet bone_capemgr.disable_partno=BB-BONELT-HDMI,BB-BONELT-HDMIN"
 
 # Allow the user to override the kernel/erlinit arguments
 # via a "uEnv.txt" file in the FAT partition.
