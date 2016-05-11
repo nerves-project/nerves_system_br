@@ -1,0 +1,1285 @@
+From 3db94425f5b78a709358812e7a523afd65058835 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 11 May 2016 19:12:58 -0400
+Subject: [PATCH] dtc: include device tree overlay patches
+
+These patches are required to compile the device tree overlay files for
+the BeagleBone Black.
+---
+ ...001-fdtdump-Add-live-tree-dump-capability.patch | 212 +++++++++++
+ ...Symbol-and-local-fixup-generation-support.patch | 401 +++++++++++++++++++++
+ ...003-dtc-Plugin-object-device-tree-support.patch | 303 ++++++++++++++++
+ ...dtc-Document-the-dynamic-plugin-internals.patch | 324 +++++++++++++++++
+ 4 files changed, 1240 insertions(+)
+ create mode 100644 package/dtc/0001-fdtdump-Add-live-tree-dump-capability.patch
+ create mode 100644 package/dtc/0002-dtc-Symbol-and-local-fixup-generation-support.patch
+ create mode 100644 package/dtc/0003-dtc-Plugin-object-device-tree-support.patch
+ create mode 100644 package/dtc/0004-dtc-Document-the-dynamic-plugin-internals.patch
+
+diff --git a/package/dtc/0001-fdtdump-Add-live-tree-dump-capability.patch b/package/dtc/0001-fdtdump-Add-live-tree-dump-capability.patch
+new file mode 100644
+index 0000000..71ff4af
+--- /dev/null
++++ b/package/dtc/0001-fdtdump-Add-live-tree-dump-capability.patch
+@@ -0,0 +1,212 @@
++From a9a4640af274c5278968fb2573cf96ca3d7090f2 Mon Sep 17 00:00:00 2001
++From: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
++Date: Tue, 5 Nov 2013 10:16:14 +0200
++Subject: [PATCH 1/4] fdtdump: Add live tree dump capability
++
++Adds the capability to dump any point of the kernel's live tree
++which resides usually in /proc/device-tree.
++
++For example you can do this:
++
++	# fdtdump /proc/device-tree/ocp/ethernet\@4a100000/
++	/* dump of live tree at /proc/device-tree/ocp/ethernet@4a100000 */
++	/ {
++		name = "ethernet";
++		pinctrl-1 = <0x0000000b>;
++		pinctrl-0 = <0x0000000a>;
++		pinctrl-names = "default", "sleep";
++		ranges;
++		interrupts = <0x00000028 0x00000000 0x00000000 0x00000000>;
++		interrupt-parent = <0x00000001>;
++		#size-cells = <0x00000001>;
++		#address-cells = <0x00000001>;
++		reg = <0x4a100000 0x00000000 0x00000000 0x00000000>;
++		cpts_clock_shift = <0x0000001d>;
++		cpts_clock_mult = <0x80000000>;
++		active_slave = <0x00000000>;
++		slaves = <0x00000002>;
++		mac_control = <0x00000020>;
++		rx_descs = <0x00000040>;
++		no_bd_ram = <0x00000000>;
++		bd_ram_size = <0x00002000>;
++		ale_entries = <0x00000400>;
++		cpdma_channels = <0x00000008>;
++		ti,hwmods = "cpgmac0";
++		compatible = "ti,cpsw";
++		slave@4a100300 {
++			name = "slave";
++			phy-mode = "mii";
++			phy_id = <0x0000000e 0x00000000>;
++			mac-address = [00 00 00 00 00 00];
++		};
++		slave@4a100200 {
++			name = "slave";
++			phy-mode = "mii";
++			phy_id = <0x0000000e 0x00000000>;
++			mac-address = [00 00 00 00 00 00];
++		};
++		mdio@4a101000 {
++			name = "mdio";
++			phandle = <0x0000000e>;
++			linux,phandle = <0x0000000e>;
++			pinctrl-1 = <0x0000000d>;
++			pinctrl-0 = <0x0000000c>;
++			pinctrl-names = "default", "sleep";
++			reg = <0x4a101000 0x00000000>;
++			bus_freq = <0x000f4240>;
++			ti,hwmods = "davinci_mdio";
++			#size-cells = <0x00000000>;
++			#address-cells = <0x00000001>;
++			compatible = "ti,davinci_mdio";
++		};
++	};
++
++This makes it much easier to see the state of the kernel's live tree.
++
++Signed-off-by: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
++---
++ fdtdump.c | 107 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++ 1 file changed, 107 insertions(+)
++
++diff --git a/fdtdump.c b/fdtdump.c
++index 95a6a20..9183555 100644
++--- a/fdtdump.c
+++++ b/fdtdump.c
++@@ -8,6 +8,14 @@
++ #include <stdlib.h>
++ #include <string.h>
++ #include <ctype.h>
+++#include <sys/types.h>
+++#include <sys/stat.h>
+++#include <alloca.h>
+++#include <dirent.h>
+++#include <limits.h>
+++#include <unistd.h>
+++#include <fcntl.h>
+++#include <errno.h>
++ 
++ #include <libfdt.h>
++ #include <libfdt_env.h>
++@@ -143,6 +151,95 @@ static void dump_blob(void *blob, bool debug)
++ 	}
++ }
++ 
+++static void dump_live_internal(const char *path, bool debug, int depth)
+++{
+++	int maxsz = strlen(path) + 1 + PATH_MAX;
+++	char *new_path = alloca(maxsz + 1);
+++	struct stat sb;
+++	struct dirent *de;
+++	char *buf, *p;
+++	int buf_alloc, shift, chunk, left, fd, ret;
+++	DIR *d;
+++
+++	shift = 4;
+++	buf_alloc = 4 * 1024;	/* 4K (maximum chunk) */
+++	buf = alloca(buf_alloc + sizeof(uint32_t));
+++	buf[buf_alloc] = '\0';	/* always terminate (just in case) */
+++
+++	d = opendir(path);
+++	if (d == NULL)
+++		die("Could not open %s directory\n", path);
+++
+++	/* first dump the properties (files) */
+++	while ((de = readdir(d)) != NULL) {
+++		/* properties are files */
+++		if (de->d_type != DT_REG)
+++			continue;
+++		snprintf(new_path, maxsz, "%s/%s", path, de->d_name);
+++		new_path[maxsz] = '\0';
+++		printf("%*s%s", depth * shift, "", de->d_name);
+++
+++		if (stat(new_path, &sb) != 0)
+++			die("could not open: %s\n", new_path);
+++
+++		fd = open(new_path, O_RDONLY);
+++		if (fd == -1)
+++			die("Could not open: %s\n", new_path);
+++
+++		chunk = sb.st_size > buf_alloc ? buf_alloc : sb.st_size;
+++		p = buf;
+++		left = chunk;
+++		while (left > 0) {
+++			do {
+++				ret = read(fd, p, left);
+++			} while (ret == -1 && (errno == EAGAIN || errno == EINTR));
+++			if (ret == -1)
+++				die("Read failed on: %s\n", new_path);
+++			left -= ret;
+++			p += ret;
+++		}
+++		close(fd);
+++
+++		if (chunk < sb.st_size)
+++			printf(" (trunc)");
+++		utilfdt_print_data(buf, chunk);
+++		printf(";\n");
+++	}
+++
+++	/* now recurse to the directories */
+++	rewinddir(d);
+++	while ((de = readdir(d)) != NULL) {
+++		/* properties are files */
+++		if (de->d_type != DT_DIR)
+++			continue;
+++		/* skip current and parent directories */
+++		if (strcmp(de->d_name, ".") == 0 ||
+++				strcmp(de->d_name, "..") == 0)
+++			continue;
+++		snprintf(new_path, maxsz, "%s/%s", path, de->d_name);
+++		new_path[maxsz] = '\0';
+++		printf("%*s%s {\n", depth * shift, "", de->d_name);
+++		dump_live_internal(new_path, debug, depth + 1);
+++		printf("%*s};\n", depth * shift, "");
+++	}
+++}
+++
+++static void dump_live(const char *path, bool debug)
+++{
+++	char *fixed_path = alloca(strlen(path) + 1);
+++	char *p;
+++
+++	/* strip trailing / */
+++	strcpy(fixed_path, path);
+++	p = fixed_path + strlen(fixed_path) - 1;
+++	while (*p == '/' && p > fixed_path)
+++		*p-- = '\0';
+++	printf("/* dump of live tree at %s */\n", fixed_path);
+++	printf("/ {\n");
+++	dump_live_internal(fixed_path, debug, 1);
+++	printf("};\n");
+++}
+++
++ /* Usage related data. */
++ static const char usage_synopsis[] = "fdtdump [options] <file>";
++ static const char usage_short_opts[] = "ds" USAGE_COMMON_SHORT_OPTS;
++@@ -165,6 +262,7 @@ int main(int argc, char *argv[])
++ 	bool debug = false;
++ 	bool scan = false;
++ 	off_t len;
+++	struct stat sb;
++ 
++ 	while ((opt = util_getopt_long()) != EOF) {
++ 		switch (opt) {
++@@ -182,6 +280,15 @@ int main(int argc, char *argv[])
++ 		usage("missing input filename");
++ 	file = argv[optind];
++ 
+++	if (stat(file, &sb) != 0)
+++		die("could not open: %s\n", file);
+++
+++	/* dump live tree if it's a directory */
+++	if (S_ISDIR(sb.st_mode)) {
+++		dump_live(file, debug);
+++		return 0;
+++	}
+++
++ 	buf = utilfdt_read_len(file, &len);
++ 	if (!buf)
++ 		die("could not read: %s\n", file);
++-- 
++2.5.0
++
+diff --git a/package/dtc/0002-dtc-Symbol-and-local-fixup-generation-support.patch b/package/dtc/0002-dtc-Symbol-and-local-fixup-generation-support.patch
+new file mode 100644
+index 0000000..10a5d33
+--- /dev/null
++++ b/package/dtc/0002-dtc-Symbol-and-local-fixup-generation-support.patch
+@@ -0,0 +1,401 @@
++From 47adbbd06b11450d72dd738d756e738ff0f573fe Mon Sep 17 00:00:00 2001
++From: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
++Date: Tue, 21 Oct 2014 22:07:16 +0300
++Subject: [PATCH 2/4] dtc: Symbol and local fixup generation support
++
++Enable the generation of symbols & local fixup information
++for trees compiled with the -@ (--symbols) option.
++
++Using this patch labels in the tree and their users emit information
++in __symbols__ and __local_fixups__ nodes. Using this information
++it is possible to implement run time dynamic tree loading.
++
++Signed-off-by: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
++---
++ Documentation/manual.txt |   5 ++
++ checks.c                 |  61 +++++++++++++++++++++
++ dtc.c                    |   9 ++-
++ dtc.h                    |  28 ++++++++++
++ flattree.c               | 139 +++++++++++++++++++++++++++++++++++++++++++++++
++ 5 files changed, 240 insertions(+), 2 deletions(-)
++
++diff --git a/Documentation/manual.txt b/Documentation/manual.txt
++index 398de32..4359958 100644
++--- a/Documentation/manual.txt
+++++ b/Documentation/manual.txt
++@@ -119,6 +119,11 @@ Options:
++ 	Make space for <number> reserve map entries
++ 	Relevant for dtb and asm output only.
++ 
+++    -@
+++        Generates a __symbols__ node at the root node of the resulting blob
+++	for any node labels used, and for any local references using phandles
+++	it also generates a __local_fixups__ node that tracks them.
+++
++     -S <bytes>
++ 	Ensure the blob at least <bytes> long, adding additional
++ 	space if needed.
++diff --git a/checks.c b/checks.c
++index e81a8c7..103ca52 100644
++--- a/checks.c
+++++ b/checks.c
++@@ -458,6 +458,7 @@ static void fixup_phandle_references(struct check *c, struct node *dt,
++ 				     struct node *node, struct property *prop)
++ {
++ 	struct marker *m = prop->val.markers;
+++	struct fixup_entry *fe, **fep;
++ 	struct node *refnode;
++ 	cell_t phandle;
++ 
++@@ -471,9 +472,28 @@ static void fixup_phandle_references(struct check *c, struct node *dt,
++ 			continue;
++ 		}
++ 
+++		/* if it's a local reference, we need to record it */
+++		if (symbol_fixup_support) {
+++
+++			/* allocate a new local fixup entry */
+++			fe = xmalloc(sizeof(*fe));
+++
+++			fe->node = node;
+++			fe->prop = prop;
+++			fe->offset = m->offset;
+++			fe->next = NULL;
+++
+++			/* append it to the local fixups */
+++			fep = &dt->local_fixups;
+++			while (*fep)
+++				fep = &(*fep)->next;
+++			*fep = fe;
+++		}
+++
++ 		phandle = get_node_phandle(dt, refnode);
++ 		*((cell_t *)(prop->val.val + m->offset)) = cpu_to_fdt32(phandle);
++ 	}
+++
++ }
++ ERROR(phandle_references, NULL, NULL, fixup_phandle_references, NULL,
++       &duplicate_node_names, &explicit_phandles);
++@@ -652,6 +672,45 @@ static void check_obsolete_chosen_interrupt_controller(struct check *c,
++ }
++ TREE_WARNING(obsolete_chosen_interrupt_controller, NULL);
++ 
+++static void check_auto_label_phandles(struct check *c, struct node *dt,
+++				       struct node *node)
+++{
+++	struct label *l;
+++	struct symbol *s, **sp;
+++	int has_label;
+++
+++	if (!symbol_fixup_support)
+++		return;
+++
+++	has_label = 0;
+++	for_each_label(node->labels, l) {
+++		has_label = 1;
+++		break;
+++	}
+++
+++	if (!has_label)
+++		return;
+++
+++	/* force allocation of a phandle for this node */
+++	(void)get_node_phandle(dt, node);
+++
+++	/* add the symbol */
+++	for_each_label(node->labels, l) {
+++
+++		s = xmalloc(sizeof(*s));
+++		s->label = l;
+++		s->node = node;
+++		s->next = NULL;
+++
+++		/* add it to the symbols list */
+++		sp = &dt->symbols;
+++		while (*sp)
+++			sp = &((*sp)->next);
+++		*sp = s;
+++	}
+++}
+++NODE_WARNING(auto_label_phandles, NULL);
+++
++ static struct check *check_table[] = {
++ 	&duplicate_node_names, &duplicate_property_names,
++ 	&node_name_chars, &node_name_format, &property_name_chars,
++@@ -670,6 +729,8 @@ static struct check *check_table[] = {
++ 	&avoid_default_addr_size,
++ 	&obsolete_chosen_interrupt_controller,
++ 
+++	&auto_label_phandles,
+++
++ 	&always_fail,
++ };
++ 
++diff --git a/dtc.c b/dtc.c
++index 8c4add6..91e91e7 100644
++--- a/dtc.c
+++++ b/dtc.c
++@@ -29,6 +29,7 @@ int reservenum;		/* Number of memory reservation slots */
++ int minsize;		/* Minimum blob size */
++ int padsize;		/* Additional padding to blob */
++ int phandle_format = PHANDLE_BOTH;	/* Use linux,phandle or phandle properties */
+++int symbol_fixup_support = 0;
++ 
++ static void fill_fullpaths(struct node *tree, const char *prefix)
++ {
++@@ -51,7 +52,7 @@ static void fill_fullpaths(struct node *tree, const char *prefix)
++ #define FDT_VERSION(version)	_FDT_VERSION(version)
++ #define _FDT_VERSION(version)	#version
++ static const char usage_synopsis[] = "dtc [options] <input file>";
++-static const char usage_short_opts[] = "qI:O:o:V:d:R:S:p:fb:i:H:sW:E:hv";
+++static const char usage_short_opts[] = "qI:O:o:V:d:R:S:p:fb:i:H:sW:E:@hv";
++ static struct option const usage_long_opts[] = {
++ 	{"quiet",            no_argument, NULL, 'q'},
++ 	{"in-format",         a_argument, NULL, 'I'},
++@@ -69,6 +70,7 @@ static struct option const usage_long_opts[] = {
++ 	{"phandle",           a_argument, NULL, 'H'},
++ 	{"warning",           a_argument, NULL, 'W'},
++ 	{"error",             a_argument, NULL, 'E'},
+++	{"symbols",	     no_argument, NULL, '@'},
++ 	{"help",             no_argument, NULL, 'h'},
++ 	{"version",          no_argument, NULL, 'v'},
++ 	{NULL,               no_argument, NULL, 0x0},
++@@ -99,6 +101,7 @@ static const char * const usage_opts_help[] = {
++ 	 "\t\tboth   - Both \"linux,phandle\" and \"phandle\" properties",
++ 	"\n\tEnable/disable warnings (prefix with \"no-\")",
++ 	"\n\tEnable/disable errors (prefix with \"no-\")",
+++	"\n\tEnable symbols/fixup support",
++ 	"\n\tPrint this help and exit",
++ 	"\n\tPrint version and exit",
++ 	NULL,
++@@ -186,7 +189,9 @@ int main(int argc, char *argv[])
++ 		case 'E':
++ 			parse_checks_option(false, true, optarg);
++ 			break;
++-
+++		case '@':
+++			symbol_fixup_support = 1;
+++			break;
++ 		case 'h':
++ 			usage(NULL);
++ 		default:
++diff --git a/dtc.h b/dtc.h
++index 56212c8..16354fa 100644
++--- a/dtc.h
+++++ b/dtc.h
++@@ -54,6 +54,7 @@ extern int reservenum;		/* Number of memory reservation slots */
++ extern int minsize;		/* Minimum blob size */
++ extern int padsize;		/* Additional padding to blob */
++ extern int phandle_format;	/* Use linux,phandle or phandle properties */
+++extern int symbol_fixup_support;/* enable symbols & fixup support */
++ 
++ #define PHANDLE_LEGACY	0x1
++ #define PHANDLE_EPAPR	0x2
++@@ -132,6 +133,20 @@ struct label {
++ 	struct label *next;
++ };
++ 
+++struct fixup_entry {
+++	int offset;
+++	struct node *node;
+++	struct property *prop;
+++	struct fixup_entry *next;
+++	bool local_fixup_generated;
+++};
+++
+++struct symbol {
+++	struct label *label;
+++	struct node *node;
+++	struct symbol *next;
+++};
+++
++ struct property {
++ 	bool deleted;
++ 	char *name;
++@@ -158,6 +173,10 @@ struct node {
++ 	int addr_cells, size_cells;
++ 
++ 	struct label *labels;
+++
+++	struct symbol *symbols;
+++	struct fixup_entry *local_fixups;
+++	bool emit_local_fixup_node;
++ };
++ 
++ #define for_each_label_withdel(l0, l) \
++@@ -181,6 +200,15 @@ struct node {
++ 	for_each_child_withdel(n, c) \
++ 		if (!(c)->deleted)
++ 
+++#define for_each_fixup_entry(f, fe) \
+++	for ((fe) = (f)->entries; (fe); (fe) = (fe)->next)
+++
+++#define for_each_symbol(n, s) \
+++	for ((s) = (n)->symbols; (s); (s) = (s)->next)
+++
+++#define for_each_local_fixup_entry(n, fe) \
+++	for ((fe) = (n)->local_fixups; (fe); (fe) = (fe)->next)
+++
++ void add_label(struct label **labels, char *label);
++ void delete_labels(struct label **labels);
++ 
++diff --git a/flattree.c b/flattree.c
++index bd99fa2..3a58949 100644
++--- a/flattree.c
+++++ b/flattree.c
++@@ -255,6 +255,142 @@ static int stringtable_insert(struct data *d, const char *str)
++ 	return i;
++ }
++ 
+++static void emit_local_fixups(struct node *tree, struct emitter *emit,
+++		void *etarget, struct data *strbuf, struct version_info *vi,
+++		struct node *node)
+++{
+++	struct fixup_entry *fe, *fen;
+++	struct node *child;
+++	int nameoff, count;
+++	cell_t *buf;
+++	struct data d;
+++
+++	if (node->emit_local_fixup_node) {
+++
+++		/* emit the external fixups (do not emit /) */
+++		if (node != tree) {
+++			emit->beginnode(etarget, NULL);
+++			emit->string(etarget, node->name, 0);
+++			emit->align(etarget, sizeof(cell_t));
+++		}
+++
+++		for_each_local_fixup_entry(tree, fe) {
+++			if (fe->node != node || fe->local_fixup_generated)
+++				continue;
+++
+++			/* count the number of fixup entries */
+++			count = 0;
+++			for_each_local_fixup_entry(tree, fen) {
+++				if (fen->prop != fe->prop)
+++					continue;
+++				fen->local_fixup_generated = true;
+++				count++;
+++			}
+++
+++			/* allocate buffer */
+++			buf = xmalloc(count * sizeof(cell_t));
+++
+++			/* collect all the offsets in buffer */
+++			count = 0;
+++			for_each_local_fixup_entry(tree, fen) {
+++				if (fen->prop != fe->prop)
+++					continue;
+++				fen->local_fixup_generated = true;
+++				buf[count++] = cpu_to_fdt32(fen->offset);
+++			}
+++			d = empty_data;
+++			d.len = count * sizeof(cell_t);
+++			d.val = (char *)buf;
+++
+++			nameoff = stringtable_insert(strbuf, fe->prop->name);
+++			emit->property(etarget, fe->prop->labels);
+++			emit->cell(etarget, count * sizeof(cell_t));
+++			emit->cell(etarget, nameoff);
+++
+++			if ((vi->flags & FTF_VARALIGN) &&
+++					(count * sizeof(cell_t)) >= 8)
+++				emit->align(etarget, 8);
+++
+++			emit->data(etarget, d);
+++			emit->align(etarget, sizeof(cell_t));
+++
+++			free(buf);
+++		}
+++	}
+++
+++	for_each_child(node, child)
+++		emit_local_fixups(tree, emit, etarget, strbuf, vi, child);
+++
+++	if (node->emit_local_fixup_node && node != tree)
+++		emit->endnode(etarget, tree->labels);
+++}
+++
+++static void emit_symbols_node(struct node *tree, struct emitter *emit,
+++			      void *etarget, struct data *strbuf,
+++			      struct version_info *vi)
+++{
+++	struct symbol *sym;
+++	int nameoff, vallen;
+++
+++	/* do nothing if no symbols */
+++	if (!tree->symbols)
+++		return;
+++
+++	emit->beginnode(etarget, NULL);
+++	emit->string(etarget, "__symbols__", 0);
+++	emit->align(etarget, sizeof(cell_t));
+++
+++	for_each_symbol(tree, sym) {
+++
+++		vallen = strlen(sym->node->fullpath);
+++
+++		nameoff = stringtable_insert(strbuf, sym->label->label);
+++
+++		emit->property(etarget, NULL);
+++		emit->cell(etarget, vallen + 1);
+++		emit->cell(etarget, nameoff);
+++
+++		if ((vi->flags & FTF_VARALIGN) && vallen >= 8)
+++			emit->align(etarget, 8);
+++
+++		emit->string(etarget, sym->node->fullpath,
+++				strlen(sym->node->fullpath));
+++		emit->align(etarget, sizeof(cell_t));
+++	}
+++
+++	emit->endnode(etarget, NULL);
+++}
+++
+++static void emit_local_fixups_node(struct node *tree, struct emitter *emit,
+++				   void *etarget, struct data *strbuf,
+++				   struct version_info *vi)
+++{
+++	struct fixup_entry *fe;
+++	struct node *node;
+++
+++	/* do nothing if no local fixups */
+++	if (!tree->local_fixups)
+++		return;
+++
+++	/* mark all nodes that need a local fixup generated (and parents) */
+++	for_each_local_fixup_entry(tree, fe) {
+++		node = fe->node;
+++		while (node != NULL && !node->emit_local_fixup_node) {
+++			node->emit_local_fixup_node = true;
+++			node = node->parent;
+++		}
+++	}
+++
+++	/* emit the local fixups node now */
+++	emit->beginnode(etarget, NULL);
+++	emit->string(etarget, "__local_fixups__", 0);
+++	emit->align(etarget, sizeof(cell_t));
+++
+++	emit_local_fixups(tree, emit, etarget, strbuf, vi, tree);
+++
+++	emit->endnode(etarget, tree->labels);
+++}
+++
++ static void flatten_tree(struct node *tree, struct emitter *emit,
++ 			 void *etarget, struct data *strbuf,
++ 			 struct version_info *vi)
++@@ -310,6 +446,9 @@ static void flatten_tree(struct node *tree, struct emitter *emit,
++ 		flatten_tree(child, emit, etarget, strbuf, vi);
++ 	}
++ 
+++	emit_symbols_node(tree, emit, etarget, strbuf, vi);
+++	emit_local_fixups_node(tree, emit, etarget, strbuf, vi);
+++
++ 	emit->endnode(etarget, tree->labels);
++ }
++ 
++-- 
++2.5.0
++
+diff --git a/package/dtc/0003-dtc-Plugin-object-device-tree-support.patch b/package/dtc/0003-dtc-Plugin-object-device-tree-support.patch
+new file mode 100644
+index 0000000..f465fac
+--- /dev/null
++++ b/package/dtc/0003-dtc-Plugin-object-device-tree-support.patch
+@@ -0,0 +1,303 @@
++From dac84271d5bd96117fa2b35975f57c05168b7c6c Mon Sep 17 00:00:00 2001
++From: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
++Date: Tue, 21 Oct 2014 22:09:40 +0300
++Subject: [PATCH 3/4] dtc: Plugin (object) device tree support.
++
++Enables the generation of a __fixups__ node for trees compiled
++using the -@ option that are using the /plugin/ tag.
++
++The __fixups__ node make possible the dynamic resolution of phandle
++references which are present in the plugin tree but lie in the
++tree that are applying the overlay against.
++
++Signed-off-by: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
++---
++ Documentation/manual.txt |  5 ++++
++ checks.c                 | 45 ++++++++++++++++++++++++++++++++--
++ dtc-lexer.l              |  5 ++++
++ dtc-parser.y             | 22 ++++++++++++++---
++ dtc.h                    | 12 +++++++++
++ flattree.c               | 63 ++++++++++++++++++++++++++++++++++++++++++++++++
++ 6 files changed, 147 insertions(+), 5 deletions(-)
++
++diff --git a/Documentation/manual.txt b/Documentation/manual.txt
++index 4359958..18d1333 100644
++--- a/Documentation/manual.txt
+++++ b/Documentation/manual.txt
++@@ -124,6 +124,9 @@ Options:
++ 	for any node labels used, and for any local references using phandles
++ 	it also generates a __local_fixups__ node that tracks them.
++ 
+++	When using the /plugin/ tag all unresolved label references to
+++	be tracked in the __fixups__ node, making dynamic resolution possible.
+++
++     -S <bytes>
++ 	Ensure the blob at least <bytes> long, adding additional
++ 	space if needed.
++@@ -158,6 +161,8 @@ Here is a very rough overview of the layout of a DTS source file:
++ 
++     devicetree:   '/' nodedef
++ 
+++    plugindecl:   '/' 'plugin' '/' ';'
+++
++     nodedef:      '{' list_of_property list_of_subnode '}' ';'
++ 
++     property:     label PROPNAME '=' propdata ';'
++diff --git a/checks.c b/checks.c
++index 103ca52..4be5233 100644
++--- a/checks.c
+++++ b/checks.c
++@@ -458,6 +458,7 @@ static void fixup_phandle_references(struct check *c, struct node *dt,
++ 				     struct node *node, struct property *prop)
++ {
++ 	struct marker *m = prop->val.markers;
+++	struct fixup *f, **fp;
++ 	struct fixup_entry *fe, **fep;
++ 	struct node *refnode;
++ 	cell_t phandle;
++@@ -467,8 +468,48 @@ static void fixup_phandle_references(struct check *c, struct node *dt,
++ 
++ 		refnode = get_node_by_ref(dt, m->ref);
++ 		if (! refnode) {
++-			FAIL(c, "Reference to non-existent node or label \"%s\"\n",
++-			     m->ref);
+++			if (!dt->is_plugin) {
+++				FAIL(c, "Reference to non-existent node or label \"%s\"\n",
+++					m->ref);
+++				continue;
+++			}
+++
+++			/* allocate fixup entry */
+++			fe = xmalloc(sizeof(*fe));
+++
+++			fe->node = node;
+++			fe->prop = prop;
+++			fe->offset = m->offset;
+++			fe->next = NULL;
+++
+++			/* search for an already existing fixup */
+++			for_each_fixup(dt, f)
+++				if (strcmp(f->ref, m->ref) == 0)
+++					break;
+++
+++			/* no fixup found, add new */
+++			if (f == NULL) {
+++				f = xmalloc(sizeof(*f));
+++				f->ref = m->ref;
+++				f->entries = NULL;
+++				f->next = NULL;
+++
+++				/* add it to the tree */
+++				fp = &dt->fixups;
+++				while (*fp)
+++					fp = &(*fp)->next;
+++				*fp = f;
+++			}
+++
+++			/* and now append fixup entry */
+++			fep = &f->entries;
+++			while (*fep)
+++				fep = &(*fep)->next;
+++			*fep = fe;
+++
+++			/* mark the entry as unresolved */
+++			*((cell_t *)(prop->val.val + m->offset)) =
+++				cpu_to_fdt32(0xdeadbeef);
++ 			continue;
++ 		}
++ 
++diff --git a/dtc-lexer.l b/dtc-lexer.l
++index 0ee1caf..dd44ba2 100644
++--- a/dtc-lexer.l
+++++ b/dtc-lexer.l
++@@ -113,6 +113,11 @@ static void lexical_error(const char *fmt, ...);
++ 			return DT_V1;
++ 		}
++ 
+++<*>"/plugin/"	{
+++			DPRINT("Keyword: /plugin/\n");
+++			return DT_PLUGIN;
+++		}
+++
++ <*>"/memreserve/"	{
++ 			DPRINT("Keyword: /memreserve/\n");
++ 			BEGIN_DEFAULT();
++diff --git a/dtc-parser.y b/dtc-parser.y
++index 5a897e3..d23927d 100644
++--- a/dtc-parser.y
+++++ b/dtc-parser.y
++@@ -19,6 +19,7 @@
++  */
++ %{
++ #include <stdio.h>
+++#include <inttypes.h>
++ 
++ #include "dtc.h"
++ #include "srcpos.h"
++@@ -52,9 +53,11 @@ extern bool treesource_error;
++ 	struct node *nodelist;
++ 	struct reserve_info *re;
++ 	uint64_t integer;
+++	bool is_plugin;
++ }
++ 
++ %token DT_V1
+++%token DT_PLUGIN
++ %token DT_MEMRESERVE
++ %token DT_LSHIFT DT_RSHIFT DT_LE DT_GE DT_EQ DT_NE DT_AND DT_OR
++ %token DT_BITS
++@@ -71,6 +74,7 @@ extern bool treesource_error;
++ 
++ %type <data> propdata
++ %type <data> propdataprefix
+++%type <is_plugin> plugindecl
++ %type <re> memreserve
++ %type <re> memreserves
++ %type <array> arrayprefix
++@@ -101,10 +105,22 @@ extern bool treesource_error;
++ %%
++ 
++ sourcefile:
++-	  DT_V1 ';' memreserves devicetree
+++	  DT_V1 ';' plugindecl memreserves devicetree
++ 		{
++-			the_boot_info = build_boot_info($3, $4,
++-							guess_boot_cpuid($4));
+++			$5->is_plugin = $3;
+++			the_boot_info = build_boot_info($4, $5,
+++							guess_boot_cpuid($5));
+++		}
+++	;
+++
+++plugindecl:
+++	/* empty */
+++		{
+++			$$ = false;
+++		}
+++	| DT_PLUGIN ';'
+++		{
+++			$$ = true;
++ 		}
++ 	;
++ 
++diff --git a/dtc.h b/dtc.h
++index 16354fa..f163b22 100644
++--- a/dtc.h
+++++ b/dtc.h
++@@ -141,6 +141,12 @@ struct fixup_entry {
++ 	bool local_fixup_generated;
++ };
++ 
+++struct fixup {
+++	char *ref;
+++	struct fixup_entry *entries;
+++	struct fixup *next;
+++};
+++
++ struct symbol {
++ 	struct label *label;
++ 	struct node *node;
++@@ -177,6 +183,9 @@ struct node {
++ 	struct symbol *symbols;
++ 	struct fixup_entry *local_fixups;
++ 	bool emit_local_fixup_node;
+++
+++	bool is_plugin;
+++	struct fixup *fixups;
++ };
++ 
++ #define for_each_label_withdel(l0, l) \
++@@ -200,6 +209,9 @@ struct node {
++ 	for_each_child_withdel(n, c) \
++ 		if (!(c)->deleted)
++ 
+++#define for_each_fixup(n, f) \
+++	for ((f) = (n)->fixups; (f); (f) = (f)->next)
+++
++ #define for_each_fixup_entry(f, fe) \
++ 	for ((fe) = (f)->entries; (fe); (fe) = (fe)->next)
++ 
++diff --git a/flattree.c b/flattree.c
++index 3a58949..2385137 100644
++--- a/flattree.c
+++++ b/flattree.c
++@@ -391,6 +391,68 @@ static void emit_local_fixups_node(struct node *tree, struct emitter *emit,
++ 	emit->endnode(etarget, tree->labels);
++ }
++ 
+++static void emit_fixups_node(struct node *tree, struct emitter *emit,
+++			     void *etarget, struct data *strbuf,
+++			     struct version_info *vi)
+++{
+++	struct fixup *f;
+++	struct fixup_entry *fe;
+++	char *name, *s;
+++	const char *fullpath;
+++	int namesz, nameoff, vallen;
+++
+++	/* do nothing if no fixups */
+++	if (!tree->fixups)
+++		return;
+++
+++	/* emit the external fixups */
+++	emit->beginnode(etarget, NULL);
+++	emit->string(etarget, "__fixups__", 0);
+++	emit->align(etarget, sizeof(cell_t));
+++
+++	for_each_fixup(tree, f) {
+++
+++		namesz = 0;
+++		for_each_fixup_entry(f, fe) {
+++			fullpath = fe->node->fullpath;
+++			if (fullpath[0] == '\0')
+++				fullpath = "/";
+++			namesz += strlen(fullpath) + 1;
+++			namesz += strlen(fe->prop->name) + 1;
+++			namesz += 32;	/* space for :<number> + '\0' */
+++		}
+++
+++		name = xmalloc(namesz);
+++
+++		s = name;
+++		for_each_fixup_entry(f, fe) {
+++			fullpath = fe->node->fullpath;
+++			if (fullpath[0] == '\0')
+++				fullpath = "/";
+++			snprintf(s, name + namesz - s, "%s:%s:%d", fullpath,
+++					fe->prop->name, fe->offset);
+++			s += strlen(s) + 1;
+++		}
+++
+++		nameoff = stringtable_insert(strbuf, f->ref);
+++		vallen = s - name - 1;
+++
+++		emit->property(etarget, NULL);
+++		emit->cell(etarget, vallen + 1);
+++		emit->cell(etarget, nameoff);
+++
+++		if ((vi->flags & FTF_VARALIGN) && vallen >= 8)
+++			emit->align(etarget, 8);
+++
+++		emit->string(etarget, name, vallen);
+++		emit->align(etarget, sizeof(cell_t));
+++
+++		free(name);
+++	}
+++
+++	emit->endnode(etarget, tree->labels);
+++}
+++
++ static void flatten_tree(struct node *tree, struct emitter *emit,
++ 			 void *etarget, struct data *strbuf,
++ 			 struct version_info *vi)
++@@ -448,6 +510,7 @@ static void flatten_tree(struct node *tree, struct emitter *emit,
++ 
++ 	emit_symbols_node(tree, emit, etarget, strbuf, vi);
++ 	emit_local_fixups_node(tree, emit, etarget, strbuf, vi);
+++	emit_fixups_node(tree, emit, etarget, strbuf, vi);
++ 
++ 	emit->endnode(etarget, tree->labels);
++ }
++-- 
++2.5.0
++
+diff --git a/package/dtc/0004-dtc-Document-the-dynamic-plugin-internals.patch b/package/dtc/0004-dtc-Document-the-dynamic-plugin-internals.patch
+new file mode 100644
+index 0000000..a1a5ef6
+--- /dev/null
++++ b/package/dtc/0004-dtc-Document-the-dynamic-plugin-internals.patch
+@@ -0,0 +1,324 @@
++From 47216cdb6ce763b79e32e1ea807b12c51e1dbde9 Mon Sep 17 00:00:00 2001
++From: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
++Date: Tue, 21 Oct 2014 22:11:08 +0300
++Subject: [PATCH 4/4] dtc: Document the dynamic plugin internals
++
++Provides the document explaining the internal mechanics of
++plugins and options.
++
++Signed-off-by: Pantelis Antoniou <pantelis.antoniou@konsulko.com>
++---
++ Documentation/dt-object-internal.txt | 301 +++++++++++++++++++++++++++++++++++
++ 1 file changed, 301 insertions(+)
++ create mode 100644 Documentation/dt-object-internal.txt
++
++diff --git a/Documentation/dt-object-internal.txt b/Documentation/dt-object-internal.txt
++new file mode 100644
++index 0000000..b5ce9b4
++--- /dev/null
+++++ b/Documentation/dt-object-internal.txt
++@@ -0,0 +1,301 @@
+++Device Tree Dynamic Object format internals
+++-------------------------------------------
+++
+++The Device Tree for most platforms is a static representation of
+++the hardware capabilities. This is insufficient for many platforms
+++that need to dynamically insert device tree fragments to the
+++running kernel's live tree.
+++
+++This document explains the the device tree object format and the
+++modifications made to the device tree compiler, which make it possible.
+++
+++1. Simplified Problem Definition
+++--------------------------------
+++
+++Assume we have a platform which boots using following simplified device tree.
+++
+++---- foo.dts -----------------------------------------------------------------
+++	/* FOO platform */
+++	/ {
+++		compatible = "corp,foo";
+++
+++		/* shared resources */
+++		res: res {
+++		};
+++
+++		/* On chip peripherals */
+++		ocp: ocp {
+++			/* peripherals that are always instantiated */
+++			peripheral1 { ... };
+++		}
+++	};
+++---- foo.dts -----------------------------------------------------------------
+++
+++We have a number of peripherals that after probing (using some undefined method)
+++should result in different device tree configuration.
+++
+++We cannot boot with this static tree because due to the configuration of the
+++foo platform there exist multiple conficting peripherals DT fragments.
+++
+++So for the bar peripheral we would have this:
+++
+++---- foo+bar.dts -------------------------------------------------------------
+++	/* FOO platform + bar peripheral */
+++	/ {
+++		compatible = "corp,foo";
+++
+++		/* shared resources */
+++		res: res {
+++		};
+++
+++		/* On chip peripherals */
+++		ocp: ocp {
+++			/* peripherals that are always instantiated */
+++			peripheral1 { ... };
+++
+++			/* bar peripheral */
+++			bar {
+++				compatible = "corp,bar";
+++				... /* various properties and child nodes */
+++			}
+++		}
+++	};
+++---- foo+bar.dts -------------------------------------------------------------
+++
+++While for the baz peripheral we would have this:
+++
+++---- foo+baz.dts -------------------------------------------------------------
+++	/* FOO platform + baz peripheral */
+++	/ {
+++		compatible = "corp,foo";
+++
+++		/* shared resources */
+++		res: res {
+++			/* baz resources */
+++			baz_res: res_baz { ... };
+++		};
+++
+++		/* On chip peripherals */
+++		ocp: ocp {
+++			/* peripherals that are always instantiated */
+++			peripheral1 { ... };
+++
+++			/* baz peripheral */
+++			baz {
+++				compatible = "corp,baz";
+++				/* reference to another point in the tree */
+++				ref-to-res = <&baz_res>;
+++				... /* various properties and child nodes */
+++			}
+++		}
+++	};
+++---- foo+baz.dts -------------------------------------------------------------
+++
+++We note that the baz case is more complicated, since the baz peripheral needs to
+++reference another node in the DT tree.
+++
+++2. Device Tree Object Format Requirements
+++-----------------------------------------
+++
+++Since the device tree is used for booting a number of very different hardware
+++platforms it is imperative that we tread very carefully.
+++
+++2.a) No changes to the Device Tree binary format. We cannot modify the tree
+++format at all and all the information we require should be encoded using device
+++tree itself. We can add nodes that can be safely ignored by both bootloaders and
+++the kernel.
+++
+++2.b) Changes to the DTS source format should be absolutely minimal, and should
+++only be needed for the DT fragment definitions, and not the base boot DT.
+++
+++2.c) An explicit option should be used to instruct DTC to generate the required
+++information needed for object resolution. Platforms that don't use the
+++dynamic object format can safely ignore it.
+++
+++2.d) Finally, DT syntax changes should be kept to a minimum. It should be
+++possible to express everything using the existing DT syntax.
+++
+++3. Implementation
+++-----------------
+++
+++The basic unit of addressing in Device Tree is the phandle. Turns out it's
+++relatively simple to extend the way phandles are generated and referenced
+++so that it's possible to dynamically convert symbolic references (labels)
+++to phandle values.
+++
+++We can roughly divide the operation into two steps.
+++
+++3.a) Compilation of the base board DTS file using the '-@' option
+++generates a valid DT blob with an added __symbols__ node at the root node,
+++containing a list of all nodes that are marked with a label.
+++
+++Using the foo.dts file above the following node will be generated;
+++
+++$ dtc -@ -O dtb -o foo.dtb -b 0 foo.dts
+++$ fdtdump foo.dtb
+++...
+++/ {
+++	...
+++	res {
+++		...
+++		linux,phandle = <0x00000001>;
+++		phandle = <0x00000001>;
+++		...
+++	};
+++	ocp {
+++		...
+++		linux,phandle = <0x00000002>;
+++		phandle = <0x00000002>;
+++		...
+++	};
+++	__symbols__ {
+++		res="/res";
+++		ocp="/ocp";
+++	};
+++};
+++
+++Notice that all the nodes that had a label have been recorded, and that
+++phandles have been generated for them.
+++
+++This blob can be used to boot the board normally, the __symbols__ node will
+++be safely ignored both by the bootloader and the kernel (the only loss will
+++be a few bytes of memory and disk space).
+++
+++3.b) The Device Tree fragments must be compiled with the same option but they
+++must also have a tag (/plugin/) that allows undefined references to labels
+++that are not present at compilation time to be recorded so that the runtime
+++loader can fix them.
+++
+++So the bar peripheral's DTS format would be of the form:
+++
+++/plugin/;	/* allow undefined label references and record them */
+++/ {
+++	....	/* various properties for loader use; i.e. part id etc. */
+++	fragment@0 {
+++		target = <&ocp>;
+++		__overlay__ {
+++			/* bar peripheral */
+++			bar {
+++				compatible = "corp,bar";
+++				... /* various properties and child nodes */
+++			}
+++		};
+++	};
+++};
+++
+++Note that there's a target property that specifies the location where the
+++contents of the overlay node will be placed, and it references the label
+++in the foo.dts file.
+++
+++$ dtc -@ -O dtb -o bar.dtbo -b 0 bar.dts
+++$ fdtdump bar.dtbo
+++...
+++/ {
+++	... /* properties */
+++	fragment@0 {
+++		target = <0xdeadbeef>;
+++		__overlay__ {
+++			bar {
+++				compatible = "corp,bar";
+++				... /* various properties and child nodes */
+++			}
+++		};
+++	};
+++	__fixups__ {
+++	    ocp = "/fragment@0:target:0";
+++	};
+++};
+++
+++No __symbols__ has been generated (no label in bar.dts).
+++Note that the target's ocp label is undefined, so the phandle handle
+++value is filled with the illegal value '0xdeadbeef', while a __fixups__
+++node has been generated, which marks the location in the tree where
+++the label lookup should store the runtime phandle value of the ocp node.
+++
+++The format of the __fixups__ node entry is
+++
+++	<label> = "<local-full-path>:<property-name>:<offset>";
+++
+++<label> 		Is the label we're referring
+++<local-full-path>	Is the full path of the node the reference is
+++<property-name>		Is the name of the property containing the
+++			reference
+++<offset>		The offset (in bytes) of where the property's
+++			phandle value is located.
+++
+++Doing the same with the baz peripheral's DTS format is a little bit more
+++involved, since baz contains references to local labels which require
+++local fixups.
+++
+++/plugin/;	/* allow undefined label references and record them */
+++/ {
+++	....	/* various properties for loader use; i.e. part id etc. */
+++	fragment@0 {
+++		target = <&res>;
+++		__overlay__ {
+++			/* baz resources */
+++			baz_res: res_baz { ... };
+++		};
+++	};
+++	fragment@1 {
+++		target = <&ocp>;
+++		__overlay__ {
+++			/* baz peripheral */
+++			baz {
+++				compatible = "corp,baz";
+++				/* reference to another point in the tree */
+++				ref-to-res = <&baz_res>;
+++				... /* various properties and child nodes */
+++			}
+++		};
+++	};
+++};
+++
+++Note that &bar_res reference.
+++
+++$ dtc -@ -O dtb -o baz.dtbo -b 0 baz.dts
+++$ fdtdump baz.dtbo
+++...
+++/ {
+++	... /* properties */
+++	fragment@0 {
+++		target = <0xdeadbeef>;
+++		__overlay__ {
+++			res_baz {
+++				....
+++				linux,phandle = <0x00000001>;
+++				phandle = <0x00000001>;
+++			};
+++		};
+++	};
+++	fragment@1 {
+++		target = <0xdeadbeef>;
+++		__overlay__ {
+++			baz {
+++				compatible = "corp,baz";
+++				... /* various properties and child nodes */
+++				ref-to-res = <0x00000001>;
+++			}
+++		};
+++	};
+++	__fixups__ {
+++		res = "/fragment@0:target:0";
+++		ocp = "/fragment@1:target:0";
+++	};
+++	__local_fixups__ {
+++		fragment@1 {
+++			__overlay__ {
+++				baz {
+++					ref-to-res = <0>;
+++				};
+++			};
+++		};
+++	};
+++};
+++
+++This is similar to the bar case, but the reference of a local label by the
+++baz node generates a __local_fixups__ entry that records the place that the
+++local reference is being made. Since phandles are allocated starting at 1
+++the run time loader must apply an offset to each phandle in every dynamic
+++DT object loaded. The __local_fixups__ node records the place of every
+++local reference so that the loader can apply the offset.
++-- 
++2.5.0
++
+-- 
+2.5.0
+
