@@ -134,7 +134,7 @@ any Erlang build tools on your application.
 In the above line, substitute `rpi-build` for whatever directory was used to build
 the Nerve System. If you downloaded a pre-built Nerves System, source the `nerves-env.sh`
 inside of it. When using a rebuilt system, the crosscompiler toolchain must also
-be downloaded. See the [nerves-toolchain project](https://github/nerves-project/nerves-toolchain).
+be downloaded. See the [nerves-toolchain project](https://github.com/nerves-project/nerves-toolchain).
 As stated before, `bake` takes care of this for you.
 
 This step has to be done each time you launch a shell. The key environment settings
