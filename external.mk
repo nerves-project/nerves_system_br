@@ -36,9 +36,7 @@ burn:
 burn-upgrade:
 	@if [ -e "$(NERVES_FIRMWARE)" ]; then \
 		echo "Upgrading $(NERVES_FIRMWARE)..."; \
-		sudo $(HOST_DIR)/usr/bin/fwup -a -i $(NERVES_FIRMWARE) -t upgrade --no-eject; \
-		sudo $(HOST_DIR)/usr/bin/fwup -y -a -i /tmp/finalize.fw -t on-reboot; \
-		sudo rm /tmp/finalize.fw; \
+		sudo $(HOST_DIR)/usr/bin/fwup -a -i $(NERVES_FIRMWARE) -t upgrade; \
 	else \
 		echo "ERROR: No firmware found. Check that 'make' completed successfully"; \
 		echo "and that a firmware (.fw) file is in $(BINARIES_DIR)."; \
