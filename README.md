@@ -10,7 +10,7 @@ root filesystem as highlighted in the following diagram:
 ![Nerves Workflow](docs/nerves-system-diagram.png)
 
 For most development with Nerves, you may not even need to build this.
-Tools such as [bake](http://www.bakeware.io/) download
+The new `mix` integration (updated docs coming...) downloads
 pre-built versions for you. If you are porting Nerves to a new platform,
 require a special Linux device driver or need to include a C/C++ program
 in your image, this is the project. Once you have made your Nerves system image
@@ -22,11 +22,17 @@ Slack](https://elixir-slackin.herokuapp.com/) and see the [\#nerves channel log]
 
 ## Supported hardware
 
-We currently support the following platforms:
+We supply base system configurations for the following platforms
+(follow links for notes):
 
-  * Raspberry Pi Zero, A+, B+, 2B
-  * Beaglebone Black
-  * Intel Galileo
+  * [Raspberry Pi Zero, A+, B and B+](https://github.com/nerves-project/nerves_system_rpi)
+  * [Raspberry Pi 2 Model B](https://github.com/nerves-project/nerves_system_rpi2)
+  * [Raspberry Pi 3 Model B](https://github.com/nerves-project/nerves_system_rpi3)
+  * [Beaglebone Black](https://github.com/nerves-project/nerves_system_bbb)
+  * [Lego Mindstorms EV3](https://github.com/nerves-project/nerves_system_ev3)
+  * [Logic Supply AG150 (x86)](https://github.com/nerves-project/nerves_system_ag150)
+  * [Intel Galileo Gen 2](https://github.com/nerves-project/nerves_system_galileo)
+  * [Qemu ARM](https://github.com/nerves-project/nerves_system_qemu_arm)
 
 This project uses [Buildroot](http://buildroot.net/) to do all of the
 hard work of building the Linux kernel, various tools and libraries, and the
@@ -43,9 +49,9 @@ code and build your applications on your laptop or desktop. Nerves packages up t
 so that it can be run on hardware like a Raspberry Pi.
 
 If you program in Erlang, you can still use `rebar` and `erlang.mk`. If you program
-in Elixir, you'll be using `mix` and probably `bake`. Before you build your program, though,
+in Elixir, you'll be using `mix`. Before you build your program, though,
 you'll need to source a set of environment variables from a file called `nerves-env.sh`. (If you're
-using `bake`, it will do it automatically for you.) The environment variables will make
+using the Nerves `mix` integration, it will do it automatically for you.) The environment variables will make
 sure that all of the Erlang build tools do the right thing. The most important of these
 is to compile for the target hardware rather than your PC.
 
@@ -62,14 +68,10 @@ If you're familiar with programming SDCards using `dd(1)`, this is similar.
 
 ## First time build
 
-Before you start, you may not need to do this! Check out [bake](http://www.bakeware.io/)
-if you're an Elixir programmer. If you're happy with one of the default configurations
-for your platform, download one of the released tarballs or grab a [CI build
-product](http://nerves-releases.s3.amazonaws.com/list.html)).
-
-If you want to modify a configuration, for example to add a C library or build support for
-a different board, you'll need to build a new system image. This requires a 64-bit Linux
-machine or a Linux VM.
+Before you start, you may not need to do this! Check out the `mix` integration (LINK TBD)
+if you're an Elixir programmer. In fact, the following WILL confuse you if
+you're new to Nerves. Only read on if you're interested in the mechanics of how
+Nerves works.
 
 First, make sure your system has a base set of packages needed to build `nerves_system_br`.
 On Ubuntu, run the following:
@@ -93,18 +95,16 @@ for your configuration:
 
     ./create-build.sh <path to defconfig> <build directory>
 
-For example, if you're interested in a Raspberry Pi Model A+, B+ or Zero configuration, start
-out with the `configs/nerves_system_rpi/elixir_defconfig`:
+For example, if you're interested in a Raspberry Pi Model A+, B+ or Zero configuration, check
+out the [nerves_system_rpi](https://github.com/nerves-project/nerves_system_rpi)
+project, since it has the default configuration for those platforms. In your
+`nerves_system_rpi` directory, run the following:
 
-    ./create-build.sh configs/nerves_system_rpi/elixir_defconfig rpi-build
-
-Feel free to replace `elixir_defconfig` with `erlang_defconfig` or `lfe_defconfig`. The difference
-is less important in the long run since Nerves packages the Erlang/OTP releases of your app,
-but this selection decides which prompt you'll get with the base image.
+    ../nerves_system_br/create-build.sh nerves_config build
 
 To build, type:
 
-    cd rpi-build
+    cd build
     make
 
 The first time build takes a long time since it has to download and
@@ -129,13 +129,13 @@ Buildroot, the [Buildroot documentation](https://buildroot.org/docs.html) is an 
 Now that you've built a Nerves System, you'll need to activate it before running
 any Erlang build tools on your application.
 
-    source rpi-build/nerves-env.sh
+    source build/nerves-env.sh
 
-In the above line, substitute `rpi-build` for whatever directory was used to build
+In the above line, substitute `build` for whatever directory was used to build
 the Nerve System. If you downloaded a pre-built Nerves System, source the `nerves-env.sh`
 inside of it. When using a rebuilt system, the crosscompiler toolchain must also
 be downloaded. See the [nerves-toolchain project](https://github.com/nerves-project/nerves-toolchain).
-As stated before, `bake` takes care of this for you.
+As stated before, the Nerves `mix` integration takes care of this for you.
 
 This step has to be done each time you launch a shell. The key environment settings
 updated by the script are the `PATH` variable and a set of variables that direct
@@ -209,9 +209,8 @@ the Busybox configuration.
 ## Configuration Notes
 
 The default configurations have two purposes. The first is to generate the
-system images required for `bake` and for anyone getting started and not
-building `nerves_system_br` themselves. The second is as a simple regression
-test for the main platforms on travis. For regression testing, some Erlang
+system images required for the Nerves `mix` integration. The second is as a simple regression
+test for the main platforms on travis (that's why the builds output `.fw` files). For regression testing, some Erlang
 applications are enabled to exercise cross-compile scenarios. Rest assured, if
 your application doesn't use these, they won't be included in the firmware
 images that you build.
@@ -226,34 +225,3 @@ firmware. It creates a firmware image with the following features:
   * Boots to an Erlang/Elixir/LFE prompt
   * Includes at least on NIF - To test NIF support (`crypto`)
   * Supports Erlang Distribution (uses sname and `democookie`)
-
-The images don't bring up networking automatically.
-
-### configs/nerves_system_bbb/\<language\>_defconfig
-
-This is the default configuration for building images for the Beaglebone
-Black. It is a minimal image intended for applications that do not require
-a lot of hardware or C library support.
-
-To use USB on the Beaglebone Black, you will need to run `os:cmd("modprobe musb_dsps").`
-as part of your Erlang program's initialization.
-
-### configs/nerves_system_rpi/\<language\>_defconfig
-
-This is an initial configuration for building images for the Raspberry Pi.
-It is a minimal image similar to the one built for the Beaglebone Black.
-
-A shell is run on the attached HDMI monitor and USB keyboard. If you would like to
-use the shell on the UART pins on the GPIO hearer, the terminal should
-be changed to `ttyAMA0` using `make menuconfig`.
-
-### configs/nerves_system_rpi2/\<language\>_defconfig
-
-If you have a Raspberry Pi 2, start with this defconfig. It is similar to
-`nerves_rpi_defconfig` except that it enables support for the quad core
-processor in the Pi 2. A multi-core version of the Erlang VM will also be built.
-
-### configs/nerves_system_galileo/\<language\>_defconfig
-
-The Intel Galileo Gen 2 image boots to the UART port.
-

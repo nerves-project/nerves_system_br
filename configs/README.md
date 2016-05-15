@@ -1,3 +1,13 @@
+# Configurations are now stored external to this project
+
+See the `nerves_system_bbb`, `nerves_system_rpi`, etc. projects on GitHub.
+This allows the configurations to be updated independent of `nerves_system_br`
+and supports integration with `mix`.
+
+# Previous documentation
+
+*Integrate this with a guide to creating system images*
+
 This README documents Nerves-specific configuration of Buildroot that may not be obvious.
 
 ## UTF-8
