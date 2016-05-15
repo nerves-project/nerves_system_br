@@ -4,6 +4,12 @@
 
   * New features
     * WiFi drivers enabled by default on RPi2 and RPi3
+    * Include wireless regulatory database in Linux kernel by default
+      on WiFi-enabled platforms. Since kernel/rootfs are read-only and
+      coupled together for firmware updates, the normal CRDA/udev approach
+      isn't necessary.
+    * Upgraded the default BeagleBone Black kernel from 3.8 to 4.4.9. This
+      also includes the required device tree overlay updates.
 
 ## v0.4.1
 
