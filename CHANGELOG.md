@@ -1,6 +1,12 @@
 # Changelog
 
-## v0.4.2
+## v0.5.0
+
+Important: If you use the BBB, a significant change to the device tree overlay
+interface was made. This is part of the 3.8 to 4.4.9 kernel upgrade change. This
+will affect user code. Additionally, the boot partition size of increased on the
+BBB. If you want neither of these changes, you can create a custom system image
+that points to the 3.8 kernel and has the old partition sizes in the fwup.conf.
 
   * New features
     * WiFi drivers enabled by default on RPi2 and RPi3
@@ -8,8 +14,12 @@
       on WiFi-enabled platforms. Since kernel/rootfs are read-only and
       coupled together for firmware updates, the normal CRDA/udev approach
       isn't necessary.
-    * Upgraded the default BeagleBone Black kernel from 3.8 to 4.4.9. This
-      also includes the required device tree overlay updates.
+    * Upgraded the default BeagleBone Black kernel from 3.8 to 4.4.9. The
+      standard BBB device tree overlays are included by default even though the
+      upstream kernel patches no longer include them.
+    * Change all fwup configurations from two step upgrades to one step
+      upgrades. If you used the base fwup.conf files to upgrade, you no
+      longer need to finalize the upgrade. If not, there's no change.
 
 ## v0.4.1
 
