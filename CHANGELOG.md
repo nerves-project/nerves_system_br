@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.1
+  * Bug Fixes(nerves-env)
+    * Added include paths to CFLAGS and CXXFLAGS
+    * Pass sysroot to LDFLAGS
+
 ## v0.5.0
 
 Important: If you use the BBB, a significant change to the device tree overlay
