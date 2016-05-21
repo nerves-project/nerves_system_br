@@ -81,6 +81,10 @@ sdk_sysroot = Path.join(system_path, "staging")
 System.put_env("NERVES_SDK_IMAGES", Path.join(system_path, "images"))
 System.put_env("NERVES_SDK_SYSROOT", sdk_sysroot)
 
+system_include_path =
+  system_path
+  |> Path.join("staging/usr/include")
+
 unless File.dir?(Path.join(system_path, "staging")) do
   raise Nerves.Env.Exception, message: "ERROR: It looks like the system hasn't been built!"
 end
@@ -105,9 +109,9 @@ System.put_env("REBAR_PLT_DIR", rebar_plt_dir)
 
 System.put_env("CC", "#{crosscompile}-gcc")
 System.put_env("CXX", "#{crosscompile}-g++")
-System.put_env("CFLAGS", "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -Os")
-System.put_env("CXXFLAGS", "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -Os")
-System.put_env("LDFLAGS", "")
+System.put_env("CFLAGS", "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -Os -I#{system_include_path}")
+System.put_env("CXXFLAGS", "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -Os -I#{system_include_path}")
+System.put_env("LDFLAGS", "--sysroot=#{sdk_sysroot}")
 System.put_env("STRIP", "#{crosscompile}-strip")
 System.put_env("ERL_CFLAGS", "-I#{erts_dir}/include -I#{erl_interface_dir}/include")
 System.put_env("ERL_LDFLAGS", "-L#{erts_dir}/lib -L#{erl_interface_dir}/lib -lerts -lerl_interface -lei")
