@@ -37,3 +37,8 @@ enabled by default. See:
 ```
 BR2_PACKAGE_OPENSSL=y
 ```
+
+## Linux config - code page 437
+
+The `cp437` driver needs to be enabled or mounting FAT filesystems created by
+fwup will fail.
