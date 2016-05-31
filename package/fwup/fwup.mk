@@ -4,7 +4,7 @@
 #
 #############################################################
 
-FWUP_VERSION = 0.6.0
+FWUP_VERSION = 0.7.0
 # Use the official release tarball
 FWUP_SITE = https://github.com/fhunleth/fwup/releases/download/v$(FWUP_VERSION)
 FWUP_LICENSE = Apache-2.0
