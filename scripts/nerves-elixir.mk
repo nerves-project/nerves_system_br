@@ -59,8 +59,10 @@ burn-complete: burn
 # really messed up, do a "make burn".
 burn-upgrade:
 	sudo $(FWUP) -a -i $(firstword $(wildcard _images/*.fw)) -t upgrade
-	sudo $(FWUP) -y -a -i /tmp/finalize.fw -t on-reboot
-	sudo rm /tmp/finalize.fw
+	if [ -e /tmp/finalize.fw ]; then \
+	    sudo $(FWUP) -y -a -i /tmp/finalize.fw -t on-reboot; \
+	    sudo rm /tmp/finalize.fw; \
+	fi
 
 # Helper tasks for creating a base set of files needed to build Nerves
 # images. If they already exist, they aren't overwritten.
