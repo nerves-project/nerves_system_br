@@ -1,12 +1,20 @@
 # Changelog
 
+## v0.5.3-dev
+
+  * Bug fixes
+    * Synchronize file system kernel configs across all platforms
+
 ## v0.5.2
+
   * Enhancements
     * Enabled USB Printer kernel mod. Needs to be loaded with `modprobe` to use
+
   * Bug Fixes(raspberry pi)
     * Enabled multicast in linux config for rpi/rpi2/rpi3/ev3
 
 ## v0.5.1
+
   * Bug Fixes(nerves-env)
     * Added include paths to CFLAGS and CXXFLAGS
     * Pass sysroot to LDFLAGS
