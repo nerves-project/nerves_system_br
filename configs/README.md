@@ -40,5 +40,5 @@ BR2_PACKAGE_OPENSSL=y
 
 ## Linux config - code page 437
 
-The `cp437` driver needs to be enabled or mounting FAT filesystems created by
-fwup will fail.
+`CONFIG_NLS_CODEPAGE_437` and `CONFIG_NLS_ISO8859` need to be enabled or mounting FAT filesystems created by
+fwup will fail or mount readonly.
