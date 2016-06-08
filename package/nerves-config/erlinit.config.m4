@@ -15,9 +15,16 @@ ifelse(VERBOSE_INIT, `y', `-v', `#-v')
 # to the app's GUI
 #-s "/usr/bin/dtach -N /tmp/iex_prompt"
 
+# Specify the user and group IDs for the Erlang VM
+ifelse(UID, `0', `#--uid 100', `--uid UID')
+ifelse(GID, `0', `#--gid 200', `--gid GID')
+
 # Uncomment to hang the board rather than rebooting when Erlang exits
 ifelse(HANG_ON_EXIT, `y', `--hang-on-exit', `#--hang-on-exit')
 ifelse(POWEROFF_ON_EXIT, `y', `--poweroff-on-exit', `')
+
+# Optionally run a program if the Erlang VM exits
+ifelse(RUN_ON_EXIT, `', `#--run-on-exit /bin/sh', `--run-on-exit RUN_ON_EXIT')
 
 # Enable UTF-8 filename handling in Erlang and custom inet configuration
 -e LANG=en_US.UTF-8;LANGUAGE=en;ERL_INETRC=/etc/erl_inetrc
