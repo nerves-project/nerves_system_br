@@ -4,7 +4,7 @@
 #
 #############################################################
 
-ELIXIR_VERSION = v1.2.5
+ELIXIR_VERSION = v1.2.6
 ELIXIR_SITE =
 ELIXIR_SOURCE = elixir-$(ELIXIR_VERSION)-Precompiled.zip
 ELIXIR_LICENSE = Apache-2.0
