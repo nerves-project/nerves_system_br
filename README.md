@@ -78,6 +78,10 @@ On Ubuntu, run the following:
 
     sudo apt-get install git g++ libssl-dev libncurses5-dev bc m4 make unzip cmake
 
+On CentOS/RHEL, run the following:
+
+    sudo yum install git wget patch gcc-c++ ncurses-devel bc openssl-devel bzip2 flex bison perl-Data-Dumper perl-Thread-Queue
+
 Nerves downloads a large number of files to build the toolchain, Linux kernel,
 Erlang, and other tools. It is recommended that you create a top level directory
 to cache these files so that future builds can skip the download step. This step
