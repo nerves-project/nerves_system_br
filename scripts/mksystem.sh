@@ -2,9 +2,9 @@
 
 #
 # This script creates a tarball with everything needed to build
-# an application image on another system. It is useful with the
-# `bake` utility so that the parts that require Linux can be
-# built separately from the parts that can be built on any system.
+# an application image on another system. It is useful to allow
+# the parts that require Linux to be built separately from the
+# parts that can be built on any system.
 # It is intended to be called from Buildroot's Makefiles so that
 # the environment is set up properly.
 #
