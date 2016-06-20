@@ -68,7 +68,7 @@ If you're familiar with programming SDCards using `dd(1)`, this is similar.
 
 ## First time build
 
-Before you start, you may not need to do this! Check out the `mix` integration (LINK TBD)
+Before you start, you may not need to do this! Check out the `mix` [integration](https://hexdocs.pm/nerves/getting-started.html)
 if you're an Elixir programmer. In fact, the following WILL confuse you if
 you're new to Nerves. Only read on if you're interested in the mechanics of how
 Nerves works.
