@@ -1,0 +1,66 @@
+From 080d950ad2b244ad4f7af50454d7d708cd90caf7 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 2 Mar 2016 10:59:54 -0500
+Subject: [PATCH] erlang: align package with upstream br
+
+Update Erlang package to be more similar with what's in upstream
+Buildroot's master branch.
+---
+ package/erlang/Config.in | 12 +++++++++---
+ package/erlang/erlang.mk |  5 +----
+ 2 files changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/package/erlang/Config.in b/package/erlang/Config.in
+index 5fa2028..56cee54 100644
+--- a/package/erlang/Config.in
++++ b/package/erlang/Config.in
+@@ -1,14 +1,20 @@
++config BR2_PACKAGE_ERLANG_ARCH_SUPPORTS
++	bool
++	# see HOWTO/INSTALL.md for Erlang's supported platforms
++	# when using its native atomic ops implementation
++	default y if BR2_i386 || BR2_x86_64 || BR2_powerpc || \
++		BR2_sparc_v9 || BR2_arm || BR2_aarch64
++
+ comment "erlang needs a toolchain w/ dynamic library"
+ 	depends on BR2_USE_MMU # fork()
+-	depends on BR2_PACKAGE_LIBATOMIC_OPS_ARCH_SUPPORTS
++	depends on BR2_PACKAGE_ERLANG_ARCH_SUPPORTS
+ 	depends on BR2_STATIC_LIBS
+ 
+ config BR2_PACKAGE_ERLANG
+ 	bool "erlang"
+ 	depends on BR2_USE_MMU # fork()
+ 	depends on !BR2_STATIC_LIBS
+-	depends on BR2_PACKAGE_LIBATOMIC_OPS_ARCH_SUPPORTS
+-	select BR2_PACKAGE_LIBATOMIC_OPS
++	depends on BR2_PACKAGE_ERLANG_ARCH_SUPPORTS
+ 	help
+ 	  Erlang is a programming language used to build massively scalable
+ 	  soft real-time systems with requirements on high availability.
+diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
+index 25bec77..209714e 100644
+--- a/package/erlang/erlang.mk
++++ b/package/erlang/erlang.mk
+@@ -30,9 +30,6 @@ ERLANG_CONF_ENV += erl_xcomp_sysroot=$(STAGING_DIR)
+ 
+ ERLANG_CONF_OPTS = --without-javac
+ 
+-ERLANG_DEPENDENCIES += libatomic_ops
+-ERLANG_CONF_OPTS += --with-libatomic_ops=$(STAGING_DIR)/usr LIBS=-latomic_ops
+-
+ # erlang uses openssl for all things crypto. Since the host tools (such as
+ # rebar) uses crypto, we need to build host-erlang with support for openssl.
+ HOST_ERLANG_DEPENDENCIES = host-openssl
+@@ -67,7 +64,7 @@ ifeq ($(BR2_PACKAGE_ERLANG_SMP),)
+ ERLANG_CONF_OPTS += --disable-smp-support
+ endif
+ 
+-# Remove source, example, gs and wx files from the target
++# Remove source, example, gs and wx files from staging and target.
+ ERLANG_REMOVE_PACKAGES = gs wx
+ 
+ ifneq ($(BR2_PACKAGE_ERLANG_MEGACO),y)
+-- 
+2.5.0
+
