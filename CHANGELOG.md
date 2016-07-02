@@ -1,9 +1,20 @@
 # Changelog
 
-## v0.5.3-dev
+## v0.6.0
+
+  * Package updates
+    * Erlang OTP 19
+    * Elixir 1.3.1
+    * fwup 0.8.0
+    * erlinit 0.7.3
+    * bborg-overlays (pull in I2C typo fix from upstream)
 
   * Bug fixes
     * Synchronize file system kernel configs across all platforms
+
+Note: Files in the `board` directory are being moved to their corresponding
+system images. This has been completed for the LinkIt Smart and Lego EV3.
+The transition should be complete by next release.
 
 ## v0.5.2
 
