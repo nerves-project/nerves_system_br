@@ -1,5 +1,6 @@
 # Nerves System BR
 [![Build Status](https://travis-ci.org/nerves-project/nerves_system_br.png?branch=master)](https://travis-ci.org/nerves-project/nerves_system_br)
+[![Hex version](https://img.shields.io/hexpm/v/nerves_system_br.svg "Hex version")](https://hex.pm/packages/nerves_system_br)
 
 ## IMPORTANT: Configuring builds has changed since the 0.3.3 release. Please reread this document.
 
