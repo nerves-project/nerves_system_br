@@ -16,6 +16,16 @@ export NERVES_DEFCONFIG_DIR
 system:
 	$(BR2_EXTERNAL)/scripts/mksystem.sh $(BR2_NERVES_SYSTEM_NAME)
 
+# It is common task to copy files to the images directory
+# so that they can be included in a system image. Add this
+# logic here so that a post-createfs script isn't required.
+ifneq ($(BR2_NERVES_ADDITIONAL_IMAGE_FILES),)
+define NERVES_COPY_ADDITIONAL_IMAGE_FILES
+	cp $(call qstrip,$(BR2_NERVES_ADDITIONAL_IMAGE_FILES)) $(BINARIES_DIR)
+endef
+TARGET_FINALIZE_HOOKS += NERVES_COPY_ADDITIONAL_IMAGE_FILES
+endif
+
 NERVES_FIRMWARE=$(firstword $(wildcard $(BINARIES_DIR)/*.fw))
 
 # Replace everything on the SDCard with new bits

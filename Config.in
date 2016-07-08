@@ -18,6 +18,14 @@ config BR2_NERVES_SYSTEM_NAME
 	  Specify a name for this system configuration. This name is
 	  used in various places to help identify images.
 
+config BR2_NERVES_ADDITIONAL_IMAGE_FILES
+	string "Additional files to copy to images directory"
+	default ""
+	help
+	  Specify additional files to copy to the images directory. These
+	  will be included in the final system image and can be referenced
+	  by fwup during image creation time.
+
 # Load Nerves packages
 source "$BR2_EXTERNAL/package/bborg-overlays/Config.in"
 source "$BR2_EXTERNAL/package/boardid/Config.in"
