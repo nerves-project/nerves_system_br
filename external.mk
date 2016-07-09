@@ -19,7 +19,7 @@ system:
 # It is common task to copy files to the images directory
 # so that they can be included in a system image. Add this
 # logic here so that a post-createfs script isn't required.
-ifneq ($(BR2_NERVES_ADDITIONAL_IMAGE_FILES),)
+ifneq ($(call qstrip,$(BR2_NERVES_ADDITIONAL_IMAGE_FILES)),)
 define NERVES_COPY_ADDITIONAL_IMAGE_FILES
 	cp $(call qstrip,$(BR2_NERVES_ADDITIONAL_IMAGE_FILES)) $(BINARIES_DIR)
 endef
