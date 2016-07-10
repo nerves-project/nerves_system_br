@@ -1,0 +1,42 @@
+From e7fee4b2f17bf880a96d443db7094c393382596b Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Sun, 10 Jul 2016 13:47:56 -0400
+Subject: [PATCH] util-linux: add ldattach option
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ package/util-linux/Config.in     | 5 +++++
+ package/util-linux/util-linux.mk | 1 +
+ 2 files changed, 6 insertions(+)
+
+diff --git a/package/util-linux/Config.in b/package/util-linux/Config.in
+index 60abd67..e116299 100644
+--- a/package/util-linux/Config.in
++++ b/package/util-linux/Config.in
+@@ -117,6 +117,11 @@ config BR2_PACKAGE_UTIL_LINUX_LAST
+ 	help
+ 	  Show a listing of last logged in users
+ 
++config BR2_PACKAGE_UTIL_LINUX_LDATTACH
++	bool "ldattach"
++	help
++	  Attach a line discipline to a serial line
++
+ config BR2_PACKAGE_UTIL_LINUX_LINE
+ 	bool "line"
+ 	help
+diff --git a/package/util-linux/util-linux.mk b/package/util-linux/util-linux.mk
+index 7342174..aa3f1ce 100644
+--- a/package/util-linux/util-linux.mk
++++ b/package/util-linux/util-linux.mk
+@@ -78,6 +78,7 @@ UTIL_LINUX_CONF_OPTS += \
+ 	$(if $(BR2_PACKAGE_UTIL_LINUX_HWCLOCK),--enable-hwclock,--disable-hwclock) \
+ 	$(if $(BR2_PACKAGE_UTIL_LINUX_KILL),--enable-kill,--disable-kill) \
+ 	$(if $(BR2_PACKAGE_UTIL_LINUX_LAST),--enable-last,--disable-last) \
++	$(if $(BR2_PACKAGE_UTIL_LINUX_LDATTACH),--enable-ldattach,--disable-ldattach) \
+ 	$(if $(BR2_PACKAGE_UTIL_LINUX_LIBBLKID),--enable-libblkid,--disable-libblkid) \
+ 	$(if $(BR2_PACKAGE_UTIL_LINUX_LIBMOUNT),--enable-libmount,--disable-libmount) \
+ 	$(if $(BR2_PACKAGE_UTIL_LINUX_LIBSMARTCOLS),--enable-libsmartcols,--disable-libsmartcols) \
+-- 
+2.7.4
+
