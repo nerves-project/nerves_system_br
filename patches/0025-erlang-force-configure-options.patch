@@ -1,0 +1,39 @@
+From f07259b940b874ef55718f21fce9c8263b3cda27 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 13 Jul 2016 19:29:03 -0400
+Subject: [PATCH] erlang: force configure options
+
+Both the posix_fallocate and CLOCK_THREAD_CPUTIME_ID support detection
+code doesn't work for cross-compiled builds. This change forces the
+options. CLOCK_THREAD_CPUTIME_ID has been fixed since Linux 2.6.12.
+---
+ package/erlang/erlang.mk | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
+index d2069f8..6776803 100644
+--- a/package/erlang/erlang.mk
++++ b/package/erlang/erlang.mk
+@@ -22,12 +22,18 @@ ERLANG_AUTORECONF = YES
+ ERLANG_EI_VSN = 3.9
+ 
+ # The configure checks for these functions fail incorrectly
+-ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes
++ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes \
++		  i_cv_posix_fallocate_works=yes
+ 
+ # Set erl_xcomp variables. See xcomp/erl-xcomp.conf.template
+ # for documentation.
+ ERLANG_CONF_ENV += erl_xcomp_sysroot=$(STAGING_DIR)
+ 
++# Support for CLOCK_THREAD_CPUTIME_ID cannot be autodetected for
++# crosscompiling. The man page for clock_gettime(3) indicates that
++# Linux 2.6.12 and later support this.
++ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
++
+ ERLANG_CONF_OPTS = --without-javac
+ 
+ # erlang uses openssl for all things crypto. Since the host tools (such as
+-- 
+2.7.4
+
