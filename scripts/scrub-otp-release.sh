@@ -64,12 +64,22 @@ executable_type()
         | sed 's/[[:space:]]\+/ /g'
 }
 
-get_expected_executable_type()
+get_expected_dynamic_executable_type()
 {
     # Compile a trivial C program with the crosscompiler
     # so that we know what the `file` output should look like.
     tmpfile=$(mktemp /tmp/scrub-otp-release.XXXXXX)
     echo "int main() {}" | $CROSSCOMPILE-gcc -x c -o $tmpfile -
+    echo $(executable_type $tmpfile)
+    rm $tmpfile
+}
+
+get_expected_static_executable_type()
+{
+    # Compile a trivial C program with the crosscompiler
+    # so that we know what the `file` output should look like.
+    tmpfile=$(mktemp /tmp/scrub-otp-release.XXXXXX)
+    echo "int main() {}" | $CROSSCOMPILE-gcc -x c -static -o $tmpfile -
     echo $(executable_type $tmpfile)
     rm $tmpfile
 }
@@ -85,7 +95,8 @@ get_expected_library_type()
 }
 
 EXECUTABLES=$(find $RELEASE_DIR -type f -perm -100)
-EXPECTED_BIN_TYPE=$(get_expected_executable_type)
+EXPECTED_DYNAMIC_BIN_TYPE=$(get_expected_dynamic_executable_type)
+EXPECTED_STATIC_BIN_TYPE=$(get_expected_static_executable_type)
 EXPECTED_SO_TYPE=$(get_expected_library_type)
 
 for EXECUTABLE in $EXECUTABLES; do
@@ -93,14 +104,17 @@ for EXECUTABLE in $EXECUTABLES; do
         *ELF*)
             # Verify that the executable was compiled for the target
             TYPE=$(executable_type $EXECUTABLE)
-            if [ "$TYPE" != "$EXPECTED_BIN_TYPE" -a "$TYPE" != "$EXPECTED_SO_TYPE" ]; then
+            if [ "$TYPE" != "$EXPECTED_DYNAMIC_BIN_TYPE" -a "$TYPE" != "$EXPECTED_STATIC_BIN_TYPE" -a "$TYPE" != "$EXPECTED_SO_TYPE" ]; then
                 echo "$SCRIPT_NAME: ERROR: Unexpected executable format for '$EXECUTABLE'"
                 echo
                 echo "Got:"
                 echo " $TYPE"
                 echo
                 echo "If binary, expecting:"
-                echo " $EXPECTED_BIN_TYPE"
+                echo " $EXPECTED_DYNAMIC_BIN_TYPE"
+                echo
+                echo "or, for static binaries:"
+                echo " $EXPECTED_STATIC_BIN_TYPE"
                 echo
                 echo "If shared library, expecting:"
                 echo " $EXPECTED_SO_TYPE"
