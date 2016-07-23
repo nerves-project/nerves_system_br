@@ -42,6 +42,9 @@ perm_to_num() {
         ?rw-r--r--) echo "644" ;;
         ?rw--w--w-) echo "622" ;;
         ?rw-------) echo "600" ;;
+        ?r-xr-xr-x) echo "555" ;;
+        ?r-xr-x---) echo "550" ;;
+        ?r-x------) echo "500" ;;
         ?r--r--r--) echo "444" ;;
         ?r--r-----) echo "440" ;;
         ?r--------) echo "400" ;;
