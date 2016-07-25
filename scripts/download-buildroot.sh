@@ -35,7 +35,7 @@ rm -fr $EXTRACTED_DIRNAME $BUILDROOT_PATH
 
 if [[ ! -e "$CACHED_TARBALL_PATH" ]]; then
     # Download from Buildroot
-
+    ALTERNATIVE_URL=https://s3.amazonaws.com/nerves/build/$TARBALL_NAME
     if [[ $HASHTAG =~ 20[0-9][0-9]\.[0-1][0-9] ]]; then
         # This is an official release and is hosted on the main
         # download site.
@@ -47,7 +47,14 @@ if [[ ! -e "$CACHED_TARBALL_PATH" ]]; then
     fi
 
     pushd $DL
-    wget $DOWNLOAD_URL
+    if ! wget $DOWNLOAD_URL; then
+      echo "Failed to download $TARBALL_NAME from primary location $DOWNLOAD_URL"
+      echo "Attempting to download from $ALTERNATIVE_URL instead"
+      if ! wget $ALTERNATIVE_URL; then
+        echo "Failed to download buildroot $TARBALL_NAME from $ALTERNATIVE_URL";
+        exit 1;
+      fi
+    fi
     popd
 fi
 
