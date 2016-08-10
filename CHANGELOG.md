@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.6.1
+
+  * Package updates
+    * fwup 0.8.2
+
+  * Bug fixes
+    * Updates default `erl_inetrc` to fix `:nxdomain` errors from DNS resolver
+    * Remove .img file from system images (reduces system tarball size)
+    * Redirect Buildroot download in case buildroot.net goes down
+    * Support statically linked executables in OTP releases
+
+The Raspberry Pi and Beaglebone `board` directories have been moved to
+`nerves_system_rpi*` and `nerves_system_bbb` respectively. Further development
+and maintenance for those platforms will happen there for future releases.
+
 ## v0.6.0
 
   * Package updates
