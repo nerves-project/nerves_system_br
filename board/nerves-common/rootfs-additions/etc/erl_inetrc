@@ -1,9 +1,7 @@
 %% -- ERLANG INET CONFIGURATION FILE --
-%% read the hosts file
+%% read and monitor the hosts file
 {file, hosts, "/etc/hosts"}.
-%% monitor the hosts file
-{hosts_file, "/etc/hosts"}.
 %% read and monitor nameserver config from here
-{resolv_conf, "/etc/resolv.conf"}.
+{file, resolv, "/etc/resolv.conf"}.
 %% specify lookup method
 {lookup, [file, dns, native]}.
