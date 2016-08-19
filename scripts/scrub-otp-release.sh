@@ -57,11 +57,18 @@ executable_type()
     # Run 'file' on $1, trim out parts
     # that can vary on a platform, and
     # normalize whitespace
+
+    # NOTE: The SYSV vs. GNU/Linux part has to be removed
+    #       since C++ template instantiation enables the
+    #       GNU/Linux extension, but doesn't actually
+    #       break anything.
     file -b $1 \
         | sed 's/, BuildID[^,]*,/,/g' \
         | sed 's/, dynamically linked,/,/g' \
         | sed 's/,[^,]*stripped//g' \
-        | sed 's/[[:space:]]\+/ /g'
+        | sed 's/[[:space:]]\+/ /g' \
+        | sed 's/[[:space:]]*(SYSV)//g' \
+        | sed 's/[[:space:]]*(GNU\/Linux)//g'
 }
 
 get_expected_dynamic_executable_type()
