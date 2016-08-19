@@ -2,6 +2,10 @@
 
 ## v0.6.2-dev
 
+  * Bug fixes
+    * Fix false positive from scrubber when checking executable formats due to
+      C++ template instantiations. Ignores SYSV vs. GNU/Linux ABI difference.
+
 ## v0.6.1
 
   * Package updates
