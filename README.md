@@ -83,7 +83,7 @@ On CentOS/RHEL, run the following:
 
     sudo yum install git wget patch gcc-c++ ncurses-devel bc openssl-devel bzip2 flex bison perl-Data-Dumper perl-Thread-Queue
 
-Nerves downloads a large number of files to build the toolchain, Linux kernel, Erlang, and other tools. Nerves will use download these files to the location specified by setting the environment variable `NERVES_BR_DL_DIR`. If you do not set this variable it will default to creating a directory at `$HOME/.nerves/cache/buildroot`.
+Nerves downloads a large number of files to build the toolchain, Linux kernel, Erlang, and other tools. Nerves will download these files to the location specified by setting the environment variable `NERVES_BR_DL_DIR`. If you do not set this variable it will default to creating a directory at `$HOME/.nerves/cache/buildroot`.
 
 Next, you will need to choose an initial platform and configuration. If your desired
 platform doesn't exist, we recommend that you try out Nerves on a supported platform
