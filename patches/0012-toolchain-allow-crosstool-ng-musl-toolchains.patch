@@ -1,4 +1,4 @@
-From 261d8156ec4361ce93546643d6ba84e9834bea02 Mon Sep 17 00:00:00 2001
+From aebedbca4145cb85f1512affa318033059001e73 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 21 Jun 2016 13:08:17 -0400
 Subject: [PATCH] toolchain: allow crosstool-ng musl toolchains
@@ -16,10 +16,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/toolchain/helpers.mk b/toolchain/helpers.mk
-index ee878e8..8dcf8c4 100644
+index 3991bc1..72d11c7 100644
 --- a/toolchain/helpers.mk
 +++ b/toolchain/helpers.mk
-@@ -280,7 +280,7 @@ check_glibc = \
+@@ -210,7 +210,7 @@ check_glibc = \
  # $1: sysroot directory
  check_musl = \
  	SYSROOT_DIR="$(strip $1)"; \
@@ -29,5 +29,5 @@ index ee878e8..8dcf8c4 100644
  		exit -1; \
  	fi
 -- 
-2.5.0
+2.7.4
 

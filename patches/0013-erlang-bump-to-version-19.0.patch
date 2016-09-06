@@ -1,4 +1,4 @@
-From 8e45edaff5a9943d4b16e6ee3750d23edeb599ba Mon Sep 17 00:00:00 2001
+From 16d16177410df3012f07c809e2ffe1ac7a612a4b Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 22 Jun 2016 12:13:00 -0400
 Subject: [PATCH] erlang: bump to version 19.0
@@ -42,5 +42,5 @@ index 209714e..d2069f8 100644
  # The configure checks for these functions fail incorrectly
  ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes
 -- 
-2.5.0
+2.7.4
 

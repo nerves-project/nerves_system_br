@@ -1,4 +1,4 @@
-From c4699b093d085a927768bc81c3420891b7cce5a4 Mon Sep 17 00:00:00 2001
+From a787c58d7404ca7e59e6b9959d47ead0290156c2 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 20 Mar 2016 20:17:28 -0400
 Subject: [PATCH] ev3dev: added kernel modules from ev3dev project
@@ -52,10 +52,10 @@ index 0000000..b0b1276
 +	cp -dpfr $(EV3DEV_DIR)/* $(LINUX_DIR)/drivers/lego/
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index 3eb3618..ed58395 100644
+index 5ac7ac5..4e7be32 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -361,6 +361,7 @@ endif
+@@ -366,6 +366,7 @@ endmenu
  	source "package/edid-decode/Config.in"
  	source "package/eeprog/Config.in"
  	source "package/eudev/Config.in"
@@ -97,5 +97,5 @@ index 0000000..5925950
 +
 +$(eval $(generic-package))
 -- 
-2.5.0
+2.7.4
 

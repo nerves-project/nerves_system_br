@@ -1,4 +1,4 @@
-From 80ac61b6f634d65e3aa3ebd83d8eefce0452d59c Mon Sep 17 00:00:00 2001
+From 558be6671215b4f5176362eed5f0608173d4f0ae Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 14 Feb 2016 11:12:04 -0500
 Subject: [PATCH] Don't build host-cmake
@@ -11,7 +11,7 @@ installed via a package manager.
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/package/pkg-cmake.mk b/package/pkg-cmake.mk
-index 81dcfcc..7584782 100644
+index 4c6dc62..e2c7595 100644
 --- a/package/pkg-cmake.mk
 +++ b/package/pkg-cmake.mk
 @@ -85,7 +85,7 @@ define $(2)_CONFIGURE_CMDS
@@ -21,7 +21,7 @@ index 81dcfcc..7584782 100644
 -	$$($$(PKG)_CONF_ENV) $$(HOST_DIR)/usr/bin/cmake $$($$(PKG)_SRCDIR) \
 +	$$($$(PKG)_CONF_ENV) cmake $$($$(PKG)_SRCDIR) \
  		-DCMAKE_TOOLCHAIN_FILE="$$(HOST_DIR)/usr/share/buildroot/toolchainfile.cmake" \
- 		-DCMAKE_BUILD_TYPE=$$(if $$(BR2_ENABLE_DEBUG),Debug,Release) \
+ 		-DCMAKE_BUILD_TYPE=$$(if $$(BR2_ENABLE_DEBUG),RelWithDebInfo,Release) \
  		-DCMAKE_INSTALL_PREFIX="/usr" \
 @@ -110,7 +110,7 @@ define $(2)_CONFIGURE_CMDS
  	cd $$($$(PKG)_BUILDDIR) && \
@@ -32,9 +32,9 @@ index 81dcfcc..7584782 100644
  		-DCMAKE_INSTALL_SO_NO_EXE=0 \
  		-DCMAKE_FIND_ROOT_PATH="$$(HOST_DIR)" \
  		-DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM="BOTH" \
-@@ -149,8 +149,6 @@ $(2)_DEPENDENCIES ?= $$(filter-out host-skeleton host-toolchain $(1),\
- 	$$(patsubst host-host-%,host-%,$$(addprefix host-,$$($(3)_DEPENDENCIES))))
- endif
+@@ -146,8 +146,6 @@ endif
+ # primitives to find {C,LD}FLAGS, add it to the dependency list.
+ $(2)_DEPENDENCIES += host-pkgconf
  
 -$(2)_DEPENDENCIES += host-cmake
 -
@@ -42,5 +42,5 @@ index 81dcfcc..7584782 100644
  # Build step. Only define it if not already defined by the package .mk
  # file.
 -- 
-2.5.0
+2.7.4
 

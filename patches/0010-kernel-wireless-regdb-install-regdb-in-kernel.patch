@@ -1,4 +1,4 @@
-From f048afe1d61cecb5c6d4e2d1fa9b1a6f41668490 Mon Sep 17 00:00:00 2001
+From cbad9ebe19734201141b78c8eaf65bcb90117670 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 9 May 2016 13:21:56 -0400
 Subject: [PATCH] kernel-wireless-regdb: install regdb in kernel
@@ -55,10 +55,10 @@ index 0000000..3cec0cd
 +	cp -pf $(KERNEL_WIRELESS_REGDB_DIR)/db.txt $(LINUX_DIR)/net/wireless/db.txt
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index ed58395..c159b3f 100644
+index 4e7be32..a7d0473 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -1367,6 +1367,7 @@ endif
+@@ -1484,6 +1484,7 @@ menu "Networking applications"
  	source "package/irssi/Config.in"
  	source "package/iw/Config.in"
  	source "package/janus-gateway/Config.in"
@@ -83,15 +83,15 @@ index 0000000..8a54a21
 +	  http://linuxwireless.org/en/developers/Regulatory
 diff --git a/package/kernel-wireless-regdb/kernel-wireless-regdb.hash b/package/kernel-wireless-regdb/kernel-wireless-regdb.hash
 new file mode 100644
-index 0000000..cafc631
+index 0000000..b8ca2e7
 --- /dev/null
 +++ b/package/kernel-wireless-regdb/kernel-wireless-regdb.hash
 @@ -0,0 +1,2 @@
 +# From https://www.kernel.org/pub/software/network/wireless-regdb/sha256sums.asc
-+sha256	013e07d988f5cd7d24e4aa7a6cd406615d441ea6b882a02d2a46a78edeb2cfb6	wireless-regdb-2015.12.14.tar.xz
++sha256	cfedf1c3521b3c8f32602f25ed796e96e687c3441a00e7c050fedf7fd4f1b8b7	wireless-regdb-2016.06.10.tar.xz
 diff --git a/package/kernel-wireless-regdb/kernel-wireless-regdb.mk b/package/kernel-wireless-regdb/kernel-wireless-regdb.mk
 new file mode 100644
-index 0000000..e1b8bac
+index 0000000..d39a76c
 --- /dev/null
 +++ b/package/kernel-wireless-regdb/kernel-wireless-regdb.mk
 @@ -0,0 +1,13 @@
@@ -101,7 +101,7 @@ index 0000000..e1b8bac
 +#
 +################################################################################
 +
-+KERNEL_WIRELESS_REGDB_VERSION = 2015.12.14
++KERNEL_WIRELESS_REGDB_VERSION = 2016.06.10
 +KERNEL_WIRELESS_REGDB_SOURCE = wireless-regdb-$(WIRELESS_REGDB_VERSION).tar.xz
 +KERNEL_WIRELESS_REGDB_SITE = http://kernel.org/pub/software/network/wireless-regdb
 +KERNEL_WIRELESS_REGDB_LICENSE = ISC
@@ -109,5 +109,5 @@ index 0000000..e1b8bac
 +
 +$(eval $(generic-package))
 -- 
-2.5.0
+2.7.4
 
