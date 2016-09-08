@@ -19,11 +19,10 @@ ifelse(DISTRIBUTION, `y', `
 ## Tweak GC to run more often
 ##-env ERL_FULLSWEEP_AFTER 10
 
-ifelse(IS_ELIXIR, `y', `
 ## Start the Elixir shell
--noshell
--user Elixir.IEx.CLI
--extra --no-halt')
-ifelse(IS_LFE, `y', `
+#-noshell
+#-user Elixir.IEx.CLI
+#-extra --no-halt
+
 ## Start the LFE shell
--user lfe_init')
+#-user lfe_init
