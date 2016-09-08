@@ -34,7 +34,6 @@ source "$BR2_EXTERNAL/package/erlinit/Config.in"
 source "$BR2_EXTERNAL/package/lfe/Config.in"
 source "$BR2_EXTERNAL/package/nerves-config/Config.in"
 source "$BR2_EXTERNAL/package/raspijpgs/Config.in"
-source "$BR2_EXTERNAL/package/elixir/Config.in.host"
 source "$BR2_EXTERNAL/package/erlang-relsync/Config.in.host"
 source "$BR2_EXTERNAL/package/erlang-relx/Config.in.host"
 
