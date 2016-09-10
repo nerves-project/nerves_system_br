@@ -9,7 +9,7 @@
 NERVES_CONFIG_SOURCE =
 NERVES_CONFIG_VERSION = 0.5
 
-NERVES_CONFIG_DEPENDENCIES = erlinit erlang host-erlang-relx
+NERVES_CONFIG_DEPENDENCIES = erlinit erlang host-erlang-relx host-fwup openssl
 
 NERVES_CONFIG_PACKAGE_DIR = $(TOPDIR)/../package/nerves-config
 NERVES_CONFIG_ERLANG_RELEASE_DIR = $(TARGET_DIR)/srv/erlang

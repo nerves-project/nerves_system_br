@@ -1,6 +1,10 @@
 menuconfig BR2_PACKAGE_NERVES_CONFIG
 	bool "nerves-config"
-	select BR2_PACKAGE_ERLINIT
+	select BR2_PACKAGE_ERLANG   # Erlang is required for all Nerves systems
+	select BR2_PACKAGE_ERLINIT  # Always use erlinit to boot
+	select BR2_PACKAGE_OPENSSL  # Used for Erlang crypto
+	select BR2_PACKAGE_HOST_FWUP # Used by Nerves packaging tools
+	select BR2_PACKAGE_HOST_ERLANG_RELX # Used to create test .fw file
 	help
 	  Nerves system configuration helper
 
