@@ -1,8 +1,15 @@
 # Changelog
 
-## v0.6.2-dev
+## v0.7.0
+
+  * Package updates
+    * Buildroot 2016.08
 
   * Bug fixes
+    * Many packages were removed. These include Elixir and LFE since neither are
+      actually used. Both are added as part of the user build step, so no
+      functionality is lost. The most visible result is that the system images
+      are smaller and the test .fw file boots to the Erlang prompt.
     * Fix false positive from scrubber when checking executable formats due to
       C++ template instantiations. Ignores SYSV vs. GNU/Linux ABI difference.
 
