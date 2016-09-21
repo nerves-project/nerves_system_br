@@ -62,15 +62,18 @@ help:
 	@echo
 	@echo "Building:"
 	@echo "  all                           - Build the current configuration"
-	@echo "  burn                          - Burn the most recent build to an SDCard (requires sudo)"
-	@echo "  system                        - Build a system image for use with bake"
+	@echo "  burn                          - Burn the most recent build to an SDCard"
+	@echo "                                  (requires sudo)"
+	@echo "  system                        - Build the system tarball"
 	@echo "  clean                         - Clean everything"
 	@echo
 	@echo "Configuration:"
 	@echo "  menuconfig                    - Run Buildroot's menuconfig"
 	@echo "  linux-menuconfig              - Run menuconfig on the Linux kernel"
+	@echo "  busybox-menuconfig            - Run menuconfig on Busybox to enable shell"
+	@echo "                                  commands and more"
 	@echo
-	@echo "For much more information about the targets in this Makefile, run 'make buildroot-help'"
-	@echo "and see the Buildroot documentation."
+	@echo "For much more information about the targets in this Makefile, run"
+	@echo "'make buildroot-help' and see the Buildroot documentation."
 
 .PHONY: burn burn-complete burn-upgrade system help
