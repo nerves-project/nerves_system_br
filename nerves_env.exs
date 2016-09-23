@@ -4,11 +4,11 @@ defmodule System.Env do
   @ld_library_path "LD_LIBRARY_PATH"
 
   def path_add(p) do
-    System.put_env(@path, "#{path}:#{p}")
+    System.put_env(@path, "#{path()}:#{p}")
   end
 
   def ld_library_path_add(p) do
-    System.put_env(@ld_library_path, "#{ld_library_path}:#{p}")
+    System.put_env(@ld_library_path, "#{ld_library_path()}:#{p}")
   end
 
   def path do
@@ -21,7 +21,7 @@ defmodule System.Env do
 end
 
 system_path = System.get_env("NERVES_SYSTEM") ||
-  raise Nerves.Env.Exception, message: "You must set NERVES_SYSTEM to the system dir prior to requiring this file"
+  Mix.raise "You must set NERVES_SYSTEM to the system dir prior to requiring this file"
 
 {_toolchain_path, crosscompile} =
   if File.dir?(Path.join(system_path, "host")) do
@@ -73,7 +73,7 @@ system_path = System.get_env("NERVES_SYSTEM") ||
   end
 
 if crosscompile == "" do
-  raise Nerves.Env.Exception, message: "Cannot find a cross compiler"
+  Mix.raise "Cannot find a cross compiler"
 end
 
 sdk_sysroot = Path.join(system_path, "staging")
@@ -86,7 +86,7 @@ system_include_path =
   |> Path.join("staging/usr/include")
 
 unless File.dir?(Path.join(system_path, "staging")) do
-  raise Nerves.Env.Exception, message: "ERROR: It looks like the system hasn't been built!"
+  Mix.raise "ERROR: It looks like the system hasn't been built!"
 end
 
 System.put_env("CROSSCOMPILE", crosscompile)
@@ -138,7 +138,7 @@ host_erl_major_ver = :erlang.system_info(:otp_release) |> to_string
 
 # Check to see if the system major version of ERL and the target major version match
 if host_erl_major_ver != target_erl_major_version do
-  raise Nerves.Env.Exception, message: """
+  Mix.raise """
   Major version mismatch between host and target Erlang/OTP versions
     Host version: #{host_erl_major_ver}
     Target version: #{target_erl_major_version}

@@ -1,14 +1,21 @@
-defmodule Nerves.System.BR do
+defmodule Nerves.System.BR.Mixfile do
   use Mix.Project
+
+  @version Path.join(__DIR__, "VERSION")
+           |> File.read!
+           |> String.strip
 
   def project do
     [app: :nerves_system_br,
-     version: "0.7.0",
+     version: @version,
      elixir: "~> 1.2",
-     description: description,
-     package: package,
-     compilers: [:app]
-    ]
+     description: description(),
+     package: package(),
+     compilers: Enum.reject(Mix.compilers, & &1 == :erlang)]
+  end
+
+  def application do
+   []
   end
 
   defp description do
