@@ -7,8 +7,7 @@
 # nerves-env.sh has the advantage that the environment is set properly
 # on the commandline should you need to run commands manually.
 #
-
-NERVES_VERSION:=0.7.0
+NERVES_VERSION:=$(strip $(shell cat VERSION))
 
 NERVES_SYSTEM:=$(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 NERVES_TOOLCHAIN=$(NERVES_SYSTEM)/host
@@ -81,5 +80,3 @@ MIX=$(NERVES_HOST_MAKE_ENV) $(NERVES_ALL_VARS) $(NERVES_TOOLCHAIN)/usr/bin/mix
 REBAR=$(NERVES_HOST_MAKE_ENV) $(NERVES_ALL_VARS) $(NERVES_TOOLCHAIN)/usr/bin/rebar
 RELX=$(NERVES_HOST_MAKE_ENV) $(NERVES_TOOLCHAIN)/usr/bin/relx --system_libs $(NERVES_SDK_SYSROOT)/usr/lib/erlang/lib
 REL2FW=$(NERVES_HOST_MAKE_ENV) $(NERVES_SYSTEM)/scripts/rel2fw.sh
-
-
