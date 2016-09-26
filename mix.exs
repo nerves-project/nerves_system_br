@@ -1,4 +1,4 @@
-defmodule Nerves.System.BR do
+defmodule Nerves.System.BR.Mixfile do
   use Mix.Project
 
 @version Path.join(__DIR__, "VERSION")

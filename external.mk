@@ -13,8 +13,9 @@ export NERVES_DEFCONFIG_DIR
 
 # Create a system image for use by Bakeware and for creating
 # firmware images without Buildroot
+NERVES_ARTIFACT_NAME ?= $(BR2_NERVES_SYSTEM_NAME)
 system:
-	$(BR2_EXTERNAL)/scripts/mksystem.sh $(BR2_NERVES_SYSTEM_NAME)
+	$(BR2_EXTERNAL)/scripts/mksystem.sh $(NERVES_ARTIFACT_NAME)
 
 # It is common task to copy files to the images directory
 # so that they can be included in a system image. Add this

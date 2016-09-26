@@ -2,3 +2,10 @@
 *~
 /artifacts
 /nerves-system-*
+/_build
+/cover
+/deps
+/rel
+erl_crash.dump
+*.ez
+/doc
