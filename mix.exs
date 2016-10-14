@@ -9,8 +9,8 @@ defmodule Nerves.System.BR.Mixfile do
     [app: :nerves_system_br,
      version: @version,
      elixir: "~> 1.2",
-     description: description,
-     package: package,
+     description: description(),
+     package: package(),
      compilers: [:app]
     ]
   end
