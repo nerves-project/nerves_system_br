@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.8.0
+  * Enhancements
+    * Moved Config for Alix, Galileo, and AG150 to nerves_system_* repos
+    * Support for nerves 0.4.0 package compiler
+
+
 ## v0.7.0
 
   * Package updates
