@@ -103,9 +103,14 @@ erl_interface_dir =
   |> List.first
 System.put_env("ERL_INTERFACE_DIR", erl_interface_dir)
 
-rebar_plt_dir =
+erl_lib_dir =
   Path.join(sdk_sysroot, "/usr/lib/erlang")
-System.put_env("REBAR_PLT_DIR", rebar_plt_dir)
+System.put_env("REBAR_PLT_DIR", erl_lib_dir)
+System.put_env("ERL_LIB_DIR", erl_lib_dir)
+
+erl_system_lib_dir =
+  Path.join(erl_lib_dir, "/lib")
+System.put_env("ERL_SYSTEM_LIB_DIR", erl_system_lib_dir)
 
 System.put_env("CC", "#{crosscompile}-gcc")
 System.put_env("CXX", "#{crosscompile}-g++")
