@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.8.1
+  * Enhancements
+    * Added System env variables for configuring distillery
+
 ## v0.8.0
   * Enhancements
     * Moved Config for Alix, Galileo, and AG150 to nerves_system_* repos
