@@ -47,9 +47,9 @@ WORK_DIR=$BASE_DIR/tmp-system
 rm -fr $WORK_DIR
 mkdir -p $WORK_DIR/$ARCHIVE_NAME
 
-# Save a tag to the archive in case we need it for debug
-TAG=$(git -C $BR2_EXTERNAL describe --always --dirty)
-echo $TAG >$WORK_DIR/$ARCHIVE_NAME/nerves-system.tag
+# Save the version to the archive in case we need it for debug
+VERSION=$(cat ../VERSION)
+echo $VERSION >$WORK_DIR/$ARCHIVE_NAME/nerves-system.tag
 
 # Add some help text for the curious
 cat << EOT > $WORK_DIR/$ARCHIVE_NAME/README.md
@@ -63,7 +63,7 @@ for more information.
 ## Build information
 
 Configuration: $NERVES_DEFCONFIG
-nerves_system_br: $TAG
+nerves_system_br: $VERSION
 EOT
 
 # Copy common nerves shell scripts over
