@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.8.2
+  * Bug Fixes
+    * raise exceptions in nerves-env with Mix.raise instead of Nerves.Env.Exception
+    * pull the version info from VERSION instead of assuming git
+
 ## v0.8.1
   * Enhancements
     * Added System env variables for configuring distillery
