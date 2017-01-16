@@ -1,4 +1,4 @@
-From aebedbca4145cb85f1512affa318033059001e73 Mon Sep 17 00:00:00 2001
+From 89c59c7aff2c76d33b76724662d8c64c7953acd6 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 21 Jun 2016 13:08:17 -0400
 Subject: [PATCH] toolchain: allow crosstool-ng musl toolchains

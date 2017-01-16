@@ -1,7 +1,7 @@
-From 16d16177410df3012f07c809e2ffe1ac7a612a4b Mon Sep 17 00:00:00 2001
+From a418cfda1e9cef69e9b0c8c9546974289a486123 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 22 Jun 2016 12:13:00 -0400
-Subject: [PATCH] erlang: bump to version 19.0
+Subject: [PATCH] erlang: bump to version 19.2
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
@@ -10,17 +10,17 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index c39c26e..737a78d 100644
+index c39c26e..165c187 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,3 +1,3 @@
  # md5 from http://www.erlang.org/download/MD5, sha256 locally computed
 -md5	7e4ff32f97c36fb3dab736f8d481830b	otp_src_18.3.tar.gz
 -sha256	fdab8129a1cb935db09f1832e3a7d511a4aeb2b9bb3602ca6a7ccb9730d5c9c3	otp_src_18.3.tar.gz
-+md5	f64eefc697d47193444aa224d971f367	otp_src_19.0.tar.gz
-+sha256	3fdc27a2a826e7f3d9cda43302d27d98704d6b41ce29a8a5df747a161da53bb1	otp_src_19.0.tar.gz
++md5	7cdd18a826dd7bda0ca46d1c3b2efca6	otp_src_19.2.tar.gz
++sha256  a016b3ef5dac1e532972617b2715ef187ecb616f7cd7ddcfe0f1d502f5d24870	otp_src_19.2.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 209714e..d2069f8 100644
+index 209714e..394305d 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,7 @@
@@ -28,7 +28,7 @@ index 209714e..d2069f8 100644
  
  # See note below when updating Erlang
 -ERLANG_VERSION = 18.3
-+ERLANG_VERSION = 19.0
++ERLANG_VERSION = 19.2
  ERLANG_SITE = http://www.erlang.org/download
  ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
  ERLANG_DEPENDENCIES = host-erlang
@@ -37,7 +37,7 @@ index 209714e..d2069f8 100644
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk
 -ERLANG_EI_VSN = 3.8.2
-+ERLANG_EI_VSN = 3.9
++ERLANG_EI_VSN = 3.9.2
  
  # The configure checks for these functions fail incorrectly
  ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes

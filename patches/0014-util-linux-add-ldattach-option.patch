@@ -1,4 +1,4 @@
-From 55def131b78d928b8bb88624e7aa217627f66620 Mon Sep 17 00:00:00 2001
+From 7536c3fc5a1484012435c46552df67e92b94dea2 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 10 Jul 2016 13:47:56 -0400
 Subject: [PATCH] util-linux: add ldattach option

@@ -1,4 +1,4 @@
-From cbad9ebe19734201141b78c8eaf65bcb90117670 Mon Sep 17 00:00:00 2001
+From 92e97e88cc28a5c22c3992f011ad13e133aeb071 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 9 May 2016 13:21:56 -0400
 Subject: [PATCH] kernel-wireless-regdb: install regdb in kernel
