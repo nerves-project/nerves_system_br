@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PIGPIO
+	bool "pigpio"
+	depends on BR2_PACKAGE_RPI_USERLAND
+	help
+	  PIGPIO daeomon.
+
+	  https://github.com/joan2937/pigpio
