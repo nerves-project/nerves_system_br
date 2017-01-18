@@ -13,7 +13,7 @@
 
 set -e
 
-NERVES_BR_VERSION=2016.08
+NERVES_BR_VERSION=2016.11.1
 
 DEFCONFIG=$1
 BUILD_DIR=$2
@@ -30,11 +30,15 @@ readlink_f () {
     fi
 }
 
-if [[ -z $DEFCONFIG || -z $BUILD_DIR ]]; then
+if [[ -z $DEFCONFIG ]]; then
     echo "Usage:"
     echo
-    echo "  $0 <defconfig> <build directory>"
+    echo "  $0 <defconfig> [build directory]"
     exit 1
+fi
+
+if [[ -z $BUILD_DIR ]]; then
+    BUILD_DIR=o/$(basename -s _defconfig $DEFCONFIG)
 fi
 
 # Create the build directory if it doesn't already exist

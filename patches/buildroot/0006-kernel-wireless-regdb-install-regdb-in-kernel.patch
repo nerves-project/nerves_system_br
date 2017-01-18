@@ -1,4 +1,4 @@
-From 92e97e88cc28a5c22c3992f011ad13e133aeb071 Mon Sep 17 00:00:00 2001
+From c529e826e1b8930dc150a018dbea3c6d4146cbd1 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 9 May 2016 13:21:56 -0400
 Subject: [PATCH] kernel-wireless-regdb: install regdb in kernel
@@ -20,12 +20,12 @@ net/wireless/db.txt.
  create mode 100644 package/kernel-wireless-regdb/kernel-wireless-regdb.mk
 
 diff --git a/linux/Config.ext.in b/linux/Config.ext.in
-index 8024d73..d12beef 100644
+index 6705adb..7350a20 100644
 --- a/linux/Config.ext.in
 +++ b/linux/Config.ext.in
-@@ -79,4 +79,12 @@ config BR2_LINUX_KERNEL_EXT_EV3DEV
- 	help
- 	  ev3dev drivers for LEGO MINDSTORMS EV3, etc.
+@@ -137,4 +137,12 @@ config BR2_LINUX_KERNEL_EXT_AUFS_VERSION
+ 
+ endif # aufs
  
 +# kernel-wireless-regdb
 +config BR2_LINUX_KERNEL_EXT_KERNEL_WIRELESS_REGDB
@@ -55,10 +55,10 @@ index 0000000..3cec0cd
 +	cp -pf $(KERNEL_WIRELESS_REGDB_DIR)/db.txt $(LINUX_DIR)/net/wireless/db.txt
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index 4e7be32..a7d0473 100644
+index 1774c3c..4d080d7 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -1484,6 +1484,7 @@ menu "Networking applications"
+@@ -1504,6 +1504,7 @@ menu "Networking applications"
  	source "package/irssi/Config.in"
  	source "package/iw/Config.in"
  	source "package/janus-gateway/Config.in"

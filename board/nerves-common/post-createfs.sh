@@ -9,7 +9,7 @@ set -e
 #   $1  the images directory (where to put the .fw output)
 #   $2  the path to fwup.conf
 #   $3  the base name for the firmware
-# $BR2_EXTERNAL the path to the nerves_system_br directory
+# $BR2_EXTERNAL_NERVES_PATH the path to the nerves_system_br directory
 # $BASE_DIR     the path to the buildroot output directory
 # $TARGET_DIR   the path to the target directory (normally $BASE_DIR/target)
 # $BINARIES_DIR the path to the images directory (normally $BASE_DIR/images)
@@ -39,9 +39,9 @@ cp -f $FWUP_CONFIG $BINARIES_DIR
 
 # Symlink the nerves scripts to the output directory so that it
 # is self-contained.
-cp -f $BR2_EXTERNAL/nerves-env.sh $BASE_DIR    # Can't symlink due to readlink -f code
-ln -sf $BR2_EXTERNAL/nerves.mk $BASE_DIR
-ln -sf $BR2_EXTERNAL/scripts $BASE_DIR
+cp -f $BR2_EXTERNAL_NERVES_PATH/nerves-env.sh $BASE_DIR    # Can't symlink due to readlink -f code
+ln -sf $BR2_EXTERNAL_NERVES_PATH/nerves.mk $BASE_DIR
+ln -sf $BR2_EXTERNAL_NERVES_PATH/scripts $BASE_DIR
 
 # Use the rel2fw.sh tool to create the demo images
 OLD_DIR=$(pwd)

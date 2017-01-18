@@ -27,13 +27,13 @@ config BR2_NERVES_ADDITIONAL_IMAGE_FILES
 	  by fwup during image creation time.
 
 # Load Nerves packages
-source "$BR2_EXTERNAL/package/bborg-overlays/Config.in"
-source "$BR2_EXTERNAL/package/boardid/Config.in"
-source "$BR2_EXTERNAL/package/erlang-history/Config.in"
-source "$BR2_EXTERNAL/package/erlinit/Config.in"
-source "$BR2_EXTERNAL/package/nerves-config/Config.in"
-source "$BR2_EXTERNAL/package/raspijpgs/Config.in"
-source "$BR2_EXTERNAL/package/erlang-relx/Config.in.host"
+source "$BR2_EXTERNAL_NERVES_PATH/package/bborg-overlays/Config.in"
+source "$BR2_EXTERNAL_NERVES_PATH/package/boardid/Config.in"
+source "$BR2_EXTERNAL_NERVES_PATH/package/erlang-history/Config.in"
+source "$BR2_EXTERNAL_NERVES_PATH/package/erlinit/Config.in"
+source "$BR2_EXTERNAL_NERVES_PATH/package/nerves-config/Config.in"
+source "$BR2_EXTERNAL_NERVES_PATH/package/raspijpgs/Config.in"
+source "$BR2_EXTERNAL_NERVES_PATH/package/erlang-relx/Config.in.host"
 
 # Load user options
 menu "User-provided options"

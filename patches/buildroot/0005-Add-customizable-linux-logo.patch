@@ -1,4 +1,4 @@
-From b5259e8a7448ef76dfbd574f6938b70467abd427 Mon Sep 17 00:00:00 2001
+From 109edcf62e0a4bced6032915705ddeb4b753da10 Mon Sep 17 00:00:00 2001
 From: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 Date: Wed, 3 Feb 2016 00:05:42 +0100
 Subject: [PATCH] Add customizable linux logo
@@ -9,23 +9,24 @@ This patch adds a custom linux logo to the generated kernel image.
 
 Signed-off-by: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 ---
- linux/Config.ext.in              |  8 ++++++++
+ linux/Config.ext.in              |  9 +++++++++
  linux/linux-ext-customlogo.mk    | 11 +++++++++++
  package/Config.in                |  1 +
  package/customlogo/Config.in     | 17 +++++++++++++++++
  package/customlogo/customlogo.mk | 25 +++++++++++++++++++++++++
- 5 files changed, 62 insertions(+)
+ 5 files changed, 63 insertions(+)
  create mode 100644 linux/linux-ext-customlogo.mk
  create mode 100644 package/customlogo/Config.in
  create mode 100644 package/customlogo/customlogo.mk
 
 diff --git a/linux/Config.ext.in b/linux/Config.ext.in
-index 755c23b..e51e8a3 100644
+index 011dffb..6705adb 100644
 --- a/linux/Config.ext.in
 +++ b/linux/Config.ext.in
-@@ -1,5 +1,13 @@
+@@ -1,6 +1,15 @@
  menu "Linux Kernel Extensions"
  
+ #-------------------------------------------------------------------------------
 +# Custom logo
 +config BR2_LINUX_KERNEL_EXT_CUSTOMLOGO
 +	select BR2_PACKAGE_CUSTOMLOGO
@@ -34,6 +35,7 @@ index 755c23b..e51e8a3 100644
 +	  change linux boot logo with your own graphics.
 +	  Can be used as an early bootsplash.
 +
++#-------------------------------------------------------------------------------
  # Xenomai
  config BR2_LINUX_KERNEL_EXT_XENOMAI
  	bool "Adeos/Xenomai Real-time patch"
@@ -55,10 +57,10 @@ index 0000000..ed9cbc1
 +	cp $(CUSTOMLOGO_DIR)/logo_linux_*.p?m $(LINUX_DIR)/drivers/video/logo
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index 1e51a45..5ac7ac5 100644
+index 9ed296f..1774c3c 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -206,6 +206,7 @@ comment "Sounds"
+@@ -210,6 +210,7 @@ comment "Sounds"
  
  comment "Themes"
  	source "package/gtk2-engines/Config.in"

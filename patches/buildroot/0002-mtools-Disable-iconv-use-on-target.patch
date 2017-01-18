@@ -1,4 +1,4 @@
-From f7e6b2c15a7049c87ac43cf048cd39c800af1cc5 Mon Sep 17 00:00:00 2001
+From 15c17bd4ed73adab7eccad485e85fb1448e4fd92 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 18 Mar 2014 13:14:22 -0400
 Subject: [PATCH] mtools: Disable iconv use on target

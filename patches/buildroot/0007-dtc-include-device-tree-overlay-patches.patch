@@ -1,4 +1,4 @@
-From 6b533dad52bd92c869b0565a71aaa06c9a0cdd8a Mon Sep 17 00:00:00 2001
+From 0417f6e13e8bccd339016ac198db2091e085ee99 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 11 May 2016 19:12:58 -0400
 Subject: [PATCH] dtc: include device tree overlay patches

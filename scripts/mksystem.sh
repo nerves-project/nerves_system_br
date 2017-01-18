@@ -22,7 +22,7 @@ set -e
 # The first parameter is the name of the archive to create. If it's not set
 # we'll set it below.
 ARCHIVE_NAME=$1
-BR2_EXTERNAL=$PWD/..
+BR2_EXTERNAL_NERVES_PATH=$PWD/..
 
 if [ -z $ARCHIVE_NAME ]; then
     echo "ERROR: Please specify an archive name"
@@ -67,9 +67,9 @@ nerves_system_br: $VERSION
 EOT
 
 # Copy common nerves shell scripts over
-cp $BR2_EXTERNAL/nerves-env.sh $WORK_DIR/$ARCHIVE_NAME
-cp $BR2_EXTERNAL/nerves.mk $WORK_DIR/$ARCHIVE_NAME
-cp -R $BR2_EXTERNAL/scripts $WORK_DIR/$ARCHIVE_NAME
+cp $BR2_EXTERNAL_NERVES_PATH/nerves-env.sh $WORK_DIR/$ARCHIVE_NAME
+cp $BR2_EXTERNAL_NERVES_PATH/nerves.mk $WORK_DIR/$ARCHIVE_NAME
+cp -R $BR2_EXTERNAL_NERVES_PATH/scripts $WORK_DIR/$ARCHIVE_NAME
 
 # Copy the built configuration over
 cp $BASE_DIR/.config $WORK_DIR/$ARCHIVE_NAME

@@ -1,5 +1,5 @@
 # Include Nerves-specific packages
-include $(sort $(wildcard $(BR2_EXTERNAL)/package/*/*.mk))
+include $(sort $(wildcard $(BR2_EXTERNAL_NERVES_PATH)/package/*/*.mk))
 
 # Nerves targets
 
@@ -15,7 +15,7 @@ export NERVES_DEFCONFIG_DIR
 # firmware images without Buildroot
 NERVES_ARTIFACT_NAME ?= $(BR2_NERVES_SYSTEM_NAME)
 system:
-	$(BR2_EXTERNAL)/scripts/mksystem.sh $(NERVES_ARTIFACT_NAME)
+	$(BR2_EXTERNAL_NERVES_PATH)/scripts/mksystem.sh $(NERVES_ARTIFACT_NAME)
 
 # It is common task to copy files to the images directory
 # so that they can be included in a system image. Add this
@@ -53,7 +53,7 @@ burn-upgrade:
 		echo "and that a firmware (.fw) file is in $(BINARIES_DIR)."; \
 	fi
 
-help:
+nerves-help:
 	@echo "Nerves System Help"
 	@echo "------------------"
 	@echo
@@ -76,5 +76,9 @@ help:
 	@echo
 	@echo "For much more information about the targets in this Makefile, run"
 	@echo "'make buildroot-help' and see the Buildroot documentation."
+	@echo "---------------------------------------------------------------------------"
+	@echo
+	@echo "Buildroot Help"
+	@echo "--------------"
 
-.PHONY: burn burn-complete burn-upgrade system help
+.PHONY: burn burn-complete burn-upgrade system nerves-help
