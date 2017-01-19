@@ -34,6 +34,8 @@ source "$BR2_EXTERNAL/package/erlinit/Config.in"
 source "$BR2_EXTERNAL/package/nerves-config/Config.in"
 source "$BR2_EXTERNAL/package/raspijpgs/Config.in"
 source "$BR2_EXTERNAL/package/erlang-relx/Config.in.host"
+source "$BR2_EXTERNAL/package/pigpio/Config.in"
+source "$BR2_EXTERNAL/package/python-pigpio/Config.in"
 
 # Load user options
 menu "User-provided options"

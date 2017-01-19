@@ -1,0 +1,11 @@
+config BR2_PACKAGE_PYTHON_PIGPIO
+	bool "python-pigpio"
+	depends on BR2_PACKAGE_PIGPIO
+        select BR2_PACKAGE_PYTHON
+        select BR2_PACKAGE_PYTHON_SSL
+        select BR2_PACKAGE_PYTHON_HASHLIB
+
+	help
+	  Python module for communicating with PIGPIO daemon.
+
+	  https://github.com/joan2937/pigpio
