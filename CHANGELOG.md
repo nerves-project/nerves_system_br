@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.9.0
+
+IMPORTANT: All Nerves Systems will need all references to the `BR2_EXTERNAL`
+environment variable updated to `BR2_EXTERNAL_NERVES_PATH`.
+
+  * New features
+    * Bump Buildroot version to 2016.11.1
+    * Update Erlang/OTP to 19.2
+    * Update erlinit v0.8.0 (multi-boot script support)
+    * Update fwup to v0.12.1
+
 ## v0.8.2
   * Bug Fixes
     * raise exceptions in nerves-env with Mix.raise instead of Nerves.Env.Exception
