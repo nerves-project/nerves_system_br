@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.9.1
+  * Bug Fixes
+    * Include `external.desc` in hex package
+
 ## v0.9.0
 
 IMPORTANT: All Nerves Systems will need all references to the `BR2_EXTERNAL`
