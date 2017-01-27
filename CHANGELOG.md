@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.9.2
+  IMPORTANT: This includes a kernel bump to 4.4.43 and bumps for rpi-userland and
+  rpi-firmware. Most importantly, kernels no longer need to be marked that
+  use device tree, so the kernel marking logic has been removed. This will
+  break systems, but those systems should upgrade their kernels to avoid
+  any mismatches between kernel patches and rpi-firmware.
+
 ## v0.9.1
   * Bug Fixes
     * Include `external.desc` in hex package
