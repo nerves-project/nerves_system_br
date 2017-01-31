@@ -1,4 +1,4 @@
-From 70c8503abe400fbc4142b96ff2583d059a0d1aaa Mon Sep 17 00:00:00 2001
+From eae494db4066172a28ba750d0de4b00ce6f8b802 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 21 Jun 2016 13:08:17 -0400
 Subject: [PATCH] toolchain: allow crosstool-ng musl toolchains
@@ -8,12 +8,13 @@ Buildroot exits with "Incorrect selection of the C library".
 
 The musl.codu.org cross-compilers put their libraries in <sysroot>/lib
 while crosstool-ng uses <sysroot>/usr/lib. This change checks that
-location for libc.so as well.
+location for libc.so and updates the ld-musl-$ARCH.so.1 symlink.
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
- toolchain/helpers.mk | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ toolchain/helpers.mk                               | 2 +-
+ toolchain/toolchain-external/toolchain-external.mk | 6 +++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/toolchain/helpers.mk b/toolchain/helpers.mk
 index 3991bc1..72d11c7 100644
@@ -28,6 +29,23 @@ index 3991bc1..72d11c7 100644
  		echo "Incorrect selection of the C library" ; \
  		exit -1; \
  	fi
+diff --git a/toolchain/toolchain-external/toolchain-external.mk b/toolchain/toolchain-external/toolchain-external.mk
+index b7a36be..26ca563 100644
+--- a/toolchain/toolchain-external/toolchain-external.mk
++++ b/toolchain/toolchain-external/toolchain-external.mk
+@@ -544,7 +544,11 @@ else
+ MUSL_ARCH = $(ARCH)
+ endif
+ define TOOLCHAIN_EXTERNAL_MUSL_LD_LINK
+-	ln -sf libc.so $(TARGET_DIR)/lib/ld-musl-$(MUSL_ARCH).so.1
++	if [ -e $(TARGET_DIR)/usr/lib/libc.so ]; then \
++		ln -sf ../usr/lib/libc.so $(TARGET_DIR)/lib/ld-musl-$(MUSL_ARCH).so.1 ; \
++	else \
++		ln -sf libc.so $(TARGET_DIR)/lib/ld-musl-$(MUSL_ARCH).so.1 ; \
++	fi
+ endef
+ TOOLCHAIN_EXTERNAL_POST_INSTALL_STAGING_HOOKS += TOOLCHAIN_EXTERNAL_MUSL_LD_LINK
+ endif
 -- 
 2.7.4
 
