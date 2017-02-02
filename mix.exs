@@ -23,8 +23,10 @@ defmodule Nerves.System.BR.Mixfile do
 
   defp package do
    [maintainers: ["Frank Hunleth", "Justin Schneck"],
-    files: ["board", "package", "patches", "scripts", "Config.in", "create-build.sh", "external.mk", "external.desc", "LICENSE", "mix.exs", "nerves_env.exs",
-    "nerves-env.sh", "nerves.exs", "nerves.mk", "README.md", "VERSION"],
+    files: ["board", "package", "patches", "scripts", "Config.in",
+      "create-build.sh", "external.mk", "external.desc", "LICENSE",
+      "mix.exs", "nerves_env.exs", "nerves-env.sh", "nerves.exs",
+      "nerves.mk", "README.md", "VERSION"],
     licenses: ["Apache 2.0", "GPLv2"],
     links: %{"Github" => "https://github.com/nerves-project/nerves_system_br"}]
   end
