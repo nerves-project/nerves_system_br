@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.9.3
+
+  * New features
+    * Bump fwup to v0.13.0 - contains a fix for sending progress updates through
+      Erlang ports
+
+  * Bug fixes
+    * Fix Musl C library systems by fixing a symlink. Without this fix the
+      system will boot and kernel panic when loading `/sbin/init`.
+
 ## v0.9.2
   IMPORTANT: This includes a kernel bump to 4.4.43 and bumps for rpi-userland and
   rpi-firmware. Most importantly, kernels no longer need to be marked that
