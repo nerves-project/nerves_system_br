@@ -1,6 +1,12 @@
 # Changelog
 
-## v0.9.4-dev
+## v0.9.4
+
+  * Bug fixes
+    * The Musl C library fix in v0.9.3 wasn't completely fixed. It worked if you
+      built Nerves systems using `make` locally, but not `mix`. The check logic
+      turned out to be looking for a file that may or may not exist depending on
+      build order.
 
 ## v0.9.3
 
