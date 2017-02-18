@@ -117,7 +117,7 @@ index 0000000..aa0e4de
 +define CUSTOMLOGO_BUILD_CMDS
 +	convert $(BR2_PACKAGE_CUSTOMLOGO_PATH) \
 +		-dither None -colors 224 -compress none \
-+		$(@D)/logo_linux_clut224.ppm)
++		$(@D)/logo_linux_clut224.ppm
 +endef
 +endif
 +
