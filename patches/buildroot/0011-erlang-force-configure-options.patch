@@ -1,4 +1,4 @@
-From 6d563bc327091e231e8a1156aed31d4c0f355034 Mon Sep 17 00:00:00 2001
+From 781817ba1f823a1972b30b447beafceb728fa824 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 13 Jul 2016 19:29:03 -0400
 Subject: [PATCH] erlang: force configure options
@@ -11,7 +11,7 @@ options. CLOCK_THREAD_CPUTIME_ID has been fixed since Linux 2.6.12.
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index c15dda6..66e9842 100644
+index 8ce4676..c924334 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -22,12 +22,18 @@ ERLANG_AUTORECONF = YES
@@ -33,7 +33,7 @@ index c15dda6..66e9842 100644
 +
  ERLANG_CONF_OPTS = --without-javac
  
- # erlang uses openssl for all things crypto. Since the host tools (such as
+ # Force ERL_TOP to the downloaded source directory. This prevents
 -- 
 2.7.4
 

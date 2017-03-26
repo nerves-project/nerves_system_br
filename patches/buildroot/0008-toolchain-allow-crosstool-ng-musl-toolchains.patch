@@ -1,4 +1,4 @@
-From 620ea3beb804021919a79d150be078ef0edbde99 Mon Sep 17 00:00:00 2001
+From 146f10110930e8cc362e5961d81dcc872c196127 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 21 Jun 2016 13:08:17 -0400
 Subject: [PATCH] toolchain: allow crosstool-ng musl toolchains
@@ -12,15 +12,15 @@ location for libc.so and updates the ld-musl-$ARCH.so.1 symlink.
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
- toolchain/helpers.mk                               | 2 +-
- toolchain/toolchain-external/toolchain-external.mk | 6 +++++-
+ toolchain/helpers.mk                                   | 2 +-
+ toolchain/toolchain-external/pkg-toolchain-external.mk | 6 +++++-
  2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/toolchain/helpers.mk b/toolchain/helpers.mk
-index 3991bc1..72d11c7 100644
+index 72e7292..42b69ee 100644
 --- a/toolchain/helpers.mk
 +++ b/toolchain/helpers.mk
-@@ -210,7 +210,7 @@ check_glibc = \
+@@ -209,7 +209,7 @@ check_glibc = \
  # $1: sysroot directory
  check_musl = \
  	SYSROOT_DIR="$(strip $1)"; \
@@ -29,23 +29,23 @@ index 3991bc1..72d11c7 100644
  		echo "Incorrect selection of the C library" ; \
  		exit -1; \
  	fi
-diff --git a/toolchain/toolchain-external/toolchain-external.mk b/toolchain/toolchain-external/toolchain-external.mk
-index b7a36be..cbddee9 100644
---- a/toolchain/toolchain-external/toolchain-external.mk
-+++ b/toolchain/toolchain-external/toolchain-external.mk
-@@ -544,7 +544,11 @@ else
+diff --git a/toolchain/toolchain-external/pkg-toolchain-external.mk b/toolchain/toolchain-external/pkg-toolchain-external.mk
+index 11a1bf5..ce37173 100644
+--- a/toolchain/toolchain-external/pkg-toolchain-external.mk
++++ b/toolchain/toolchain-external/pkg-toolchain-external.mk
+@@ -488,7 +488,11 @@ else
  MUSL_ARCH = $(ARCH)
  endif
  define TOOLCHAIN_EXTERNAL_MUSL_LD_LINK
 -	ln -sf libc.so $(TARGET_DIR)/lib/ld-musl-$(MUSL_ARCH).so.1
 +	if [ -e $(STAGING_DIR)/usr/lib/libc.so ]; then \
-+		ln -sf ../usr/lib/libc.so $(TARGET_DIR)/lib/ld-musl-$(MUSL_ARCH).so.1 ; \
++	    ln -sf ../usr/lib/libc.so $(TARGET_DIR)/lib/ld-musl-$(MUSL_ARCH).so.1 ; \
 +	else \
-+		ln -sf libc.so $(TARGET_DIR)/lib/ld-musl-$(MUSL_ARCH).so.1 ; \
++	    ln -sf libc.so $(TARGET_DIR)/lib/ld-musl-$(MUSL_ARCH).so.1 ; \
 +	fi
  endef
- TOOLCHAIN_EXTERNAL_POST_INSTALL_STAGING_HOOKS += TOOLCHAIN_EXTERNAL_MUSL_LD_LINK
  endif
+ 
 -- 
 2.7.4
 

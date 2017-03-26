@@ -2,6 +2,9 @@
 
 ## v0.9.5-dev
 
+  * New features
+    * Bump Buildroot version to 2017.02
+
 ## v0.9.4
 
   * Bug fixes

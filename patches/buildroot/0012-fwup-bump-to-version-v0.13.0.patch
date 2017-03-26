@@ -1,7 +1,7 @@
-From 55523212960adf08cc76ba449d5ac863f48227b8 Mon Sep 17 00:00:00 2001
+From e0e893ca312960ed488b9e0df764e325ef9e3741 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 8 Sep 2016 11:05:36 -0400
-Subject: [PATCH 12/13] fwup: bump to version v0.13.0
+Subject: [PATCH] fwup: bump to version v0.13.0
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---

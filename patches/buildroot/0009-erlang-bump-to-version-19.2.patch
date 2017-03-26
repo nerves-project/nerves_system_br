@@ -1,4 +1,4 @@
-From ff4eabb09939408ecab6d81a219f075a5cd33009 Mon Sep 17 00:00:00 2001
+From 597eda9c353b57799f836e07bcdd1e47e0206ed6 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 22 Jun 2016 12:13:00 -0400
 Subject: [PATCH] erlang: bump to version 19.2
@@ -20,7 +20,7 @@ index c39c26e..165c187 100644
 +md5	7cdd18a826dd7bda0ca46d1c3b2efca6	otp_src_19.2.tar.gz
 +sha256  a016b3ef5dac1e532972617b2715ef187ecb616f7cd7ddcfe0f1d502f5d24870	otp_src_19.2.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 4563626..c15dda6 100644
+index 7655706..8ce4676 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,7 @@
