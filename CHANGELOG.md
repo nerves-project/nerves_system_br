@@ -4,6 +4,7 @@
 
   * New features
     * Bump Buildroot version to 2017.02
+    * Bump Erlang/OTP to 19.3
 
 ## v0.9.4
 
