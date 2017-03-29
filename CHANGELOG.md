@@ -1,10 +1,11 @@
 # Changelog
 
-## v0.9.5-dev
+## v0.10.0
 
   * New features
     * Bump Buildroot version to 2017.02
     * Bump Erlang/OTP to 19.3
+    * Update Raspberry Pi projects to support the Raspberry Pi Zero W
 
 ## v0.9.4
 
