@@ -31,17 +31,17 @@ fi
 # Clean up the Erlang release of all the files that we don't need.
 # The user should create their releases without source code
 # unless they want really big images..
-rm -fr $RELEASE_DIR/bin $RELEASE_DIR/erts-*
+rm -fr "$RELEASE_DIR/bin" "$RELEASE_DIR"/erts-*
 
 # Delete empty directories
-find $RELEASE_DIR -type d -empty -delete
+find "$RELEASE_DIR" -type d -empty -delete
 
 # Delete any temp files, release tarballs, etc from the base release directory
 # Nothing is supposed to be there.
-find $RELEASE_DIR -maxdepth 1 -type f -delete
+find "$RELEASE_DIR" -maxdepth 1 -type f -delete
 
 # Clean up the releases directory
-find $RELEASE_DIR/releases \( -name "*.sh" \
+find "$RELEASE_DIR/releases" \( -name "*.sh" \
                                  -o -name "*.bat" \
                                  -o -name "*gz" \
                                  -o -name "start.boot" \
@@ -101,7 +101,7 @@ get_expected_library_type()
     rm $tmpfile
 }
 
-EXECUTABLES=$(find $RELEASE_DIR -type f -perm -100)
+EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
 EXPECTED_DYNAMIC_BIN_TYPE=$(get_expected_dynamic_executable_type)
 EXPECTED_STATIC_BIN_TYPE=$(get_expected_static_executable_type)
 EXPECTED_SO_TYPE=$(get_expected_library_type)

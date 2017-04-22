@@ -105,26 +105,26 @@ if [[ ! -d "$RELEASE_DIR/lib" || ! -d "$RELEASE_DIR/releases" ]]; then
 fi
 
 # Make sure that the firmware output directories are there.
-mkdir -p $(dirname $FW_FILENAME)
+mkdir -p $(dirname "$FW_FILENAME")
 
 # Update the file system bundle
 echo "Updating base firmware image with Erlang release..."
 
 # Create the directory for all of the files that "overlay" the base squashfs
-mkdir -p $TMP_DIR/rootfs-additions
+mkdir -p "$TMP_DIR/rootfs-additions"
 
 # Construct the proper path for the Erlang/OTP release
-mkdir -p $TMP_DIR/rootfs-additions/srv/erlang
-cp -R $RELEASE_DIR/. $TMP_DIR/rootfs-additions/srv/erlang
+mkdir -p "$TMP_DIR/rootfs-additions/srv/erlang"
+cp -R "$RELEASE_DIR/." "$TMP_DIR/rootfs-additions/srv/erlang"
 
 # Clean up the Erlang release of all the files that we don't need.
-$NERVES_SYSTEM/scripts/scrub-otp-release.sh $TMP_DIR/rootfs-additions/srv/erlang
+$NERVES_SYSTEM/scripts/scrub-otp-release.sh "$TMP_DIR/rootfs-additions/srv/erlang"
 
 # Copy over any rootfs additions from the user
 # IMPORTANT: This must be the final step before the merge so that the user can
 #            override anything.
 if [[ -d "$ROOTFS_ADDITIONS" ]]; then
-    cp -Rf "$ROOTFS_ADDITIONS/." $TMP_DIR/rootfs-additions
+    cp -Rf "$ROOTFS_ADDITIONS/." "$TMP_DIR/rootfs-additions"
 fi
 
 # Merge the Erlang/OTP release onto the base image
@@ -132,23 +132,23 @@ $NERVES_SYSTEM/scripts/merge-squashfs "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP
 
 # Build the firmware image
 echo "Building $FW_FILENAME..."
-ROOTFS=$TMP_DIR/combined.squashfs $FWUP -c -f $FWUP_CONFIG \
-	-o $FW_FILENAME
+ROOTFS="$TMP_DIR/combined.squashfs" $FWUP -c -f "$FWUP_CONFIG" \
+	-o "$FW_FILENAME"
 
 if [[ ! -z "$IMG_FILENAME" ]]; then
     # Create the output directory - just in case
-    mkdir -p $(dirname $IMG_FILENAME)
+    mkdir -p $(dirname "$IMG_FILENAME")
 
     # Erase the image file in case it exists from a previous build.
     # We use fwup in "programming" mode to create the raw image so it expects there
     # the destination to exist (like an MMC device). This provides the minimum sized image.
-    rm -f $IMG_FILENAME
-    touch $IMG_FILENAME
+    rm -f "$IMG_FILENAME"
+    touch "$IMG_FILENAME"
 
     # Build the raw image for the bulk programmer
     echo "Building $IMG_FILENAME..."
-    $FWUP -a -d $IMG_FILENAME -t complete -i $FW_FILENAME
+    $FWUP -a -d "$IMG_FILENAME" -t complete -i "$FW_FILENAME"
 fi
 
 # Clean up
-rm -fr $TMP_DIR
+rm -fr "$TMP_DIR"

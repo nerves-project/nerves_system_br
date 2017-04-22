@@ -128,7 +128,7 @@ find_to_pseudofile() {
         if [[ ! -z $path ]]; then
             echo "$path m $mode 0 0"
         fi
-    done < <(find $inputdir -exec $STAT -c "%a %n" "{}" ";")
+    done < <(find "$inputdir" -exec $STAT -c "%a %n" "{}" ";")
 }
 
 
@@ -149,9 +149,9 @@ if [[ $# -ne 3 ]]; then
     exit 1
 fi
 
-input_squashfs=$(readlink_f $1)
-output_squashfs=$(readlink_f $2)
-overlay_dir=$(readlink_f $3)
+input_squashfs=$(readlink_f "$1")
+output_squashfs=$(readlink_f "$2")
+overlay_dir=$(readlink_f "$3")
 
 if [[ ! -f $input_squashfs ]]; then
     echo "Can't open $input_squashfs"
@@ -165,15 +165,15 @@ fi
 workdir=`mktemp -d 2>/dev/null || mktemp -d -t 'merge-squashfs-tmp'`
 pushd $workdir >/dev/null
 
-unsquash_to_pseudofile $input_squashfs >pseudofile.in
-find_to_pseudofile $overlay_dir >>pseudofile.in
+unsquash_to_pseudofile "$input_squashfs" >pseudofile.in
+find_to_pseudofile "$overlay_dir" >>pseudofile.in
 
 # remove repeated entries to avoid warnings from mksquashfs
 awk '!x[$1]++' pseudofile.in > pseudofile
 
-unsquashfs $input_squashfs >/dev/null 2>/dev/null
-cp -Rf $overlay_dir/. $workdir/squashfs-root
-mksquashfs squashfs-root $output_squashfs -pf pseudofile -noappend -no-recovery -no-progress
+unsquashfs "$input_squashfs" >/dev/null 2>/dev/null
+cp -Rf "$overlay_dir/." "$workdir/squashfs-root"
+mksquashfs squashfs-root "$output_squashfs" -pf pseudofile -noappend -no-recovery -no-progress
 
 # cleanup
 popd >/dev/null
