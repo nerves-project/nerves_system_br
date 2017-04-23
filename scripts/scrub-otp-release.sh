@@ -8,8 +8,8 @@
 set -e
 export LC_ALL=C
 
-SCRIPT_NAME=$(basename $0)
-RELEASE_DIR=$1
+SCRIPT_NAME=$(basename "$0")
+RELEASE_DIR="$1"
 
 # Check that the release directory exists
 if [ ! -d "$RELEASE_DIR" ]; then
@@ -22,8 +22,8 @@ if [ ! -d "$RELEASE_DIR/lib" -o ! -d "$RELEASE_DIR/releases" ]; then
     exit 1
 fi
 
-if [ -e $CROSSCOMPILE-strip ]; then
-    STRIP=$CROSSCOMPILE-strip
+if [ -e "$CROSSCOMPILE-strip" ]; then
+    STRIP="$CROSSCOMPILE-strip"
 else
     echo "$SCRIPT_NAME: ERROR: Expecting \$CROSSCOMPILE to be set. Did you source nerves-env.sh?"
 fi
@@ -31,7 +31,7 @@ fi
 # Clean up the Erlang release of all the files that we don't need.
 # The user should create their releases without source code
 # unless they want really big images..
-rm -fr "$RELEASE_DIR/bin" "$RELEASE_DIR"/erts-*
+rm -fr "${RELEASE_DIR:?}/bin" "$RELEASE_DIR"/erts-*
 
 # Delete empty directories
 find "$RELEASE_DIR" -type d -empty -delete
@@ -62,7 +62,7 @@ executable_type()
     #       since C++ template instantiation enables the
     #       GNU/Linux extension, but doesn't actually
     #       break anything.
-    file -b $1 \
+    file -b "$1" \
         | sed 's/, BuildID[^,]*,/,/g' \
         | sed 's/, dynamically linked,/,/g' \
         | sed 's/,[^,]*stripped//g' \
@@ -76,9 +76,9 @@ get_expected_dynamic_executable_type()
     # Compile a trivial C program with the crosscompiler
     # so that we know what the `file` output should look like.
     tmpfile=$(mktemp /tmp/scrub-otp-release.XXXXXX)
-    echo "int main() {}" | $CROSSCOMPILE-gcc -x c -o $tmpfile -
-    echo $(executable_type $tmpfile)
-    rm $tmpfile
+    echo "int main() {}" | "$CROSSCOMPILE-gcc" -x c -o "$tmpfile" -
+    executable_type "$tmpfile"
+    rm "$tmpfile"
 }
 
 get_expected_static_executable_type()
@@ -86,9 +86,9 @@ get_expected_static_executable_type()
     # Compile a trivial C program with the crosscompiler
     # so that we know what the `file` output should look like.
     tmpfile=$(mktemp /tmp/scrub-otp-release.XXXXXX)
-    echo "int main() {}" | $CROSSCOMPILE-gcc -x c -static -o $tmpfile -
-    echo $(executable_type $tmpfile)
-    rm $tmpfile
+    echo "int main() {}" | "$CROSSCOMPILE-gcc" -x c -static -o "$tmpfile" -
+    executable_type "$tmpfile"
+    rm "$tmpfile"
 }
 
 get_expected_library_type()
@@ -96,9 +96,9 @@ get_expected_library_type()
     # Compile a trivial C shared library with the crosscompiler
     # so that we know what the `file` output should look like.
     tmpfile=$(mktemp /tmp/scrub-otp-release.XXXXXX)
-    echo "void doit() {}" | $CROSSCOMPILE-gcc --shared -x c -o $tmpfile -
-    echo $(executable_type $tmpfile)
-    rm $tmpfile
+    echo "void doit() {}" | "$CROSSCOMPILE-gcc" --shared -x c -o "$tmpfile" -
+    executable_type "$tmpfile"
+    rm "$tmpfile"
 }
 
 EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
@@ -107,10 +107,10 @@ EXPECTED_STATIC_BIN_TYPE=$(get_expected_static_executable_type)
 EXPECTED_SO_TYPE=$(get_expected_library_type)
 
 for EXECUTABLE in $EXECUTABLES; do
-    case $(file -b $EXECUTABLE) in
+    case $(file -b "$EXECUTABLE") in
         *ELF*)
             # Verify that the executable was compiled for the target
-            TYPE=$(executable_type $EXECUTABLE)
+            TYPE=$(executable_type "$EXECUTABLE")
             if [ "$TYPE" != "$EXPECTED_DYNAMIC_BIN_TYPE" -a "$TYPE" != "$EXPECTED_STATIC_BIN_TYPE" -a "$TYPE" != "$EXPECTED_SO_TYPE" ]; then
                 echo "$SCRIPT_NAME: ERROR: Unexpected executable format for '$EXECUTABLE'"
                 echo
@@ -134,7 +134,7 @@ for EXECUTABLE in $EXECUTABLES; do
 
             # Strip debug information from ELF binaries
             # Symbols are still available to the user in the release directory.
-            $STRIP $EXECUTABLE
+            $STRIP "$EXECUTABLE"
             ;;
         *) ;;
     esac
