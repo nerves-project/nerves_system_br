@@ -1,4 +1,4 @@
-#~/bin/sh
+#!/bin/sh
 
 # Remove or minimize files in an Erlang/OTP release directory
 # in preparation for use packaging in a Nerves firmware image.
