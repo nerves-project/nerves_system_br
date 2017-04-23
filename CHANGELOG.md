@@ -1,6 +1,9 @@
 # Changelog
 
-## v0.10.1-dev
+## v0.10.1
+
+  * Bug fixes
+    * Fix quoting in scripts so that paths with spaces and + signs work.
 
 ## v0.10.0
 
