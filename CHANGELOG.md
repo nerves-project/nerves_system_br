@@ -1,6 +1,21 @@
 # Changelog
 
-## v0.10.2-dev
+## v0.11.0
+
+  * New features
+    * erlinit 1.0 - new graceful shutdown feature may break existing code.
+      Shutdowns are no longer immediate. Code should call :init.stop after
+      calling reboot, poweroff or halt.
+    * fwup 0.14.2 - contains many consistency and validation checks that
+      may detect corruption that wasn't detected before, so there may be new
+      failures
+    * rpi-userland and rpi-firmware version bumps to correspond with Raspbian
+      Linux 4.4 updates.
+
+  * Bug fixes
+    * Trim out BusyBox utilities that were automatically added on version
+      updates. The new utilities were pretty useless on Nerves systems and
+      ended up adding about 50KB bloat to all images.
 
 ## v0.10.1
 
