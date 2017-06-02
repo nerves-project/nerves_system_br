@@ -1,4 +1,4 @@
-From 8a1c741f5c4520787e9060c25bb28c4b8bc8b9f4 Mon Sep 17 00:00:00 2001
+From ed40b6e6fdb0427cb7dc9f4255ea8308a76e2a7c Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 10 Jul 2016 13:47:56 -0400
 Subject: [PATCH] util-linux: add ldattach option
@@ -26,7 +26,7 @@ index e957f84..c669286 100644
  	bool "line"
  	help
 diff --git a/package/util-linux/util-linux.mk b/package/util-linux/util-linux.mk
-index 05e1398..c3c9ea5 100644
+index 325d0fe..a947c6d 100644
 --- a/package/util-linux/util-linux.mk
 +++ b/package/util-linux/util-linux.mk
 @@ -114,6 +114,7 @@ UTIL_LINUX_CONF_OPTS += \

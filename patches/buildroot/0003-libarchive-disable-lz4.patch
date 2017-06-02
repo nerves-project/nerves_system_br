@@ -1,4 +1,4 @@
-From 0631305f4a2029eb303a89e7fde7fe716b06434b Mon Sep 17 00:00:00 2001
+From 18a9ae6ef050d87988a8dd538a1b8506049e9879 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 2 Jun 2014 18:11:44 -0400
 Subject: [PATCH] libarchive: disable lz4
@@ -9,7 +9,7 @@ This fixes a build error when the host has lz4 installed locally.
  1 file changed, 1 insertion(+)
 
 diff --git a/package/libarchive/libarchive.mk b/package/libarchive/libarchive.mk
-index bcf92f9..b062330 100644
+index 9956b63..cc006f5 100644
 --- a/package/libarchive/libarchive.mk
 +++ b/package/libarchive/libarchive.mk
 @@ -125,6 +125,7 @@ HOST_LIBARCHIVE_CONF_OPTS = \

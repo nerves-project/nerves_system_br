@@ -1,4 +1,4 @@
-From ae613bfbb25921c78a40f260aa7719468fa687a9 Mon Sep 17 00:00:00 2001
+From bd2e31c1eb0875936d650e89a28f058a88c0dc32 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 22 Jun 2016 12:13:00 -0400
 Subject: [PATCH] erlang: bump to version 19.3
