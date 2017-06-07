@@ -27,7 +27,7 @@ endef
 TARGET_FINALIZE_HOOKS += NERVES_COPY_ADDITIONAL_IMAGE_FILES
 endif
 
-NERVES_FIRMWARE=$(firstword $(wildcard $(BINARIES_DIR)/*.fw))
+NERVES_FIRMWARE=$(BINARIES_DIR)/$(BR2_NERVES_SYSTEM_NAME).fw
 
 # Replace everything on the SDCard with new bits
 burn-complete: burn
