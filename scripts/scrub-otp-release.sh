@@ -65,6 +65,7 @@ executable_type()
     file -b "$1" \
         | sed 's/, BuildID[^,]*,/,/g' \
         | sed 's/, dynamically linked,/,/g' \
+        | sed 's/,[^,]*debug_info//g' \
         | sed 's/,[^,]*stripped//g' \
         | sed 's/[[:space:]]\+/ /g' \
         | sed 's/[[:space:]]*(SYSV)//g' \
