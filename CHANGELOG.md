@@ -1,6 +1,12 @@
 # Changelog
 
-## v0.11.1-dev
+## v0.11.1
+
+  * Bug fixes
+    * erlinit 1.0.1 - fix Erlang VM exit detection bug introduced by graceful
+      shutdown feature
+    * Lock down which .fw file is burned in `make burn` - only affects Linux
+      users that run manual builds
 
 ## v0.11.0
 
