@@ -1,5 +1,7 @@
 # Changelog
 
+## v0.12.0-dev
+
 ## v0.11.1
 
   * Bug fixes
