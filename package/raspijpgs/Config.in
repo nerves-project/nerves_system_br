@@ -1,7 +1,0 @@
-config BR2_PACKAGE_RASPIJPGS
-	bool "raspijpgs"
-	depends on BR2_PACKAGE_RPI_USERLAND
-	help
-	  Simple MJPEG streamer for the Raspberry Pi.
-
-	  https://github.com/fhunleth/raspijpgs/
