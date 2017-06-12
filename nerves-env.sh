@@ -70,13 +70,11 @@ if [ $? != 0 ]; then
 else
     # Found it. Print out some useful information so that the user can
     # easily figure out whether the wrong nerves installation was used.
-    NERVES_DEFCONFIG=$(grep BR2_DEFCONFIG= $NERVES_SYSTEM/.config | sed -e 's/BR2_DEFCONFIG=".*\/\(.*\)"/\1/')
-    NERVES_VERSION=$(cat VERSION)
+    NERVES_DEFCONFIG=$(grep BR2_DEFCONFIG= $NERVES_SYSTEM/.config | sed -e 's/BR2_DEFCONFIG="\(.*\)"/\1/')
     NERVES_ELIXIR_VERSION_FILE=$(dirname $(readlink_f $(which iex)))/../VERSION
 
     echo "Shell environment updated for Nerves"
     echo
-    echo "Nerves version: $NERVES_VERSION"
     echo "Nerves configuration: $NERVES_DEFCONFIG"
     echo "Cross-compiler prefix: $(basename $CROSSCOMPILE)"
     echo "Erlang/OTP release on target: $NERVES_TARGET_ERL_VER"
