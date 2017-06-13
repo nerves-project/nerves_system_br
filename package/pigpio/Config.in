@@ -1,0 +1,13 @@
+config BR2_PACKAGE_PIGPIO
+	bool "pigpio"
+  depends on BR2_USE_MMU # fork()
+  depends on BR2_TOOLCHAIN_HAS_THREADS
+  depends on !BR2_STATIC_LIBS
+
+	help
+	  PIGPIO is a library for the Raspberry Pi which allows control of the General Purpose Input Outputs (GPIO).  Works on all versions of the Raspberry Pi.
+
+	  https://github.com/joan2937/pigpio
+
+  comment "pigpio needs a toolchain w/ threads, dynamic library"
+          depends on !BR2_TOOLCHAIN_HAS_THREADS || BR2_STATIC_LIBS

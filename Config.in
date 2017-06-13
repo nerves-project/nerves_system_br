@@ -34,6 +34,7 @@ source "$BR2_EXTERNAL_NERVES_PATH/package/erlang-history/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/erlinit/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/nerves-config/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/erlang-relx/Config.in.host"
+source "$BR2_EXTERNAL_NERVES_PATH/package/pigpio/Config.in"
 
 # Load user options
 menu "User-provided options"
