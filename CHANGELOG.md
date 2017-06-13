@@ -1,6 +1,17 @@
 # Changelog
 
-## v0.12.0-dev
+## v0.12.0
+
+  * New features
+    * Buildroot 2017.05 - Primary minor package updates, but has improved
+      Raspberry Pi firmware support and an overlay-supporting dtc compiler for
+      the BBB.
+    * pigpio - New package for Raspberry Pi targets
+    * erlinit 1.1.0 - support for modifying the graceful shutdown timer
+
+  * Removals
+    * raspijpgs - Removed package. See https://github.com/electricshaman/picam
+      for MJPEG streaming on Raspberry Pis now.
 
 ## v0.11.1
 
