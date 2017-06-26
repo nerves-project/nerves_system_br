@@ -1,6 +1,13 @@
 # Changelog
 
-## v0.12.1-dev
+## v0.12.1
+
+  * New features
+    * fwup v0.15.0 - much improved caching, support for TRIM, u-boot
+      improvements
+    * erlinit 1.1.1 - fixed problem with reaping zombie orphans (processes)
+    * busybox - Added dd, find, grep, and a few other utilities now that
+      Nerves.Runtime.Shell is available
 
 ## v0.12.0
 
