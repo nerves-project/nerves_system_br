@@ -1,6 +1,15 @@
 # Changelog
 
-## v0.12.2-dev
+## v0.13.0-dev
+
+  * New features
+    * Update to Erlang/OTP 20
+    * Pull in `fwup` optimizations to reduce the number of disk writes on
+      firmware upgrades.
+
+  * Bug fixes
+    * erlinit 1.1.2 - Fix blocking I/O issue that was found when using USB
+      gadget mode.
 
 ## v0.12.1
 
