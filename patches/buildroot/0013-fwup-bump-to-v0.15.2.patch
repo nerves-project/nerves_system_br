@@ -1,7 +1,7 @@
-From 5d02b7b90283539d2289ea082a68b0126f7b7762 Mon Sep 17 00:00:00 2001
+From 0f548a9314833c7817acf1c443adb9f6b3fb7048 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 25 Jun 2017 22:32:02 -0400
-Subject: [PATCH] fwup: bump to v0.15.2-dev
+Subject: [PATCH] fwup: bump to v0.15.2
 
 ---
  package/fwup/0001-Fix-uclibc-build.patch | 36 --------------------------------
@@ -53,15 +53,15 @@ index f7bf245..0000000
 -2.11.0
 -
 diff --git a/package/fwup/fwup.hash b/package/fwup/fwup.hash
-index 8679dcb..1e3d0d5 100644
+index 8679dcb..d790e62 100644
 --- a/package/fwup/fwup.hash
 +++ b/package/fwup/fwup.hash
 @@ -1,2 +1,2 @@
  # Locally calculated
 -sha256 cf2e6ff729c21bc000dbe008211cf9d4901be9b42c82a06e4068deb638ea8f6e  fwup-v0.14.3.tar.gz
-+sha256 6100a63a1345af8ce24c94e583fe65a44dd96422f143d51fabeda661e2292316  fwup-0e919751fc38196f2486b0c98ded91013eb9baa3.tar.gz
++sha256 0a4010673b6fa4de5168938f7566b0a5b6f8eef8f5e687a782cf4a649416b689  fwup-v0.15.2.tar.gz
 diff --git a/package/fwup/fwup.mk b/package/fwup/fwup.mk
-index e47ecbe..f3f91da 100644
+index e47ecbe..df37acb 100644
 --- a/package/fwup/fwup.mk
 +++ b/package/fwup/fwup.mk
 @@ -4,7 +4,7 @@
@@ -69,7 +69,7 @@ index e47ecbe..f3f91da 100644
  ################################################################################
  
 -FWUP_VERSION = v0.14.3
-+FWUP_VERSION = 0e919751fc38196f2486b0c98ded91013eb9baa3
++FWUP_VERSION = v0.15.2
  FWUP_SITE = $(call github,fhunleth,fwup,$(FWUP_VERSION))
  FWUP_LICENSE = Apache-2.0
  FWUP_LICENSE_FILES = LICENSE
