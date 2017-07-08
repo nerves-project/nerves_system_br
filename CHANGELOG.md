@@ -1,11 +1,11 @@
 # Changelog
 
-## v0.13.0-dev
+## v0.13.0
 
   * New features
-    * Update to Erlang/OTP 20
-    * Pull in `fwup` optimizations to reduce the number of disk writes on
-      firmware upgrades.
+    * Erlang/OTP 20
+    * fwup v0.15.2 - caching improvements; improved error messages; new
+      metadata fields for storing miscellaneous user application info
 
   * Bug fixes
     * erlinit 1.1.2 - Fix blocking I/O issue that was found when using USB
