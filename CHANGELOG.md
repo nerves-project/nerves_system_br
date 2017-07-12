@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.13.1
+
+  * Bug fixes
+    * erlinit 1.1.3 - Fix hang when gracefully shutting down that was reported
+      on an RPi3 project
+
 ## v0.13.0
 
   * New features
