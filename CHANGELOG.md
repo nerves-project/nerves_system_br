@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.13.2
+
+  * Bug fixes
+    * fwup v0.15.3 - Fix segfault on targets with 1 TB drives. This should have
+      hit targets with smaller Flash sizes - possibly down to 16 GB. The
+      regression was introduced in fwup v0.15.0.
+
 ## v0.13.1
 
   * Bug fixes
