@@ -77,11 +77,11 @@ Nerves works.
 First, make sure your system has a base set of packages needed to build `nerves_system_br`.
 On Ubuntu, run the following:
 
-    sudo apt-get install git g++ libssl-dev libncurses5-dev bc m4 make unzip cmake
+    sudo apt-get install git g++ libssl-dev libncurses5-dev bc m4 make unzip cmake python
 
 On CentOS/RHEL, run the following:
 
-    sudo yum install git wget patch gcc-c++ ncurses-devel bc openssl-devel bzip2 flex bison perl-Data-Dumper perl-Thread-Queue
+    sudo yum install git wget patch gcc-c++ ncurses-devel bc openssl-devel bzip2 flex bison perl-Data-Dumper perl-Thread-Queue python
 
 Nerves downloads a large number of files to build the toolchain, Linux kernel, Erlang, and other tools. Nerves will download these files to the location specified by setting the environment variable `NERVES_BR_DL_DIR`. If you do not set this variable it will default to creating a directory at `$HOME/.nerves/cache/buildroot`.
 
