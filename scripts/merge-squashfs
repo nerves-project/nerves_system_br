@@ -26,30 +26,22 @@ fi
 # This implementation could be improved.
 # The list below hits the combinations that I see.
 perm_to_num() {
-    case $1 in
-        ?rwsr-xr-x) echo "4755" ;;
-        ?rws--x--x) echo "4711" ;;
-        ?rwxrwxrwt) echo "1777" ;;
-        ?rwxrwxrwx) echo "777" ;;
-        ?rwxrwxr-x) echo "775" ;;
-        ?rwxrwx---) echo "770" ;;
-        ?rwxr-xr-x) echo "755" ;;
-        ?rwxr-x---) echo "750" ;;
-        ?rwx------) echo "700" ;;
-        ?rw-rw-rw-) echo "666" ;;
-        ?rw-rw-r--) echo "664" ;;
-        ?rw-rw----) echo "660" ;;
-        ?rw-r--r--) echo "644" ;;
-        ?rw--w--w-) echo "622" ;;
-        ?rw-------) echo "600" ;;
-        ?r-xr-xr-x) echo "555" ;;
-        ?r-xr-x---) echo "550" ;;
-        ?r-x------) echo "500" ;;
-        ?r--r--r--) echo "444" ;;
-        ?r--r-----) echo "440" ;;
-        ?r--------) echo "400" ;;
-        *) echo "huh"
-    esac
+	echo $1 | awk '{k = 0;
+      for (g=2; g>=0; g--)
+          for (p=2; p>=0; p--) {
+              c = substr($1, 10 - (g * 3 + p), 1);
+              if (c ~ /[sS]/)
+                  k += g * 02000;
+              else
+                  if (c ~ /[tT]/)
+                         k += 01000;
+              if (c ~ /[rwxts]/)
+                  k += 8^g * 2^p
+      }
+      if (k) {
+          printf("%04o ", k);
+      }
+     }'
 }
 
 owner_to_uid_gid() {
