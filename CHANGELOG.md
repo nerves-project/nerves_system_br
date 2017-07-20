@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.13.3
+
+  * Renaming
+    * Per Buildroot convention, the rootfs-additions directory is being renamed
+      to rootfs_overlay. A symlink is put in its place to avoid breaking any
+      systems.
+    * Remove qemu configurations. They always should be in the system, so this
+      forces it. (Technically this is a breaking change, but the qemu system is
+      currently not a particularly usable system.)
+
+  * Bug fixes
+    * erlinit 1.1.4 - Fixes a hang when rebooting when using the gadget serial
+      port on Beaglebone platforms
+    * erlang-history - removed package. It is not useful with OTP 20 and was a
+      no-op in the past patch releases.
+    * Replace partial lookup table in merge-squashfs with logic that handles all
+      permission types (thanks to radu for this fix)
+
 ## v0.13.2
 
   * Bug fixes
