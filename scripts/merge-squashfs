@@ -23,8 +23,8 @@ else
     STAT=stat
 fi
 
-# Implementation from: https://unix.stackexchange.com/a/9518
-
+# This implementation could be improved.
+# The list below hits the combinations that I see.
 perm_to_num() {
     echo $1 | awk "{
                 k=0; 
