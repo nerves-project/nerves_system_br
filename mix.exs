@@ -3,7 +3,7 @@ defmodule Nerves.System.BR.Mixfile do
 
 @version Path.join(__DIR__, "VERSION")
          |> File.read!
-         |> String.strip
+         |> String.trim
 
   def project do
     [app: :nerves_system_br,
