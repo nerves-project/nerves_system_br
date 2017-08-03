@@ -138,7 +138,7 @@ host_erl_major_ver = :erlang.system_info(:otp_release) |> to_string
   |> Path.wildcard
   |> List.first
   |> File.read!
-  |> String.strip
+  |> String.trim
   |> String.split(".")
 
 # Check to see if the system major version of ERL and the target major version match
