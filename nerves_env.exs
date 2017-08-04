@@ -20,22 +20,33 @@ defmodule System.Env do
   end
 end
 
+defmodule Utils do
+  def crosscompile(gcc_path, system_path) do
+    gcc =
+      gcc_path
+      |> Path.join("*gcc")
+      |> Path.wildcard
+      |> List.first
+
+    gcc || Mix.raise("""
+      gcc should have been found in \"#{gcc_path}\", but wasn't.
+      \"#{system_path}\" is partial or corrupt and may need to be deleted.
+      """)
+
+    String.replace_suffix(gcc, "-gcc", "")
+  end
+end
+
 system_path = System.get_env("NERVES_SYSTEM") ||
-  Mix.raise("You must set NERVES_SYSTEM to the system dir prior to requiring this file")
+  Mix.raise("You must set NERVES_SYSTEM to the system directory prior to requiring this file")
 
 {_toolchain_path, crosscompile} =
   if File.dir?(Path.join(system_path, "host")) do
-    toolchain_path =
-      system_path
-      |> Path.join("host")
+    # Grab the toolchain from a Buildroot output directory
+    toolchain_path = Path.join(system_path, "host")
+    gcc_path = Path.join(toolchain_path, "usr/bin")
 
-    crosscompile =
-      toolchain_path
-      |> Path.join("usr/bin/*gcc")
-      |> Path.wildcard
-      |> List.first
-      |> String.replace_suffix("-gcc", "")
-
+    crosscompile = Utils.crosscompile(gcc_path, system_path)
 
     System.put_env("PKG_CONFIG", Path.join(toolchain_path, "usr/bin/pkg-config"))
     System.put_env("PKG_CONFIG_SYSROOT_DIR", "/")
@@ -57,24 +68,20 @@ system_path = System.get_env("NERVES_SYSTEM") ||
     {toolchain_path, crosscompile}
   else
     # Not a BR Local Provider build
-    toolchain_path = System.get_env("NERVES_TOOLCHAIN")
+    toolchain_path = System.get_env("NERVES_TOOLCHAIN") ||
+      Mix.raise("You must set NERVES_TOOLCHAIN to the toolchain directory prior to requiring this file")
+
+    gcc_path = Path.join(toolchain_path, "bin")
+
     # Find the crosscompilers
-    crosscompile =
-      toolchain_path
-      |> Path.join("bin/*gcc")
-      |> Path.wildcard
-      |> List.first
-      |> String.replace_suffix("-gcc", "")
+    crosscompile = Utils.crosscompile(gcc_path, system_path)
+
     # Add toolchain bin to path
     Path.join(toolchain_path, "bin")
     |> System.Env.path_add
 
     {toolchain_path, crosscompile}
   end
-
-if crosscompile == "" do
-  Mix.raise("Cannot find a cross compiler")
-end
 
 sdk_sysroot = Path.join(system_path, "staging")
 
