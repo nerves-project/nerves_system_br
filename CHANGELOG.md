@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.13.4
+  * Enhancements
+    * Fix deprecation warnings for Elixir 1.5
+    * fwup 0.15.4 - Changed signing keys to be base64 encoded. Added commandline parameters for passing public and private keys via commandline arguments
+    * Improved error messaging for when a toolchain is not found when requiring nerves_env.exs
+
 ## v0.13.3
 
   * Renaming
