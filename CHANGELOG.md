@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.13.5
+  * Bump version to work around hex issue https://github.com/hexpm/hex/issues/404
+
 ## v0.13.4
   * Enhancements
     * Fix deprecation warnings for Elixir 1.5
