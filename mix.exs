@@ -8,11 +8,11 @@ defmodule Nerves.System.BR.Mixfile do
   def project do
     [app: :nerves_system_br,
      version: @version,
-     elixir: "~> 1.2",
+     elixir: "~> 1.4",
      description: description(),
      package: package(),
-     compilers: [:app]
-    ]
+     compilers: [],
+     nerves_package: [type: :system_platform]]
   end
 
   defp description do
@@ -25,7 +25,7 @@ defmodule Nerves.System.BR.Mixfile do
    [maintainers: ["Frank Hunleth", "Justin Schneck"],
     files: ["board", "package", "patches", "scripts", "Config.in",
       "create-build.sh", "external.mk", "external.desc", "LICENSE",
-      "mix.exs", "nerves_env.exs", "nerves-env.sh", "nerves.exs",
+      "mix.exs", "nerves_env.exs", "nerves-env.sh",
       "nerves.mk", "README.md", "VERSION"],
     licenses: ["Apache 2.0", "GPLv2"],
     links: %{"Github" => "https://github.com/nerves-project/nerves_system_br"}]
