@@ -92,9 +92,20 @@ fi
 # NOTE: If you are a heavy Buildroot user and have an alternative location,
 #       override this environment variable or symlink this directory.
 if [[ -z $NERVES_BR_DL_DIR ]]; then
-    NERVES_BR_DL_DIR=$HOME/.nerves/cache/buildroot
+    NERVES_BR_DL_DIR=$HOME/.nerves/dl
 fi
 mkdir -p $NERVES_BR_DL_DIR
+
+if [[ -e $HOME/.nerves/cache/buildroot ]]; then
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo "The download directory for Nerves is changing to '~/.nerves/dl'."
+    echo "However, you still have '~/.nerves/cache/buildroot'. Feel free"
+    echo "to delete this directory but it might also be used by projects"
+    echo "using older versions of Nerves."
+    echo
+    echo "NERVES_BR_DL_DIR=$NERVES_BR_DL_DIR"
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+fi
 
 NERVES_BR_STATE_FILE=$NERVES_SYSTEM/buildroot-$NERVES_BR_VERSION/.nerves-br-state
 NERVES_BR_EXPECTED_STATE_FILE=$BUILD_DIR/.nerves-expected-br-state
