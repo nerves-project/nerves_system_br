@@ -1,9 +1,20 @@
 # Changelog
 
+## v0.13.6
+
+The default directory for downloading tarballs for Buildroot is now
+"~/.nerves/dl". This was done to facilitate sharing of downloaded tarballs with
+other Nerves components.
+
+Please erase or move the files in your `~/.nerves/cache/buildroot` to the new
+location.
+
 ## v0.13.5
+
   * Bump version to work around hex issue https://github.com/hexpm/hex/issues/404
 
 ## v0.13.4
+
   * Enhancements
     * Fix deprecation warnings for Elixir 1.5
     * fwup 0.15.4 - Changed signing keys to be base64 encoded. Added commandline parameters for passing public and private keys via commandline arguments
