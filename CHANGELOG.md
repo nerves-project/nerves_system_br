@@ -1,6 +1,8 @@
 # Changelog
 
-## v0.13.7-dev
+## v0.13.7
+
+  * Bump version to work around hex issue https://github.com/hexpm/hex/issues/404
 
 ## v0.13.6
 
