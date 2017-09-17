@@ -1,4 +1,4 @@
-From dc719bf0218afe5e16749b9df54c274663eef553 Mon Sep 17 00:00:00 2001
+From df799e546935f8b35e5ef391a40b3978ebce419d Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 12 Feb 2014 23:20:28 -0500
 Subject: [PATCH] erlang: clean up target installation
@@ -13,7 +13,7 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  1 file changed, 29 insertions(+), 2 deletions(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 364085c..7655706 100644
+index f3684d0..36e7815 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -86,17 +86,44 @@ ERLANG_REMOVE_PACKAGES += megaco

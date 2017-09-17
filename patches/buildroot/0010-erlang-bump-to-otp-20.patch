@@ -1,4 +1,4 @@
-From 01ba51b8437f1632e3fe0fb8de65f7a7aac65c08 Mon Sep 17 00:00:00 2001
+From 764b7af542cb85b4f44ad72471a9bf40269d4c1d Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 7 Jul 2017 18:23:51 -0400
 Subject: [PATCH] erlang: bump to otp 20
@@ -41,7 +41,7 @@ index dc12ccd..1b0a56c 100644
 +md5	2faed2c3519353e6bc2501ed4d8e6ae7	otp_src_20.0.tar.gz
 +sha256  fe80e1e14a2772901be717694bb30ac4e9a07eee0cc7a28988724cbd21476811	otp_src_20.0.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 24d0002..0cdfc09 100644
+index 6601b0c..4b29969 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,7 @@

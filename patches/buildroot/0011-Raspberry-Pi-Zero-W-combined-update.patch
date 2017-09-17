@@ -1,4 +1,4 @@
-From 1fcf4a730045225b20e94394a0f63ff99f4c852c Mon Sep 17 00:00:00 2001
+From 2924b66b94075aa9cfbb0b12c9e0419a95ded854 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 29 Mar 2017 08:59:03 -0400
 Subject: [PATCH] Raspberry Pi Zero W combined update
@@ -12,13 +12,13 @@ https://github.com/tmecklem/nerves_system_br/commit/b4297e361bb8ecb3abb6abdd49e5
  configs/raspberrypi3_defconfig         | 6 +++---
  configs/raspberrypi_defconfig          | 6 +++---
  package/rpi-firmware/rpi-firmware.hash | 2 +-
- package/rpi-firmware/rpi-firmware.mk   | 2 +-
+ package/rpi-firmware/rpi-firmware.mk   | 4 +---
  package/rpi-userland/rpi-userland.hash | 2 +-
  package/rpi-userland/rpi-userland.mk   | 2 +-
- 8 files changed, 16 insertions(+), 16 deletions(-)
+ 8 files changed, 16 insertions(+), 18 deletions(-)
 
 diff --git a/configs/raspberrypi0_defconfig b/configs/raspberrypi0_defconfig
-index 10947b8..d89aa6c 100644
+index c193d89..d89aa6c 100644
 --- a/configs/raspberrypi0_defconfig
 +++ b/configs/raspberrypi0_defconfig
 @@ -2,15 +2,15 @@ BR2_arm=y
@@ -35,13 +35,13 @@ index 10947b8..d89aa6c 100644
  BR2_LINUX_KERNEL=y
  BR2_LINUX_KERNEL_CUSTOM_GIT=y
  BR2_LINUX_KERNEL_CUSTOM_REPO_URL="https://github.com/raspberrypi/linux.git"
--BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="5e4ee836560d4c0371e109bf469e1ad808ae7a44"
+-BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="9126e25b0934bd7bd843763310ea4b34c6e139d0"
 +BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="04c8e47067d4873c584395e5cb260b4f170a99ea"
  BR2_LINUX_KERNEL_DEFCONFIG="bcmrpi"
  
  # Build the DTBs for A/B from the kernel sources: the zero is the same
 diff --git a/configs/raspberrypi2_defconfig b/configs/raspberrypi2_defconfig
-index 48d632e..9abdb25 100644
+index 118efab..9abdb25 100644
 --- a/configs/raspberrypi2_defconfig
 +++ b/configs/raspberrypi2_defconfig
 @@ -7,13 +7,13 @@ BR2_TOOLCHAIN_BUILDROOT_CXX=y
@@ -56,13 +56,13 @@ index 48d632e..9abdb25 100644
  BR2_LINUX_KERNEL=y
  BR2_LINUX_KERNEL_CUSTOM_GIT=y
  BR2_LINUX_KERNEL_CUSTOM_REPO_URL="https://github.com/raspberrypi/linux.git"
--BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="5e4ee836560d4c0371e109bf469e1ad808ae7a44"
+-BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="9126e25b0934bd7bd843763310ea4b34c6e139d0"
 +BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="04c8e47067d4873c584395e5cb260b4f170a99ea"
  BR2_LINUX_KERNEL_DEFCONFIG="bcm2709"
  
  # Build the DTB from the kernel sources
 diff --git a/configs/raspberrypi3_defconfig b/configs/raspberrypi3_defconfig
-index f5bfebc..1ccd19c 100644
+index fd35c53..1ccd19c 100644
 --- a/configs/raspberrypi3_defconfig
 +++ b/configs/raspberrypi3_defconfig
 @@ -6,13 +6,13 @@ BR2_TOOLCHAIN_BUILDROOT_CXX=y
@@ -77,13 +77,13 @@ index f5bfebc..1ccd19c 100644
  BR2_LINUX_KERNEL=y
  BR2_LINUX_KERNEL_CUSTOM_GIT=y
  BR2_LINUX_KERNEL_CUSTOM_REPO_URL="https://github.com/raspberrypi/linux.git"
--BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="5e4ee836560d4c0371e109bf469e1ad808ae7a44"
+-BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="9126e25b0934bd7bd843763310ea4b34c6e139d0"
 +BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="04c8e47067d4873c584395e5cb260b4f170a99ea"
  BR2_LINUX_KERNEL_DEFCONFIG="bcm2709"
  
  # Build the DTB from the kernel sources
 diff --git a/configs/raspberrypi_defconfig b/configs/raspberrypi_defconfig
-index c54080d..392bff3 100644
+index 26d7880..392bff3 100644
 --- a/configs/raspberrypi_defconfig
 +++ b/configs/raspberrypi_defconfig
 @@ -4,15 +4,15 @@ BR2_ARM_EABIHF=y
@@ -100,49 +100,58 @@ index c54080d..392bff3 100644
  BR2_LINUX_KERNEL=y
  BR2_LINUX_KERNEL_CUSTOM_GIT=y
  BR2_LINUX_KERNEL_CUSTOM_REPO_URL="https://github.com/raspberrypi/linux.git"
--BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="5e4ee836560d4c0371e109bf469e1ad808ae7a44"
+-BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="9126e25b0934bd7bd843763310ea4b34c6e139d0"
 +BR2_LINUX_KERNEL_CUSTOM_REPO_VERSION="04c8e47067d4873c584395e5cb260b4f170a99ea"
  BR2_LINUX_KERNEL_DEFCONFIG="bcmrpi"
  
  # Build the DTBs for A/B, A+/B+ and compute module from the kernel sources
 diff --git a/package/rpi-firmware/rpi-firmware.hash b/package/rpi-firmware/rpi-firmware.hash
-index 11655ee..f4a23c4 100644
+index db26c1e..f4a23c4 100644
 --- a/package/rpi-firmware/rpi-firmware.hash
 +++ b/package/rpi-firmware/rpi-firmware.hash
 @@ -1,2 +1,2 @@
  # Locally computed
--sha256 84f44265c7e9bfe3e54a326b95ea7067870cfe08a9aae12f00aec8d47f6fc353 rpi-firmware-4b24a81a2ce94afd4458d1af4ea1e73d58e69848.tar.gz
+-sha256 42edea8317869f5a5ed87dfe009ceffce6a784ff40cb5da3e9e8a4fc61d79610 rpi-firmware-685b3ceb0a6d6d6da7b028ee409850e83fb7ede7.tar.gz
 +sha256 2d2775bcfecd92aec06685efb7461258e996cfbfc6ce9b8a791b73883c7fee4f rpi-firmware-b51046a2b2bb69771579a549d157205d9982f858.tar.gz
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index 134fceb..f7702df 100644
+index 10da04b..f7702df 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
 @@ -4,7 +4,7 @@
  #
  ################################################################################
  
--RPI_FIRMWARE_VERSION = 4b24a81a2ce94afd4458d1af4ea1e73d58e69848
+-RPI_FIRMWARE_VERSION = 685b3ceb0a6d6d6da7b028ee409850e83fb7ede7
 +RPI_FIRMWARE_VERSION = b51046a2b2bb69771579a549d157205d9982f858
  RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
  RPI_FIRMWARE_LICENSE = BSD-3-Clause
  RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
+@@ -31,8 +31,6 @@ ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_INSTALL_VCDBG),y)
+ define RPI_FIRMWARE_INSTALL_TARGET_CMDS
+ 	$(INSTALL) -D -m 0700 $(@D)/$(if BR2_ARM_EABIHF,hardfp/)opt/vc/bin/vcdbg \
+ 		$(TARGET_DIR)/usr/sbin/vcdbg
+-	$(INSTALL) -D -m 0644 $(@D)/$(if BR2_ARM_EABIHF,hardfp/)opt/vc/lib/libelftoolchain.so \
+-		$(TARGET_DIR)/usr/lib/libelftoolchain.so
+ endef
+ endif # INSTALL_VCDBG
+ 
 diff --git a/package/rpi-userland/rpi-userland.hash b/package/rpi-userland/rpi-userland.hash
-index d4715fe..7586366 100644
+index 1728ae8..7586366 100644
 --- a/package/rpi-userland/rpi-userland.hash
 +++ b/package/rpi-userland/rpi-userland.hash
 @@ -1,2 +1,2 @@
  # Locally computed
--sha256 35b02340de04d8b91490e192b402ba23333a82b0c624e3e4475ba3240a2419a5 rpi-userland-f0642e3b58d8a140a3f7621630c15fbfa794b19d.tar.gz
+-sha256 476cde13d0d4bbf44ffc4d1d545847464d5c270bb72e4d940e43e5972c4de9da rpi-userland-29835184aa70c13d77a11d721e934a7298bdf46a.tar.gz
 +sha256 e526cc9f1aa5a23d879d51dea6c9b6c092ba933c124a374e4c9a44e75fdd27d7 rpi-userland-f410ec051a3724934e3671315474d4b81424b0ef.tar.gz
 diff --git a/package/rpi-userland/rpi-userland.mk b/package/rpi-userland/rpi-userland.mk
-index ab05447..632552c 100644
+index 90077a1..632552c 100644
 --- a/package/rpi-userland/rpi-userland.mk
 +++ b/package/rpi-userland/rpi-userland.mk
 @@ -4,7 +4,7 @@
  #
  ################################################################################
  
--RPI_USERLAND_VERSION = f0642e3b58d8a140a3f7621630c15fbfa794b19d
+-RPI_USERLAND_VERSION = 29835184aa70c13d77a11d721e934a7298bdf46a
 +RPI_USERLAND_VERSION = f410ec051a3724934e3671315474d4b81424b0ef
  RPI_USERLAND_SITE = $(call github,raspberrypi,userland,$(RPI_USERLAND_VERSION))
  RPI_USERLAND_LICENSE = BSD-3-Clause

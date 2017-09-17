@@ -1,4 +1,4 @@
-From 3a76047beae0f868017ff8f99e6a861c8a05a13d Mon Sep 17 00:00:00 2001
+From 6b4e253f781478807a7230aae80edac6388dd0c5 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 13 Jul 2016 19:29:03 -0400
 Subject: [PATCH] erlang: force configure options
@@ -11,7 +11,7 @@ options. CLOCK_THREAD_CPUTIME_ID has been fixed since Linux 2.6.12.
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 609b473..24d0002 100644
+index 36e7815..6601b0c 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -22,12 +22,18 @@ ERLANG_AUTORECONF = YES
