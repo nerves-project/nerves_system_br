@@ -1,6 +1,9 @@
 # Changelog
 
-## v0.13.8-dev
+## v0.13.8
+
+  * Fix SHA256 hashes for rpi-firmware and rpi-userland. See
+    https://github.com/nerves-project/nerves_system_br/issues/109.
 
 ## v0.13.7
 
