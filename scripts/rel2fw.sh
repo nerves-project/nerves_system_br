@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 BASE_DIR=$(pwd)
@@ -124,7 +123,11 @@ $NERVES_SYSTEM/scripts/scrub-otp-release.sh "$TMP_DIR/rootfs-additions/srv/erlan
 # IMPORTANT: This must be the final step before the merge so that the user can
 #            override anything.
 if [[ -d "$ROOTFS_ADDITIONS" ]]; then
+    echo "Copying rootfs_overlay: $ROOTFS_ADDITIONS "
     cp -Rf "$ROOTFS_ADDITIONS/." "$TMP_DIR/rootfs-additions"
+else
+    echo "rootfs_overlay: $ROOTFS_ADDITIONS does not exist!"
+    exit 1
 fi
 
 # Merge the Erlang/OTP release onto the base image
