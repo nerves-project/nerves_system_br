@@ -119,7 +119,7 @@ create_buildroot_dir() {
     $NERVES_SYSTEM/scripts/download-buildroot.sh $NERVES_BR_VERSION $NERVES_BR_DL_DIR $NERVES_SYSTEM
 
     # Apply Nerves-specific patches
-    $NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh $NERVES_SYSTEM/buildroot $NERVES_SYSTEM/patches
+    $NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh $NERVES_SYSTEM/buildroot $NERVES_SYSTEM/patches/buildroot
 
     # Symlink Buildroot's dl directory so that it can be cached between builds
     ln -sf $NERVES_BR_DL_DIR $NERVES_SYSTEM/buildroot/dl
