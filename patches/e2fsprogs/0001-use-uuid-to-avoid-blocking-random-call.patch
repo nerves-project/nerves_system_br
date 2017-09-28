@@ -1,0 +1,31 @@
+From dcb2a5548b92d03667ca597629ece3f367b0a071 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 27 Sep 2017 20:16:55 -0400
+Subject: [PATCH] use uuid to avoid blocking random call
+
+---
+ misc/mke2fs.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/misc/mke2fs.c b/misc/mke2fs.c
+index 49c6e94..ef0d9fa 100644
+--- a/misc/mke2fs.c
++++ b/misc/mke2fs.c
+@@ -2937,7 +2937,13 @@ int main (int argc, char *argv[])
+ 	free(hash_alg_str);
+ 	fs->super->s_def_hash_version = (hash_alg >= 0) ? hash_alg :
+ 		EXT2_HASH_HALF_MD4;
+-	uuid_generate((unsigned char *) fs->super->s_hash_seed);
++
++	/*
++	 * Use the UUID as the hash seed to avoid calling uuid_generate which
++	 * may block waiting on the entropy pool to initialize
++	 */
++	memcpy(fs->super->s_hash_seed, fs->super->s_uuid, sizeof(fs->super->s_hash_seed));
++	/*uuid_generate((unsigned char *) fs->super->s_hash_seed);*/
+ 
+ 	/*
+ 	 * Periodic checks can be enabled/disabled via config file.
+-- 
+2.7.4
+
