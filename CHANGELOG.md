@@ -1,6 +1,13 @@
 # Changelog
 
-## v0.13.9-dev
+## v0.13.9
+
+  * Enhancements
+    * If a rootfs_overlay is specified and doesn't exist, throw an error.
+    * Bump version of fwup to v0.16.0 (no major updates for Nerves)
+    * Limit the Buildroot patches to only the patches/buildroot directory.
+      This makes way for supporting the Buildroot global patch directory
+      in nerves_system_br. This isn't used yet.
 
 ## v0.13.8
 
