@@ -1,0 +1,8 @@
+config BR2_PACKAGE_NBTTY
+	bool "nbtty"
+	depends on BR2_USE_MMU # fork()
+	help
+	  nbtty runs a program in a detached ptty that allows bytes
+	  to be dropped.
+
+	  https://github.com/fhunleth/nbtty
