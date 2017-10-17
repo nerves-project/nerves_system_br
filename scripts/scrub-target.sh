@@ -70,4 +70,7 @@ rm -fr $TARGET_DIR/usr/share/libatomic_ops
 # Prune empty directories
 find $TARGET_DIR/etc -type d -empty -delete
 find $TARGET_DIR/usr -type d -empty -delete
+echo "If the next line fails, add the following to nerves_defconfig and build clean (sorry):"
+echo '  BR2_ROOTFS_SKELETON_CUSTOM=y'
+echo '  BR2_ROOTFS_SKELETON_CUSTOM_PATH="${BR2_EXTERNAL_NERVES_PATH}/board/nerves-common/skeleton"'
 find $TARGET_DIR/var -type d -empty -delete
