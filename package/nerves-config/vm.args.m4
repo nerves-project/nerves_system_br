@@ -1,10 +1,3 @@
-ifelse(DISTRIBUTION, `y', `
-## Name of the node
--sname SNAME
-
-## Cookie for distributed erlang
--setcookie COOKIE
-')
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)
 ##-heart
