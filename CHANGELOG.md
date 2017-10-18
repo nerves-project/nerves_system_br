@@ -1,6 +1,20 @@
 # Changelog
 
-## v0.13.10-dev
+## v0.14.0
+
+  * New features
+    * Buildroot 2017.08 - Primarily minor package updates throughout, but
+      a change to how the rootfs skeleton is maintained affects all systems.
+      Systems now need to specify a custom skeleton or receive an error. The
+      error message has details.
+    * fwup v0.17.0 - This includes an exit handshake feature that can be used by
+      nerves_firmware_ssh to avoid a race condition when reporting update
+      errors.
+    * erlinit 1.2.0 - support Elixir's protocol consolidation
+    * nbtty - a non-blocking terminal passthrough to fix an issue with routing
+      the IEx prompt through a gadget serial port
+    * Added a patch to e2fsprogs to avoid hanging on a lack of entropy during
+      system startup when formating the application partition
 
 ## v0.13.9
 
