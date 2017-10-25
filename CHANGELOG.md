@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.14.1
+
+  * Bug fixes
+    * Buildroot 2017.08.1 - This brings in the KRACK and dnsmasq vulnerability
+      fixes among a few other small patches.
+    * Added back missing /etc/resolv.conf
+
 ## v0.14.0
 
   * New features
