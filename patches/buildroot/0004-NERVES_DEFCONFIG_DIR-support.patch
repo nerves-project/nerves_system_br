@@ -1,4 +1,4 @@
-From aa7d1373da49ce32cbbfd9282f64e6ad46557566 Mon Sep 17 00:00:00 2001
+From 2adc2923a633d0082ad17ba020eb1b6875c17616 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 15 Feb 2016 10:21:17 -0500
 Subject: [PATCH] NERVES_DEFCONFIG_DIR support
@@ -8,7 +8,7 @@ Subject: [PATCH] NERVES_DEFCONFIG_DIR support
  1 file changed, 21 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 6dd9c6f..a03fa41 100644
+index eb02092..0245d1b 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -200,6 +200,26 @@ ifneq ($(BR2_EXTERNAL_ERROR),)
@@ -38,7 +38,7 @@ index 6dd9c6f..a03fa41 100644
  # To make sure that the environment variable overrides the .config option,
  # set this before including .config.
  ifneq ($(BR2_DL_DIR),)
-@@ -862,6 +882,7 @@ COMMON_CONFIG_ENV = \
+@@ -871,6 +891,7 @@ COMMON_CONFIG_ENV = \
  	KCONFIG_AUTOHEADER=$(BUILD_DIR)/buildroot-config/autoconf.h \
  	KCONFIG_TRISTATE=$(BUILD_DIR)/buildroot-config/tristate.config \
  	BR2_CONFIG=$(BR2_CONFIG) \

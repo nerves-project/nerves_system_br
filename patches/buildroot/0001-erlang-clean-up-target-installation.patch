@@ -1,4 +1,4 @@
-From df799e546935f8b35e5ef391a40b3978ebce419d Mon Sep 17 00:00:00 2001
+From bbee98ca1aec73c558b4c1e37df23143dd4cd4e9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 12 Feb 2014 23:20:28 -0500
 Subject: [PATCH] erlang: clean up target installation
