@@ -121,6 +121,11 @@ create_buildroot_dir() {
     # Apply Nerves-specific patches
     $NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh $NERVES_SYSTEM/buildroot $NERVES_SYSTEM/patches/buildroot
 
+    if [[ -e $NERVES_DEFCONFIG_DIR/buildroot-patches ]]; then
+      echo "Applying custom patches"
+      $NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh $NERVES_SYSTEM/buildroot $NERVES_DEFCONFIG_DIR/buildroot-patches
+    fi
+
     # Symlink Buildroot's dl directory so that it can be cached between builds
     ln -sf $NERVES_BR_DL_DIR $NERVES_SYSTEM/buildroot/dl
 
