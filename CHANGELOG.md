@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.15.0
+
+  * New Features
+    * erlang 20.1
+    * [fwup v0.18.0]()
+    * [erlinit v1.3.0]()
+    * Added QT5 webengine patches for chromium support
+    * moved nerves.exs to mix.exs for nerves v0.8.0
+
 ## v0.14.1
 
   * Bug fixes
