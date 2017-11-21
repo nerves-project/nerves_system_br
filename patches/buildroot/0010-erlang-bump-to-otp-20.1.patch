@@ -38,8 +38,8 @@ index dc12ccd..1522bf1 100644
  # md5 from http://www.erlang.org/download/MD5, sha256 locally computed
 -md5	a8c259ec47bf84e77510673e1b76b6db	otp_src_19.3.tar.gz
 -sha256  fe4a00651db39b8542b04530a48d24b2f2e7e0b77cbe93d728c9f05325bdfe83	otp_src_19.3.tar.gz
-+md5	4c9eb112cd0e56f17c474218825060ee	otp_src_20.1.tar.gz
-+sha256  900d35eb563607785a8e27f4b4c03cf6c98b4596028c5d6958569ddde5d4ddbf	otp_src_20.1.tar.gz
++md5	42b27b2ae16ad15fea6208b0dce7af14	otp_src_20.1.tar.gz
++sha256  eff859834e6f41156c45a562a48f4812ed77eb5696b181b780fa303e2cd40b24	otp_src_20.1.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
 index 6601b0c..fd4fa91 100644
 --- a/package/erlang/erlang.mk
