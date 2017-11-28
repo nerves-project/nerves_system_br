@@ -1,4 +1,4 @@
-From 0f20ec19fb872accb2d7f7d6b3673a0b2240155f Mon Sep 17 00:00:00 2001
+From 2bfade7c8cfed105e388aef2173363024136d59e Mon Sep 17 00:00:00 2001
 From: Johan Oudinet <johan.oudinet@gmail.com>
 Date: Wed, 6 Dec 2017 15:40:06 +0100
 Subject: [PATCH] erlang: Add a patch for hosts without libz
