@@ -1,0 +1,77 @@
+From 02d395bfa043509265b319124ceb8be04d6affa7 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 29 Mar 2017 08:59:03 -0400
+Subject: [PATCH] rpi-firmware: support kernel selection
+
+---
+ package/rpi-firmware/Config.in         | 18 ++++++++++++++++++
+ package/rpi-firmware/rpi-firmware.hash |  1 +
+ package/rpi-firmware/rpi-firmware.mk   |  7 +++++--
+ 3 files changed, 24 insertions(+), 2 deletions(-)
+
+diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
+index da32b8e..c87c59a 100644
+--- a/package/rpi-firmware/Config.in
++++ b/package/rpi-firmware/Config.in
+@@ -10,6 +10,24 @@ config BR2_PACKAGE_RPI_FIRMWARE
+ if BR2_PACKAGE_RPI_FIRMWARE
+ 
+ choice
++	bool "Linux kernel version"
++	default BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_4
++	help
++	  Select firmware files for a particular Linux kernel
++
++config BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_4
++	bool "linux 4.4"
++	help
++	  Firmware from the Linux 4.4 branch
++
++config BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_9
++	bool "linux 4.9"
++	help
++	  Firmware from the Linux 4.9 branch
++
++endchoice
++
++choice
+ 	bool "Firmware to boot"
+ 	default BR2_PACKAGE_RPI_FIRMWARE_DEFAULT
+ 	help
+diff --git a/package/rpi-firmware/rpi-firmware.hash b/package/rpi-firmware/rpi-firmware.hash
+index 833a7fb..6ae0e12 100644
+--- a/package/rpi-firmware/rpi-firmware.hash
++++ b/package/rpi-firmware/rpi-firmware.hash
+@@ -1,2 +1,3 @@
+ # Locally computed
+ sha256 0451e1a843bf02df81126a1625d9a15dfdf19dcb2f9e95b0613a63e59fd31ca8 rpi-firmware-2067241bc7cdf238fdeab7f5a3c22faa57dd5617.tar.gz
++sha256 2d2775bcfecd92aec06685efb7461258e996cfbfc6ce9b8a791b73883c7fee4f rpi-firmware-b51046a2b2bb69771579a549d157205d9982f858.tar.gz
+diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
+index 22eaaa2..a801fd2 100644
+--- a/package/rpi-firmware/rpi-firmware.mk
++++ b/package/rpi-firmware/rpi-firmware.mk
+@@ -4,7 +4,12 @@
+ #
+ ################################################################################
+ 
++ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_4),y)
++RPI_FIRMWARE_VERSION = b51046a2b2bb69771579a549d157205d9982f858
++else
+ RPI_FIRMWARE_VERSION = 2067241bc7cdf238fdeab7f5a3c22faa57dd5617
++endif
++
+ RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
+ RPI_FIRMWARE_LICENSE = BSD-3-Clause
+ RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
+@@ -31,8 +36,6 @@ ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_INSTALL_VCDBG),y)
+ define RPI_FIRMWARE_INSTALL_TARGET_CMDS
+ 	$(INSTALL) -D -m 0700 $(@D)/$(if BR2_ARM_EABIHF,hardfp/)opt/vc/bin/vcdbg \
+ 		$(TARGET_DIR)/usr/sbin/vcdbg
+-	$(INSTALL) -D -m 0644 $(@D)/$(if BR2_ARM_EABIHF,hardfp/)opt/vc/lib/libelftoolchain.so \
+-		$(TARGET_DIR)/usr/lib/libelftoolchain.so
+ endef
+ endif # INSTALL_VCDBG
+ 
+-- 
+2.7.4
+
