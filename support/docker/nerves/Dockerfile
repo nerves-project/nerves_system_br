@@ -5,14 +5,14 @@ description="Container with everything needed to build Nerves projects"
 
 # Setup environment
 ENV DEBIAN_FRONTEND noninteractive
-ENV LANG=C.UTF-8 \
-  TERM=xterm \
-  ERLANG_OTP_VERSION=20.0 \
-  FWUP_VERSION=0.15.4
+ENV LANG=C.UTF-8 
+ENV TERM=xterm 
+ENV ERLANG_OTP_VERSION=20.0
+ENV FWUP_VERSION=0.18.0
+ENV ERLANG_PKG='erlang-solutions_1.0_all.deb'
+ENV ERLANG_URL="https://packages.erlang-solutions.com/${ERLANG_PKG}"
 # The container has no package lists, so need to update first
 RUN set -xe \
-  && ERLANG_PKG='erlang-solutions_1.0_all.deb' \
-  && ERLANG_URL="https://packages.erlang-solutions.com/${ERLANG_PKG}" \
   && apt-get update \
   && apt-get -y install \
     curl \
