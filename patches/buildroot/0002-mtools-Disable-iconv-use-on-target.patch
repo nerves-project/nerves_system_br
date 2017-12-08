@@ -1,4 +1,4 @@
-From 7f14626507bd8cd1c13237a3ae9b4545d4b5939b Mon Sep 17 00:00:00 2001
+From 8c825efa069491b7f47e693b1c9578aadfc5c93e Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 18 Mar 2014 13:14:22 -0400
 Subject: [PATCH] mtools: Disable iconv use on target
@@ -13,10 +13,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/package/mtools/mtools.mk b/package/mtools/mtools.mk
-index 5db548f..03917e9 100644
+index 1a62188..4177bb1 100644
 --- a/package/mtools/mtools.mk
 +++ b/package/mtools/mtools.mk
-@@ -22,6 +22,11 @@ HOST_MTOOLS_CONF_ENV = \
+@@ -26,6 +26,11 @@ HOST_MTOOLS_CONF_ENV = \
  ifeq ($(BR2_PACKAGE_LIBICONV),y)
  MTOOLS_DEPENDENCIES += libiconv
  MTOOLS_CONF_ENV += LIBS=-liconv

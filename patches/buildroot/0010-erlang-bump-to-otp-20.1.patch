@@ -1,4 +1,4 @@
-From 9f101e17bc7bbd3cc31186b34270d75572b9c47e Mon Sep 17 00:00:00 2001
+From 06b19b41437cc70be64881c2a9b3f3b8ded2c0e6 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 7 Jul 2017 18:23:51 -0400
 Subject: [PATCH] erlang: bump to otp 20.1

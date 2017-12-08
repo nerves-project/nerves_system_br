@@ -1,4 +1,4 @@
-From 2adc2923a633d0082ad17ba020eb1b6875c17616 Mon Sep 17 00:00:00 2001
+From 95c3c43af56b481059bbab0a80f3c2da1d531a0f Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 15 Feb 2016 10:21:17 -0500
 Subject: [PATCH] NERVES_DEFCONFIG_DIR support
@@ -8,7 +8,7 @@ Subject: [PATCH] NERVES_DEFCONFIG_DIR support
  1 file changed, 21 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index eb02092..0245d1b 100644
+index a86d764..23ae82f 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -200,6 +200,26 @@ ifneq ($(BR2_EXTERNAL_ERROR),)

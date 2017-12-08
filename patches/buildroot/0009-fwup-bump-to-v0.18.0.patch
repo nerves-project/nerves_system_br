@@ -1,74 +1,30 @@
-From 882fe32b920ba1b1828e16b1730fbec39358f90b Mon Sep 17 00:00:00 2001
+From 5d5fc3b5f2226c5063822b582b609b2f11ac7861 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 25 Jun 2017 22:32:02 -0400
 Subject: [PATCH] fwup: bump to v0.18.0
 
 ---
- package/fwup/0001-Fix-uclibc-build.patch | 36 --------------------------------
- package/fwup/fwup.hash                   |  2 +-
- package/fwup/fwup.mk                     |  2 +-
- 3 files changed, 2 insertions(+), 38 deletions(-)
- delete mode 100644 package/fwup/0001-Fix-uclibc-build.patch
+ package/fwup/fwup.hash | 2 +-
+ package/fwup/fwup.mk   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/package/fwup/0001-Fix-uclibc-build.patch b/package/fwup/0001-Fix-uclibc-build.patch
-deleted file mode 100644
-index f7bf245..0000000
---- a/package/fwup/0001-Fix-uclibc-build.patch
-+++ /dev/null
-@@ -1,36 +0,0 @@
--From 0301cb4ffbf4705316ba017516745a535d66d552 Mon Sep 17 00:00:00 2001
--From: Bernd Kuhls <bernd.kuhls@t-online.de>
--Date: Sun, 28 May 2017 16:56:39 +0200
--Subject: [PATCH 1/1] Fix uclibc build
--MIME-Version: 1.0
--Content-Type: text/plain; charset=UTF-8
--Content-Transfer-Encoding: 8bit
--
--Without sys/types.h the build breaks with errors like this:
--
--parse_file.h:28:5: error: unknown type name ‘off_t’
--     off_t *map;
--     ^
--
--Patch sent upstream: https://github.com/fhunleth/fwup/pull/61
--
--Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
-----
-- src/sparse_file.h | 1 +
-- 1 file changed, 1 insertion(+)
--
--diff --git a/src/sparse_file.h b/src/sparse_file.h
--index 21bf5f9..579fbaa 100644
----- a/src/sparse_file.h
--+++ b/src/sparse_file.h
--@@ -18,6 +18,7 @@
-- #define SPARSE_FILE_H
-- 
-- #include <confuse.h>
--+#include <sys/types.h>
-- 
-- struct sparse_file_map
-- {
---- 
--2.11.0
--
 diff --git a/package/fwup/fwup.hash b/package/fwup/fwup.hash
-index 8679dcb..8eeb0e8 100644
+index 32398bf..8eeb0e8 100644
 --- a/package/fwup/fwup.hash
 +++ b/package/fwup/fwup.hash
 @@ -1,2 +1,2 @@
  # Locally calculated
--sha256 cf2e6ff729c21bc000dbe008211cf9d4901be9b42c82a06e4068deb638ea8f6e  fwup-v0.14.3.tar.gz
+-sha256 852e255bd65f9db473a06184abb3e94e3b6b86be7bf66169e8df8146d5966ae1  fwup-v0.15.4.tar.gz
 +sha256 d23dd750ae0cd4be58cdf9e8d7e04ef4aa9c134cc1f9629f04a52d5158622ab9  fwup-v0.18.0.tar.gz
 diff --git a/package/fwup/fwup.mk b/package/fwup/fwup.mk
-index e47ecbe..12c96ca 100644
+index c6a18c2..12c96ca 100644
 --- a/package/fwup/fwup.mk
 +++ b/package/fwup/fwup.mk
 @@ -4,7 +4,7 @@
  #
  ################################################################################
  
--FWUP_VERSION = v0.14.3
+-FWUP_VERSION = v0.15.4
 +FWUP_VERSION = v0.18.0
  FWUP_SITE = $(call github,fhunleth,fwup,$(FWUP_VERSION))
  FWUP_LICENSE = Apache-2.0

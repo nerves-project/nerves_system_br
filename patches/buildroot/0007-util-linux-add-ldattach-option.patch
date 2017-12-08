@@ -1,4 +1,4 @@
-From 16b49f328bdd4f74eb82d5be3f8706d873cc93f9 Mon Sep 17 00:00:00 2001
+From 8024e715e15683a8a56618f13fd9246f3678b0a6 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 10 Jul 2016 13:47:56 -0400
 Subject: [PATCH] util-linux: add ldattach option
@@ -10,10 +10,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  2 files changed, 6 insertions(+)
 
 diff --git a/package/util-linux/Config.in b/package/util-linux/Config.in
-index cba590c..035acf6 100644
+index 5f0a35c..15ccb85 100644
 --- a/package/util-linux/Config.in
 +++ b/package/util-linux/Config.in
-@@ -159,6 +159,11 @@ config BR2_PACKAGE_UTIL_LINUX_LAST
+@@ -160,6 +160,11 @@ config BR2_PACKAGE_UTIL_LINUX_LAST
  	help
  	  Show a listing of last logged in users
  
@@ -26,10 +26,10 @@ index cba590c..035acf6 100644
  	bool "line"
  	help
 diff --git a/package/util-linux/util-linux.mk b/package/util-linux/util-linux.mk
-index fc32668..783d56a 100644
+index 8464288..c294350 100644
 --- a/package/util-linux/util-linux.mk
 +++ b/package/util-linux/util-linux.mk
-@@ -111,6 +111,7 @@ UTIL_LINUX_CONF_OPTS += \
+@@ -107,6 +107,7 @@ UTIL_LINUX_CONF_OPTS += \
  	$(if $(BR2_PACKAGE_UTIL_LINUX_IPCS),--enable-ipcs,--disable-ipcs) \
  	$(if $(BR2_PACKAGE_UTIL_LINUX_KILL),--enable-kill,--disable-kill) \
  	$(if $(BR2_PACKAGE_UTIL_LINUX_LAST),--enable-last,--disable-last) \
