@@ -18,6 +18,7 @@ branches to minimize upgrade risk.
 
   * Bug fixes
     * Fixed locale warnings in Docker for some users.
+      Developers can upgrade by running `docker pull nervesproject/nerves_system_br` 
 
 ## v0.15.1
 
