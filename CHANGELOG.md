@@ -1,14 +1,33 @@
 # Changelog
 
+## v0.16.0-2017-11
+
+Since Nerves systems can become highly dependent on Buildroot releases, we've
+decided to append the Buildroot version number to the end of the version string.
+This makes it possible for us to release `nerves_system_br` with different
+target Buildroot versions. While it is generally good to track Buildroot
+releases to obtain security fixes and improvements, this can cause unwelcome
+work on a stable product. It is also critical to know when you're upgrading
+Buildroot versions since many C-based packages will be updated that could result
+in regressions. Buildroot does provide long term support releases
+that only contain security patches so users may want to transition to those
+branches to minimize upgrade risk.
+
+  * New features
+    * Buildroot 2017.11
+
+  * Bug fixes
+    * Fixed locale warnings in Docker for some users.
+
 ## v0.15.1
-  
-  * New Features
+
+  * New features
     * [erlinit v1.3.1](https://github.com/nerves-project/erlinit/releases/tag/v1.3.1)
 
 ## v0.15.0
 
-  * New Features
-    * erlang 20.1
+  * New features
+    * Erlang 20.1
     * [fwup v0.18.0](https://github.com/fhunleth/fwup/releases/tag/v0.18.0)
     * [erlinit v1.3.0](https://github.com/nerves-project/erlinit/releases/tag/v1.3.0)
     * Added QT5 webengine patches for chromium support
