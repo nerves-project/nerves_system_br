@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.16.1-2017-11
+
+  * New features
+    * [fwup v0.19.0](https://github.com/fhunleth/fwup/releases/tag/v0.19.0)
+
+  * Bug fixes
+    * A couple obscure new Busybox commands crept into the default config due to
+      the Buildroot version bump in the v0.16.0. These have been disabled.
+
 ## v0.16.0-2017-11
 
 Since Nerves systems can become highly dependent on Buildroot releases, we've
@@ -18,7 +27,7 @@ branches to minimize upgrade risk.
 
   * Bug fixes
     * Fixed locale warnings in Docker for some users.
-      Developers can upgrade by running `docker pull nervesproject/nerves_system_br` 
+      Developers can upgrade by running `docker pull nervesproject/nerves_system_br`
 
 ## v0.15.1
 
