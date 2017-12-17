@@ -1,13 +1,13 @@
-From 06b19b41437cc70be64881c2a9b3f3b8ded2c0e6 Mon Sep 17 00:00:00 2001
+From 310109754985eb22fc71cbe13646fbbde60a7b72 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 7 Jul 2017 18:23:51 -0400
-Subject: [PATCH] erlang: bump to otp 20.1
+Subject: [PATCH] erlang: bump to otp 20.2.1
 
 ---
  package/erlang/Config.in   | 10 ----------
- package/erlang/erlang.hash |  4 ++--
- package/erlang/erlang.mk   |  8 ++------
- 3 files changed, 4 insertions(+), 18 deletions(-)
+ package/erlang/erlang.hash |  5 ++---
+ package/erlang/erlang.mk   | 24 +++++++++++++-----------
+ 3 files changed, 15 insertions(+), 24 deletions(-)
 
 diff --git a/package/erlang/Config.in b/package/erlang/Config.in
 index 1cd93ca..96af551 100644
@@ -31,38 +31,46 @@ index 1cd93ca..96af551 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index dc12ccd..1522bf1 100644
+index dc12ccd..571559f 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
-@@ -1,3 +1,3 @@
- # md5 from http://www.erlang.org/download/MD5, sha256 locally computed
+@@ -1,3 +1,2 @@
+-# md5 from http://www.erlang.org/download/MD5, sha256 locally computed
 -md5	a8c259ec47bf84e77510673e1b76b6db	otp_src_19.3.tar.gz
 -sha256  fe4a00651db39b8542b04530a48d24b2f2e7e0b77cbe93d728c9f05325bdfe83	otp_src_19.3.tar.gz
-+md5	4c9eb112cd0e56f17c474218825060ee	otp_src_20.1.tar.gz
-+sha256  900d35eb563607785a8e27f4b4c03cf6c98b4596028c5d6958569ddde5d4ddbf	otp_src_20.1.tar.gz
++# sha256 locally computed
++sha256  2684bf75e6235ebc41a51a9c417b15deb7c2716a11594390cbc5109f441e4bec	OTP-20.2.1.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 6601b0c..fd4fa91 100644
+index 6601b0c..a45fd27 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -5,7 +5,7 @@
+@@ -5,21 +5,18 @@
  ################################################################################
  
  # See note below when updating Erlang
 -ERLANG_VERSION = 19.3
-+ERLANG_VERSION = 20.1
- ERLANG_SITE = http://www.erlang.org/download
- ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
+-ERLANG_SITE = http://www.erlang.org/download
+-ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
++ERLANG_VERSION = 20.2.1
++ERLANG_SITE = https://github.com/erlang/otp/archive
++ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
  ERLANG_DEPENDENCIES = host-erlang
-@@ -19,7 +19,7 @@ ERLANG_AUTORECONF = YES
  
+ ERLANG_LICENSE = Apache-2.0
+ ERLANG_LICENSE_FILES = LICENSE.txt
+ ERLANG_INSTALL_STAGING = YES
+ 
+-# Patched erts/aclocal.m4
+-ERLANG_AUTORECONF = YES
+-
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk
 -ERLANG_EI_VSN = 3.9.3
-+ERLANG_EI_VSN = 3.10
++ERLANG_EI_VSN = 3.10.1
  
  # The configure checks for these functions fail incorrectly
  ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes \
-@@ -80,10 +80,6 @@ ERLANG_CONF_OPTS += --enable-shared-zlib
+@@ -80,10 +77,6 @@ ERLANG_CONF_OPTS += --enable-shared-zlib
  ERLANG_DEPENDENCIES += zlib
  endif
  
@@ -73,6 +81,31 @@ index 6601b0c..fd4fa91 100644
  # Remove source, example, gs and wx files from staging and target.
  ERLANG_REMOVE_PACKAGES = gs wx
  
+@@ -91,6 +84,12 @@ ifneq ($(BR2_PACKAGE_ERLANG_MEGACO),y)
+ ERLANG_REMOVE_PACKAGES += megaco
+ endif
+ 
++define ERLANG_RUN_OTP_BUILD
++	# otp_build runs autoconf and autoheader across several Erlang
++	# directories. Running autoreconf is insufficient.
++	ERL_TOP=$(@D) $(@D)/otp_build autoconf
++endef
++
+ define ERLANG_REMOVE_STAGING_UNUSED
+ 	# Remove intermediate build products that can get copied Erlang
+ 	# release tools.
+@@ -132,8 +131,11 @@ define ERLANG_REMOVE_TARGET_UNUSED
+ 	find $(TARGET_DIR)/usr/lib/erlang -type d -empty -delete
+ endef
+ 
++ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_OTP_BUILD
+ ERLANG_POST_INSTALL_STAGING_HOOKS += ERLANG_REMOVE_STAGING_UNUSED
+ ERLANG_POST_INSTALL_TARGET_HOOKS += ERLANG_REMOVE_TARGET_UNUSED
+ 
++HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_OTP_BUILD
++
+ $(eval $(autotools-package))
+ $(eval $(host-autotools-package))
 -- 
 2.7.4
 
