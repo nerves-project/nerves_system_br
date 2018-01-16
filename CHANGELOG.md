@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.16.2+2017-11
+
+  * New features
+    * Erlang 20.2.1
+
 ## v0.16.1-2017-11
 
   * New features
