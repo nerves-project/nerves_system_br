@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.16.4
+
+  * Bug fix
+    * Fix undeterministic build break for Erlang due to missing host-autoconf
+      dependency.
+
 ## v0.16.3
 
 Drop build metadata for now due to publish errors from hex.pm.
