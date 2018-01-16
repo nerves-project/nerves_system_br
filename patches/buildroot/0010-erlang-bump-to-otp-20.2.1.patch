@@ -1,4 +1,4 @@
-From 310109754985eb22fc71cbe13646fbbde60a7b72 Mon Sep 17 00:00:00 2001
+From d9b06892ff3a77bcc481c27fb38952005a8ecfda Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 7 Jul 2017 18:23:51 -0400
 Subject: [PATCH] erlang: bump to otp 20.2.1
@@ -41,7 +41,7 @@ index dc12ccd..571559f 100644
 +# sha256 locally computed
 +sha256  2684bf75e6235ebc41a51a9c417b15deb7c2716a11594390cbc5109f441e4bec	OTP-20.2.1.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 6601b0c..a45fd27 100644
+index 6601b0c..601817d 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,21 +5,18 @@
@@ -88,7 +88,7 @@ index 6601b0c..a45fd27 100644
 +define ERLANG_RUN_OTP_BUILD
 +	# otp_build runs autoconf and autoheader across several Erlang
 +	# directories. Running autoreconf is insufficient.
-+	ERL_TOP=$(@D) $(@D)/otp_build autoconf
++	ERL_TOP=$(@D) $(HOST_MAKE_ENV) $(@D)/otp_build autoconf
 +endef
 +
  define ERLANG_REMOVE_STAGING_UNUSED
