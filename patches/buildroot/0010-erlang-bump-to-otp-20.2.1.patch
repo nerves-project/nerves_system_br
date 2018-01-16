@@ -1,4 +1,4 @@
-From d9b06892ff3a77bcc481c27fb38952005a8ecfda Mon Sep 17 00:00:00 2001
+From 4714a657bfcdf19cfc4711f002d834f5b2bcb5ce Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 7 Jul 2017 18:23:51 -0400
 Subject: [PATCH] erlang: bump to otp 20.2.1
@@ -6,8 +6,8 @@ Subject: [PATCH] erlang: bump to otp 20.2.1
 ---
  package/erlang/Config.in   | 10 ----------
  package/erlang/erlang.hash |  5 ++---
- package/erlang/erlang.mk   | 24 +++++++++++++-----------
- 3 files changed, 15 insertions(+), 24 deletions(-)
+ package/erlang/erlang.mk   | 26 ++++++++++++++------------
+ 3 files changed, 16 insertions(+), 25 deletions(-)
 
 diff --git a/package/erlang/Config.in b/package/erlang/Config.in
 index 1cd93ca..96af551 100644
@@ -41,7 +41,7 @@ index dc12ccd..571559f 100644
 +# sha256 locally computed
 +sha256  2684bf75e6235ebc41a51a9c417b15deb7c2716a11594390cbc5109f441e4bec	OTP-20.2.1.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 6601b0c..601817d 100644
+index 6601b0c..5927051 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,21 +5,18 @@
@@ -51,10 +51,11 @@ index 6601b0c..601817d 100644
 -ERLANG_VERSION = 19.3
 -ERLANG_SITE = http://www.erlang.org/download
 -ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
+-ERLANG_DEPENDENCIES = host-erlang
 +ERLANG_VERSION = 20.2.1
 +ERLANG_SITE = https://github.com/erlang/otp/archive
 +ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
- ERLANG_DEPENDENCIES = host-erlang
++ERLANG_DEPENDENCIES = host-erlang host-autoconf
  
  ERLANG_LICENSE = Apache-2.0
  ERLANG_LICENSE_FILES = LICENSE.txt
