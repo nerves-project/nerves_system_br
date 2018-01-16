@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.16.3
+
+Drop build metadata for now due to publish errors from hex.pm.
+
+  * Bug fix
+    * Force Erlang to use Buildroot's version of autoconf rather than the
+      host OS's version
+
 ## v0.16.2+2017-11
 
   * New features
