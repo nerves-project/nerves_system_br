@@ -32,6 +32,8 @@ RUN apt-get update -y -qq \
     libstdc++6:i386 \
     libz-dev \
     xz-utils \
+    gcc-multilib \
+    g++-multilib \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get -q -y autoremove \
   && apt-get -q -y clean
