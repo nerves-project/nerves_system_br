@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.17.0
+
+System tarballs no longer use the ustar format due to the 99 character path
+limitation. This means that they can't be untar'd with Erlang's built-in tar
+file support.
+
+  * New features
+    * [fwup v1.0.0](https://github.com/fhunleth/fwup/releases/tag/v1.0.0)
+    * Buildroot 2017.11.2 - security patch release
+    * Enable selection of rpi-firmware to support Raspberry Pi ports that want
+      to use Linux 4.9 rather than 4.4
+
 ## v0.16.4
 
   * Bug fix
