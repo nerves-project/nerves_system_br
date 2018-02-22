@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.0-rc.0
+
+  * New features
+    * [erlinit v1.4.0](https://github.com/nerves-project/erlinit/releases/tag/v1.4.0)
+
 ## v0.17.0
 
 System tarballs no longer use the ustar format due to the 99 character path
