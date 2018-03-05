@@ -8,12 +8,9 @@ menuconfig BR2_PACKAGE_NERVES_CONFIG
 	select BR2_PACKAGE_UBOOT_TOOLS  # Required for Nerves firmware metadata
 	select BR2_PACKAGE_BOARDID  # ID board for assigning unique names
 	select BR2_PACKAGE_HOST_FWUP # Used by Nerves packaging tools
-	select BR2_PACKAGE_HOST_ERLANG_RELX # Used to create test .fw file
 	select BR2_TARGET_ROOTFS_SQUASHFS # Nerves uses squashfs archives
 	help
 	  Nerves system configuration helper. This selects a set of packages
 	  used by all Nerves systems so that they're never accidentally omitted.
-	  This package used to do more, but has been trimmed down as functionality
-	  has moved into the Nerves tooling.
 
 	  https://github.com/nerves-project/nerves_system_br

@@ -7,36 +7,9 @@
 # Remember to bump the version when anything changes in this
 # directory.
 NERVES_CONFIG_SOURCE =
-NERVES_CONFIG_VERSION = 0.6
+NERVES_CONFIG_VERSION = 0.7
 
-NERVES_CONFIG_DEPENDENCIES = erlinit erlang host-erlang-relx host-fwup openssl
-
-NERVES_CONFIG_PACKAGE_DIR = $(BR2_EXTERNAL_NERVES_PATH)/package/nerves-config
-NERVES_CONFIG_ERLANG_RELEASE_DIR = $(TARGET_DIR)/srv/erlang
-
-define NERVES_CONFIG_BUILD_CMDS
-	# Create the relx configuration file
-	m4 $(NERVES_CONFIG_PACKAGE_DIR)/relx.config.m4 > $(@D)/relx.config
-
-	# Create the vm.args file for starting the Erlang runtime
-	m4 $(NERVES_CONFIG_PACKAGE_DIR)/vm.args.m4 > $(@D)/vm.args
-
-	# Run relx to create a sample release. Real projects will have
-	# their own relx.config scripts and be in a separate repo, but
-	# this release is a good one for playing around with Nerves.
-	NERVES_SDK_SYSROOT=$(HOST_DIR) $(RELX) $(NERVES_CONFIG_RELX_LIBDIRS) --vm_args $(@D)/vm.args -c $(@D)/relx.config
-endef
-
-define NERVES_CONFIG_INSTALL_RELEASE
-	# Copy the release that starts the shell over to the target
-	rm -fr $(NERVES_CONFIG_ERLANG_RELEASE_DIR)
-	mkdir -p $(NERVES_CONFIG_ERLANG_RELEASE_DIR)
-	cp -r $(@D)/_rel/*/* $(NERVES_CONFIG_ERLANG_RELEASE_DIR)
-endef
-
-define NERVES_CONFIG_INSTALL_TARGET_CMDS
-	$(NERVES_CONFIG_INSTALL_RELEASE)
-endef
+NERVES_CONFIG_DEPENDENCIES = erlinit erlang host-fwup fwup ncurses uboot-tools boardid openssl
 
 # This is tricky. We want the squashfs created by Buildroot to have everything
 # except for the OTP release. The squashfs tools can only append to
