@@ -1,4 +1,4 @@
-From 02d395bfa043509265b319124ceb8be04d6affa7 Mon Sep 17 00:00:00 2001
+From 4c614459c296edbd8093a19131b2912e7f2cbe7d Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 29 Mar 2017 08:59:03 -0400
 Subject: [PATCH] rpi-firmware: support kernel selection
@@ -10,10 +10,10 @@ Subject: [PATCH] rpi-firmware: support kernel selection
  3 files changed, 24 insertions(+), 2 deletions(-)
 
 diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
-index da32b8e..c87c59a 100644
+index 0ebbe7a..2b8feaf 100644
 --- a/package/rpi-firmware/Config.in
 +++ b/package/rpi-firmware/Config.in
-@@ -10,6 +10,24 @@ config BR2_PACKAGE_RPI_FIRMWARE
+@@ -12,6 +12,24 @@ config BR2_PACKAGE_RPI_FIRMWARE
  if BR2_PACKAGE_RPI_FIRMWARE
  
  choice
