@@ -1,54 +1,32 @@
-From 4714a657bfcdf19cfc4711f002d834f5b2bcb5ce Mon Sep 17 00:00:00 2001
+From 69156912d89e4eafd017b9a17c090b8e3c8b84c5 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 7 Jul 2017 18:23:51 -0400
 Subject: [PATCH] erlang: bump to otp 20.2.1
 
 ---
- package/erlang/Config.in   | 10 ----------
  package/erlang/erlang.hash |  5 ++---
- package/erlang/erlang.mk   | 26 ++++++++++++++------------
- 3 files changed, 16 insertions(+), 25 deletions(-)
+ package/erlang/erlang.mk   | 22 ++++++++++++++--------
+ 2 files changed, 16 insertions(+), 11 deletions(-)
 
-diff --git a/package/erlang/Config.in b/package/erlang/Config.in
-index 1cd93ca..96af551 100644
---- a/package/erlang/Config.in
-+++ b/package/erlang/Config.in
-@@ -27,16 +27,6 @@ config BR2_PACKAGE_ERLANG
- 
- if BR2_PACKAGE_ERLANG
- 
--config BR2_PACKAGE_ERLANG_SMP
--	bool "enable SMP support"
--	help
--	  Erlang provides both a UP and an SMP emulator. The UP
--	  emulator is always built, and this option enables
--	  compilation of the SMP emulator. The choice of which
--	  emulator to use is made at runtime. If you do not need SMP
--	  support, turning this option off reduces compile time and
--	  the size of the Erlang installation.
--
- config BR2_PACKAGE_ERLANG_MEGACO
- 	bool "install megaco application"
- 	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index dc12ccd..571559f 100644
+index cf820ce..571559f 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,3 +1,2 @@
 -# md5 from http://www.erlang.org/download/MD5, sha256 locally computed
--md5	a8c259ec47bf84e77510673e1b76b6db	otp_src_19.3.tar.gz
--sha256  fe4a00651db39b8542b04530a48d24b2f2e7e0b77cbe93d728c9f05325bdfe83	otp_src_19.3.tar.gz
+-md5     2faed2c3519353e6bc2501ed4d8e6ae7        otp_src_20.0.tar.gz
+-sha256  fe80e1e14a2772901be717694bb30ac4e9a07eee0cc7a28988724cbd21476811        otp_src_20.0.tar.gz
 +# sha256 locally computed
 +sha256  2684bf75e6235ebc41a51a9c417b15deb7c2716a11594390cbc5109f441e4bec	OTP-20.2.1.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 6601b0c..5927051 100644
+index 4b29969..5927051 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,21 +5,18 @@
  ################################################################################
  
  # See note below when updating Erlang
--ERLANG_VERSION = 19.3
+-ERLANG_VERSION = 20.0
 -ERLANG_SITE = http://www.erlang.org/download
 -ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
 -ERLANG_DEPENDENCIES = host-erlang
@@ -66,23 +44,12 @@ index 6601b0c..5927051 100644
 -
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk
--ERLANG_EI_VSN = 3.9.3
+-ERLANG_EI_VSN = 3.10
 +ERLANG_EI_VSN = 3.10.1
  
  # The configure checks for these functions fail incorrectly
  ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes \
-@@ -80,10 +77,6 @@ ERLANG_CONF_OPTS += --enable-shared-zlib
- ERLANG_DEPENDENCIES += zlib
- endif
- 
--ifeq ($(BR2_PACKAGE_ERLANG_SMP),)
--ERLANG_CONF_OPTS += --disable-smp-support
--endif
--
- # Remove source, example, gs and wx files from staging and target.
- ERLANG_REMOVE_PACKAGES = gs wx
- 
-@@ -91,6 +84,12 @@ ifneq ($(BR2_PACKAGE_ERLANG_MEGACO),y)
+@@ -87,6 +84,12 @@ ifneq ($(BR2_PACKAGE_ERLANG_MEGACO),y)
  ERLANG_REMOVE_PACKAGES += megaco
  endif
  
@@ -95,7 +62,7 @@ index 6601b0c..5927051 100644
  define ERLANG_REMOVE_STAGING_UNUSED
  	# Remove intermediate build products that can get copied Erlang
  	# release tools.
-@@ -132,8 +131,11 @@ define ERLANG_REMOVE_TARGET_UNUSED
+@@ -128,8 +131,11 @@ define ERLANG_REMOVE_TARGET_UNUSED
  	find $(TARGET_DIR)/usr/lib/erlang -type d -empty -delete
  endef
  
