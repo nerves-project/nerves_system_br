@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.0-rc.2
+
+* New features
+  * Erlang 20.3.1
+  * Nerves replacement to `heart`. This addresses a minor issue with calling
+    reboot with the default `heart` and re-adds integration with hardware
+    watchdogs.
+
 ## v1.0.0-rc.1
 
 * New features
