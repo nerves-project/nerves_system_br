@@ -5,6 +5,7 @@ menuconfig BR2_PACKAGE_NERVES_CONFIG
 	select BR2_PACKAGE_OPENSSL  # Used for Erlang crypto
 	select BR2_PACKAGE_FWUP     # Used for OTA firmware updates
 	select BR2_PACKAGE_NCURSES  # IEx shell is near impossible to use without
+	select BR2_PACKAGE_NERVES_HEART # Nerves updates to Erlang's heartbeat support
 	select BR2_PACKAGE_UBOOT_TOOLS  # Required for Nerves firmware metadata
 	select BR2_PACKAGE_BOARDID  # ID board for assigning unique names
 	select BR2_PACKAGE_HOST_FWUP # Used by Nerves packaging tools
