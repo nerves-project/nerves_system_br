@@ -1,0 +1,34 @@
+From e243db6f3508ec1c61ec903d0bbf731e40fa00ed Mon Sep 17 00:00:00 2001
+From: Martin Bark <martin@barkynet.com>
+Date: Sat, 24 Mar 2018 14:10:14 +0000
+Subject: [PATCH] package/rpi-firmware: improve installation of dtb files
+
+Don't list specific dtb files, instead install all dtb files in the same
+way as dtbo files are currently done.
+
+Signed-off-by: Martin Bark <martin@barkynet.com>
+---
+ package/rpi-firmware/rpi-firmware.mk | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
+index 9ce4a26..2d922a6 100644
+--- a/package/rpi-firmware/rpi-firmware.mk
++++ b/package/rpi-firmware/rpi-firmware.mk
+@@ -17,10 +17,9 @@ RPI_FIRMWARE_INSTALL_IMAGES = YES
+ 
+ ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_INSTALL_DTBS),y)
+ define RPI_FIRMWARE_INSTALL_DTB
+-	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2708-rpi-b.dtb $(BINARIES_DIR)/rpi-firmware/bcm2708-rpi-b.dtb
+-	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2708-rpi-b-plus.dtb $(BINARIES_DIR)/rpi-firmware/bcm2708-rpi-b-plus.dtb
+-	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2709-rpi-2-b.dtb $(BINARIES_DIR)/rpi-firmware/bcm2709-rpi-2-b.dtb
+-	$(INSTALL) -D -m 0644 $(@D)/boot/bcm2710-rpi-3-b.dtb $(BINARIES_DIR)/rpi-firmware/bcm2710-rpi-3-b.dtb
++	for dtb in  $(@D)/boot/*.dtb; do \
++		$(INSTALL) -D -m 0644 $${dtb} $(BINARIES_DIR)/rpi-firmware/$${dtb##*/} || exit 1; \
++	done
+ endef
+ endif
+ 
+-- 
+2.7.4
+

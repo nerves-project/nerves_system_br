@@ -1,7 +1,7 @@
-From 6824cbf2633a0e2abf0334de7b8b1abff240d9d7 Mon Sep 17 00:00:00 2001
+From c6df43a3da93fcf2901b15eb731e3191e017d607 Mon Sep 17 00:00:00 2001
 From: Justin Schneck <jschneck@mac.com>
 Date: Wed, 21 Mar 2018 15:12:29 -0400
-Subject: [PATCH 14/14] rpi-firmware support rpi-b-plus
+Subject: [PATCH] rpi-firmware: support rpi-b-plus
 
 ---
  package/rpi-firmware/rpi-firmware.hash | 2 +-

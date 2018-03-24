@@ -1,4 +1,4 @@
-From 2756f7c7ae2082ca0b742cb2ece770198789d30e Mon Sep 17 00:00:00 2001
+From 6604639c15679d6fc9b3831f1f3fa1f8390670b9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 5 Mar 2018 13:59:05 -0500
 Subject: [PATCH] linux: add BR2_LINUX_KERNEL_NEEDS_HOST_LIBELF
