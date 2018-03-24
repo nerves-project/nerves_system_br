@@ -1,4 +1,4 @@
-From c46840e37459c4605225a776e0599c459d97cdd9 Mon Sep 17 00:00:00 2001
+From 690e98689dfe6f8b2793ca6d800b78a6e912709b Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 29 Mar 2017 08:59:03 -0400
 Subject: [PATCH] rpi-firmware: support kernel selection

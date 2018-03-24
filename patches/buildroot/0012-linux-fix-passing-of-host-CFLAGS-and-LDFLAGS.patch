@@ -1,4 +1,4 @@
-From ad8804326df075a9935a3751f61e5ad1a2865736 Mon Sep 17 00:00:00 2001
+From 95b9df5fb6c0ff13ed6bd092040b5652eb8d5a52 Mon Sep 17 00:00:00 2001
 From: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 Date: Sun, 4 Mar 2018 22:31:17 +0100
 Subject: [PATCH] linux: fix passing of host CFLAGS and LDFLAGS
