@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.0.0-rc.3
+
+* New features
+  * Erlang 20.3.2
+  * Pull in BR patches required to support the Raspberry Pi 3 B+
+
+* Bug fixes
+  * Updated the release scrubber to call `readelf` instead of `file` for
+    checking whether an executable was made for the right system. This makes the
+    check more portable. While doing this the Linux kernel header check was
+    removed. This check was too conservative and disallowed Rust and Go binaries
+    that were fine.
+
 ## v1.0.0-rc.2
 
 * New features
