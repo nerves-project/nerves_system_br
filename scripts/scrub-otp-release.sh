@@ -61,8 +61,8 @@ executable_type()
 {
     READELF_OUTPUT=$("$READELF" -h "$1" 2>&1)
 
-    ELF_MACHINE=$(echo "$READELF_OUTPUT" | sed -r -e '/^  Machine: +(.+)/!d; s//\1/;' | head -1)
-    ELF_FLAGS=$(echo "$READELF_OUTPUT" | sed -r -e '/^  Flags: +(.+)/!d; s//\1/;' | head -1)
+    ELF_MACHINE=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Machine: +(.+)/!d; s//\1/;' | head -1)
+    ELF_FLAGS=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Flags: +(.+)/!d; s//\1/;' | head -1)
 
     if [ -z "$ELF_MACHINE" ]; then
         echo "$SCRIPT_NAME: ERROR: Didn't expect empty machine field in ELF header on $1." 1>&2
