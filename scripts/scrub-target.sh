@@ -30,11 +30,10 @@ rm -fr $TARGET_DIR/usr/lib/erlang/lib/*
 rm -f $TARGET_DIR/root/.bash* $TARGET_DIR/etc/profile $TARGET_DIR/etc/issue
 rm -fr $TARGET_DIR/usr/share/bash-completion
 
-# Remove sys v init configs since we don't use them
+# Remove sys v init configs since Nerves doesn't run Busybox init
 # NOTE: Can't remove inittab without causing a buildroot error when
 # it configures whether to mount to root file system read/write
-rm -fr $TARGET_DIR/etc/init.d $TARGET_DIR/etc/random-seed $TARGET_DIR/etc/network \
-    $TARGET_DIR/etc/protocols $TARGET_DIR/etc/services
+rm -fr $TARGET_DIR/etc/init.d $TARGET_DIR/etc/random-seed $TARGET_DIR/etc/network
 
 # Remove the Buildroot default wpa_supplicant.conf since it is
 # wrong and confusing. The wpa_supplicant.conf file must be
@@ -48,9 +47,6 @@ rm -f $TARGET_DIR/etc/wpa_supplicant.conf
 # partitions. Erlang/Elixir applications need to handle
 # anything complicated.
 rm -f $TARGET_DIR/etc/fstab
-
-# Nerves currently does not use /home at all
-rm -fr $TARGET_DIR/home
 
 # Remove Erlang binaries that don't make sense on the target
 find $TARGET_DIR -name ct_run -exec rm "{}" ";"
