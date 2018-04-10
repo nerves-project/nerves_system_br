@@ -1,4 +1,4 @@
-From 7179b0eb73a4e7358c4cba48818847106613c906 Mon Sep 17 00:00:00 2001
+From bda4011cc547e33bd1702223f1eb3c0e79a12188 Mon Sep 17 00:00:00 2001
 From: Martin Bark <martin@barkynet.com>
 Date: Sat, 24 Mar 2018 14:10:15 +0000
 Subject: [PATCH] package/rpi-bt-firmware: change to LibreELEC github repo

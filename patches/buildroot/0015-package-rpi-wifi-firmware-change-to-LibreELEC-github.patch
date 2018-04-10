@@ -1,4 +1,4 @@
-From e5dc3f8102f0adbeeed0bf143c1c30aa59bf2498 Mon Sep 17 00:00:00 2001
+From 6e46e6caedb96aedb705201d8015405c1744422c Mon Sep 17 00:00:00 2001
 From: Martin Bark <martin@barkynet.com>
 Date: Sat, 24 Mar 2018 14:10:16 +0000
 Subject: [PATCH] package/rpi-wifi-firmware: change to LibreELEC github repo

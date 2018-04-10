@@ -1,4 +1,4 @@
-From e243db6f3508ec1c61ec903d0bbf731e40fa00ed Mon Sep 17 00:00:00 2001
+From 2b80c818d819c700d68ca84ea9626e1878c0384e Mon Sep 17 00:00:00 2001
 From: Martin Bark <martin@barkynet.com>
 Date: Sat, 24 Mar 2018 14:10:14 +0000
 Subject: [PATCH] package/rpi-firmware: improve installation of dtb files
