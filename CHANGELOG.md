@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.0.0-rc.4
+
+* New features
+  * Buildroot 2018.02.1 patch release integrated. This removes the need for two
+    patches that we had been maintaining and includes a few minor version bugs
+    bug fixes.
+  * Refactor the rootfs_overlay merge logic to support multiple rootfs_overlays.
+    To use this in your programs, a corresponding update is required in the
+    `nerves` project. See [nerves PR #269](https://github.com/nerves-project/nerves/pull/269).
+
+* Bug fixes
+  * Prevent the scrubber from erasing /etc/services and /etc/protocol if the
+    user provides their own versions.
+
 ## v1.0.0-rc.3
 
 * New features
