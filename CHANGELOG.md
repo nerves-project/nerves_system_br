@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.0
+
+* Bug Fixes
+  * Include buildroot patch for enabling widechar for host ncurses to fix issues
+    with `make linux-menuconfig` rendering a lot of `@?`characters.
+
 ## v1.0.0-rc.4
 
 * New features
