@@ -1,0 +1,48 @@
+From e7265b3ce294034979db56c4e69d488da35525ee Mon Sep 17 00:00:00 2001
+From: "Arnout Vandecappelle (Essensium/Mind)" <arnout@mind.be>
+Date: Thu, 26 Apr 2018 21:08:45 +0200
+Subject: [PATCH] package/ncurses: enable widechar for host build
+
+Kconfig uses pkg-config to find the ncurses or ncursesw library. If the
+ncursesw package is found with pkg-config, it will #include <ncursesw.h>.
+Since Buildroot's host-ncurses doesn't install a .pc file, and linux.mk
+anyway doesn't pass the pkg-config options to find the host pkg-config
+files, Kconfig will always find the system's ncursesw.h.
+
+However, since commit dde090c299 (linux: fix passing of host CFLAGS and
+LDFLAGS) HOST_LDFLAGS is passed to the linux build system. Thus, if
+host-ncurses was already built before 'make linux-menuconfig' is called,
+the build will pick up libncurses from the host directory, which is NOT
+widechar. Thus, two different ncurses configurations are mixed into the
+final mconf program. This will result in serious breakage in the
+rendering of the menus (lots of @ and question mark characters).
+
+As a workaround, just build host-ncurses with widechar support. That
+makes it compatible with ncursesw.h picked up from the host. Clearly,
+this is not a robust solution. But it's simple, it works, and it
+shouldn't hurt to build host-ncurses with widechar support (we can
+safely assume that the system doesn't have a non-widechare uClibc
+library...).
+
+Signed-off-by: Arnout Vandecappelle (Essensium/Mind) <arnout@mind.be>
+Cc: David De Grave <david.degrave@essensium.com>
+Signed-off-by: Arnout Vandecappelle (Essensium/Mind) &lt;<a href="mailto:arnout@mind.be" target="_blank">arnout@mind.be</a>&gt;<br>
+---
+ package/ncurses/ncurses.mk | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/package/ncurses/ncurses.mk b/package/ncurses/ncurses.mk
+index e63b6e4..dd6914f 100644
+--- a/package/ncurses/ncurses.mk
++++ b/package/ncurses/ncurses.mk
+@@ -151,6 +151,7 @@ HOST_NCURSES_CONF_OPTS = \
+ 	--without-cxx \
+ 	--without-cxx-binding \
+ 	--without-ada \
++	--enable-widec \
+ 	--without-normal
+ 
+ $(eval $(autotools-package))
+-- 
+2.7.4
+
