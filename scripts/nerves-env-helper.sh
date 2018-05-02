@@ -29,8 +29,9 @@ if [ -e $NERVES_SYSTEM/host ]; then
     # For Buildroot builds, use the Buildroot provided versions of pkg-config
     # and perl.
     export PKG_CONFIG=$NERVES_TOOLCHAIN/usr/bin/pkg-config
-    export PKG_CONFIG_SYSROOT_DIR=/
-    export PKG_CONFIG_LIBDIR=$NERVES_TOOLCHAIN/usr/lib/pkgconfig
+    export PKG_CONFIG_SYSROOT_DIR=$NERVES_SYSTEM/staging
+    export PKG_CONFIG_LIBDIR=$NERVES_SYSTEM/staging/usr/lib/pkgconfig
+
     export PERLLIB=$NERVES_TOOLCHAIN/usr/lib/perl
 
     pathadd $NERVES_TOOLCHAIN/usr/bin

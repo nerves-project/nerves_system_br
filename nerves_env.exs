@@ -40,6 +40,8 @@ end
 system_path = System.get_env("NERVES_SYSTEM") ||
   Mix.raise("You must set NERVES_SYSTEM to the system directory prior to requiring this file")
 
+sdk_sysroot = Path.join(system_path, "staging")
+
 {_toolchain_path, crosscompile} =
   if File.dir?(Path.join(system_path, "host")) do
     # Grab the toolchain from a Buildroot output directory
@@ -49,8 +51,8 @@ system_path = System.get_env("NERVES_SYSTEM") ||
     crosscompile = Utils.crosscompile(gcc_path, system_path)
 
     System.put_env("PKG_CONFIG", Path.join(toolchain_path, "usr/bin/pkg-config"))
-    System.put_env("PKG_CONFIG_SYSROOT_DIR", "/")
-    System.put_env("PKG_CONFIG_LIBDIR", Path.join(toolchain_path, "usr/lib/pkgconfig"))
+    System.put_env("PKG_CONFIG_SYSROOT_DIR", sdk_sysroot)
+    System.put_env("PKG_CONFIG_LIBDIR", Path.join(sdk_sysroot, "usr/lib/pkgconfig"))
     System.put_env("PERLLIB", Path.join(toolchain_path, "usr/lib/perl"))
 
     Path.join(toolchain_path, "usr/bin")
@@ -82,8 +84,6 @@ system_path = System.get_env("NERVES_SYSTEM") ||
 
     {toolchain_path, crosscompile}
   end
-
-sdk_sysroot = Path.join(system_path, "staging")
 
 System.put_env("NERVES_SDK_IMAGES", Path.join(system_path, "images"))
 System.put_env("NERVES_SDK_SYSROOT", sdk_sysroot)
