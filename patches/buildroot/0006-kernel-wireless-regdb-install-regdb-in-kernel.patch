@@ -1,4 +1,4 @@
-From 258b7995a2965fb7ec9bd720b475a354d953202b Mon Sep 17 00:00:00 2001
+From d33490a21edb78c0c55499e5ab5383227ada39f0 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 9 May 2016 13:21:56 -0400
 Subject: [PATCH] kernel-wireless-regdb: install regdb in kernel
@@ -55,10 +55,10 @@ index 0000000..3cec0cd
 +	cp -pf $(KERNEL_WIRELESS_REGDB_DIR)/db.txt $(LINUX_DIR)/net/wireless/db.txt
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index dd0a35c..48d07c5 100644
+index 3d1a2f6..fb985a1 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -1712,6 +1712,7 @@ menu "Networking applications"
+@@ -1713,6 +1713,7 @@ menu "Networking applications"
  	source "package/iw/Config.in"
  	source "package/janus-gateway/Config.in"
  	source "package/keepalived/Config.in"
