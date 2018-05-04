@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PIGPIO_VERSION = 4862a16c9f76f9b2096055c98ef4fbc480dc1878
+PIGPIO_VERSION = V67
 PIGPIO_SITE = $(call github,joan2937,pigpio,$(PIGPIO_VERSION))
 PIGPIO_LICENSE = Unlicense
 PIGPIO_LICENSE_FILES = UNLICENCE
