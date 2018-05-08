@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.0.1
+
+Note: Versioning on `nerves_system_br` doesn't follow semver. This particular
+release is low-risk, but it is recommended that Nerves systems specify the
+`nerves_system_br` version explicitly and review the change notes here to ensure
+that a version bump of one of the included projects is non-breaking.
+
+* New features
+  * Erlang 20.3.5
+  * pigpio V67
+  * Buildroot 2018.02.2. This is a bugfix/security patch release to 2018.02.1
+  * fwup 1.1.0
+
+* Bug fixes
+  * Fixed PKG_CONFIG environment variables to point to staging (target) versions
+    of packages. This is needed for cmake and Makefile projects that use
+    pkg-config.
+
+* Removed packages
+  * erlang-relx - This version of relx hadn't been used in a long time. Since it
+    was also out-of-date, the choice was made to remove it.
+
 ## v1.0.0
 
 * Bug Fixes
