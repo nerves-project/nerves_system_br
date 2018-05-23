@@ -1,0 +1,57 @@
+From 8ce5b65906185827b1de6e2e288e22ab4a576732 Mon Sep 17 00:00:00 2001
+From: Peter Seiderer <ps.report@gmx.net>
+Date: Fri, 2 Mar 2018 20:34:35 +0100
+Subject: [PATCH] sqlite: add option for meta-data about tables/queries
+
+Enables SQLITE_ENABLE_COLUMN_METADATA to gain access to:
+
+  - sqlite3_column_database_name()
+  - sqlite3_column_database_name16()
+  - sqlite3_column_table_name()
+  - sqlite3_column_table_name16()
+  - sqlite3_column_origin_name()
+  - sqlite3_column_origin_name16()
+
+Signed-off-by: Peter Seiderer <ps.report@gmx.net>
+Signed-off-by: Arnout Vandecappelle (Essensium/Mind) <arnout@mind.be>
+---
+ package/sqlite/Config.in | 7 +++++++
+ package/sqlite/sqlite.mk | 4 ++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/package/sqlite/Config.in b/package/sqlite/Config.in
+index ec73968..517af50 100644
+--- a/package/sqlite/Config.in
++++ b/package/sqlite/Config.in
+@@ -16,6 +16,13 @@ config BR2_PACKAGE_SQLITE_STAT3
+ 	  query planner that can help SQLite to choose a better query
+ 	  plan under certain situations.
+ 
++config BR2_PACKAGE_SQLITE_ENABLE_COLUMN_METADATA
++	bool "Enable convenient access to meta-data about tables and queries"
++	help
++	  When this option is defined there are some additional APIs
++	  enabled to acces meta-data about tables and queries (see
++	  https://sqlite.org/compile.html).
++
+ config BR2_PACKAGE_SQLITE_ENABLE_FTS3
+ 	bool "Enable version 3 of the full-text search engine"
+ 	help
+diff --git a/package/sqlite/sqlite.mk b/package/sqlite/sqlite.mk
+index 5239592..e069e71 100644
+--- a/package/sqlite/sqlite.mk
++++ b/package/sqlite/sqlite.mk
+@@ -15,6 +15,10 @@ ifeq ($(BR2_PACKAGE_SQLITE_STAT3),y)
+ SQLITE_CFLAGS += -DSQLITE_ENABLE_STAT3
+ endif
+ 
++ifeq ($(BR2_PACKAGE_SQLITE_ENABLE_COLUMN_METADATA),y)
++SQLITE_CFLAGS += -DSQLITE_ENABLE_COLUMN_METADATA
++endif
++
+ ifeq ($(BR2_PACKAGE_SQLITE_ENABLE_FTS3),y)
+ SQLITE_CFLAGS += -DSQLITE_ENABLE_FTS3
+ endif
+-- 
+2.7.4
+
