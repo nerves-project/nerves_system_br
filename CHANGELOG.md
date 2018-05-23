@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.1.0
+
+* New features
+  * Erlang 20.3.6
+  * Qt5 5.10.1
+  * boardid 1.0.0
+  * erlinit 1.4.1
+
+The Qt5 version bump pulls in a newer version of Chromium for those users making
+kiosks.
+
+The `boardid` update adds support for pulling serial numbers from U-boot
+environment blocks. This is very useful if you assign serial numbers to boards
+on the manufacturing line and would like hostnames, node names and mDNS to use
+your serial numbers.
+
 ## v1.0.1
 
 Note: Versioning on `nerves_system_br` doesn't follow semver. This particular
