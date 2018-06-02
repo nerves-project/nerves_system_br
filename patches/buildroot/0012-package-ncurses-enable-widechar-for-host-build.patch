@@ -1,4 +1,4 @@
-From e7265b3ce294034979db56c4e69d488da35525ee Mon Sep 17 00:00:00 2001
+From 06caa3db8f8dabed11804fafa731e12d083a3bd0 Mon Sep 17 00:00:00 2001
 From: "Arnout Vandecappelle (Essensium/Mind)" <arnout@mind.be>
 Date: Thu, 26 Apr 2018 21:08:45 +0200
 Subject: [PATCH] package/ncurses: enable widechar for host build
@@ -32,10 +32,10 @@ Signed-off-by: Arnout Vandecappelle (Essensium/Mind) &lt;<a href="mailto:arnout@
  1 file changed, 1 insertion(+)
 
 diff --git a/package/ncurses/ncurses.mk b/package/ncurses/ncurses.mk
-index e63b6e4..dd6914f 100644
+index 90cf4a4..9942d3f 100644
 --- a/package/ncurses/ncurses.mk
 +++ b/package/ncurses/ncurses.mk
-@@ -151,6 +151,7 @@ HOST_NCURSES_CONF_OPTS = \
+@@ -153,6 +153,7 @@ HOST_NCURSES_CONF_OPTS = \
  	--without-cxx \
  	--without-cxx-binding \
  	--without-ada \
