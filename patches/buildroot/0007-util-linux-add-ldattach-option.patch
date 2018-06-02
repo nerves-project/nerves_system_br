@@ -1,4 +1,4 @@
-From 5f9fa4c0cb34ebe45f7b41c2f63a1beb710d879f Mon Sep 17 00:00:00 2001
+From cc1561bf4cd534a45db6d9c0b4c61aa46838a029 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 10 Jul 2016 13:47:56 -0400
 Subject: [PATCH] util-linux: add ldattach option
@@ -26,10 +26,10 @@ index 5f0a35c..15ccb85 100644
  	bool "line"
  	help
 diff --git a/package/util-linux/util-linux.mk b/package/util-linux/util-linux.mk
-index 72a6d18..df31a04 100644
+index 80a8a08..d3952a2 100644
 --- a/package/util-linux/util-linux.mk
 +++ b/package/util-linux/util-linux.mk
-@@ -115,6 +115,7 @@ UTIL_LINUX_CONF_OPTS += \
+@@ -110,6 +110,7 @@ UTIL_LINUX_CONF_OPTS += \
  	$(if $(BR2_PACKAGE_UTIL_LINUX_IPCS),--enable-ipcs,--disable-ipcs) \
  	$(if $(BR2_PACKAGE_UTIL_LINUX_KILL),--enable-kill,--disable-kill) \
  	$(if $(BR2_PACKAGE_UTIL_LINUX_LAST),--enable-last,--disable-last) \
