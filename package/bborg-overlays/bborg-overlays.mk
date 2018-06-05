@@ -4,7 +4,7 @@
 #
 #############################################################
 
-BBORG_OVERLAYS_VERSION = 25cf610eda61a323048bd46a458fe8bf6d1c6af5
+BBORG_OVERLAYS_VERSION = 604c0926a4f7505dfc3d501301413c821e59febe
 BBORG_OVERLAYS_SITE = $(call github,beagleboard,bb.org-overlays,$(BBORG_OVERLAYS_VERSION))
 BBORG_OVERLAYS_LICENSE = GPLv2
 BBORG_OVERLAYS_DEPENDENCIES = host-dtc
@@ -14,7 +14,7 @@ BBORG_OVERLAYS_DEPENDENCIES = host-dtc
 define BBORG_OVERLAYS_BUILD_CMDS
 	for filename in $(@D)/src/arm/*.dts; do \
 	    $(CPP) -I$(@D)/include -I$(@D)/src/arm -nostdinc -undef -D__DTS__ -x assembler-with-cpp $$filename | \
-	      $(HOST_DIR)/usr/bin/dtc -@ -I dts -O dtb -b 0 -o $${filename%.dts}.dtbo || exit 1; \
+	      $(HOST_DIR)/usr/bin/dtc -Wno-unit_address_vs_reg -@ -I dts -O dtb -b 0 -o $${filename%.dts}.dtbo || exit 1; \
 	done
 endef
 
