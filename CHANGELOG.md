@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.2.0
+
+* New features
+  * Buildroot 2018.05
+  * boardid 1.1.0
+  * bborg-overlays (latest SHA)
+
+Buildroot 2018.05 contains the normal set of minor version bumps throughout. It
+let us remove 8 patches that we had been carrying around. See the [Buildroot
+announcement](http://lists.busybox.net/pipermail/buildroot/2018-June/222697.html)
+for details.
+
+The `boardid` bump improves about the U-boot environment block support by
+simplifying the configuration needed in the `erlinit.config` script.
+
+The bborg-overlays project has had several improvements since we last took a
+snapshot of it. Some of these are needed for the upcoming device tree overlay
+support in `nerves_system_bbb` that uses the new U-boot overlay support.
+
 ## v1.1.0
 
 * New features
