@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.1
+
+* Bug fixes
+  * Patched regression in Buildroot 2018.05 that made it impossible to enable
+    QtWebEngine
+
 ## v1.2.0
 
 * New features
