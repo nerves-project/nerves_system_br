@@ -1,7 +1,7 @@
-From 57b5428cb1f99ab6516e5fc2c18cb14eacdd9e67 Mon Sep 17 00:00:00 2001
+From 0ed4230cb98347eb88568c2d53768b23630dbb45 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 7 Jul 2017 18:23:51 -0400
-Subject: [PATCH] erlang: bump to otp 20.3.6
+Subject: [PATCH] erlang: bump to 20.3.8
 
 ---
  ...d-instruct-libatomic_ops-we-do-require-CA.patch | 37 +++++++++++-----------
@@ -147,7 +147,7 @@ index ad0bb6b..391b6eb 100644
 +2.7.4
  
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index f5ff740..5c7b7be 100644
+index f5ff740..2379eeb 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,4 +1,2 @@
@@ -156,9 +156,9 @@ index f5ff740..5c7b7be 100644
 -sha256 4e19e6c403d5255531c0b870f19511c8b8e3b080618e4f9efcb44d905935b2a1  otp_src_20.3.tar.gz
 -sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 +# sha256 locally computed
-+sha256  2494df496943387dbdb895a8b6cf8c04807f6888ae1f7dab25290ad89dcf0eb2  OTP-20.3.6.tar.gz
++sha256  a7e59c531605fbd19ceac0568ae81c89ec690449e861da6e3598399f9c4b747f  OTP-20.3.8.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index b992d1c..f60839d 100644
+index b992d1c..203844a 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,21 +5,18 @@
@@ -169,7 +169,7 @@ index b992d1c..f60839d 100644
 -ERLANG_SITE = http://www.erlang.org/download
 -ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
 -ERLANG_DEPENDENCIES = host-erlang
-+ERLANG_VERSION = 20.3.6
++ERLANG_VERSION = 20.3.8
 +ERLANG_SITE = https://github.com/erlang/otp/archive
 +ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
 +ERLANG_DEPENDENCIES = host-erlang host-autoconf
