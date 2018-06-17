@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.2.2
+
+* New features
+  * boardid 1.1.1
+  * fwup 1.2.1
+  * Erlang 20.3.8
+
+The new boardid version fixes an issue with using empty serial numbers from
+the U-Boot environment block. The new behavior is to fall back to use other IDs
+if the saved serial number is blank.
+
+The new fwup version improves the meta-uuid implementation so that firmware
+update servers can determine with a high degree of confidence what's running on
+a device without users needing be accurate with version numbers or needing to
+inject a version control ID into their fwup.conf scripts.
+
 ## v1.2.1
 
 * Bug fixes
