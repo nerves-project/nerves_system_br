@@ -147,6 +147,17 @@ if [ "$NERVES_HOST_ERL_MAJOR_VER" != "$NERVES_TARGET_ERL_MAJOR_VER" ]; then
     echo "unexpected ways. Install an Erlang OTP release that matches the target"
     echo "version before continuing."
     echo
+    echo "Upgrading the target is most likely what you want to do. Sometimes,"
+    echo "for whatever reason, it may not be an option for you. With that in mind,"
+    echo "another option is to use a different version of the nerves system for"
+    echo "your target, one that uses the Erlang OTP version you have on your host."
+    echo
+    echo "Example:"
+    echo "  Your host has Erlang OTP 20 and your target is a rpi0."
+    echo "  The latest version of `nerves_system_rpi0` is say, `v1.2.0` and it"
+    echo "  uses Erlang OTP 21. You can try downgrading a release, to `v1.1.1` where"
+    echo "  the Erlang OTP version is 20."
+    echo
     return 1
 fi
 if [ "$NERVES_HOST_ERL_VER" != "$NERVES_TARGET_ERL_VER" ]; then
