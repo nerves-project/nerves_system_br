@@ -57,15 +57,20 @@ find "$RELEASE_DIR/releases" \( -name "*.sh" \
 # Scrub the executables
 #
 
+readelf_headers()
+{
+    "$READELF" -h "$1" 2>&1 || echo "not_elf"
+}
+
 executable_type()
 {
-    READELF_OUTPUT=$("$READELF" -h "$1" 2>&1)
+    READELF_OUTPUT="$1"
 
     ELF_MACHINE=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Machine: +(.+)/!d; s//\1/;' | head -1)
     ELF_FLAGS=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Flags: +(.+)/!d; s//\1/;' | head -1)
 
     if [ -z "$ELF_MACHINE" ]; then
-        echo "$SCRIPT_NAME: ERROR: Didn't expect empty machine field in ELF header on $1." 1>&2
+        echo "$SCRIPT_NAME: ERROR: Didn't expect empty machine field in ELF header." 1>&2
         exit 1
     fi
     echo "$ELF_MACHINE;$ELF_FLAGS"
@@ -77,7 +82,7 @@ get_expected_executable_type()
     # so that we know what the `file` output should look like.
     tmpfile=$(mktemp /tmp/scrub-otp-release.XXXXXX)
     echo "int main() {}" | "$CROSSCOMPILE-gcc" -x c -o "$tmpfile" -
-    executable_type "$tmpfile"
+    executable_type "$(readelf_headers "$tmpfile")"
     rm "$tmpfile"
 }
 
@@ -85,29 +90,27 @@ EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
 EXPECTED_TYPE=$(get_expected_executable_type)
 
 for EXECUTABLE in $EXECUTABLES; do
-    case $(file -b "$EXECUTABLE") in
-        *ELF*)
-            # Verify that the executable was compiled for the target
-            TYPE=$(executable_type "$EXECUTABLE")
-            if [ "$TYPE" != "$EXPECTED_TYPE" ]; then
-                echo "$SCRIPT_NAME: ERROR: Unexpected executable format for '$EXECUTABLE'"
-                echo
-                echo "Got:"
-                echo " $TYPE"
-                echo
-                echo "Expecting:"
-                echo " $EXPECTED_TYPE"
-                echo
-                echo " This file may have been compiled for the host or a different target."
-                echo " Make sure that nerves-env.sh has been sourced and rebuild to fix this."
-                echo
-                exit 1
-            fi
+    READELF_OUTPUT=$(readelf_headers "$EXECUTABLE")
+    if [ "$READELF_OUTPUT" != "not_elf" ]; then
+        # Verify that the executable was compiled for the target
+        TYPE=$(executable_type "$READELF_OUTPUT")
+        if [ "$TYPE" != "$EXPECTED_TYPE" ]; then
+            echo "$SCRIPT_NAME: ERROR: Unexpected executable format for '$EXECUTABLE'"
+            echo
+            echo "Got:"
+            echo " $TYPE"
+            echo
+            echo "Expecting:"
+            echo " $EXPECTED_TYPE"
+            echo
+            echo " This file may have been compiled for the host or a different target."
+            echo " Make sure that nerves-env.sh has been sourced and rebuild to fix this."
+            echo
+            exit 1
+        fi
 
-            # Strip debug information from ELF binaries
-            # Symbols are still available to the user in the release directory.
-            $STRIP "$EXECUTABLE"
-            ;;
-        *) ;;
-    esac
+        # Strip debug information from ELF binaries
+        # Symbols are still available to the user in the release directory.
+        $STRIP "$EXECUTABLE"
+    fi
 done
