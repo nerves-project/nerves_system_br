@@ -11,6 +11,9 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 ENV DEBIAN_FRONTEND noninteractive
+# Create the working directory and set global permissions.
+# This fixes permission issues with writing to a mounted volume.
+RUN mkdir -p /nerves/build && chmod 777 /nerves/build
 # The container has no package lists, so need to update first
 RUN apt-get update -y -qq \
   && apt-get install -y \
