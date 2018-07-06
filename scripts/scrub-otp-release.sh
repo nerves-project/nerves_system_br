@@ -59,18 +59,23 @@ find "$RELEASE_DIR/releases" \( -name "*.sh" \
 
 readelf_headers()
 {
-    "$READELF" -h "$1" 2>&1 || echo "not_elf"
+    if ! "$READELF" -h "$1" 2>/dev/null; then
+        echo "not_elf"
+    fi
 }
 
 executable_type()
 {
-    READELF_OUTPUT="$1"
+    FILE="$1"
+    READELF_OUTPUT="$2"
 
     ELF_MACHINE=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Machine: +(.+)/!d; s//\1/;' | head -1)
     ELF_FLAGS=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Flags: +(.+)/!d; s//\1/;' | head -1)
 
     if [ -z "$ELF_MACHINE" ]; then
-        echo "$SCRIPT_NAME: ERROR: Didn't expect empty machine field in ELF header." 1>&2
+        echo "$SCRIPT_NAME: ERROR: Didn't expect empty machine field in ELF header in $FILE." 1>&2
+        echo "   Try running '$READELF -h $FILE' and" 1>&2
+        echo "   and create an issue at https://github.com/nerves-project/nerves_system_br/issues." 1>&2
         exit 1
     fi
     echo "$ELF_MACHINE;$ELF_FLAGS"
@@ -82,7 +87,7 @@ get_expected_executable_type()
     # so that we know what the `file` output should look like.
     tmpfile=$(mktemp /tmp/scrub-otp-release.XXXXXX)
     echo "int main() {}" | "$CROSSCOMPILE-gcc" -x c -o "$tmpfile" -
-    executable_type "$(readelf_headers "$tmpfile")"
+    executable_type "$tmpfile" "$(readelf_headers "$tmpfile")"
     rm "$tmpfile"
 }
 
@@ -93,7 +98,7 @@ for EXECUTABLE in $EXECUTABLES; do
     READELF_OUTPUT=$(readelf_headers "$EXECUTABLE")
     if [ "$READELF_OUTPUT" != "not_elf" ]; then
         # Verify that the executable was compiled for the target
-        TYPE=$(executable_type "$READELF_OUTPUT")
+        TYPE=$(executable_type "$EXECUTABLE" "$READELF_OUTPUT")
         if [ "$TYPE" != "$EXPECTED_TYPE" ]; then
             echo "$SCRIPT_NAME: ERROR: Unexpected executable format for '$EXECUTABLE'"
             echo
