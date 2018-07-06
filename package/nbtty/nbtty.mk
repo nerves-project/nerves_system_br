@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-NBTTY_VERSION = v0.3.2
+NBTTY_VERSION = v0.4.0
 NBTTY_SITE = $(call github,fhunleth,nbtty,$(NBTTY_VERSION))
 NBTTY_LICENSE = GPL-2.0+
 NBTTY_LICENSE_FILES = COPYING
