@@ -1,5 +1,27 @@
 # Changelog
 
+## v1.3.1
+
+* New features
+  * erlinit 1.4.4
+  * nbtty 0.4.0
+
+* Bug fixes
+  * Removed call to 'file' from OTP release scrubbing script to get rid of a
+    warning some users were seeing.
+
+The erlinit version bump fixes the following issues:
+
+  * When running Docker on Nerves targets, Docker would report parse errors when
+    detecting filesystems due to erlinit not filling out a field. This fixes
+    that.
+  * Applications would inherit erlinit's signal mask. This caused confusion, so
+    now a default signal mask is passed on to the application.
+
+The nbtty version bump fixes an issue where exiting from Erlang wouldn't be
+detected and adds support for specifying tty files. The latter is needed for
+those wanting to use configfs to configure the gadget USB interface.
+
 ## v1.3.0
 
 * New features
