@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.2
+
+* Bug fixes
+  * Fix issue with calling readelf on shell scripts and improve error message.
+  * Include patch for QT5WebEngine parallel compile fix.
+
 ## v1.3.1
 
 * New features
