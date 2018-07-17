@@ -10,6 +10,7 @@ menuconfig BR2_PACKAGE_NERVES_CONFIG
 	select BR2_PACKAGE_BOARDID  # ID board for assigning unique names
 	select BR2_PACKAGE_HOST_FWUP # Used by Nerves packaging tools
 	select BR2_TARGET_ROOTFS_SQUASHFS # Nerves uses squashfs archives
+	select BR2_PACKAGE_RNG_TOOLS # rngd needed for cryptographic random number gen
 	help
 	  Nerves system configuration helper. This selects a set of packages
 	  used by all Nerves systems so that they're never accidentally omitted.
