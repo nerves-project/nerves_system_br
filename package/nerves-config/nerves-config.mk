@@ -9,7 +9,7 @@
 NERVES_CONFIG_SOURCE =
 NERVES_CONFIG_VERSION = 0.7
 
-NERVES_CONFIG_DEPENDENCIES = erlinit erlang host-fwup fwup ncurses nerves_heart uboot-tools boardid openssl
+NERVES_CONFIG_DEPENDENCIES = erlinit erlang host-fwup fwup ncurses nerves_heart uboot-tools boardid openssl rng-tools
 
 # This is tricky. We want the squashfs created by Buildroot to have everything
 # except for the OTP release. The squashfs tools can only append to
