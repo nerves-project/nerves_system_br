@@ -1,0 +1,43 @@
+From 88e40f01a9d14a6e2e0803ca15bf3363ca3f8099 Mon Sep 17 00:00:00 2001
+From: Romain Naour <romain.naour@gmail.com>
+Date: Tue, 29 May 2018 23:52:56 +0200
+Subject: [PATCH] toolchain-external: add gcc 8 entry
+
+This patch allows to use an external toolchain based on gcc 8.
+
+Signed-off-by: Romain Naour <romain.naour@gmail.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+---
+ .../toolchain-external/toolchain-external-custom/Config.in.options  | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/toolchain/toolchain-external/toolchain-external-custom/Config.in.options b/toolchain/toolchain-external/toolchain-external-custom/Config.in.options
+index 65d94d0..5261165 100644
+--- a/toolchain/toolchain-external/toolchain-external-custom/Config.in.options
++++ b/toolchain/toolchain-external/toolchain-external-custom/Config.in.options
+@@ -27,6 +27,7 @@ config BR2_TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX
+ 
+ choice
+ 	bool "External toolchain gcc version"
++	default BR2_TOOLCHAIN_EXTERNAL_GCC_8   if BR2_ARCH_NEEDS_GCC_AT_LEAST_8
+ 	default BR2_TOOLCHAIN_EXTERNAL_GCC_7   if BR2_ARCH_NEEDS_GCC_AT_LEAST_7
+ 	default BR2_TOOLCHAIN_EXTERNAL_GCC_6   if BR2_ARCH_NEEDS_GCC_AT_LEAST_6
+ 	default BR2_TOOLCHAIN_EXTERNAL_GCC_5   if BR2_ARCH_NEEDS_GCC_AT_LEAST_5
+@@ -37,8 +38,13 @@ choice
+ 	  Set to the gcc version that is used by your external
+ 	  toolchain.
+ 
++config BR2_TOOLCHAIN_EXTERNAL_GCC_8
++	bool "8.x"
++	select BR2_TOOLCHAIN_GCC_AT_LEAST_8
++
+ config BR2_TOOLCHAIN_EXTERNAL_GCC_7
+ 	bool "7.x"
++	depends on !BR2_ARCH_NEEDS_GCC_AT_LEAST_8
+ 	select BR2_TOOLCHAIN_GCC_AT_LEAST_7
+ 
+ config BR2_TOOLCHAIN_EXTERNAL_GCC_6
+-- 
+2.7.4
+
