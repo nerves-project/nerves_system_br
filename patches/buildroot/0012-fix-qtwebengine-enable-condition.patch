@@ -1,4 +1,4 @@
-From 6b81bbaad8f52f4915616574aedeb0a67ae8e5b4 Mon Sep 17 00:00:00 2001
+From 594c4132082d35125c2a787ffa0b778ac4438ec0 Mon Sep 17 00:00:00 2001
 From: David Barbion <david.barbion@ext.leroymerlin.fr>
 Date: Thu, 7 Jun 2018 15:45:28 +0200
 Subject: [PATCH] fix qtwebengine enable condition
