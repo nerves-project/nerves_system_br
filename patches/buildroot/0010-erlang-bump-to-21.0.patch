@@ -1,18 +1,18 @@
-From 096578cd1c34057fc598525930d1cdbe98e4ec3d Mon Sep 17 00:00:00 2001
+From 196adbf7e41b946c414e1060b240588909fb1a25 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 7 Jul 2017 18:23:51 -0400
 Subject: [PATCH] erlang: bump to 21.0
 
 ---
- ...d-instruct-libatomic_ops-we-do-require-CA.patch | 37 +++++++++++-----------
- ...ts-emulator-reorder-inclued-headers-paths.patch | 14 +++++---
- ...-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch |  8 ++---
- package/erlang/erlang.hash                         |  6 ++--
- package/erlang/erlang.mk                           | 22 ++++++++-----
+ ...truct-libatomic_ops-we-do-require-CA.patch | 37 ++++++++++---------
+ ...ulator-reorder-inclued-headers-paths.patch | 14 ++++---
+ ...-with-LDLIBS-instead-of-LIBS-for-DED.patch |  8 ++--
+ package/erlang/erlang.hash                    |  6 +--
+ package/erlang/erlang.mk                      | 22 +++++++----
  5 files changed, 48 insertions(+), 39 deletions(-)
 
 diff --git a/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
-index 8e40143..ccb1e84 100644
+index 8e401430fe..ccb1e8432f 100644
 --- a/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 +++ b/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 @@ -1,4 +1,4 @@
@@ -82,7 +82,7 @@ index 8e40143..ccb1e84 100644
 +2.7.4
  
 diff --git a/package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
-index c17eefc..a2cecfb 100644
+index c17eefc2a1..a2cecfbad2 100644
 --- a/package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
 +++ b/package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
 @@ -1,4 +1,4 @@
@@ -124,7 +124,7 @@ index c17eefc..a2cecfb 100644
 +2.7.4
  
 diff --git a/package/erlang/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
-index ad0bb6b..391b6eb 100644
+index ad0bb6b453..391b6ebac2 100644
 --- a/package/erlang/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 +++ b/package/erlang/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 @@ -1,4 +1,4 @@
@@ -159,7 +159,7 @@ index ad0bb6b..391b6eb 100644
 +2.7.4
  
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index f5ff740..1d93cdb 100644
+index f5ff74022c..e5efbf821b 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,4 +1,2 @@
@@ -168,9 +168,9 @@ index f5ff740..1d93cdb 100644
 -sha256 4e19e6c403d5255531c0b870f19511c8b8e3b080618e4f9efcb44d905935b2a1  otp_src_20.3.tar.gz
 -sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 +# sha256 locally computed
-+sha256  81ed829f829d53ce7dd7e3808eb3162ef672d52bd3ebc1ad1b6c6dafc06cc324  OTP-21.0.3.tar.gz
++sha256  8830c81042835070d72130a0df78058a5ccb8db9f93829310d93ed6e2e323e0d  OTP-21.0.4.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index b992d1c..62ea8f5 100644
+index b992d1c6c6..904f6358ef 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,21 +5,18 @@
@@ -181,7 +181,7 @@ index b992d1c..62ea8f5 100644
 -ERLANG_SITE = http://www.erlang.org/download
 -ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
 -ERLANG_DEPENDENCIES = host-erlang
-+ERLANG_VERSION = 21.0.3
++ERLANG_VERSION = 21.0.4
 +ERLANG_SITE = https://github.com/erlang/otp/archive
 +ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
 +ERLANG_DEPENDENCIES = host-erlang host-autoconf
@@ -226,5 +226,5 @@ index b992d1c..62ea8f5 100644
  $(eval $(autotools-package))
  $(eval $(host-autotools-package))
 -- 
-2.7.4
+2.17.1
 
