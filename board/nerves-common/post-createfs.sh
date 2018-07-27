@@ -32,3 +32,29 @@ cp -f $BR2_EXTERNAL_NERVES_PATH/nerves-env.sh $BASE_DIR    # Can't symlink due t
 ln -sf $BR2_EXTERNAL_NERVES_PATH/nerves.mk $BASE_DIR
 ln -sf $BR2_EXTERNAL_NERVES_PATH/scripts $BASE_DIR
 
+# If Qt was built, copy its mkspecs to staging so that they're accessible in
+# Nerves projects
+if [ -e "$BASE_DIR/host/mkspecs" ]; then
+    rm -fr "$BASE_DIR/staging/mkspecs"
+    cp -r "$BASE_DIR/host/mkspecs" "$BASE_DIR/staging"
+
+    # Replace the absolute paths to sysroot to use an environment variable
+    CANONICAL_SYSROOT=$(readlink -f "$BASE_DIR/staging")
+    find "$BASE_DIR/staging/mkspecs" -type f -exec sed -i "s^$CANONICAL_SYSROOT^\$\$\(NERVES_SDK_SYSROOT)^g" "{}" ";"
+
+    # Replace the absolute paths to the toolchain
+    CANONICAL_HOSTBIN=$(readlink -f "$BASE_DIR/host")
+    find "$BASE_DIR/staging/mkspecs" -type f -exec sed -i "s^$CANONICAL_HOSTBIN^\$\$\(NERVES_TOOLCHAIN)^g" "{}" ";"
+
+    # Fixup includes that pull qmake back into the host's mkspecs
+    find "$BASE_DIR/staging/mkspecs" -type f -exec sed -i "s^\$\$\[QT_HOST_DATA\]/mkspecs^\$\$\(NERVES_SDK_SYSROOT)/mkspecs^g" "{}" ";"
+    find "$BASE_DIR/staging/mkspecs" -type f -exec sed -i "s^\$\$\[QT_HOST_DATA/get\]/mkspecs^\$\$\(NERVES_SDK_SYSROOT)/mkspecs^g" "{}" ";"
+    find "$BASE_DIR/staging/mkspecs" -type f -exec sed -i "s^\$\$\[QT_HOST_DATA/src\]/mkspecs^\$\$\(NERVES_SDK_SYSROOT)/mkspecs^g" "{}" ";"
+
+    find "$BASE_DIR/staging/mkspecs" -type f -exec sed -i "s^\$\$\[QT_INSTALL_HEADERS\]^\$\$\(NERVES_SDK_SYSROOT)/usr/include/qt5^g" "{}" ";"
+    find "$BASE_DIR/staging/mkspecs" -type f -exec sed -i "s^\$\$\[QT_INSTALL_LIBS\]^\$\$\(NERVES_SDK_SYSROOT)/usr/lib^g" "{}" ";"
+
+    find "$BASE_DIR/staging/mkspecs" -type f -exec sed -i "s^\$\$\[QMAKE_MKSPECS\]^\$\$\(NERVES_SDK_SYSROOT)/mkspecs^g" "{}" ";"
+    find "$BASE_DIR/staging/mkspecs" -type f -exec sed -i "s^\$\$\[QT_SYSROOT\]^\$\$\(NERVES_SDK_SYSROOT)^g" "{}" ";"
+
+fi

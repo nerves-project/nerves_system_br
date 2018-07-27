@@ -115,6 +115,11 @@ export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
 export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lerl_interface -lei"
 export REBAR_TARGET_ARCH=$(basename $CROSSCOMPILE)
 
+# Qt/QMake
+if [ -e "$NERVES_SDK_SYSROOT/mkspecs/devices/linux-buildroot-g++" ]; then
+    export QMAKESPEC=$NERVES_SDK_SYSROOT/mkspecs/devices/linux-buildroot-g++
+fi
+
 # Rebar naming
 export ERL_EI_LIBDIR="$ERL_INTERFACE_DIR/lib"
 export ERL_EI_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"

@@ -135,6 +135,13 @@ System.put_env("LDFLAGS", "--sysroot=#{sdk_sysroot}")
 System.put_env("ERL_CFLAGS", "-I#{erts_dir}/include -I#{erl_interface_dir}/include")
 System.put_env("ERL_LDFLAGS", "-L#{erts_dir}/lib -L#{erl_interface_dir}/lib -lerts -lerl_interface -lei")
 
+# Qt/Qmake support
+qmakespec_dir =
+  Path.join(system_path, "staging/mkspecs")
+if File.dir?(qmakespec_dir) do
+  System.put_env("QMAKESPEC", qmakespec_dir)
+end
+
 # Rebar naming
 System.put_env("REBAR_TARGET_ARCH", Path.basename(crosscompile))
 System.put_env("ERL_EI_LIBDIR", Path.join(erl_interface_dir, "lib"))
