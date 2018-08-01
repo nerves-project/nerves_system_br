@@ -1,0 +1,102 @@
+defaults: &defaults
+  docker:
+    - image: nerveshub/docker-build:alpine-3.8
+  working_directory: ~/repo
+
+remote_docker: &remote_docker
+  setup_remote_docker:
+    version: 17.09.0-ce
+
+docker_env: &docker_env
+  run:
+    name: Set docker env
+    command: |
+      REPO=nervesproject/nerves_system_br
+      
+      if [ -z "$CIRCLE_TAG" ]; then
+        SHA=$(git rev-parse --short HEAD)
+        TAG=$(echo "$SHA" | sed 's/\//_/g')
+      else
+        TAG=$(cat VERSION)
+      fi
+
+      echo "export DOCKER_REPO=$REPO" >> $BASH_ENV
+      echo "export DOCKER_TAG=$TAG" >> $BASH_ENV
+      echo "export DOCKER_PATH=support/docker/nerves_system_br" >> $BASH_ENV
+
+docker_build: &docker_build
+  run:
+    name: Build docker images
+    command: |
+      docker build -t $DOCKER_REPO:$DOCKER_TAG $DOCKER_PATH
+      docker build -t $DOCKER_REPO:latest $DOCKER_PATH
+
+docker_save: &docker_save
+  run:
+    name: Save docker images
+    command: |
+      mkdir -p /docker
+      docker save $DOCKER_REPO:$DOCKER_TAG \
+        -o /docker/$DOCKER_TAG.tar
+      docker save $DOCKER_REPO:latest \
+        -o /docker/latest.tar
+
+docker_import: &docker_import
+  run:
+    name: Import docker images
+    command: |
+      docker load \
+        -i /docker/$DOCKER_TAG.tar
+      docker load \
+        -i /docker/latest.tar
+
+docker_push: &docker_push
+  run: 
+    name: Push docker images to dockerhub
+    command: |
+      docker login -u $DOCKER_USER -p $DOCKER_PASS
+      docker push $DOCKER_REPO:$DOCKER_TAG
+      docker push $DOCKER_REPO:latest
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - <<: *remote_docker
+      - <<: *docker_env
+      - <<: *docker_build
+      - <<: *docker_save
+      - save_cache:
+          key: docker-{{ .Branch }}-{{ .Revision }}
+          paths: "/docker"
+      
+  push:
+    <<: *defaults
+    steps:
+      - checkout
+      - <<: *remote_docker
+      - <<: *docker_env
+      - restore_cache:
+          keys:
+            - docker-{{ .Branch }}-{{ .Revision }}
+      - <<: *docker_import
+      # - <<: *docker_push
+
+workflows:
+  version: 2
+  pipeline:
+      jobs:
+        - build:
+            context: org-global
+            filters:
+              tags:
+                only: /.*/
+        - push:
+            context: org-global
+            filters:
+              branches:
+                ignore: /.*/
+              tags:
+                only: /v.*/
