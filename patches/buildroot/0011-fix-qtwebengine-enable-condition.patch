@@ -1,4 +1,4 @@
-From 594c4132082d35125c2a787ffa0b778ac4438ec0 Mon Sep 17 00:00:00 2001
+From 748b55742cbd79ea44be0db3c775c81d60a97ca1 Mon Sep 17 00:00:00 2001
 From: David Barbion <david.barbion@ext.leroymerlin.fr>
 Date: Thu, 7 Jun 2018 15:45:28 +0200
 Subject: [PATCH] fix qtwebengine enable condition
@@ -10,7 +10,7 @@ Reviewed-by: Matt Weber <matthew.weber@rockwellcollins.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package/qt5/qt5webengine/Config.in b/package/qt5/qt5webengine/Config.in
-index 38486c6..744d659 100644
+index 38486c6dcf..744d659567 100644
 --- a/package/qt5/qt5webengine/Config.in
 +++ b/package/qt5/qt5webengine/Config.in
 @@ -31,7 +31,7 @@ config BR2_PACKAGE_QT5WEBENGINE
@@ -23,5 +23,5 @@ index 38486c6..744d659 100644
  	depends on BR2_USE_WCHAR # libglib2
  	depends on BR2_PACKAGE_QT5_GL_AVAILABLE # qt5declarative, qt5base-eglfs
 -- 
-2.7.4
+2.17.1
 

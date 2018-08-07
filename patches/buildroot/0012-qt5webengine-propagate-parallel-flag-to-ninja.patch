@@ -1,4 +1,4 @@
-From 932b55781e8b976174b60649f55f94c1348a109f Mon Sep 17 00:00:00 2001
+From 0ab0be53c11c8cc86e7438ebb80293ea0d043ef9 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ga=C3=ABl=20PORTAY?= <gael.portay@savoirfairelinux.com>
 Date: Fri, 29 Jun 2018 10:35:21 -0400
 Subject: [PATCH] qt5webengine: propagate parallel flag to ninja
@@ -55,7 +55,7 @@ Signed-off-by: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/package/qt5/qt5webengine/qt5webengine.mk b/package/qt5/qt5webengine/qt5webengine.mk
-index e527e6b..986ed0e 100644
+index e527e6bc36..986ed0ec79 100644
 --- a/package/qt5/qt5webengine/qt5webengine.mk
 +++ b/package/qt5/qt5webengine/qt5webengine.mk
 @@ -48,6 +48,8 @@ define QT5WEBENGINE_PYTHON2_SYMLINK
@@ -68,5 +68,5 @@ index e527e6b..986ed0e 100644
  define QT5WEBENGINE_CREATE_HOST_PKG_CONFIG
  	sed s%@HOST_DIR@%$(HOST_DIR)%g $(QT5WEBENGINE_PKGDIR)/host-pkg-config.in > $(@D)/host-bin/host-pkg-config
 -- 
-2.7.4
+2.17.1
 

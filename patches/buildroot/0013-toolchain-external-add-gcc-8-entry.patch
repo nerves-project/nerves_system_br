@@ -1,4 +1,4 @@
-From bea61734330a6dc4520147e2af4f92339cfdf72a Mon Sep 17 00:00:00 2001
+From 8a95a804eb245de973d6b9c0856613397e867a67 Mon Sep 17 00:00:00 2001
 From: Romain Naour <romain.naour@gmail.com>
 Date: Tue, 29 May 2018 23:52:56 +0200
 Subject: [PATCH] toolchain-external: add gcc 8 entry
@@ -9,11 +9,11 @@ Signed-off-by: Romain Naour <romain.naour@gmail.com>
 Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 Signed-off-by: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 ---
- .../toolchain-external/toolchain-external-custom/Config.in.options  | 6 ++++++
+ .../toolchain-external-custom/Config.in.options             | 6 ++++++
  1 file changed, 6 insertions(+)
 
 diff --git a/toolchain/toolchain-external/toolchain-external-custom/Config.in.options b/toolchain/toolchain-external/toolchain-external-custom/Config.in.options
-index 65d94d0..5261165 100644
+index 65d94d0adf..5261165a90 100644
 --- a/toolchain/toolchain-external/toolchain-external-custom/Config.in.options
 +++ b/toolchain/toolchain-external/toolchain-external-custom/Config.in.options
 @@ -27,6 +27,7 @@ config BR2_TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX
@@ -39,5 +39,5 @@ index 65d94d0..5261165 100644
  
  config BR2_TOOLCHAIN_EXTERNAL_GCC_6
 -- 
-2.7.4
+2.17.1
 
