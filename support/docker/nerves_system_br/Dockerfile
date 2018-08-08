@@ -13,6 +13,9 @@ ENV ERLANG_URL="https://packages.erlang-solutions.com/${ERLANG_PKG}"
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
+COPY docker-entrypoint.sh /nerves/docker-entrypoint.sh
+RUN chmod +x /nerves/docker-entrypoint.sh
+
 # Set time
 RUN ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
@@ -83,3 +86,5 @@ RUN dpkg --add-architecture i386 \
   && apt-get -q -y autoremove \
   && apt-get -q -y clean \
   && mkdir -p /nerves/build && chmod 777 /nerves/build
+
+ENTRYPOINT [ "/nerves/docker-entrypoint.sh" ]
