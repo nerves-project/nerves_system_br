@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.4.1
+
+The busybox config has been refreshed in this version but should contain no
+intentional changes from the previous version.
+
+* Bug Fixes
+  * Updated docker image to set user id and group id in entrypoint script.
+    This fixes an issue when building packages that require the user has
+    a defined user.
+
 ## v1.4.0
 
 This release adds experimental support for compiling Qt code that's inside an
