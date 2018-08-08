@@ -95,6 +95,8 @@ workflows:
                 only: /.*/
         - push:
             context: org-global
+            requires: 
+              - build
             filters:
               branches:
                 ignore: /.*/
