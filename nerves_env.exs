@@ -137,7 +137,7 @@ System.put_env("ERL_LDFLAGS", "-L#{erts_dir}/lib -L#{erl_interface_dir}/lib -ler
 
 # Qt/Qmake support
 qmakespec_dir =
-  Path.join(system_path, "staging/mkspecs")
+  Path.join(system_path, "staging/mkspecs/devices/linux-buildroot-g++")
 if File.dir?(qmakespec_dir) do
   System.put_env("QMAKESPEC", qmakespec_dir)
 end
