@@ -129,6 +129,9 @@ export ERTS_INCLUDE_DIR="$ERTS_DIR/include"
 export ERL_INTERFACE_LIB_DIR="$ERL_INTERFACE_DIR/lib"
 export ERL_INTERFACE_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
 
+# Nerves device provisioning
+export NERVES_DEVICE_PROVISION="$NERVES_SYSTEM/images/fwup-include/provision.conf"
+
 # Since it is so important that the host and target Erlang installs
 # match, check it here.
 NERVES_HOST_ERL_MAJOR_VER_RAW=$(erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell)
