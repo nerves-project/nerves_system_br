@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.4.2
+
+This release adds experimental support for Erlang/OTP 20 in systems. Official
+Nerves Systems do not use this, but it's possible to enable by creating a custom
+system, running `make menuconfig` and navigating to the Erlang options to enable
+OTP 20.  Please provide feedback if this works so we know that it is sufficient
+and worth maintaining going forward.
+
+* Package updates
+  * erlang 21.0.5 or 20.3.8.5
+  * fwup v1.2.5
+  * erlinit v1.4.5
+
+* Bug fixes
+  * Fix broken QMAKESPEC path for building Qt projects in Elixir projects
+  * Pull in the host-ncurses build patch from upstream Buildroot. This fixes the
+    root cause that triggered the Docker update in v1.4.1.
+
 ## v1.4.1
 
 The busybox config has been refreshed in this version but should contain no
