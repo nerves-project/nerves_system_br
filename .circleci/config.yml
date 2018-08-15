@@ -82,7 +82,7 @@ jobs:
           keys:
             - docker-{{ .Branch }}-{{ .Revision }}
       - <<: *docker_import
-      # - <<: *docker_push
+      - <<: *docker_push
 
 workflows:
   version: 2
