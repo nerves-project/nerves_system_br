@@ -7,7 +7,7 @@ USER root
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV ERLANG_OTP_VERSION=21.0
-ENV FWUP_VERSION=1.2.4
+ENV FWUP_VERSION=1.2.5
 ENV ERLANG_PKG='erlang-solutions_1.0_all.deb'
 ENV ERLANG_URL="https://packages.erlang-solutions.com/${ERLANG_PKG}"
 ENV LANG C.UTF-8
