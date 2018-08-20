@@ -6,6 +6,7 @@ if [[ -n "$UID" ]] && [[ "$UID" != "0" ]] && [[ -n "$GID" ]] && [[ "$GID" != "0"
   echo "UID: $UID"
   echo "GID: $GID"
 
+  groupadd -g $GID nerves
   useradd -g $GID -u $UID -m nerves
   echo "Switching user"
   su nerves
