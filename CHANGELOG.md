@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4.3
+
+* Package updates
+  * Qt 5.11.1 - Update from 5.10.1 to get more recent Chromium version
+  * erlinit v1.4.6 - Fix permissions issue when running Chromium non-root
+
 ## v1.4.2
 
 This release adds experimental support for Erlang/OTP 20 in systems. Official
