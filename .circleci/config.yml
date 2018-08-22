@@ -54,7 +54,7 @@ docker_push: &docker_push
   run: 
     name: Push docker images to dockerhub
     command: |
-      docker login -u $DOCKER_USER -p $DOCKER_PASS
+      docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
       docker push $DOCKER_REPO:$DOCKER_TAG
       docker push $DOCKER_REPO:latest
 
