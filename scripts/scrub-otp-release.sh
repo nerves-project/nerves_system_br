@@ -108,8 +108,21 @@ for EXECUTABLE in $EXECUTABLES; do
             echo "Expecting:"
             echo " $EXPECTED_TYPE"
             echo
-            echo " This file may have been compiled for the host or a different target."
-            echo " Make sure that nerves-env.sh has been sourced and rebuild to fix this."
+            echo "This file was compiled for the host or a different target and probably"
+            echo "will not work."
+            echo
+            echo "Check the following:"
+            echo
+            echo "1. Are you using a path dependency in your mix deps? If so, run"
+            echo "   'mix clean' in that directory to avoid pulling in any of its"
+            echo "   build products."
+            echo "2. Did you recently upgrade or change your Nerves system? If so,"
+            echo "   try cleaning and rebuilding this project and its deps."
+            echo "3. Are you building outside of Nerves' mix integration? If so,"
+            echo "   make sure that you've sourced 'nerves-env.sh'."
+            echo
+            echo "If you're still having trouble, please file an issue on Github"
+            echo "at https://github.com/nerves-project/nerves_system_br/issues."
             echo
             exit 1
         fi
