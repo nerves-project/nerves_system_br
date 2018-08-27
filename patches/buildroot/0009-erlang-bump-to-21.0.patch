@@ -1,4 +1,4 @@
-From e561c3649bbd2b1dffc740499ff468f9433e8749 Mon Sep 17 00:00:00 2001
+From 45b623cabbf2adfaf035e104cae2becde3cf9520 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 7 Jul 2017 18:23:51 -0400
 Subject: [PATCH] erlang: bump to 21.0
@@ -159,7 +159,7 @@ index ad0bb6b453..391b6ebac2 100644
 +2.7.4
  
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index f5ff74022c..e453d667f9 100644
+index f5ff74022c..3d66220d9f 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,4 +1,2 @@
@@ -168,9 +168,9 @@ index f5ff74022c..e453d667f9 100644
 -sha256 4e19e6c403d5255531c0b870f19511c8b8e3b080618e4f9efcb44d905935b2a1  otp_src_20.3.tar.gz
 -sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 +# sha256 locally computed
-+sha256  70124f91693364f7fd2ec65baa45c434f069a14f5aa2c18377e1c3f320f47ac5  OTP-21.0.5.tar.gz
++sha256  a7da6ad97106b5ba087394658d41174ac1123d1f017bce02fbb9e43b49676f40  OTP-21.0.6.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index b992d1c6c6..4c565513c0 100644
+index b992d1c6c6..1e5db01235 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,21 +5,18 @@
@@ -181,7 +181,7 @@ index b992d1c6c6..4c565513c0 100644
 -ERLANG_SITE = http://www.erlang.org/download
 -ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
 -ERLANG_DEPENDENCIES = host-erlang
-+ERLANG_VERSION = 21.0.5
++ERLANG_VERSION = 21.0.6
 +ERLANG_SITE = https://github.com/erlang/otp/archive
 +ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
 +ERLANG_DEPENDENCIES = host-erlang host-autoconf
