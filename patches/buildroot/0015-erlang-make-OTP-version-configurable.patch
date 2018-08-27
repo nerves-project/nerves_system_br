@@ -1,4 +1,4 @@
-From c452b3bd7a8c23a438922e074cab52251354635b Mon Sep 17 00:00:00 2001
+From 484499004c98227f98961a0bb4ddcab25632949f Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 13 Aug 2018 21:49:55 -0400
 Subject: [PATCH] erlang: make OTP version configurable
@@ -25,9 +25,9 @@ systems.
  create mode 100644 package/erlang/20.3.8.5/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  create mode 100644 package/erlang/20.3.8.5/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/20.3.8.5/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
- create mode 100644 package/erlang/21.0.5/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
- create mode 100644 package/erlang/21.0.5/0002-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/21.0.5/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+ create mode 100644 package/erlang/21.0.6/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ create mode 100644 package/erlang/21.0.6/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ create mode 100644 package/erlang/21.0.6/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 
 diff --git a/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 deleted file mode 100644
@@ -380,11 +380,11 @@ index 0000000000..ad0bb6b453
 +-- 
 +2.14.1
 +
-diff --git a/package/erlang/21.0.5/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.0.5/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+diff --git a/package/erlang/21.0.6/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.0.6/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
 index 0000000000..ccb1e8432f
 --- /dev/null
-+++ b/package/erlang/21.0.5/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
++++ b/package/erlang/21.0.6/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 @@ -0,0 +1,71 @@
 +From f6217a2d195359a1956c20d2600b59d61be8f848 Mon Sep 17 00:00:00 2001
 +From: "Yann E. MORIN" <yann.morin.1998@free.fr>
@@ -457,11 +457,11 @@ index 0000000000..ccb1e8432f
 +-- 
 +2.7.4
 +
-diff --git a/package/erlang/21.0.5/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/21.0.5/0002-erts-emulator-reorder-inclued-headers-paths.patch
+diff --git a/package/erlang/21.0.6/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/21.0.6/0002-erts-emulator-reorder-inclued-headers-paths.patch
 new file mode 100644
 index 0000000000..a2cecfbad2
 --- /dev/null
-+++ b/package/erlang/21.0.5/0002-erts-emulator-reorder-inclued-headers-paths.patch
++++ b/package/erlang/21.0.6/0002-erts-emulator-reorder-inclued-headers-paths.patch
 @@ -0,0 +1,47 @@
 +From 09b88921b947836834b62da41b18212cb92dc076 Mon Sep 17 00:00:00 2001
 +From: Romain Naour <romain.naour@openwide.fr>
@@ -510,11 +510,11 @@ index 0000000000..a2cecfbad2
 +-- 
 +2.7.4
 +
-diff --git a/package/erlang/21.0.5/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/21.0.5/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+diff --git a/package/erlang/21.0.6/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/21.0.6/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 new file mode 100644
 index 0000000000..391b6ebac2
 --- /dev/null
-+++ b/package/erlang/21.0.5/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
++++ b/package/erlang/21.0.6/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 @@ -0,0 +1,42 @@
 +From 7baac8804d9441c1bc5db1115eccd290c8b99eda Mon Sep 17 00:00:00 2001
 +From: Johan Oudinet <johan.oudinet@gmail.com>
@@ -588,15 +588,15 @@ index bf745555e8..2551eea65d 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index e453d667f9..d5e4eba148 100644
+index 3d66220d9f..03cc2853ce 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,2 +1,3 @@
  # sha256 locally computed
- sha256  70124f91693364f7fd2ec65baa45c434f069a14f5aa2c18377e1c3f320f47ac5  OTP-21.0.5.tar.gz
+ sha256  a7da6ad97106b5ba087394658d41174ac1123d1f017bce02fbb9e43b49676f40  OTP-21.0.6.tar.gz
 +sha256  a06d68aaf4884752d226410ff66547783c260bf4fc92147d60c4011465c1de24  OTP-20.3.8.5.tar.gz
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 4c565513c0..8a1992334e 100644
+index 1e5db01235..fa28841782 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,12 @@
@@ -606,7 +606,7 @@ index 4c565513c0..8a1992334e 100644
 +ifeq ($(BR2_PACKAGE_ERLANG_20),y)
 +ERLANG_VERSION = 20.3.8.5
 +else
- ERLANG_VERSION = 21.0.5
+ ERLANG_VERSION = 21.0.6
 +endif
 +
  ERLANG_SITE = https://github.com/erlang/otp/archive
