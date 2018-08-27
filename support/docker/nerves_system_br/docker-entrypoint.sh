@@ -10,7 +10,10 @@ if [[ -n "$UID" ]] && [[ "$UID" != "0" ]] && [[ -n "$GID" ]] && [[ "$GID" != "0"
   useradd -o -g $GID -u $UID -m nerves
 
   echo "Switching user"
-  su nerves
+
+  gosu nerves $@
+else
+  exec "$@"
 fi
 
-exec "$@"
+
