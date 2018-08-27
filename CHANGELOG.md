@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.4.5
+
+* Bug fixes
+  * Updated docker image with better handling for switching user
+    in the docker-entrypoint script.
+  * Updated patch for erlang 21.0.6
+
 ## v1.4.4
 
 Improved the error message presented from scripts/scrub-otp-release.sh
