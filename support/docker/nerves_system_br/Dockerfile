@@ -28,6 +28,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8 C.UTF-8/' /etc/locale.gen
 RUN dpkg --add-architecture i386 \
   && apt-get update -y -qq \
   && apt-get install -y -qq \
+    gosu \
     bzr \
     ca-certificates \
     cvs \
