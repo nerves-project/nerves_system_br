@@ -26,7 +26,7 @@ readlink_f () {
     if [[ -h "$filename" ]]; then
         readlink_f "$(readlink "$filename")"
     else
-        echo "`pwd -P`/$filename"
+        echo "$(pwd -P)/$filename"
     fi
 }
 
@@ -38,16 +38,16 @@ if [[ -z $DEFCONFIG ]]; then
 fi
 
 if [[ -z $BUILD_DIR ]]; then
-    BUILD_DIR=o/$(basename -s _defconfig $DEFCONFIG)
+    BUILD_DIR=o/$(basename -s _defconfig "$DEFCONFIG")
 fi
 
 # Create the build directory if it doesn't already exist
-mkdir -p $BUILD_DIR
+mkdir -p "$BUILD_DIR"
 
 # Normalize paths that were specified
-NERVES_DEFCONFIG=$(readlink_f $DEFCONFIG)
-NERVES_DEFCONFIG_DIR=$(dirname $NERVES_DEFCONFIG)
-NERVES_BUILD_DIR=$(readlink_f $BUILD_DIR)
+NERVES_DEFCONFIG=$(readlink_f "$DEFCONFIG")
+NERVES_DEFCONFIG_DIR=$(dirname "$NERVES_DEFCONFIG")
+NERVES_BUILD_DIR=$(readlink_f "$BUILD_DIR")
 
 if [[ ! -f $NERVES_DEFCONFIG ]]; then
     echo "ERROR: Can't find $NERVES_DEFCONFIG. Please check that it exists."
@@ -68,7 +68,7 @@ if [[ $HOST_ARCH != "x86_64" ]]; then
 fi
 
 # Determine the NERVES_SYSTEM source directory
-NERVES_SYSTEM=$(dirname $(readlink_f "${BASH_SOURCE[0]}"))
+NERVES_SYSTEM=$(dirname "$(readlink_f "${BASH_SOURCE[0]}")")
 if [[ ! -e $NERVES_SYSTEM ]]; then
     echo "ERROR: Can't determine script directory!"
     exit 1
@@ -78,7 +78,7 @@ fi
 # is required since KConfig doesn't support optional Config.in
 # files.
 if [[ ! -e $NERVES_DEFCONFIG_DIR/Config.in ]]; then
-    cat >$NERVES_DEFCONFIG_DIR/Config.in <<EOF
+    cat >"$NERVES_DEFCONFIG_DIR/Config.in" <<EOF
 # Add project-specific packages for Buildroot here
 #
 # If these are non-proprietary, please consider contributing them back to
@@ -94,7 +94,7 @@ fi
 if [[ -z $NERVES_BR_DL_DIR ]]; then
     NERVES_BR_DL_DIR=$HOME/.nerves/dl
 fi
-mkdir -p $NERVES_BR_DL_DIR
+mkdir -p "$NERVES_BR_DL_DIR"
 
 if [[ -e $HOME/.nerves/cache/buildroot ]]; then
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -109,27 +109,27 @@ fi
 
 NERVES_BR_STATE_FILE=$NERVES_SYSTEM/buildroot-$NERVES_BR_VERSION/.nerves-br-state
 NERVES_BR_EXPECTED_STATE_FILE=$BUILD_DIR/.nerves-expected-br-state
-$NERVES_SYSTEM/scripts/buildroot-state.sh $NERVES_BR_VERSION $NERVES_SYSTEM/patches > $NERVES_BR_EXPECTED_STATE_FILE
+"$NERVES_SYSTEM/scripts/buildroot-state.sh" $NERVES_BR_VERSION "$NERVES_SYSTEM/patches" > "$NERVES_BR_EXPECTED_STATE_FILE"
 
 create_buildroot_dir() {
     # Clean up any old versions of Buildroot
-    rm -fr $NERVES_SYSTEM/buildroot*
+    rm -fr "$NERVES_SYSTEM"/buildroot*
 
     # Download and extract Buildroot
-    $NERVES_SYSTEM/scripts/download-buildroot.sh $NERVES_BR_VERSION $NERVES_BR_DL_DIR $NERVES_SYSTEM
+    "$NERVES_SYSTEM/scripts/download-buildroot.sh" $NERVES_BR_VERSION "$NERVES_BR_DL_DIR" "$NERVES_SYSTEM"
 
     # Apply Nerves-specific patches
-    $NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh $NERVES_SYSTEM/buildroot $NERVES_SYSTEM/patches/buildroot
+    "$NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh" "$NERVES_SYSTEM/buildroot" "$NERVES_SYSTEM/patches/buildroot"
 
     # Symlink Buildroot's dl directory so that it can be cached between builds
-    ln -sf $NERVES_BR_DL_DIR $NERVES_SYSTEM/buildroot/dl
+    ln -sf "$NERVES_BR_DL_DIR" "$NERVES_SYSTEM/buildroot/dl"
 
-    cp $NERVES_BR_EXPECTED_STATE_FILE $NERVES_BR_STATE_FILE
+    cp "$NERVES_BR_EXPECTED_STATE_FILE" "$NERVES_BR_STATE_FILE"
 }
 
 if [[ ! -e $NERVES_BR_STATE_FILE ]]; then
     create_buildroot_dir
-elif ! diff $NERVES_BR_STATE_FILE $NERVES_BR_EXPECTED_STATE_FILE >/dev/null; then
+elif ! diff "$NERVES_BR_STATE_FILE" "$NERVES_BR_EXPECTED_STATE_FILE" >/dev/null; then
     echo "Detected a difference in the Buildroot source tree either due"
     echo "to an change in Buildroot or a change in the patches that Nerves"
     echo "applies to Buildroot. The Buildroot source tree will be updated."
@@ -138,15 +138,15 @@ elif ! diff $NERVES_BR_STATE_FILE $NERVES_BR_EXPECTED_STATE_FILE >/dev/null; the
     echo "To do this, go to $BUILD_DIR, and run 'make clean'."
     echo
     echo "Press return to acknowledge or CTRL-C to stop"
-    read
+    read -r
     create_buildroot_dir
 fi
 
 # Configure the build directory - finally!
-make -C $NERVES_SYSTEM/buildroot BR2_EXTERNAL=$NERVES_SYSTEM O=$NERVES_BUILD_DIR \
-    NERVES_DEFCONFIG_DIR=$NERVES_DEFCONFIG_DIR \
-    BR2_DEFCONFIG=$NERVES_DEFCONFIG \
-    DEFCONFIG=$NERVES_DEFCONFIG \
+make -C "$NERVES_SYSTEM/buildroot" BR2_EXTERNAL="$NERVES_SYSTEM" O="$NERVES_BUILD_DIR" \
+    NERVES_DEFCONFIG_DIR="$NERVES_DEFCONFIG_DIR" \
+    BR2_DEFCONFIG="$NERVES_DEFCONFIG" \
+    DEFCONFIG="$NERVES_DEFCONFIG" \
     defconfig
 
 echo "------------"

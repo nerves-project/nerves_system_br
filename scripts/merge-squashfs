@@ -6,7 +6,10 @@
 #
 
 set -e
+
 LC_ALL=C
+LANG=C
+export LC_ALL LANG
 
 # Account for Mac differences
 if [[ "$(uname)" = "Darwin" ]]; then
@@ -49,12 +52,12 @@ perm_to_num() {
 }
 
 owner_to_uid_gid() {
-    echo $1 | sed -e "s/\// /g"
+    echo "$1" | sed -e "s/\// /g"
 }
 
 get_path() {
     # trim the squashfs-root and escape any spaces
-    echo $* | sed -e 's/squashfs-root//' -e 's/ /\\ /g'
+    echo "$*" | sed -e 's/squashfs-root//' -e 's/ /\\ /g'
 }
 
 device_file() {
@@ -65,62 +68,64 @@ device_file() {
     # major,minor or major, minor. Remove the comma and account
     # for the optional space.
     if [[ $3 =~ ,.+ ]]; then
-        major_minor=$(echo $3 | sed -e 's/,/ /')
+        major_minor=$(echo "$3" | sed -e 's/,/ /')
         filename=$6
     else
-        major_minor="$(echo $3 | sed -e 's/,/ /') $4"
+        major_minor="$(echo "$3" | sed -e 's/,/ /') $4"
         filename=$7
     fi
 
-    echo "$(get_path $filename) ${perm:0:1} $(perm_to_num $perm) $(owner_to_uid_gid $owner) $major_minor"
+    echo "$(get_path "$filename") ${perm:0:1} $(perm_to_num "$perm") $(owner_to_uid_gid "$owner") $major_minor"
 }
 
 symlink_file() {
     # symlinks are the handled the same as files currently.
-    echo "$(get_path $6) m $(perm_to_num $1) $(owner_to_uid_gid $2)"
+    echo "$(get_path "$6") m $(perm_to_num "$1") $(owner_to_uid_gid "$2")"
 }
 
 directory_file() {
-    pathname=$(get_path $6)
+    pathname=$(get_path "$6")
     # mksquashfs doesn't support setting permissions and ownership
     # on the root directory
     if [[ ! -z $pathname ]]; then
-        echo "$pathname m $(perm_to_num $1) $(owner_to_uid_gid $2)"
+        echo "$pathname m $(perm_to_num "$1") $(owner_to_uid_gid "$2")"
     fi
 }
 
 regular_file() {
-    echo "$(get_path $6) m $(perm_to_num $1) $(owner_to_uid_gid $2)"
+    echo "$(get_path "$6") m $(perm_to_num "$1") $(owner_to_uid_gid "$2")"
 }
 
 unsquash_to_pseudofile() {
     input=$1
-    while read perms owner rest; do
+    while read -r perms owner rest; do
         case $perms in
             c*)
-                device_file $perms $owner $rest
+                device_file "$perms" "$owner" $rest
                 ;;
             b*)
-                device_file $perms $owner $rest
+                device_file "$perms" "$owner" $rest
                 ;;
             l*)
-                symlink_file $perms $owner $rest
+                symlink_file "$perms" "$owner" $rest
                 ;;
             d*)
-                directory_file $perms $owner $rest
+                directory_file "$perms" "$owner" $rest
                 ;;
             -*)
-                regular_file $perms $owner $rest
+                regular_file "$perms" "$owner" $rest
                 ;;
             *)
+                # Ignore
+                ;;
         esac
-    done < <(unsquashfs -n -ll $input)
+    done < <(unsquashfs -n -ll "$input")
 }
 
 find_to_pseudofile() {
     inputdir=$1
-    while read mode path; do
-        path=$(echo $path | sed -e "s^$inputdir^^" -e "s/ /\\\\ /g")
+    while read -r mode path; do
+        path=$(echo "$path" | sed -e "s^$inputdir^^" -e "s/ /\\\\ /g")
         if [[ ! -z $path ]]; then
             echo "$path m $mode 0 0"
         fi
@@ -136,7 +141,7 @@ readlink_f () {
     if [[ -h "$filename" ]]; then
         readlink_f "$(readlink "$filename")"
     else
-        echo "`pwd -P`/$filename"
+        echo "$(pwd -P)/$filename"
     fi
 }
 
@@ -158,8 +163,8 @@ if [[ ! -d $overlay_dir ]]; then
     exit 1
 fi
 
-workdir=`mktemp -d 2>/dev/null || mktemp -d -t 'merge-squashfs-tmp'`
-pushd $workdir >/dev/null
+workdir=$(mktemp -d 2>/dev/null || mktemp -d -t 'merge-squashfs-tmp')
+pushd "$workdir" >/dev/null
 
 unsquash_to_pseudofile "$input_squashfs" >pseudofile.in
 find_to_pseudofile "$overlay_dir" >>pseudofile.in
@@ -173,4 +178,4 @@ mksquashfs squashfs-root "$output_squashfs" -pf pseudofile -noappend -no-recover
 
 # cleanup
 popd >/dev/null
-rm -fr $workdir
+rm -fr "$workdir"
