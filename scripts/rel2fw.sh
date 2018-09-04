@@ -2,7 +2,7 @@
 set -e
 
 BASE_DIR=$(pwd)
-PROJECT_DIR=$(basename $BASE_DIR)
+PROJECT_DIR=$(basename "$BASE_DIR")
 
 SCRIPT_NAME=$0
 
@@ -87,7 +87,7 @@ if [[ ! -e "$MKSQUASHFS" ]]; then
 fi
 
 TMP_DIR=$BASE_DIR/_nerves-tmp
-rm -fr $TMP_DIR
+rm -fr "$TMP_DIR"
 
 # Fill in defaults
 [[ -z "$FW_FILENAME" ]] && FW_FILENAME=${PROJECT_DIR}.fw
@@ -104,7 +104,7 @@ if [[ ! -d "$RELEASE_DIR/lib" || ! -d "$RELEASE_DIR/releases" ]]; then
 fi
 
 # Make sure that the firmware output directories are there.
-mkdir -p $(dirname "$FW_FILENAME")
+mkdir -p "$(dirname "$FW_FILENAME")"
 
 # Update the file system bundle
 echo "Updating base firmware image with Erlang release..."
@@ -117,7 +117,7 @@ mkdir -p "$TMP_DIR/rootfs-additions/srv/erlang"
 cp -R "$RELEASE_DIR/." "$TMP_DIR/rootfs-additions/srv/erlang"
 
 # Clean up the Erlang release of all the files that we don't need.
-$NERVES_SYSTEM/scripts/scrub-otp-release.sh "$TMP_DIR/rootfs-additions/srv/erlang"
+"$NERVES_SYSTEM/scripts/scrub-otp-release.sh" "$TMP_DIR/rootfs-additions/srv/erlang"
 
 # Copy over any rootfs additions from the user
 # IMPORTANT: This must be the final step before the merge so that the user can
@@ -135,7 +135,7 @@ if [[ "$ROOTFS_ADDITIONS" ]]; then
 fi
 
 # Merge the Erlang/OTP release onto the base image
-$NERVES_SYSTEM/scripts/merge-squashfs "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs" "$TMP_DIR/rootfs-additions"
+"$NERVES_SYSTEM/scripts/merge-squashfs" "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs" "$TMP_DIR/rootfs-additions"
 
 # Build the firmware image
 echo "Building $FW_FILENAME..."
@@ -144,7 +144,7 @@ ROOTFS="$TMP_DIR/combined.squashfs" $FWUP -c -f "$FWUP_CONFIG" \
 
 if [[ ! -z "$IMG_FILENAME" ]]; then
     # Create the output directory - just in case
-    mkdir -p $(dirname "$IMG_FILENAME")
+    mkdir -p "$(dirname "$IMG_FILENAME")"
 
     # Erase the image file in case it exists from a previous build.
     # We use fwup in "programming" mode to create the raw image so it expects there

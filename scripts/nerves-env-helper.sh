@@ -24,7 +24,7 @@ if [ -e $NERVES_SYSTEM/host ]; then
     # This is a Linux Buildroot build, so use tools as
     # provided by Buildroot
     NERVES_TOOLCHAIN=$NERVES_SYSTEM/host
-    ALL_CROSSCOMPILE=`ls $NERVES_TOOLCHAIN/usr/bin/*gcc | sed -e s/-gcc//`
+    ALL_CROSSCOMPILE=$(ls "$NERVES_TOOLCHAIN"/usr/bin/*gcc | sed -e s/-gcc//)
 
     # For Buildroot builds, use the Buildroot provided versions of pkg-config
     # and perl.
@@ -34,19 +34,19 @@ if [ -e $NERVES_SYSTEM/host ]; then
 
     export PERLLIB=$NERVES_TOOLCHAIN/usr/lib/perl
 
-    pathadd $NERVES_TOOLCHAIN/usr/bin
-    pathadd $NERVES_TOOLCHAIN/usr/sbin
-    pathadd $NERVES_TOOLCHAIN/bin
-    ldlibrarypathadd $NERVES_TOOLCHAIN/usr/lib
+    pathadd "$NERVES_TOOLCHAIN/usr/bin"
+    pathadd "$NERVES_TOOLCHAIN/usr/sbin"
+    pathadd "$NERVES_TOOLCHAIN/bin"
+    ldlibrarypathadd "$NERVES_TOOLCHAIN/usr/lib"
 else
     # The user is using a prebuilt toolchain and system. Usually NERVES_TOOLCHAIN will be defined,
     # but guess it just in case it isn't.
     if [ -z $NERVES_TOOLCHAIN ]; then
         NERVES_TOOLCHAIN=$NERVES_SYSTEM/../nerves-toolchain
     fi
-    ALL_CROSSCOMPILE=`ls $NERVES_TOOLCHAIN/bin/*gcc | sed -e s/-gcc//`
+    ALL_CROSSCOMPILE=$(ls "$NERVES_TOOLCHAIN"/bin/*gcc | sed -e s/-gcc//)
 
-    pathadd $NERVES_TOOLCHAIN/bin
+    pathadd "$NERVES_TOOLCHAIN/bin"
 fi
 
 # Verify that a crosscompiler was found.
@@ -80,14 +80,14 @@ export NERVES_SDK_SYSROOT
 # Rebar environment variables
 #PLATFORM_DIR=$NERVES_ROOT/sdk/$NERVES_PLATFORM # Update when this is determined
 
-ERTS_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*`
-ERL_INTERFACE_DIR=`ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*`
+ERTS_DIR=$(ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*)
+ERL_INTERFACE_DIR=$(ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*)
 # We usually just have one crosscompiler, but the buildroot toolchain symlinks
 # to the crosscompiler, so two entries show up. The logic below picks the first
 # crosscompiler by default or the one with buildroot in its name.
-CROSSCOMPILE=`echo $ALL_CROSSCOMPILE | head -n 1`
+CROSSCOMPILE=$(echo "$ALL_CROSSCOMPILE" | head -n 1)
 for i in $ALL_CROSSCOMPILE; do
-    case `basename $i` in
+    case $(basename $i) in
         *buildroot* )
             CROSSCOMPILE=$i
             ;;
@@ -113,7 +113,7 @@ export LDFLAGS="--sysroot=$NERVES_SDK_SYSROOT"
 export STRIP=$CROSSCOMPILE-strip
 export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
 export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lerl_interface -lei"
-export REBAR_TARGET_ARCH=$(basename $CROSSCOMPILE)
+export REBAR_TARGET_ARCH="$(basename "$CROSSCOMPILE")"
 
 # Qt/QMake
 if [ -e "$NERVES_SDK_SYSROOT/mkspecs/devices/linux-buildroot-g++" ]; then
@@ -136,7 +136,7 @@ NERVES_HOST_ERL_MAJOR_VER=${NERVES_HOST_ERL_MAJOR_VER_RAW//\"}       # Trim doub
 NERVES_HOST_ERL_MAJOR_VER=${NERVES_HOST_ERL_MAJOR_VER//[[:space:]]/} # Trim whitespace
 
 # The OTP_VERSION file's location depends on where erl is located. Try both locations
-ERL_DIR=$(dirname $(which erl))
+ERL_DIR=$(dirname "$(command -v erl)")
 HOST_OTP_VERSION_PATH=$ERL_DIR/../lib/erlang/releases/$NERVES_HOST_ERL_MAJOR_VER/OTP_VERSION
 [ -e "$HOST_OTP_VERSION_PATH" ] || HOST_OTP_VERSION_PATH=$ERL_DIR/../../releases/$NERVES_HOST_ERL_MAJOR_VER/OTP_VERSION
 
@@ -159,8 +159,8 @@ if [ "$NERVES_HOST_ERL_MAJOR_VER" != "$NERVES_TARGET_ERL_MAJOR_VER" ]; then
     echo
     echo "Example:"
     echo "  Your host has Erlang OTP 20 and your target is a rpi0."
-    echo "  The latest version of `nerves_system_rpi0` is say, `v1.2.0` and it"
-    echo "  uses Erlang OTP 21. You can try downgrading a release, to `v1.1.1` where"
+    echo "  The latest version of \`nerves_system_rpi0\` is say, \`v1.2.0\` and it"
+    echo "  uses Erlang OTP 21. You can try downgrading a release, to \`v1.1.1\` where"
     echo "  the Erlang OTP version is 20."
     echo
     return 1
