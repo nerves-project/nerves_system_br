@@ -54,7 +54,7 @@ owner_to_uid_gid() {
 
 get_path() {
     # trim the squashfs-root and escape any spaces
-    echo $* | sed -e 's/squashfs-root//' | sed -e 's/ /\\ /g'
+    echo $* | sed -e 's/squashfs-root//' -e 's/ /\\ /g'
 }
 
 device_file() {
@@ -120,7 +120,7 @@ unsquash_to_pseudofile() {
 find_to_pseudofile() {
     inputdir=$1
     while read mode path; do
-        path=$(echo $path | sed -e "s^$inputdir^^" | sed -e "s/ /\\\\ /g")
+        path=$(echo $path | sed -e "s^$inputdir^^" -e "s/ /\\\\ /g")
         if [[ ! -z $path ]]; then
             echo "$path m $mode 0 0"
         fi
