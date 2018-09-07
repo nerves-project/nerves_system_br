@@ -1,4 +1,4 @@
-From 4eb7c7c03cabe6cbeb335ddfb61d324f50db1538 Mon Sep 17 00:00:00 2001
+From af674279f9571414218521ba43559f88409df84c Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 9 May 2016 13:21:56 -0400
 Subject: [PATCH] kernel-wireless-regdb: install regdb in kernel
@@ -7,12 +7,12 @@ This kernel extension makes the CONFIG_CFG80211_INTERNAL_REGDB kernel
 option work by installing a wireless regulatory database into
 net/wireless/db.txt.
 ---
- linux/Config.ext.in                                      |  8 ++++++++
- linux/linux-ext-kernel-wireless-regdb.mk                 | 12 ++++++++++++
- package/Config.in                                        |  1 +
- package/kernel-wireless-regdb/Config.in                  |  9 +++++++++
- package/kernel-wireless-regdb/kernel-wireless-regdb.hash |  2 ++
- package/kernel-wireless-regdb/kernel-wireless-regdb.mk   | 13 +++++++++++++
+ linux/Config.ext.in                                 |  8 ++++++++
+ linux/linux-ext-kernel-wireless-regdb.mk            | 12 ++++++++++++
+ package/Config.in                                   |  1 +
+ package/kernel-wireless-regdb/Config.in             |  9 +++++++++
+ .../kernel-wireless-regdb.hash                      |  2 ++
+ .../kernel-wireless-regdb/kernel-wireless-regdb.mk  | 13 +++++++++++++
  6 files changed, 45 insertions(+)
  create mode 100644 linux/linux-ext-kernel-wireless-regdb.mk
  create mode 100644 package/kernel-wireless-regdb/Config.in
@@ -20,7 +20,7 @@ net/wireless/db.txt.
  create mode 100644 package/kernel-wireless-regdb/kernel-wireless-regdb.mk
 
 diff --git a/linux/Config.ext.in b/linux/Config.ext.in
-index 2ce507c..fd22a87 100644
+index 2ce507c2ea..fd22a87ce3 100644
 --- a/linux/Config.ext.in
 +++ b/linux/Config.ext.in
 @@ -140,4 +140,12 @@ config BR2_LINUX_KERNEL_EXT_AUFS_VERSION
@@ -38,7 +38,7 @@ index 2ce507c..fd22a87 100644
  endmenu
 diff --git a/linux/linux-ext-kernel-wireless-regdb.mk b/linux/linux-ext-kernel-wireless-regdb.mk
 new file mode 100644
-index 0000000..3cec0cd
+index 0000000000..3cec0cd9d8
 --- /dev/null
 +++ b/linux/linux-ext-kernel-wireless-regdb.mk
 @@ -0,0 +1,12 @@
@@ -55,10 +55,10 @@ index 0000000..3cec0cd
 +	cp -pf $(KERNEL_WIRELESS_REGDB_DIR)/db.txt $(LINUX_DIR)/net/wireless/db.txt
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index 8b39b10..74e0f65 100644
+index 307ecd5cf1..3b71a20818 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -1750,6 +1750,7 @@ menu "Networking applications"
+@@ -1782,6 +1782,7 @@ menu "Networking applications"
  	source "package/iw/Config.in"
  	source "package/janus-gateway/Config.in"
  	source "package/keepalived/Config.in"
@@ -68,7 +68,7 @@ index 8b39b10..74e0f65 100644
  	source "package/leafnode2/Config.in"
 diff --git a/package/kernel-wireless-regdb/Config.in b/package/kernel-wireless-regdb/Config.in
 new file mode 100644
-index 0000000..8a54a21
+index 0000000000..8a54a21e0e
 --- /dev/null
 +++ b/package/kernel-wireless-regdb/Config.in
 @@ -0,0 +1,9 @@
@@ -83,15 +83,15 @@ index 0000000..8a54a21
 +	  http://linuxwireless.org/en/developers/Regulatory
 diff --git a/package/kernel-wireless-regdb/kernel-wireless-regdb.hash b/package/kernel-wireless-regdb/kernel-wireless-regdb.hash
 new file mode 100644
-index 0000000..4163609
+index 0000000000..a04632e72c
 --- /dev/null
 +++ b/package/kernel-wireless-regdb/kernel-wireless-regdb.hash
 @@ -0,0 +1,2 @@
 +# From https://www.kernel.org/pub/software/network/wireless-regdb/sha256sums.asc
-+sha256	371eafa3b26ece916ef83aca02c4bed2e54099eb5b8c6d22d3a4358dce6535b9	wireless-regdb-2017.03.07.tar.xz
++sha256  e1dfbc3b97771373077f430c3c05082fae883145b37db5b2cfd12c56676fbe7b  wireless-regdb-2018.05.31.tar.xz
 diff --git a/package/kernel-wireless-regdb/kernel-wireless-regdb.mk b/package/kernel-wireless-regdb/kernel-wireless-regdb.mk
 new file mode 100644
-index 0000000..7da7f9e
+index 0000000000..7da7f9eac7
 --- /dev/null
 +++ b/package/kernel-wireless-regdb/kernel-wireless-regdb.mk
 @@ -0,0 +1,13 @@
@@ -109,5 +109,5 @@ index 0000000..7da7f9e
 +
 +$(eval $(generic-package))
 -- 
-2.7.4
+2.17.1
 

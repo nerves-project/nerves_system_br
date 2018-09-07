@@ -1,4 +1,4 @@
-From 5a12fe27ab05425481cf4d600b18655693df4395 Mon Sep 17 00:00:00 2001
+From 8481f4cea24b1f43083bb0ef55c9279cf5516024 Mon Sep 17 00:00:00 2001
 From: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 Date: Wed, 3 Feb 2016 00:05:42 +0100
 Subject: [PATCH] Add customizable linux logo
@@ -20,13 +20,13 @@ Signed-off-by: Angelo Compagnucci <angelo.compagnucci@gmail.com>
  create mode 100644 package/customlogo/customlogo.mk
 
 diff --git a/linux/Config.ext.in b/linux/Config.ext.in
-index acc8a04..2ce507c 100644
+index acc8a04742..2ce507c2ea 100644
 --- a/linux/Config.ext.in
 +++ b/linux/Config.ext.in
-@@ -1,6 +1,15 @@
+@@ -1,5 +1,14 @@
  menu "Linux Kernel Extensions"
  
- #-------------------------------------------------------------------------------
++#-------------------------------------------------------------------------------
 +# Custom logo
 +config BR2_LINUX_KERNEL_EXT_CUSTOMLOGO
 +	select BR2_PACKAGE_CUSTOMLOGO
@@ -35,13 +35,12 @@ index acc8a04..2ce507c 100644
 +	  change linux boot logo with your own graphics.
 +	  Can be used as an early bootsplash.
 +
-+#-------------------------------------------------------------------------------
+ #-------------------------------------------------------------------------------
  # Xenomai
  config BR2_LINUX_KERNEL_EXT_XENOMAI
- 	bool "Adeos/Xenomai Real-time patch"
 diff --git a/linux/linux-ext-customlogo.mk b/linux/linux-ext-customlogo.mk
 new file mode 100644
-index 0000000..ed9cbc1
+index 0000000000..ed9cbc1caf
 --- /dev/null
 +++ b/linux/linux-ext-customlogo.mk
 @@ -0,0 +1,11 @@
@@ -57,10 +56,10 @@ index 0000000..ed9cbc1
 +	cp $(CUSTOMLOGO_DIR)/logo_linux_*.p?m $(LINUX_DIR)/drivers/video/logo
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index ecee493..8b39b10 100644
+index f5a17492c7..307ecd5cf1 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -229,6 +229,7 @@ comment "Sounds"
+@@ -232,6 +232,7 @@ comment "Sounds"
  
  comment "Themes"
  	source "package/gtk2-engines/Config.in"
@@ -70,7 +69,7 @@ index ecee493..8b39b10 100644
  
 diff --git a/package/customlogo/Config.in b/package/customlogo/Config.in
 new file mode 100644
-index 0000000..3044b14
+index 0000000000..3044b14420
 --- /dev/null
 +++ b/package/customlogo/Config.in
 @@ -0,0 +1,17 @@
@@ -93,7 +92,7 @@ index 0000000..3044b14
 +endif
 diff --git a/package/customlogo/customlogo.mk b/package/customlogo/customlogo.mk
 new file mode 100644
-index 0000000..96b8745
+index 0000000000..96b8745fea
 --- /dev/null
 +++ b/package/customlogo/customlogo.mk
 @@ -0,0 +1,25 @@
@@ -123,5 +122,5 @@ index 0000000..96b8745
 +
 +$(eval $(generic-package))
 -- 
-2.7.4
+2.17.1
 
