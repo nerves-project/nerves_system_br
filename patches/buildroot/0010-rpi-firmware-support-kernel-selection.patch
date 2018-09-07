@@ -1,4 +1,4 @@
-From 6a33b6f1bb5b1cf34d0ca3b0fe5c19595f9f388a Mon Sep 17 00:00:00 2001
+From aae73974ad0801ad7fc88bb5001d8e78014f3f38 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 29 Mar 2017 08:59:03 -0400
 Subject: [PATCH] rpi-firmware: support kernel selection
@@ -39,15 +39,15 @@ index 0ebbe7a4cd..2b8feaf5e2 100644
  	bool "Firmware to boot"
  	default BR2_PACKAGE_RPI_FIRMWARE_DEFAULT
 diff --git a/package/rpi-firmware/rpi-firmware.hash b/package/rpi-firmware/rpi-firmware.hash
-index 4854deae03..1b4447efd4 100644
+index d481ee524f..ef71362a02 100644
 --- a/package/rpi-firmware/rpi-firmware.hash
 +++ b/package/rpi-firmware/rpi-firmware.hash
 @@ -1,2 +1,3 @@
  # Locally computed
+ sha256 5edff641f216d2e09c75469dc2e9fc66aff290e212a1cd43ed31c499f99ea055 rpi-firmware-287af2a2be0787a5d45281d1d6183a2161c798d4.tar.gz
 +sha256 2d2775bcfecd92aec06685efb7461258e996cfbfc6ce9b8a791b73883c7fee4f rpi-firmware-b51046a2b2bb69771579a549d157205d9982f858.tar.gz
- sha256 ea451834e20136d249661e0ed7d1fdfa309249d233a387f44dd6c3b746a454c6 rpi-firmware-36f991382326907419f64917624427e59fd8e4a0.tar.gz
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index eab4c5d307..9cfa895ddc 100644
+index 853ab6ed02..820336efaa 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
 @@ -4,7 +4,12 @@
@@ -57,7 +57,7 @@ index eab4c5d307..9cfa895ddc 100644
 +ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_4),y)
 +RPI_FIRMWARE_VERSION = b51046a2b2bb69771579a549d157205d9982f858
 +else
- RPI_FIRMWARE_VERSION = 36f991382326907419f64917624427e59fd8e4a0
+ RPI_FIRMWARE_VERSION = 287af2a2be0787a5d45281d1d6183a2161c798d4
 +endif
 +
  RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
