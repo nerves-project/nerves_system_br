@@ -1,39 +1,23 @@
-From c5130cab04a7603d6cc130e7b7db022f4bdbf7a4 Mon Sep 17 00:00:00 2001
+From fbf08494b17f96904000a9f5d338765c3c8367fc Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
-Date: Fri, 7 Jul 2017 18:23:51 -0400
-Subject: [PATCH] erlang: bump to 21.0
+Date: Tue, 11 Sep 2018 11:56:50 -0400
+Subject: [PATCH] erlang: run autoconf via otp_build
 
+Erlang runs autoconf on many directories. The recommended way is to run
+otp_build.
 ---
- package/erlang/erlang.hash |  5 ++---
- package/erlang/erlang.mk   | 20 +++++++++++++-------
- 2 files changed, 15 insertions(+), 10 deletions(-)
+ package/erlang/erlang.mk | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 616c85e9ae..a3426a47b8 100644
---- a/package/erlang/erlang.hash
-+++ b/package/erlang/erlang.hash
-@@ -1,4 +1,3 @@
--# md5 from http://www.erlang.org/download/MD5, sha256 locally computed
--md5 350988f024f88e9839c3715b35e7e27a  otp_src_21.0.tar.gz
--sha256 c7d247c0cad2d2e718eaca2e2dff051136a1347a92097abf19ebf65ea2870131  otp_src_21.0.tar.gz
-+# sha256 locally computed
-+sha256  a7da6ad97106b5ba087394658d41174ac1123d1f017bce02fbb9e43b49676f40  OTP-21.0.6.tar.gz
- sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 6dd5e85e76..0b3fb5b45b 100644
+index 5a39d45a81..edcefd866a 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -5,18 +5,15 @@
- ################################################################################
- 
- # See note below when updating Erlang
--ERLANG_VERSION = 21.0
--ERLANG_SITE = http://www.erlang.org/download
--ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
+@@ -8,15 +8,12 @@
+ ERLANG_VERSION = 21.0
+ ERLANG_SITE = https://github.com/erlang/otp/archive
+ ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
 -ERLANG_DEPENDENCIES = host-erlang
-+ERLANG_VERSION = 21.0.6
-+ERLANG_SITE = https://github.com/erlang/otp/archive
-+ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
 +ERLANG_DEPENDENCIES = host-erlang host-autoconf
  
  ERLANG_LICENSE = Apache-2.0
