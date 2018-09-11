@@ -4,7 +4,7 @@
 #
 #############################################################
 
-NERVES_HEART_VERSION = v0.1.0
+NERVES_HEART_VERSION = v0.2.0
 NERVES_HEART_SITE = $(call github,nerves-project,nerves_heart,$(NERVES_HEART_VERSION))
 NERVES_HEART_LICENSE = MIT
 NERVES_HEART_LICENSE_FILES = LICENSE
