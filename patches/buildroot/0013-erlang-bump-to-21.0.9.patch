@@ -1,0 +1,400 @@
+From 85f2253a95645311191d1df7e377f2ff4a0c60ed Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 11 Sep 2018 12:32:11 -0400
+Subject: [PATCH] erlang: bump to 21.0.9
+
+---
+ ...truct-libatomic_ops-we-do-require-CA.patch | 70 +++++++++++++++++++
+ ...ulator-reorder-inclued-headers-paths.patch | 46 ++++++++++++
+ ...-with-LDLIBS-instead-of-LIBS-for-DED.patch | 42 +++++++++++
+ ...truct-libatomic_ops-we-do-require-CA.patch | 70 -------------------
+ ...ulator-reorder-inclued-headers-paths.patch | 46 ------------
+ ...-with-LDLIBS-instead-of-LIBS-for-DED.patch | 42 -----------
+ package/erlang/erlang.hash                    |  2 +-
+ package/erlang/erlang.mk                      |  2 +-
+ 8 files changed, 160 insertions(+), 160 deletions(-)
+ create mode 100644 package/erlang/21.0.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ create mode 100644 package/erlang/21.0.9/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ create mode 100644 package/erlang/21.0.9/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+ delete mode 100644 package/erlang/21.0/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ delete mode 100644 package/erlang/21.0/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ delete mode 100644 package/erlang/21.0/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+
+diff --git a/package/erlang/21.0.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.0.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+new file mode 100644
+index 0000000000..8e401430fe
+--- /dev/null
++++ b/package/erlang/21.0.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+@@ -0,0 +1,70 @@
++From 439fa2eae78a8900bda120072335be19d626498c Mon Sep 17 00:00:00 2001
++From: "Yann E. MORIN" <yann.morin.1998@free.fr>
++Date: Sun, 28 Dec 2014 23:39:40 +0100
++Subject: [PATCH] erts/ethread: instruct libatomic_ops we do require CAS
++
++We do require compare-and-swap (CAS), so we must instruct libatomic_ops
++to provide it, even if the architecture does not have instructions for
++it.
++
++For example, on ARM, LDREX is required for fast CAS. But LDREX is only
++available on ARMv6, so by default libatomic_ops will not have CAS for
++anything below, like ARMv5. But ARMv5 is always UP, so using an
++emulated CAS (that is signal-asyn-safe) is still possible (albeit much
++slower).
++
++Tell libatomic_ops to provide CAS, even if the hardware is not capable
++of it, by using emulated CAS, as per libatomic_ops dosc:
++    https://github.com/ivmai/libatomic_ops/blob/master/doc/README.txt#L28
++
++    If this is included after defining AO_REQUIRE_CAS, then the package
++    will make an attempt to emulate compare-and-swap in a way that (at
++    least on Linux) should still be async-signal-safe.
++
++Thanks go to Thomas for all this insight! :-)
++Thanks go to Frank for reporting the issue! :-)
++
++Signed-off-by: "Yann E. MORIN" <yann.morin.1998@free.fr>
++Cc: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
++Cc: Frank Hunleth <fhunleth@troodon-software.com>
++---
++ erts/include/internal/libatomic_ops/ethread.h | 1 +
++ 1 file changed, 1 insertion(+)
++
++diff --git a/erts/include/internal/libatomic_ops/ethread.h b/erts/include/internal/libatomic_ops/ethread.h
++index d65ee19..71d3598 100644
++--- a/erts/include/internal/libatomic_ops/ethread.h
+++++ b/erts/include/internal/libatomic_ops/ethread.h
++@@ -35,6 +35,7 @@
++ 
++ #define ETHR_NATIVE_IMPL__ "libatomic_ops"
++ 
+++#define AO_REQUIRE_CAS
++ #include "atomic_ops.h"
++ #include "ethr_membar.h"
++ #include "ethr_atomic.h"
++diff --git a/erts/aclocal.m4 b/erts/aclocal.m4
++index d65ee19..71d3598 100644
++--- a/erts/aclocal.m4
+++++ b/erts/aclocal.m4
++@@ -1414,7 +1414,8 @@
++ 	    	    fi;;
++ 	    esac
++ 	    ethr_have_libatomic_ops=no
++-	    AC_TRY_LINK([#include "atomic_ops.h"],
+++	    AC_TRY_LINK([#define AO_REQUIRE_CAS
+++                    #include "atomic_ops.h"],
++ 	    	        [
++ 	    	    	    volatile AO_t x;
++ 	    	    	    AO_t y;
++@@ -1455,6 +1455,7 @@
++ 	        AC_CHECK_SIZEOF(AO_t, ,
++ 	    	    	        [
++ 	    	    	    	    #include <stdio.h>
+++	    	    	    	    #define AO_REQUIRE_CAS
++ 	    	    	    	    #include "atomic_ops.h"
++ 	    	    	        ])
++ 	        AC_DEFINE_UNQUOTED(ETHR_SIZEOF_AO_T, $ac_cv_sizeof_AO_t, [Define to the size of AO_t if libatomic_ops is used])
++-- 
++1.9.1
++
+diff --git a/package/erlang/21.0.9/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/21.0.9/0002-erts-emulator-reorder-inclued-headers-paths.patch
+new file mode 100644
+index 0000000000..7a6e469dff
+--- /dev/null
++++ b/package/erlang/21.0.9/0002-erts-emulator-reorder-inclued-headers-paths.patch
+@@ -0,0 +1,46 @@
++From 85a3e5b4f65e5284e59dcdd90e92ea7d50ef6907 Mon Sep 17 00:00:00 2001
++From: Romain Naour <romain.naour@openwide.fr>
++Date: Sun, 8 Feb 2015 17:23:13 +0100
++Subject: [PATCH] erts/emulator: reorder inclued headers paths
++
++If the Perl Compatible Regular Expressions is installed on the
++host and the path to the headers is added to the CFLAGS, the
++pcre.h from the host is used instead of the one provided by
++erlang.
++
++Erlang use an old version of this file which is incompatible
++with the upstream one.
++
++Move INCLUDES before CFLAGS to use pcre.h from erlang.
++
++http://autobuild.buildroot.net/results/cbd/cbd8b54eef535f19d7d400fd269af1b3571d6143/build-end.log
++
++Signed-off-by: Romain Naour <romain.naour@openwide.fr>
++[Bernd: rebased for erlang-21.0]
++Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
++---
++ erts/emulator/Makefile.in | 4 ++--
++ 1 file changed, 2 insertions(+), 2 deletions(-)
++
++diff --git a/erts/emulator/Makefile.in b/erts/emulator/Makefile.in
++index 7145824..d079487 100644
++--- a/erts/emulator/Makefile.in
+++++ b/erts/emulator/Makefile.in
++@@ -712,7 +712,7 @@
++ # Usually the same as the default rule, but certain platforms (e.g. win32) mix
++ # different compilers
++ $(OBJDIR)/beam_emu.o: beam/beam_emu.c
++-	$(V_EMU_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
+++	$(V_EMU_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
++ 
++ $(OBJDIR)/beam_emu.S: beam/beam_emu.c
++ 	$(V_EMU_CC) -S -fverbose-asm $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
++@@ -765,7 +765,7 @@
++ # General targets
++ #
++ $(OBJDIR)/%.o: beam/%.c
++-	$(V_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
+++	$(V_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
++ 
++ $(OBJDIR)/%.o: $(TARGET)/%.c
++ 	$(V_CC) $(CFLAGS) $(INCLUDES) -Idrivers/common -c $< -o $@
+diff --git a/package/erlang/21.0.9/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/21.0.9/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+new file mode 100644
+index 0000000000..ad0bb6b453
+--- /dev/null
++++ b/package/erlang/21.0.9/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+@@ -0,0 +1,42 @@
++From 011752ec7b31e3dde376270fc65c7ee70644f6e7 Mon Sep 17 00:00:00 2001
++From: Johan Oudinet <johan.oudinet@gmail.com>
++Date: Wed, 6 Dec 2017 15:01:17 +0100
++Subject: [PATCH] Link with LDLIBS instead of LIBS for DED
++
++Fix ERL-529 by avoiding to link with libz for no reason.
++
++Signed-off-by: Johan Oudinet <johan.oudinet@gmail.com>
++---
++ lib/asn1/c_src/Makefile             | 2 +-
++ lib/runtime_tools/c_src/Makefile.in | 2 +-
++ 2 files changed, 2 insertions(+), 2 deletions(-)
++
++diff --git a/lib/asn1/c_src/Makefile b/lib/asn1/c_src/Makefile
++index 1f714df357..f7c6b8b9bc 100644
++--- a/lib/asn1/c_src/Makefile
+++++ b/lib/asn1/c_src/Makefile
++@@ -126,7 +126,7 @@ $(NIF_LIB_FILE): $(NIF_STATIC_OBJ_FILES)
++ 	$(V_RANLIB) $@
++ 
++ $(NIF_SHARED_OBJ_FILE): $(NIF_OBJ_FILES)
++-	$(V_LD) $(LDFLAGS) -o $(NIF_SHARED_OBJ_FILE) $(NIF_OBJ_FILES) $(CLIB_FLAGS) $(LIBS)
+++	$(V_LD) $(LDFLAGS) -o $(NIF_SHARED_OBJ_FILE) $(NIF_OBJ_FILES) $(CLIB_FLAGS) $(LDLIBS)
++ 
++ # ----------------------------------------------------
++ # Release Target
++diff --git a/lib/runtime_tools/c_src/Makefile.in b/lib/runtime_tools/c_src/Makefile.in
++index 4530a83aee..4e13e0d789 100644
++--- a/lib/runtime_tools/c_src/Makefile.in
+++++ b/lib/runtime_tools/c_src/Makefile.in
++@@ -95,7 +95,7 @@ $(OBJDIR)/%$(TYPEMARKER).o: %.c dyntrace_lttng.h
++ 	$(V_CC) -c -o $@ $(ALL_CFLAGS) $<
++ 
++ $(LIBDIR)/%$(TYPEMARKER).@DED_EXT@: $(OBJDIR)/%$(TYPEMARKER).o
++-	$(V_LD) $(LDFLAGS) -o $@ $^ $(LIBS)
+++	$(V_LD) $(LDFLAGS) -o $@ $^ $(LDLIBS)
++ 
++ clean:
++ 	rm -f $(TRACE_LIBS)
++-- 
++2.14.1
++
+diff --git a/package/erlang/21.0/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.0/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+deleted file mode 100644
+index 8e401430fe..0000000000
+--- a/package/erlang/21.0/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
++++ /dev/null
+@@ -1,70 +0,0 @@
+-From 439fa2eae78a8900bda120072335be19d626498c Mon Sep 17 00:00:00 2001
+-From: "Yann E. MORIN" <yann.morin.1998@free.fr>
+-Date: Sun, 28 Dec 2014 23:39:40 +0100
+-Subject: [PATCH] erts/ethread: instruct libatomic_ops we do require CAS
+-
+-We do require compare-and-swap (CAS), so we must instruct libatomic_ops
+-to provide it, even if the architecture does not have instructions for
+-it.
+-
+-For example, on ARM, LDREX is required for fast CAS. But LDREX is only
+-available on ARMv6, so by default libatomic_ops will not have CAS for
+-anything below, like ARMv5. But ARMv5 is always UP, so using an
+-emulated CAS (that is signal-asyn-safe) is still possible (albeit much
+-slower).
+-
+-Tell libatomic_ops to provide CAS, even if the hardware is not capable
+-of it, by using emulated CAS, as per libatomic_ops dosc:
+-    https://github.com/ivmai/libatomic_ops/blob/master/doc/README.txt#L28
+-
+-    If this is included after defining AO_REQUIRE_CAS, then the package
+-    will make an attempt to emulate compare-and-swap in a way that (at
+-    least on Linux) should still be async-signal-safe.
+-
+-Thanks go to Thomas for all this insight! :-)
+-Thanks go to Frank for reporting the issue! :-)
+-
+-Signed-off-by: "Yann E. MORIN" <yann.morin.1998@free.fr>
+-Cc: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+-Cc: Frank Hunleth <fhunleth@troodon-software.com>
+----
+- erts/include/internal/libatomic_ops/ethread.h | 1 +
+- 1 file changed, 1 insertion(+)
+-
+-diff --git a/erts/include/internal/libatomic_ops/ethread.h b/erts/include/internal/libatomic_ops/ethread.h
+-index d65ee19..71d3598 100644
+---- a/erts/include/internal/libatomic_ops/ethread.h
+-+++ b/erts/include/internal/libatomic_ops/ethread.h
+-@@ -35,6 +35,7 @@
+- 
+- #define ETHR_NATIVE_IMPL__ "libatomic_ops"
+- 
+-+#define AO_REQUIRE_CAS
+- #include "atomic_ops.h"
+- #include "ethr_membar.h"
+- #include "ethr_atomic.h"
+-diff --git a/erts/aclocal.m4 b/erts/aclocal.m4
+-index d65ee19..71d3598 100644
+---- a/erts/aclocal.m4
+-+++ b/erts/aclocal.m4
+-@@ -1414,7 +1414,8 @@
+- 	    	    fi;;
+- 	    esac
+- 	    ethr_have_libatomic_ops=no
+--	    AC_TRY_LINK([#include "atomic_ops.h"],
+-+	    AC_TRY_LINK([#define AO_REQUIRE_CAS
+-+                    #include "atomic_ops.h"],
+- 	    	        [
+- 	    	    	    volatile AO_t x;
+- 	    	    	    AO_t y;
+-@@ -1455,6 +1455,7 @@
+- 	        AC_CHECK_SIZEOF(AO_t, ,
+- 	    	    	        [
+- 	    	    	    	    #include <stdio.h>
+-+	    	    	    	    #define AO_REQUIRE_CAS
+- 	    	    	    	    #include "atomic_ops.h"
+- 	    	    	        ])
+- 	        AC_DEFINE_UNQUOTED(ETHR_SIZEOF_AO_T, $ac_cv_sizeof_AO_t, [Define to the size of AO_t if libatomic_ops is used])
+--- 
+-1.9.1
+-
+diff --git a/package/erlang/21.0/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/21.0/0002-erts-emulator-reorder-inclued-headers-paths.patch
+deleted file mode 100644
+index 7a6e469dff..0000000000
+--- a/package/erlang/21.0/0002-erts-emulator-reorder-inclued-headers-paths.patch
++++ /dev/null
+@@ -1,46 +0,0 @@
+-From 85a3e5b4f65e5284e59dcdd90e92ea7d50ef6907 Mon Sep 17 00:00:00 2001
+-From: Romain Naour <romain.naour@openwide.fr>
+-Date: Sun, 8 Feb 2015 17:23:13 +0100
+-Subject: [PATCH] erts/emulator: reorder inclued headers paths
+-
+-If the Perl Compatible Regular Expressions is installed on the
+-host and the path to the headers is added to the CFLAGS, the
+-pcre.h from the host is used instead of the one provided by
+-erlang.
+-
+-Erlang use an old version of this file which is incompatible
+-with the upstream one.
+-
+-Move INCLUDES before CFLAGS to use pcre.h from erlang.
+-
+-http://autobuild.buildroot.net/results/cbd/cbd8b54eef535f19d7d400fd269af1b3571d6143/build-end.log
+-
+-Signed-off-by: Romain Naour <romain.naour@openwide.fr>
+-[Bernd: rebased for erlang-21.0]
+-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
+----
+- erts/emulator/Makefile.in | 4 ++--
+- 1 file changed, 2 insertions(+), 2 deletions(-)
+-
+-diff --git a/erts/emulator/Makefile.in b/erts/emulator/Makefile.in
+-index 7145824..d079487 100644
+---- a/erts/emulator/Makefile.in
+-+++ b/erts/emulator/Makefile.in
+-@@ -712,7 +712,7 @@
+- # Usually the same as the default rule, but certain platforms (e.g. win32) mix
+- # different compilers
+- $(OBJDIR)/beam_emu.o: beam/beam_emu.c
+--	$(V_EMU_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
+-+	$(V_EMU_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
+- 
+- $(OBJDIR)/beam_emu.S: beam/beam_emu.c
+- 	$(V_EMU_CC) -S -fverbose-asm $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
+-@@ -765,7 +765,7 @@
+- # General targets
+- #
+- $(OBJDIR)/%.o: beam/%.c
+--	$(V_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
+-+	$(V_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
+- 
+- $(OBJDIR)/%.o: $(TARGET)/%.c
+- 	$(V_CC) $(CFLAGS) $(INCLUDES) -Idrivers/common -c $< -o $@
+diff --git a/package/erlang/21.0/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/21.0/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+deleted file mode 100644
+index ad0bb6b453..0000000000
+--- a/package/erlang/21.0/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
++++ /dev/null
+@@ -1,42 +0,0 @@
+-From 011752ec7b31e3dde376270fc65c7ee70644f6e7 Mon Sep 17 00:00:00 2001
+-From: Johan Oudinet <johan.oudinet@gmail.com>
+-Date: Wed, 6 Dec 2017 15:01:17 +0100
+-Subject: [PATCH] Link with LDLIBS instead of LIBS for DED
+-
+-Fix ERL-529 by avoiding to link with libz for no reason.
+-
+-Signed-off-by: Johan Oudinet <johan.oudinet@gmail.com>
+----
+- lib/asn1/c_src/Makefile             | 2 +-
+- lib/runtime_tools/c_src/Makefile.in | 2 +-
+- 2 files changed, 2 insertions(+), 2 deletions(-)
+-
+-diff --git a/lib/asn1/c_src/Makefile b/lib/asn1/c_src/Makefile
+-index 1f714df357..f7c6b8b9bc 100644
+---- a/lib/asn1/c_src/Makefile
+-+++ b/lib/asn1/c_src/Makefile
+-@@ -126,7 +126,7 @@ $(NIF_LIB_FILE): $(NIF_STATIC_OBJ_FILES)
+- 	$(V_RANLIB) $@
+- 
+- $(NIF_SHARED_OBJ_FILE): $(NIF_OBJ_FILES)
+--	$(V_LD) $(LDFLAGS) -o $(NIF_SHARED_OBJ_FILE) $(NIF_OBJ_FILES) $(CLIB_FLAGS) $(LIBS)
+-+	$(V_LD) $(LDFLAGS) -o $(NIF_SHARED_OBJ_FILE) $(NIF_OBJ_FILES) $(CLIB_FLAGS) $(LDLIBS)
+- 
+- # ----------------------------------------------------
+- # Release Target
+-diff --git a/lib/runtime_tools/c_src/Makefile.in b/lib/runtime_tools/c_src/Makefile.in
+-index 4530a83aee..4e13e0d789 100644
+---- a/lib/runtime_tools/c_src/Makefile.in
+-+++ b/lib/runtime_tools/c_src/Makefile.in
+-@@ -95,7 +95,7 @@ $(OBJDIR)/%$(TYPEMARKER).o: %.c dyntrace_lttng.h
+- 	$(V_CC) -c -o $@ $(ALL_CFLAGS) $<
+- 
+- $(LIBDIR)/%$(TYPEMARKER).@DED_EXT@: $(OBJDIR)/%$(TYPEMARKER).o
+--	$(V_LD) $(LDFLAGS) -o $@ $^ $(LIBS)
+-+	$(V_LD) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+- 
+- clean:
+- 	rm -f $(TRACE_LIBS)
+--- 
+-2.14.1
+-
+diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
+index 0587c9df01..c471280387 100644
+--- a/package/erlang/erlang.hash
++++ b/package/erlang/erlang.hash
+@@ -1,4 +1,4 @@
+ # sha256 locally computed
+-sha256 c7d247c0cad2d2e718eaca2e2dff051136a1347a92097abf19ebf65ea2870131  OTP-21.0.tar.gz
++sha256 fbbd21358ddcf657b3125db636ef2260d421f5024ff9b4ad03c5e690651ec0dd  OTP-21.0.9.tar.gz
+ sha256 a06d68aaf4884752d226410ff66547783c260bf4fc92147d60c4011465c1de24  OTP-20.3.8.5.tar.gz
+ sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
+diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
+index 58aa41f76a..fbbe8a2dbc 100644
+--- a/package/erlang/erlang.mk
++++ b/package/erlang/erlang.mk
+@@ -8,7 +8,7 @@
+ ifeq ($(BR2_PACKAGE_ERLANG_20),y)
+ ERLANG_VERSION = 20.3.8.5
+ else
+-ERLANG_VERSION = 21.0
++ERLANG_VERSION = 21.0.9
+ endif
+ 
+ ERLANG_SITE = https://github.com/erlang/otp/archive
+-- 
+2.17.1
+
