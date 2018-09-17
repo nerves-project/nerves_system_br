@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This helper script creates a FAT file system with the syslinux special
 # files. It should be passed the filename of the image, the size in
