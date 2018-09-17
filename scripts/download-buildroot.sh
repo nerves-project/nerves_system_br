@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #
 # Download and extract a specified version of buildroot. If the buildroot

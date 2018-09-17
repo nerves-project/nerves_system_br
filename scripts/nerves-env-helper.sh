@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Helper script to setup the Nerves environment. This shouldn't be called
 # directly. See $NERVES_SYSTEM/nerves-env.sh.

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Not using "set -e" due to watchdog clean code below (FIXME)
 
