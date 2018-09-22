@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.5.1
+
+* Package updates
+  * bborg-overlays - Update to the latest device tree overlay set for the
+    Beaglebone platforms
+  * boardid - Add preliminary support for pulling serial numbers from the
+    ATECC508A crypto chip
+
 ## v1.5.0
 
 This version updates Buildroot to 2018.08. If you are using a system with
