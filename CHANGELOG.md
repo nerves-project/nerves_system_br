@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.5.2
+
+* Package updates
+  * rpi-firmware - bump to the latest Linux 4.14.71 update to fix flaky USB on
+    the Raspberry Pi Zero.
+
 ## v1.5.1
 
 * Package updates
