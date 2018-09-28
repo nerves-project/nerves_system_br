@@ -5,4 +5,4 @@ config BR2_PACKAGE_NERVES_HEART
           Nerves Heart replaces Erlang's heart port process with one that
           supports hardware watchdogs.
 
-	  https://github.com/neres-project/nerves_heart
+	  https://github.com/nerves-project/nerves_heart
