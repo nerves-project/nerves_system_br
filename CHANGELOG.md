@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.5.3
+
+* Package updates
+  * erlang 21.1.1
+  * erlinit 1.4.7 - Fixes x86_64 NVME rootfs detection issue
+  * fwup 1.2.6
+
 ## v1.5.2
 
 * Package updates
