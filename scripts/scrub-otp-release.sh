@@ -17,14 +17,14 @@ if [ ! -d "$RELEASE_DIR" ]; then
     exit 1
 fi
 
-if [ ! -d "$RELEASE_DIR/lib" -o ! -d "$RELEASE_DIR/releases" ]; then
+if [ ! -d "$RELEASE_DIR/lib" ] || [ ! -d "$RELEASE_DIR/releases" ]; then
     echo "$SCRIPT_NAME: ERROR: Expecting '$RELEASE_DIR' to contain 'lib' and 'releases' subdirectories"
     exit 1
 fi
 
 STRIP="$CROSSCOMPILE-strip"
 READELF="$CROSSCOMPILE-readelf"
-if [ ! -e "$STRIP" -o ! -e "$READELF" ]; then
+if [ ! -e "$STRIP" ] || [ ! -e "$READELF" ]; then
     echo "$SCRIPT_NAME: ERROR: Expecting \$CROSSCOMPILE to be set. Did you source nerves-env.sh?"
     echo "  \"mix firmware\" should do this for you. Please file an issue is using \"mix\"."
     echo "  Additional information:"
