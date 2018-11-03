@@ -57,28 +57,40 @@ find "$RELEASE_DIR/releases" \( -name "*.sh" \
 # Scrub the executables
 #
 
-readelf_headers()
-{
-    if ! "$READELF" -h "$1" 2>/dev/null; then
-        echo "not_elf"
-    fi
-}
-
 executable_type()
 {
-    FILE="$1"
-    READELF_OUTPUT="$2"
+    FILE=$1
 
-    ELF_MACHINE=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Machine: +(.+)/!d; s//\1/;' | head -1)
-    ELF_FLAGS=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Flags: +(.+)/!d; s//\1/;' | head -1)
+    # Try readelf first, since it's output seems more trustworthy for executables
+    READELF_OUTPUT=$("$READELF" -h "$FILE" 2>/dev/null || true)
+    if [ "$READELF_OUTPUT" ]; then
+        ELF_MACHINE=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Machine: +(.+)/!d; s//\1/;' | head -1)
+        ELF_FLAGS=$(echo "$READELF_OUTPUT" | sed -E -e '/^  Flags: +(.+)/!d; s//\1/;' | head -1)
 
-    if [ -z "$ELF_MACHINE" ]; then
-        echo "$SCRIPT_NAME: ERROR: Didn't expect empty machine field in ELF header in $FILE." 1>&2
-        echo "   Try running '$READELF -h $FILE' and" 1>&2
-        echo "   and create an issue at https://github.com/nerves-project/nerves_system_br/issues." 1>&2
-        exit 1
+        if [ -z "$ELF_MACHINE" ]; then
+            echo "$SCRIPT_NAME: ERROR: Didn't expect empty machine field in ELF header in $FILE." 1>&2
+            echo "   Try running '$READELF -h $FILE' and" 1>&2
+            echo "   and create an issue at https://github.com/nerves-project/nerves_system_br/issues." 1>&2
+            exit 1
+        fi
+        echo "readelf:$ELF_MACHINE;$ELF_FLAGS"
+    else
+        # readelf didn't work, so try file and guess at things that will cause problems
+        FILE_OUTPUT=$(file -b -h "$FILE")
+        case "$FILE_OUTPUT" in
+            *shared*library*)
+                echo "file:$FILE_OUTPUT"
+                ;;
+
+            *x86_64*)
+                echo "file:$FILE_OUTPUT"
+                ;;
+
+            *)
+                echo "portable"
+                ;;
+        esac
     fi
-    echo "$ELF_MACHINE;$ELF_FLAGS"
 }
 
 get_expected_executable_type()
@@ -87,7 +99,7 @@ get_expected_executable_type()
     # so that we know what the `file` output should look like.
     tmpfile=$(mktemp /tmp/scrub-otp-release.XXXXXX)
     echo "int main() {}" | "$CROSSCOMPILE-gcc" -x c -o "$tmpfile" -
-    executable_type "$tmpfile" "$(readelf_headers "$tmpfile")"
+    executable_type "$tmpfile"
     rm "$tmpfile"
 }
 
@@ -95,10 +107,9 @@ EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
 EXPECTED_TYPE=$(get_expected_executable_type)
 
 for EXECUTABLE in $EXECUTABLES; do
-    READELF_OUTPUT=$(readelf_headers "$EXECUTABLE")
-    if [ "$READELF_OUTPUT" != "not_elf" ]; then
+    TYPE=$(executable_type "$EXECUTABLE")
+    if [ "$TYPE" != "portable" ]; then
         # Verify that the executable was compiled for the target
-        TYPE=$(executable_type "$EXECUTABLE" "$READELF_OUTPUT")
         if [ "$TYPE" != "$EXPECTED_TYPE" ]; then
             echo "$SCRIPT_NAME: ERROR: Unexpected executable format for '$EXECUTABLE'"
             echo
