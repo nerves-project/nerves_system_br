@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.5.4
+
+* Bug fixes
+  * OTP release scrubber has been fixed to detect libraries and executables that
+    were compiled for OSX being included in Nerves releases. This happens with
+    stale path dependency builds and can be hard to debug if you're not familiar
+    with the issue.
+
+* Package updates
+  * Buildroot 2018.08.2 - This is a security patch update to 2018.08
+  * nbtty 0.4.1 - Optionally suppress output to the console until the
+    user is availabe
+
 ## v1.5.3
 
 * Package updates
