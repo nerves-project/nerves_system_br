@@ -48,9 +48,11 @@ find "$RELEASE_DIR" -maxdepth 1 -type f -delete
 # Clean up the releases directory
 find "$RELEASE_DIR/releases" \( -name "*.sh" \
                                  -o -name "*.bat" \
+                                 -o -name "*.ps1" \
                                  -o -name "*gz" \
                                  -o -name "start.boot" \
                                  -o -name "start_clean.boot" \
+                                 -o -name "*.script" \
                                  \) -delete
 
 #
