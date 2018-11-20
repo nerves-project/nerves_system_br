@@ -16,9 +16,13 @@ if [ ! -d "$TARGET_DIR" ]; then
     exit 1
 fi
 
-# All of the Erlang libraries get included from the release (/srv/erlang), so
-# we don't need anything in here.
-rm -fr "$TARGET_DIR"/usr/lib/erlang/lib/*
+# All of the Erlang libraries get included from the release (/srv/erlang) and
+# we only support starting releases. The following lines trim out the default
+# libs and the ability to start release-less.
+rm -fr "$TARGET_DIR"/usr/lib/erlang/lib
+rm -fr "$TARGET_DIR"/usr/lib/erlang/releases
+rm -fr "$TARGET_DIR"/usr/lib/erlang/bin/start*
+rm -fr "$TARGET_DIR"/usr/lib/erlang/bin/*.boot
 
 # Remove all shell scripts. We're trying hard not to ever have to run
 # one, so this keeps us honest in the base image.
