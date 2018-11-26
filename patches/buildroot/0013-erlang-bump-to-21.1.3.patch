@@ -1,7 +1,7 @@
-From f908849f291bcdc181e132b2196e6151e1e9a19a Mon Sep 17 00:00:00 2001
+From f4fd1eac299575ac942e95f08b2c93547a8392fe Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:32:11 -0400
-Subject: [PATCH] erlang: bump to 21.1.2
+Subject: [PATCH] erlang: bump to 21.1.3
 
 ---
  ...truct-libatomic_ops-we-do-require-CA.patch | 70 -------------------
@@ -16,9 +16,9 @@ Subject: [PATCH] erlang: bump to 21.1.2
  delete mode 100644 package/erlang/21.0/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  delete mode 100644 package/erlang/21.0/0002-erts-emulator-reorder-inclued-headers-paths.patch
  delete mode 100644 package/erlang/21.0/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
- create mode 100644 package/erlang/21.1.2/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
- create mode 100644 package/erlang/21.1.2/0002-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/21.1.2/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+ create mode 100644 package/erlang/21.1.3/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ create mode 100644 package/erlang/21.1.3/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ create mode 100644 package/erlang/21.1.3/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 
 diff --git a/package/erlang/21.0/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.0/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 deleted file mode 100644
@@ -196,11 +196,11 @@ index ad0bb6b453..0000000000
 --- 
 -2.14.1
 -
-diff --git a/package/erlang/21.1.2/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.1.2/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+diff --git a/package/erlang/21.1.3/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.1.3/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
 index 0000000000..8e401430fe
 --- /dev/null
-+++ b/package/erlang/21.1.2/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
++++ b/package/erlang/21.1.3/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 @@ -0,0 +1,70 @@
 +From 439fa2eae78a8900bda120072335be19d626498c Mon Sep 17 00:00:00 2001
 +From: "Yann E. MORIN" <yann.morin.1998@free.fr>
@@ -272,11 +272,11 @@ index 0000000000..8e401430fe
 +-- 
 +1.9.1
 +
-diff --git a/package/erlang/21.1.2/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/21.1.2/0002-erts-emulator-reorder-inclued-headers-paths.patch
+diff --git a/package/erlang/21.1.3/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/21.1.3/0002-erts-emulator-reorder-inclued-headers-paths.patch
 new file mode 100644
 index 0000000000..7a6e469dff
 --- /dev/null
-+++ b/package/erlang/21.1.2/0002-erts-emulator-reorder-inclued-headers-paths.patch
++++ b/package/erlang/21.1.3/0002-erts-emulator-reorder-inclued-headers-paths.patch
 @@ -0,0 +1,46 @@
 +From 85a3e5b4f65e5284e59dcdd90e92ea7d50ef6907 Mon Sep 17 00:00:00 2001
 +From: Romain Naour <romain.naour@openwide.fr>
@@ -324,11 +324,11 @@ index 0000000000..7a6e469dff
 + 
 + $(OBJDIR)/%.o: $(TARGET)/%.c
 + 	$(V_CC) $(CFLAGS) $(INCLUDES) -Idrivers/common -c $< -o $@
-diff --git a/package/erlang/21.1.2/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/21.1.2/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+diff --git a/package/erlang/21.1.3/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/21.1.3/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 new file mode 100644
 index 0000000000..ad0bb6b453
 --- /dev/null
-+++ b/package/erlang/21.1.2/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
++++ b/package/erlang/21.1.3/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 @@ -0,0 +1,42 @@
 +From 011752ec7b31e3dde376270fc65c7ee70644f6e7 Mon Sep 17 00:00:00 2001
 +From: Johan Oudinet <johan.oudinet@gmail.com>
@@ -373,17 +373,17 @@ index 0000000000..ad0bb6b453
 +2.14.1
 +
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 0587c9df01..455d920d0a 100644
+index 0587c9df01..9eb117b49c 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,4 +1,4 @@
  # sha256 locally computed
 -sha256 c7d247c0cad2d2e718eaca2e2dff051136a1347a92097abf19ebf65ea2870131  OTP-21.0.tar.gz
-+sha256 3e3c893a4c025538c3508838b2f2f08842202449d161b755de7df08938e1e0d0  OTP-21.1.2.tar.gz
++sha256 9a447e1debed355ff78f5d502dc8259139d5aed2362037e7cca9dc9919245eca  OTP-21.1.3.tar.gz
  sha256 a06d68aaf4884752d226410ff66547783c260bf4fc92147d60c4011465c1de24  OTP-20.3.8.5.tar.gz
  sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 58aa41f76a..81288afbe8 100644
+index 2a373688f1..92f3ed6bc5 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -8,7 +8,7 @@
@@ -391,7 +391,7 @@ index 58aa41f76a..81288afbe8 100644
  ERLANG_VERSION = 20.3.8.5
  else
 -ERLANG_VERSION = 21.0
-+ERLANG_VERSION = 21.1.2
++ERLANG_VERSION = 21.1.3
  endif
  
  ERLANG_SITE = https://github.com/erlang/otp/archive
