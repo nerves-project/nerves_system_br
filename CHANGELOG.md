@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.5.5
+
+* Bug fixes
+  * Remove Busybox commands: tc, svok, and i2c tools. These weren't intended to
+    be enabled and either don't work with Nerves or have Elixir equivialents
+  * Remove Powershell and .script files from firmware for minor firmware size
+    reductions
+
+* Package updates
+  * Buildroot 2018.08.3 - This is a security/bug fix update
+  * erlang 21.1.3
+  * boardid 1.3.0 - better ATECC508A support
+
 ## v1.5.4
 
 * Bug fixes
