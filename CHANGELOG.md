@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.5.6
+
+Re-package v1.5.5 on hex.pm to fix archive errors from
+https://github.com/hexpm/hex/issues/631
+
 ## v1.5.5
 
 * Bug fixes
