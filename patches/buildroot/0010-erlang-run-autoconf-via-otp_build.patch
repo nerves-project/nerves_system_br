@@ -1,4 +1,4 @@
-From fbf08494b17f96904000a9f5d338765c3c8367fc Mon Sep 17 00:00:00 2001
+From aaaa7569fd7ea268fcafcb2097b58afe217c3892 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 11:56:50 -0400
 Subject: [PATCH] erlang: run autoconf via otp_build
@@ -10,7 +10,7 @@ otp_build.
  1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 5a39d45a81..edcefd866a 100644
+index fe9b93c1b6..45e03fa62d 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -8,15 +8,12 @@
@@ -30,7 +30,7 @@ index 5a39d45a81..edcefd866a 100644
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk
  ERLANG_EI_VSN = 3.10.3
-@@ -82,6 +79,12 @@ ifneq ($(BR2_PACKAGE_ERLANG_MEGACO),y)
+@@ -81,6 +78,12 @@ ifneq ($(BR2_PACKAGE_ERLANG_MEGACO),y)
  ERLANG_REMOVE_PACKAGES += megaco
  endif
  
@@ -43,7 +43,7 @@ index 5a39d45a81..edcefd866a 100644
  define ERLANG_REMOVE_STAGING_UNUSED
  	# Remove intermediate build products that can get copied Erlang
  	# release tools.
-@@ -123,8 +126,11 @@ define ERLANG_REMOVE_TARGET_UNUSED
+@@ -122,8 +125,11 @@ define ERLANG_REMOVE_TARGET_UNUSED
  	find $(TARGET_DIR)/usr/lib/erlang -type d -empty -delete
  endef
  

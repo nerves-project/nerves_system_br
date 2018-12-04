@@ -1,4 +1,4 @@
-From 651147c9de7eecc44bc1d1246ae92bc987678d86 Mon Sep 17 00:00:00 2001
+From 5d5105b152a06dea6b7a1b218cd02cd1dadcfda9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support version selection
@@ -554,10 +554,10 @@ index 0000000000..ad0bb6b453
 +2.14.1
 +
 diff --git a/package/erlang/Config.in b/package/erlang/Config.in
-index 75ba17086a..81970d709e 100644
+index ab87eab6ff..452b903bfd 100644
 --- a/package/erlang/Config.in
 +++ b/package/erlang/Config.in
-@@ -35,6 +35,24 @@ config BR2_PACKAGE_ERLANG
+@@ -36,6 +36,24 @@ config BR2_PACKAGE_ERLANG
  
  if BR2_PACKAGE_ERLANG
  
@@ -595,7 +595,7 @@ index 616c85e9ae..0587c9df01 100644
 +sha256 a06d68aaf4884752d226410ff66547783c260bf4fc92147d60c4011465c1de24  OTP-20.3.8.5.tar.gz
  sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index edcefd866a..58aa41f76a 100644
+index 45e03fa62d..2a373688f1 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,12 @@
