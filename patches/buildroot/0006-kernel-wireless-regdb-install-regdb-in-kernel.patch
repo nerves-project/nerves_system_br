@@ -1,4 +1,4 @@
-From af674279f9571414218521ba43559f88409df84c Mon Sep 17 00:00:00 2001
+From 1e9245d222886a63a8cd502cc067f828d957cae7 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 9 May 2016 13:21:56 -0400
 Subject: [PATCH] kernel-wireless-regdb: install regdb in kernel
@@ -7,16 +7,16 @@ This kernel extension makes the CONFIG_CFG80211_INTERNAL_REGDB kernel
 option work by installing a wireless regulatory database into
 net/wireless/db.txt.
 ---
- linux/Config.ext.in                                 |  8 ++++++++
- linux/linux-ext-kernel-wireless-regdb.mk            | 12 ++++++++++++
- package/Config.in                                   |  1 +
- package/kernel-wireless-regdb/Config.in             |  9 +++++++++
- .../kernel-wireless-regdb.hash                      |  2 ++
- .../kernel-wireless-regdb/kernel-wireless-regdb.mk  | 13 +++++++++++++
- 6 files changed, 45 insertions(+)
+ linux/Config.ext.in                                  |  8 ++++++++
+ linux/linux-ext-kernel-wireless-regdb.mk             | 12 ++++++++++++
+ package/Config.in                                    |  1 +
+ package/kernel-wireless-regdb/Config.in              |  9 +++++++++
+ .../kernel-wireless-regdb/kernel-wireless-regdb.hash |  1 +
+ .../kernel-wireless-regdb/kernel-wireless-regdb.mk   | 12 ++++++++++++
+ 6 files changed, 43 insertions(+)
  create mode 100644 linux/linux-ext-kernel-wireless-regdb.mk
  create mode 100644 package/kernel-wireless-regdb/Config.in
- create mode 100644 package/kernel-wireless-regdb/kernel-wireless-regdb.hash
+ create mode 120000 package/kernel-wireless-regdb/kernel-wireless-regdb.hash
  create mode 100644 package/kernel-wireless-regdb/kernel-wireless-regdb.mk
 
 diff --git a/linux/Config.ext.in b/linux/Config.ext.in
@@ -55,10 +55,10 @@ index 0000000000..3cec0cd9d8
 +	cp -pf $(KERNEL_WIRELESS_REGDB_DIR)/db.txt $(LINUX_DIR)/net/wireless/db.txt
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index 307ecd5cf1..3b71a20818 100644
+index 8a758dc9f6..24555bd8e7 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -1782,6 +1782,7 @@ menu "Networking applications"
+@@ -1869,6 +1869,7 @@ menu "Networking applications"
  	source "package/iw/Config.in"
  	source "package/janus-gateway/Config.in"
  	source "package/keepalived/Config.in"
@@ -82,26 +82,25 @@ index 0000000000..8a54a21e0e
 +
 +	  http://linuxwireless.org/en/developers/Regulatory
 diff --git a/package/kernel-wireless-regdb/kernel-wireless-regdb.hash b/package/kernel-wireless-regdb/kernel-wireless-regdb.hash
-new file mode 100644
-index 0000000000..a04632e72c
+new file mode 120000
+index 0000000000..2b8d905ac3
 --- /dev/null
 +++ b/package/kernel-wireless-regdb/kernel-wireless-regdb.hash
-@@ -0,0 +1,2 @@
-+# From https://www.kernel.org/pub/software/network/wireless-regdb/sha256sums.asc
-+sha256  e1dfbc3b97771373077f430c3c05082fae883145b37db5b2cfd12c56676fbe7b  wireless-regdb-2018.05.31.tar.xz
+@@ -0,0 +1 @@
++../wireless-regdb/wireless-regdb.hash
+\ No newline at end of file
 diff --git a/package/kernel-wireless-regdb/kernel-wireless-regdb.mk b/package/kernel-wireless-regdb/kernel-wireless-regdb.mk
 new file mode 100644
-index 0000000000..7da7f9eac7
+index 0000000000..21689d55f8
 --- /dev/null
 +++ b/package/kernel-wireless-regdb/kernel-wireless-regdb.mk
-@@ -0,0 +1,13 @@
+@@ -0,0 +1,12 @@
 +################################################################################
 +#
 +# kernel-wireless-regdb
 +#
 +################################################################################
 +
-+KERNEL_WIRELESS_REGDB_VERSION = 2017.03.07
 +KERNEL_WIRELESS_REGDB_SOURCE = wireless-regdb-$(WIRELESS_REGDB_VERSION).tar.xz
 +KERNEL_WIRELESS_REGDB_SITE = http://kernel.org/pub/software/network/wireless-regdb
 +KERNEL_WIRELESS_REGDB_LICENSE = ISC
