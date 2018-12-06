@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.6.0
+
+This updates Buildroot to 2018.11. Buildroot release notes are at
+http://lists.busybox.net/pipermail/buildroot/2018-December/237402.html.
+
+* Package updates
+  * Buildroot 2018.11
+  * erlang 21.1.4
+  * boardid 1.4.0 - NervesKey serial number support
+
 ## v1.5.6
 
 Re-package v1.5.5 on hex.pm to fix archive errors from
