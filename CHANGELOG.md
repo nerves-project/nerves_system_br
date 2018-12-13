@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.6.1
+
+This pulls in a pending patch in Buildroot to update the version of
+OpenSSL from 1.0.2 to 1.1.0h. This fixes what appears to be issues with
+Erlang using OpenSSL engines. It also enables Erlang crypto algorithms
+such as ed25519 that have been added in recent Erlang releases.
+
+* Package updates
+  * openssl 1.1.0h
+  * erlang 21.2
+  * libp11 0.4.9
+
 ## v1.6.0
 
 This updates Buildroot to 2018.11. Buildroot release notes are at
