@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.6.2
+
+This is a patch release. There's no reason to upgrade unless you've run into the
+issues below.
+
+* Package updates
+  * erlinit 1.4.8 - improves hostname checks to help avoid setting non-RFC 1123
+    compliant names
+  * boardid 1.5.0 - adds support for specifying parameters via
+    /etc/boardid.config
+
 ## v1.6.1
 
 This pulls in a pending patch in Buildroot to update the version of
