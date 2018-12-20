@@ -57,8 +57,6 @@ find "$TARGET_DIR" -name ct_run -exec rm "{}" ";"
 find "$TARGET_DIR" -name dialyzer -exec rm "{}" ";"
 find "$TARGET_DIR" -name erlc -exec rm "{}" ";"
 find "$TARGET_DIR" -name escript -exec rm "{}" ";"
-find "$TARGET_DIR" -name run_erl -exec rm "{}" ";"
-find "$TARGET_DIR" -name to_erl -exec rm "{}" ";"
 find "$TARGET_DIR" -name typer -exec rm "{}" ";"
 
 # Remove soft links that aren't used
