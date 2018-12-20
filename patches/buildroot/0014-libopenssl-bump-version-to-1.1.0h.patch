@@ -1,4 +1,4 @@
-From 1d139afc4135e4c4277e1aae20de97af0f9f6ab0 Mon Sep 17 00:00:00 2001
+From 18f7824d75cdc1ebc3a8d2fbf408e2b82b9753a9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 6 Dec 2018 15:18:58 -0500
 Subject: [PATCH] libopenssl: bump version to 1.1.0h
@@ -984,7 +984,7 @@ index 83fb8bd513..d0f5f0ea4f 100644
 +# License files
 +sha256 350c7817af2ef980d3f3922bc5e0bb6a9d9f6cc21e784a699bcd2a31c74a84b1 LICENSE
 diff --git a/package/libopenssl/libopenssl.mk b/package/libopenssl/libopenssl.mk
-index ca0521b229..e61cc689f6 100644
+index dc15abf66a..ad9dd05cda 100644
 --- a/package/libopenssl/libopenssl.mk
 +++ b/package/libopenssl/libopenssl.mk
 @@ -4,7 +4,7 @@
@@ -993,7 +993,7 @@ index ca0521b229..e61cc689f6 100644
  
 -LIBOPENSSL_VERSION = 1.0.2q
 +LIBOPENSSL_VERSION = 1.1.0h
- LIBOPENSSL_SITE = http://www.openssl.org/source
+ LIBOPENSSL_SITE = https://www.openssl.org/source
  LIBOPENSSL_SOURCE = openssl-$(LIBOPENSSL_VERSION).tar.gz
  LIBOPENSSL_LICENSE = OpenSSL or SSLeay
 @@ -15,11 +15,6 @@ HOST_LIBOPENSSL_DEPENDENCIES = host-zlib
