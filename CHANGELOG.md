@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.6.3
+
+This release pulls in a bug fix/security release from Buildroot and support for
+starting Erlang via the `run_erl` command so that console messages can be logged
+using standard OTP tools. Currently none of the official systems are switching
+to `run_erl`, but that may happen in the future. It's now feasible to point the
+console to `/dev/null` and not miss console messages if you need to lock down
+all unauthenticated console access.
+
+* Package updates
+  * Buildroot 2018.11.1
+  * erlinit 1.4.9
+  * boardid 1.5.1
+  * rpi-firmware - corresponds with 4.14.78. If you have a custom rpi you may
+    want to bump your kernel version especially for the RPi 3 B+ which has an
+    Ethernet reliability fix. See `nerves_system_rpi3`.
+
 ## v1.6.2
 
 This is a patch release. There's no reason to upgrade unless you've run into the
