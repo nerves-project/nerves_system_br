@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.6.4
+
+* Package updates
+  * erlang 21.2.2
+  * boardid 1.5.2
+
 ## v1.6.3
 
 This release pulls in a bug fix/security release from Buildroot and support for
