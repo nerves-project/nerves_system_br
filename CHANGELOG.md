@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.6.5
+
+* Package updates
+  * OpenSSL 1.1.1a
+
+The associated Docker image (nervesproject/nerves_system_br) now has Erlang
+21.2.2 installed on it. Erlang 21.2.2 + OpenSSL 1.1.1a enable more features with
+the `:crypto` library like ed25519 support. See the Erlang 21.2.x release notes.
+
 ## v1.6.4
 
 * Package updates
