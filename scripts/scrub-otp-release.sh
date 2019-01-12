@@ -128,8 +128,7 @@ for EXECUTABLE in $EXECUTABLES; do
             echo
             echo "1. Are you using a path dependency in your mix deps? If so, run"
             echo "   'mix clean' in that directory to avoid pulling in any of its"
-            echo "   build products. Consider adding 'build_embedded: true' to your"
-            echo "   mix.exs to keep host and target build products separate."
+            echo "   build products."
             echo
             echo "2. Did you recently upgrade to Nerves 1.3 or Distillery 2.0? Make"
             echo "   sure that your 'rel/config.exs' has 'plugin Nerves'. See"
