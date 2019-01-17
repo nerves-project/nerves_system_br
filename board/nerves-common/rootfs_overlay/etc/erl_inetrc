@@ -1,7 +1,39 @@
-%% -- ERLANG INET CONFIGURATION FILE --
-%% read and monitor the hosts file
+%%
+%% Erlang's Inet configuration file.
+%%
+%% See http://erlang.org/doc/apps/erts/inet_cfg.html
+%%
+%% The settings below control how names are resolved on Nerves devices. Erlang
+%% has its own resolver and there's a system resolver used by non-Erlang programs.
+%% Both resolvers can read from the same configuration files. If you run into an
+%% issue where DNS resolution works differently between between Erlang and a system
+%% command (e.g., `ping -c 1 nerves-project.org`), this is likely the place to
+%% start looking.
+%%
+%% To see the running configuration, run `:inet.get_rc`.
+
+%% Seed inet's hosts table with the contents of `/etc/hosts`
+%% If you need to hardcode hosts into images, add them there
+%% so that non-Erlang programs can see them as well.
 {file, hosts, "/etc/hosts"}.
-%% read and monitor nameserver config from here
-{file, resolv, "/etc/resolv.conf"}.
-%% specify lookup method
-{lookup, [file, dns, native]}.
+
+%% Resolver parameters can also be seeded from the following files, but they
+%% don't contain anything when Erlang starts in Nerves.
+%{file, resolv, "/etc/resolv.conf"}.
+%{file, nsswitch, "/etc/nsswitch.conf"}.
+
+%% Disable monitoring of `/etc/hosts` since it's on a read-only filesystem.
+{hosts_file, ""}.
+
+%% Nerves symlinks `/etc/resolv.conf` to a writable location so that it can
+%% be populated based on application configuration or DHCP responses.
+%% NOTE: The default works. Specifying anything appears to fail to monitor the file.
+%{resolv_conf, "/etc/resolv.conf"}.
+
+%% Lookup sequence:
+%%
+%%  file -> check hosts table (contents of "/etc/hosts" by default)
+%%  dns  -> use Erlang's DNS resolver
+%%
+%% If you don't want to use Erlang's DNS resolver, specify "native" instead.
+{lookup, [file, dns]}.
