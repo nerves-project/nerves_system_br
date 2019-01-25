@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.6.6
+
+* Package updates
+  * erlang 21.2.4
+  * boardid 1.5.3
+
+This release also contains some cleanup to the Erlang DNS resolver
+configuration. Previously, if the Erlang resolver failed, the system (C library)
+resolver would be tried. Since the Erlang and system resolvers were configured
+the same, this fallback to the system resolver shouldn't have worked. In the
+cleanup, the fallback to the system resolver was removed. See
+`board/nerves-common/rootfs_overlay/etc/erl_inetrc` for the new default
+configuration.
+
 ## v1.6.5
 
 * Package updates
