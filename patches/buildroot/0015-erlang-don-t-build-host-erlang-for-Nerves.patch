@@ -1,0 +1,27 @@
+From 2ad7e033bb36a7f218fe7f30675ddd3b8c5c77dd Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 6 Feb 2019 12:15:09 -0500
+Subject: [PATCH] erlang: don't build host-erlang for Nerves
+
+This saves minutes of compile time and isn't needed for Nerves since
+compilation of Erlang packages is done using mix later on.
+---
+ package/erlang/erlang.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
+index 631d500e0d..be44a51387 100644
+--- a/package/erlang/erlang.mk
++++ b/package/erlang/erlang.mk
+@@ -13,7 +13,7 @@ endif
+ 
+ ERLANG_SITE = https://github.com/erlang/otp/archive
+ ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
+-ERLANG_DEPENDENCIES = host-erlang host-autoconf
++ERLANG_DEPENDENCIES = host-autoconf
+ 
+ ERLANG_LICENSE = Apache-2.0
+ ERLANG_LICENSE_FILES = LICENSE.txt
+-- 
+2.17.1
+
