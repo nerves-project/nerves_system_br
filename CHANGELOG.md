@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.6.7
+
+* Package updates
+  * erlang 21.2.5
+  * fwup 1.3.0 - support expanding the data partition to be as large as possible
+
+With this release, a host version of Erlang is no longer built. This version of
+Erlang isn't used except for some very rare cases that don't seem to be used any
+longer. This change reduces the build time by minutes.
+
 ## v1.6.6
 
 * Package updates
