@@ -9,13 +9,13 @@ NERVES_SYSTEM=$1
 NERVES_ROOT=$1
 
 pathadd() {
-    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+    if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
         PATH="$1:$PATH"
     fi
 }
 
 ldlibrarypathadd() {
-    if [ -d "$1" ] && [[ ":$LD_LIBRARY_PATH:" != *":$1:"* ]]; then
+    if [[ -d "$1" ]] && [[ ":$LD_LIBRARY_PATH:" != *":$1:"* ]]; then
         LD_LIBRARY_PATH="$1:$LD_LIBRARY_PATH"
     fi
 }
@@ -26,7 +26,7 @@ clean_erl_output() {
     echo "$tmp"
 }
 
-if [ -e $NERVES_SYSTEM/host ]; then
+if [[ -e "$NERVES_SYSTEM/host" ]]; then
     # This is a Linux Buildroot build, so use tools as
     # provided by Buildroot
     NERVES_TOOLCHAIN=$NERVES_SYSTEM/host
@@ -47,7 +47,7 @@ if [ -e $NERVES_SYSTEM/host ]; then
 else
     # The user is using a prebuilt toolchain and system. Usually NERVES_TOOLCHAIN will be defined,
     # but guess it just in case it isn't.
-    if [ -z $NERVES_TOOLCHAIN ]; then
+    if [[ -z "$NERVES_TOOLCHAIN" ]]; then
         NERVES_TOOLCHAIN=$NERVES_SYSTEM/../nerves-toolchain
     fi
     ALL_CROSSCOMPILE=$(ls "$NERVES_TOOLCHAIN"/bin/*gcc | sed -e s/-gcc//)
@@ -56,7 +56,7 @@ else
 fi
 
 # Verify that a crosscompiler was found.
-if [ "$ALL_CROSSCOMPILE" = "" ]; then
+if [[ "$ALL_CROSSCOMPILE" = "" ]]; then
     echo "ERROR: Can't find cross-compiler."
     echo "    Is this the path to the toolchain? $NERVES_TOOLCHAIN"
     echo
@@ -70,7 +70,7 @@ NERVES_SDK_IMAGES=$NERVES_SYSTEM/images
 NERVES_SDK_SYSROOT=$NERVES_SYSTEM/staging
 
 # Check that the base buildroot image has been built
-if [ ! -d "$NERVES_SDK_IMAGES" ]; then
+if [[ ! -d "$NERVES_SDK_IMAGES" ]]; then
     echo "ERROR: It looks like the system hasn't been built!"
     echo "    Expected to find the $NERVES_SDK_IMAGES directory, but didn't."
     return 1
@@ -86,16 +86,16 @@ export NERVES_SDK_SYSROOT
 # Rebar environment variables
 #PLATFORM_DIR=$NERVES_ROOT/sdk/$NERVES_PLATFORM # Update when this is determined
 
-ERTS_DIR=$(ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/erts-*)
-ERL_INTERFACE_DIR=$(ls -d $NERVES_SDK_SYSROOT/usr/lib/erlang/lib/erl_interface-*)
+ERTS_DIR=$(ls -d "$NERVES_SDK_SYSROOT"/usr/lib/erlang/erts-*)
+ERL_INTERFACE_DIR=$(ls -d "$NERVES_SDK_SYSROOT"/usr/lib/erlang/lib/erl_interface-*)
 # We usually just have one crosscompiler, but the buildroot toolchain symlinks
 # to the crosscompiler, so two entries show up. The logic below picks the first
 # crosscompiler by default or the one with buildroot in its name.
 CROSSCOMPILE=$(echo "$ALL_CROSSCOMPILE" | head -n 1)
 for i in $ALL_CROSSCOMPILE; do
-    case $(basename $i) in
+    case $(basename "$i") in
         *buildroot* )
-            CROSSCOMPILE=$i
+            CROSSCOMPILE="$i"
             ;;
         * )
             ;;
@@ -144,15 +144,15 @@ HOST_OTP_VERSION_PATH=$(clean_erl_output "$HOST_OTP_VERSION_PATH")
 NERVES_HOST_ERL_MAJOR_VER_RAW=$(erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell)
 NERVES_HOST_ERL_MAJOR_VER=$(clean_erl_output "$NERVES_HOST_ERL_MAJOR_VER_RAW")
 if [ -e "$HOST_OTP_VERSION_PATH" ]; then
-   NERVES_HOST_ERL_VER=$(cat $HOST_OTP_VERSION_PATH)
+   NERVES_HOST_ERL_VER=$(cat "$HOST_OTP_VERSION_PATH")
 else
    # If no OTP_VERSION file, then use the major number
    NERVES_HOST_ERL_VER="$NERVES_HOST_ERL_MAJOR_VER"
 fi
 
-NERVES_TARGET_ERL_VER=$(cat $NERVES_SDK_SYSROOT/usr/lib/erlang/releases/*/OTP_VERSION)
+NERVES_TARGET_ERL_VER=$(cat "$NERVES_SDK_SYSROOT"/usr/lib/erlang/releases/*/OTP_VERSION)
 NERVES_TARGET_ERL_MAJOR_VER=${NERVES_TARGET_ERL_VER%%.*}
-if [ "$NERVES_HOST_ERL_MAJOR_VER" != "$NERVES_TARGET_ERL_MAJOR_VER" ]; then
+if [[ "$NERVES_HOST_ERL_MAJOR_VER" != "$NERVES_TARGET_ERL_MAJOR_VER" ]]; then
     echo "ERROR: Major version mismatch between host and target Erlang/OTP versions"
     echo "    Host version: $NERVES_HOST_ERL_VER"
     echo "    Target version: $NERVES_TARGET_ERL_VER"
@@ -174,7 +174,7 @@ if [ "$NERVES_HOST_ERL_MAJOR_VER" != "$NERVES_TARGET_ERL_MAJOR_VER" ]; then
     echo
     return 1
 fi
-if [ "$NERVES_HOST_ERL_VER" != "$NERVES_TARGET_ERL_VER" ]; then
+if [[ "$NERVES_HOST_ERL_VER" != "$NERVES_TARGET_ERL_VER" ]]; then
     echo "WARNING: Minor version mismatch between host and target Erlang/OTP versions"
     echo "    Host version: $NERVES_HOST_ERL_VER"
     echo "    Target version: $NERVES_TARGET_ERL_VER"
