@@ -141,13 +141,13 @@ export ERL_INTERFACE_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
 # The OTP_VERSION file's location depends on where erl is located. Ask Erlang for the path
 HOST_OTP_VERSION_PATH=$(erl -eval 'erlang:display(filename:join([code:root_dir(), "releases", erlang:system_info(otp_release), "OTP_VERSION"])), halt().' -noshell)
 HOST_OTP_VERSION_PATH=$(clean_erl_output "$HOST_OTP_VERSION_PATH")
+NERVES_HOST_ERL_MAJOR_VER_RAW=$(erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell)
+NERVES_HOST_ERL_MAJOR_VER=$(clean_erl_output "$NERVES_HOST_ERL_MAJOR_VER_RAW")
 if [ -e "$HOST_OTP_VERSION_PATH" ]; then
    NERVES_HOST_ERL_VER=$(cat $HOST_OTP_VERSION_PATH)
 else
    # If no OTP_VERSION file, then use the major number
-   NERVES_HOST_ERL_MAJOR_VER_RAW=$(erl -eval 'erlang:display(erlang:system_info(otp_release)), halt().' -noshell)
-   NERVES_HOST_ERL_MAJOR_VER=$(clean_erl_output "$NERVES_HOST_ERL_MAJOR_VER_RAW")
-   NERVES_HOST_ERL_VER=$NERVES_HOST_ERL_MAJOR_VER
+   NERVES_HOST_ERL_VER="$NERVES_HOST_ERL_MAJOR_VER"
 fi
 
 NERVES_TARGET_ERL_VER=$(cat $NERVES_SDK_SYSROOT/usr/lib/erlang/releases/*/OTP_VERSION)
