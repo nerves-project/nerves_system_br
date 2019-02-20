@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.6.8
+
+* Package updates
+  * erlang 21.2.6
+
+* Bug fixes
+  * Bump fwup version in the associated DockerFile
+  * Fix Erlang/OTP version check in dev scripts
+
 ## v1.6.7
 
 * Package updates
