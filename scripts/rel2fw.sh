@@ -86,7 +86,7 @@ if [[ ! -e "$MKSQUASHFS" ]]; then
     exit 1
 fi
 
-TMP_DIR=$BASE_DIR/_nerves-tmp
+TMP_DIR=$BASE_DIR/_build/_nerves-tmp
 rm -fr "$TMP_DIR"
 
 # Fill in defaults
