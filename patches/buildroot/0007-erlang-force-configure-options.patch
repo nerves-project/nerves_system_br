@@ -1,4 +1,4 @@
-From 4c26793b684c87974e3ac8f693a65389b09dd7a9 Mon Sep 17 00:00:00 2001
+From 574992dd25d939bbf828433c5dbd377c6147950a Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 13 Jul 2016 19:29:03 -0400
 Subject: [PATCH] erlang: force configure options

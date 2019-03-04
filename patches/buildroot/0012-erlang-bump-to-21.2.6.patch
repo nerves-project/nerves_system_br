@@ -1,4 +1,4 @@
-From 1abee10bed54f9e80f67f4f90dbe62a4415e5c4a Mon Sep 17 00:00:00 2001
+From 15e6716185b0b5dd8a5a34da5828d28193adea08 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:32:11 -0400
 Subject: [PATCH] erlang: bump to 21.2.6

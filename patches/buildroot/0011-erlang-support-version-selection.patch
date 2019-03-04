@@ -1,4 +1,4 @@
-From 5d5105b152a06dea6b7a1b218cd02cd1dadcfda9 Mon Sep 17 00:00:00 2001
+From 29f08b20bb198cde7906d0ae6b6ec70e02401e5d Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support version selection

@@ -1,4 +1,4 @@
-From 2ad7e033bb36a7f218fe7f30675ddd3b8c5c77dd Mon Sep 17 00:00:00 2001
+From 4214cb50817da2438fdddc72bb763391b0f20217 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 6 Feb 2019 12:15:09 -0500
 Subject: [PATCH] erlang: don't build host-erlang for Nerves
@@ -10,7 +10,7 @@ compilation of Erlang packages is done using mix later on.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 631d500e0d..be44a51387 100644
+index 20d9f00d7d..b7d705895b 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -13,7 +13,7 @@ endif

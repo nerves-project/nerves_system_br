@@ -1,4 +1,4 @@
-From fa78c8d03b0aaa901d36b9e906a257bac53bc8db Mon Sep 17 00:00:00 2001
+From d9369769cdbbbf3ad2873344a1a35ec97ae9cf0a Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 11:54:25 -0400
 Subject: [PATCH] erlang: switch to Github

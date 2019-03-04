@@ -1,4 +1,4 @@
-From 70c4f433509c1fe76aa313c9db8e779b2756d86d Mon Sep 17 00:00:00 2001
+From 77c916599a50204c8a675b5b5d6072f7c9622c76 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 2 Jun 2014 18:11:44 -0400
 Subject: [PATCH] libarchive: disable lz4
