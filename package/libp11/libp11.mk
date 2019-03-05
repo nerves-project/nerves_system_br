@@ -11,4 +11,6 @@ LIBP11_LICENSE_FILES = COPYING
 LIBP11_DEPENDENCIES = openssl
 LIBP11_AUTORECONF = YES
 
+LIBP11_CONF_OPTS += --with-enginesdir=/usr/lib/engines-1.1
+
 $(eval $(autotools-package))
