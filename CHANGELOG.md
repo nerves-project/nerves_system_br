@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.7.0
+
+This updates Buildroot to 2019.02. Buildroot release notes are at
+http://buildroot-busybox.2317881.n4.nabble.com/Buildroot-2019-02-released-td217410.html.
+
+* Package updates
+  * Buildroot 2019.02
+  * erlang 21.2.7
+
 ## v1.6.8
 
 * Package updates
