@@ -26,6 +26,7 @@ usage() {
     echo "  -c <fwup.conf>             Default is $NERVES_SDK_IMAGES/fwup.conf"
     echo "  -f <firmware output file>  Default is $PROJECT_DIR.fw"
     echo "  -o <image output file>     Default is $PROJECT_DIR.img"
+    echo "  -p <file priorities>       The ordering of files in the rootfs (may be specified more than once)"
     echo
     echo "Barring errors, the firmware file is always created. The raw image is only"
     echo "created if specified."
@@ -35,7 +36,18 @@ usage() {
     echo "$SCRIPT_NAME -f $PROJECT_DIR.fw -o $PROJECT_DIR.img _rel"
 }
 
-while getopts ":a:c:f:o:" opt; do
+# Create a base priority file
+#
+# Seed it with erlinit being the highest priority since we know those
+# files are guaranteed to be in the filesystem and accessed first on
+# boot.
+SQUASHFS_PRIORITIES="$TMP_DIR/squashfs.priority"
+cat > "$SQUASHFS_PRIORITIES" <<END
+sbin/init 32764
+etc/erlinit.config 32763
+END
+
+while getopts "a:c:f:o:p:" opt; do
     case $opt in
         a)
             ROOTFS_ADDITIONS="$ROOTFS_ADDITIONS $OPTARG"
@@ -48,6 +60,10 @@ while getopts ":a:c:f:o:" opt; do
             ;;
         o)
             IMG_FILENAME="$OPTARG"
+            ;;
+        p)
+            # Append priorities to the master list
+            cat "$OPTARG" >> "$SQUASHFS_PRIORITIES"
             ;;
         \?)
             echo "$SCRIPT_NAME: ERROR: Invalid option: -$OPTARG"
@@ -138,7 +154,7 @@ if [[ "$ROOTFS_ADDITIONS" ]]; then
 fi
 
 # Merge the Erlang/OTP release onto the base image
-"$NERVES_SYSTEM/scripts/merge-squashfs" "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs" "$TMP_DIR/rootfs-additions"
+"$NERVES_SYSTEM/scripts/merge-squashfs" "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs" "$TMP_DIR/rootfs-additions" "$SQUASHFS_PRIORITIES"
 
 # Build the firmware image
 echo "Building $FW_FILENAME..."
