@@ -2,7 +2,7 @@
 
 # Merge an overlay directory into a squashfs
 #
-# Usage: merge-squashfs input.squashfs output.squashfs overlay-dir
+# Usage: merge-squashfs input.squashfs output.squashfs overlay-dir squashfs-priorities
 #
 
 set -e
@@ -145,14 +145,15 @@ readlink_f () {
     fi
 }
 
-if [[ $# -ne 3 ]]; then
-    echo "Usage: merge-squashfs input.squashfs output.squashfs overlay-dir"
+if [[ $# -lt 4 ]]; then
+    echo "Usage: merge-squashfs input.squashfs output.squashfs overlay-dir squashfs_priorities"
     exit 1
 fi
 
 input_squashfs=$(readlink_f "$1")
 output_squashfs=$(readlink_f "$2")
 overlay_dir=$(readlink_f "$3")
+squashfs_priorities=$(readlink_f "$4")
 
 if [[ ! -f $input_squashfs ]]; then
     echo "Can't open $input_squashfs"
@@ -174,7 +175,7 @@ awk '!x[$1]++' pseudofile.in > pseudofile
 
 unsquashfs "$input_squashfs" >/dev/null 2>/dev/null
 cp -Rf "$overlay_dir/." "$workdir/squashfs-root"
-mksquashfs squashfs-root "$output_squashfs" -pf pseudofile -noappend -no-recovery -no-progress
+mksquashfs squashfs-root "$output_squashfs" -pf pseudofile -sort "$squashfs_priorities" -noappend -no-recovery -no-progress
 
 # cleanup
 popd >/dev/null
