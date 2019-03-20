@@ -32,13 +32,13 @@ while getopts ":a:c:f:o:" opt; do
             ROOTFS_ADDITIONS="$ROOTFS_ADDITIONS $OPTARG"
             ;;
         c)
-            FWUP_CONFIG=$OPTARG
+            FWUP_CONFIG="$OPTARG"
             ;;
         f)
-            FW_FILENAME=$OPTARG
+            FW_FILENAME="$OPTARG"
             ;;
         o)
-            IMG_FILENAME=$OPTARG
+            IMG_FILENAME="$OPTARG"
             ;;
         \?)
             echo "$SCRIPT_NAME: ERROR: Invalid option: -$OPTARG"
