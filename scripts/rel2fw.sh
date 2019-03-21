@@ -9,6 +9,15 @@ SCRIPT_NAME=$0
 # Check that we have everything that we need
 [[ -z "$NERVES_SYSTEM" ]] && { echo "$SCRIPT_NAME: Source nerves-env.sh and try again."; exit 1; }
 
+# Initialize this script's temporary directory
+TMP_DIR=$BASE_DIR/_build/_nerves-tmp
+rm -fr "$TMP_DIR"
+mkdir -p "$TMP_DIR"
+function cleanup {
+  rm -fr "$TMP_DIR"
+}
+trap cleanup EXIT
+
 usage() {
     echo "Usage: $SCRIPT_NAME [options] <Release directory>"
     echo
@@ -86,9 +95,6 @@ if [[ ! -e "$MKSQUASHFS" ]]; then
     exit 1
 fi
 
-TMP_DIR=$BASE_DIR/_build/_nerves-tmp
-rm -fr "$TMP_DIR"
-
 # Fill in defaults
 [[ -z "$FW_FILENAME" ]] && FW_FILENAME=${PROJECT_DIR}.fw
 [[ -z "$FWUP_CONFIG" ]] && FWUP_CONFIG=$NERVES_SDK_IMAGES/fwup.conf
@@ -108,9 +114,6 @@ mkdir -p "$(dirname "$FW_FILENAME")"
 
 # Update the file system bundle
 echo "Updating base firmware image with Erlang release..."
-
-# Create the directory for all of the files that "overlay" the base squashfs
-mkdir -p "$TMP_DIR/rootfs-additions"
 
 # Construct the proper path for the Erlang/OTP release
 mkdir -p "$TMP_DIR/rootfs-additions/srv/erlang"
@@ -157,5 +160,3 @@ if [[ ! -z "$IMG_FILENAME" ]]; then
     $FWUP -a -d "$IMG_FILENAME" -t complete -i "$FW_FILENAME"
 fi
 
-# Clean up
-rm -fr "$TMP_DIR"
