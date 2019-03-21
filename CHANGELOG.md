@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.7.1
+
+This release provides early access for ordering the rootfs based on the OTP init
+script's primload order. With this feature, one can order `.beam` files
+contiguously rather than distributed across the file system. This can be a boot
+performance optimization on systems with slow I/O since it allows for reads from
+the device to pull in multiple `.beam` files into memory at a time. It requires
+corresponding updates to `nerves` to pass in the order.
+
 ## v1.7.0
 
 This updates Buildroot to 2019.02. Buildroot release notes are at
