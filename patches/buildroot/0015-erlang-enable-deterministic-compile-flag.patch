@@ -1,0 +1,48 @@
+From c7840d8ae8d78f92a28853221b7413f082d95a02 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Thu, 21 Mar 2019 20:55:13 -0400
+Subject: [PATCH] erlang: enable deterministic compile flag
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ ...4-erlang-enable-deterministic-builds.patch | 28 +++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+ create mode 100644 package/erlang/21.2.7/0004-erlang-enable-deterministic-builds.patch
+
+diff --git a/package/erlang/21.2.7/0004-erlang-enable-deterministic-builds.patch b/package/erlang/21.2.7/0004-erlang-enable-deterministic-builds.patch
+new file mode 100644
+index 0000000000..1a7e66eca5
+--- /dev/null
++++ b/package/erlang/21.2.7/0004-erlang-enable-deterministic-builds.patch
+@@ -0,0 +1,28 @@
++From 3e357a561042db278d77a6da04623af5e238cecc Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Thu, 21 Mar 2019 20:49:54 -0400
++Subject: [PATCH] erlang: enable deterministic builds
++
++This adds the `+deterministic` compiler flag to the `erlc` calls to
++strip out absolute paths in compiled `.beam` files.
++
++Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
++---
++ make/otp.mk.in | 1 +
++ 1 file changed, 1 insertion(+)
++
++diff --git a/make/otp.mk.in b/make/otp.mk.in
++index fb573680c8..24acd87549 100644
++--- a/make/otp.mk.in
+++++ b/make/otp.mk.in
++@@ -108,6 +108,7 @@ ifdef BOOTSTRAP
++ else
++   ERL_COMPILE_FLAGS += +debug_info
++ endif
+++ERL_COMPILE_FLAGS += +deterministic
++ ERLC_WFLAGS = -W
++ ERLC = erlc $(ERLC_WFLAGS) $(ERLC_FLAGS)
++ ERL = erl -boot start_clean
++-- 
++2.17.1
++
+-- 
+2.17.1
+
