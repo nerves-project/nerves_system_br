@@ -1,4 +1,4 @@
-From c7840d8ae8d78f92a28853221b7413f082d95a02 Mon Sep 17 00:00:00 2001
+From 96b5a5a80903589eb962425fb3a2b906dbfdc54f Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 21 Mar 2019 20:55:13 -0400
 Subject: [PATCH] erlang: enable deterministic compile flag
@@ -7,13 +7,13 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
  ...4-erlang-enable-deterministic-builds.patch | 28 +++++++++++++++++++
  1 file changed, 28 insertions(+)
- create mode 100644 package/erlang/21.2.7/0004-erlang-enable-deterministic-builds.patch
+ create mode 100644 package/erlang/21.3.3/0004-erlang-enable-deterministic-builds.patch
 
-diff --git a/package/erlang/21.2.7/0004-erlang-enable-deterministic-builds.patch b/package/erlang/21.2.7/0004-erlang-enable-deterministic-builds.patch
+diff --git a/package/erlang/21.3.3/0004-erlang-enable-deterministic-builds.patch b/package/erlang/21.3.3/0004-erlang-enable-deterministic-builds.patch
 new file mode 100644
 index 0000000000..1a7e66eca5
 --- /dev/null
-+++ b/package/erlang/21.2.7/0004-erlang-enable-deterministic-builds.patch
++++ b/package/erlang/21.3.3/0004-erlang-enable-deterministic-builds.patch
 @@ -0,0 +1,28 @@
 +From 3e357a561042db278d77a6da04623af5e238cecc Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
