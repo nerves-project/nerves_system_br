@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.7.2
+
+This release includes a change to remove absolute paths from compiled .beam
+in OTP. This is just one of many changes needed to be able to generate the exact
+same output from the same source code. Unfortunately, other changes are needed
+(mostly removing timestamps) so at this point Nerves doesn't produce identical
+output for identical inputs.
+
+* Package updates
+  * erlang 21.3.6
+
+* Bug fixes
+  * Remove absolute paths from OTP's .beam files (enable `+deterministic`
+    compiler flag)
+
 ## v1.7.1
 
 This release provides early access for ordering the rootfs based on the OTP init
