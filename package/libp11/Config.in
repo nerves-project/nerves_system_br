@@ -1,9 +1,0 @@
-config BR2_PACKAGE_LIBP11
-	bool "libp11"
-	depends on BR2_PACKAGE_OPENSSL
-	depends on BR2_USE_MMU # fork()
-	help
-	  PKCS#11 wrapper library
-
-	  https://github.com/OpenSC/libp11
-
