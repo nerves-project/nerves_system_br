@@ -1,4 +1,4 @@
-From b57521cadd090e8e07d75bb72a97ef7d8ffda26b Mon Sep 17 00:00:00 2001
+From 1e1f6280d655a2773723eb349fa11bc00ee005d9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 29 Mar 2017 08:59:03 -0400
 Subject: [PATCH] rpi-firmware: support kernel selection
@@ -10,7 +10,7 @@ Subject: [PATCH] rpi-firmware: support kernel selection
  3 files changed, 35 insertions(+)
 
 diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
-index 0ebbe7a4cd..0c427de62c 100644
+index 0ebbe7a4cd..50f199aa16 100644
 --- a/package/rpi-firmware/Config.in
 +++ b/package/rpi-firmware/Config.in
 @@ -11,6 +11,29 @@ config BR2_PACKAGE_RPI_FIRMWARE
@@ -19,14 +19,9 @@ index 0ebbe7a4cd..0c427de62c 100644
  
 +choice
 +	bool "Linux kernel version"
-+	default BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_4
++	default BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_9
 +	help
 +	  Select firmware files for a particular Linux kernel
-+
-+config BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_4
-+	bool "linux 4.4"
-+	help
-+	  Firmware from the Linux 4.4 branch
 +
 +config BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_9
 +	bool "linux 4.9"
@@ -38,36 +33,41 @@ index 0ebbe7a4cd..0c427de62c 100644
 +	help
 +	  Firmware from the Linux 4.14 branch
 +
++config BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_19
++	bool "linux 4.19"
++	help
++	  Firmware from the Linux 4.19 branch
++
 +endchoice
 +
  choice
  	bool "Firmware to boot"
  	default BR2_PACKAGE_RPI_FIRMWARE_DEFAULT
 diff --git a/package/rpi-firmware/rpi-firmware.hash b/package/rpi-firmware/rpi-firmware.hash
-index 9988dda717..7d0faa1fc7 100644
+index d719fa6e08..5cd93394a9 100644
 --- a/package/rpi-firmware/rpi-firmware.hash
 +++ b/package/rpi-firmware/rpi-firmware.hash
 @@ -1,2 +1,4 @@
  # Locally computed
- sha256	f1d631920ed4ae15f368ba7b8b3caa4ed604f5223372cc6debbd39a101eb8d74  rpi-firmware-81cca1a9380c828299e884dba5efd0d4acb39e8d.tar.gz
+ sha256 e911f6342ea8aa9380cae97c6f5ac4ddd370527265f23d5b5d4b2c6f679d4ba8 rpi-firmware-ebf7b40cdc6effe7ffa3fd5195e8be01b94f80da.tar.gz
++sha256 f1d631920ed4ae15f368ba7b8b3caa4ed604f5223372cc6debbd39a101eb8d74 rpi-firmware-81cca1a9380c828299e884dba5efd0d4acb39e8d.tar.gz
 +sha256 5edff641f216d2e09c75469dc2e9fc66aff290e212a1cd43ed31c499f99ea055 rpi-firmware-287af2a2be0787a5d45281d1d6183a2161c798d4.tar.gz
-+sha256 2d2775bcfecd92aec06685efb7461258e996cfbfc6ce9b8a791b73883c7fee4f rpi-firmware-b51046a2b2bb69771579a549d157205d9982f858.tar.gz
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index e41b3442e6..9ddde200d9 100644
+index 272db1c321..483974d588 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
 @@ -4,7 +4,17 @@
  #
  ################################################################################
  
-+ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_4),y)
-+RPI_FIRMWARE_VERSION = b51046a2b2bb69771579a549d157205d9982f858
-+else
 +ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_9),y)
 +RPI_FIRMWARE_VERSION = 287af2a2be0787a5d45281d1d6183a2161c798d4
 +else
-+# Linux 4.14
- RPI_FIRMWARE_VERSION = 81cca1a9380c828299e884dba5efd0d4acb39e8d
++ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_14),y)
++RPI_FIRMWARE_VERSION = 81cca1a9380c828299e884dba5efd0d4acb39e8d
++else
++# Linux 4.19
+ RPI_FIRMWARE_VERSION = ebf7b40cdc6effe7ffa3fd5195e8be01b94f80da
 +endif
 +endif
 +
