@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.8.0
+
+This updates Buildroot to 2019.05. Buildroot release notes are at
+http://buildroot-busybox.2317881.n4.nabble.com/Buildroot-2019-05-released-td224685.html.
+
+* Package updates
+  * Buildroot 2019.05
+  * erlang 22.0.2
+
 ## v1.7.2
 
 This release includes a change to remove absolute paths from compiled .beam
