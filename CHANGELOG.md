@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.7.3
+
+This is a maintenance release of `nerves_system_br` that continues to use
+Buildroot 2019.02.x releases. Buildroot 2019.02 is a "long term support" release
+for the Buildroot project and 2019.02.3 is the current latest release. See
+https://git.busybox.net/buildroot/plain/CHANGES?id=2019.02.3 for details.
+
+* Package updates
+  * Buildroot 2019.02.3
+  * Erlang 22.0.2
+  * erlinit v1.5.0
+
 ## v1.7.2
 
 This release includes a change to remove absolute paths from compiled .beam
