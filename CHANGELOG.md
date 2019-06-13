@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.8.1
+
+This release only updates Erlang and erlinit. The erlinit change adds a feature
+needed for the upcoming Elixir 1.9 releases (i.e., non-Distillery releases).
+
+* Package updates
+  * Erlang/OTP 22.0.3
+  * erlinit v1.5.0
+
 ## v1.8.0
 
 This updates Buildroot to 2019.05. Buildroot release notes are at
