@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.8.2
+
+* Package updates
+  * Erlang/OTP 22.0.4
+
 ## v1.8.1
 
 This release only updates Erlang and erlinit. The erlinit change adds a feature
