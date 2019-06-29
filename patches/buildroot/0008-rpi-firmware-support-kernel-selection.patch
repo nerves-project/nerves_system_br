@@ -1,4 +1,4 @@
-From 1e1f6280d655a2773723eb349fa11bc00ee005d9 Mon Sep 17 00:00:00 2001
+From dedc63a9ba9a3820dbe2ed8e6360be7138f333e7 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 29 Mar 2017 08:59:03 -0400
 Subject: [PATCH] rpi-firmware: support kernel selection
@@ -6,8 +6,8 @@ Subject: [PATCH] rpi-firmware: support kernel selection
 ---
  package/rpi-firmware/Config.in         | 23 +++++++++++++++++++++++
  package/rpi-firmware/rpi-firmware.hash |  2 ++
- package/rpi-firmware/rpi-firmware.mk   | 10 ++++++++++
- 3 files changed, 35 insertions(+)
+ package/rpi-firmware/rpi-firmware.mk   | 11 +++++++++++
+ 3 files changed, 36 insertions(+)
 
 diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
 index 0ebbe7a4cd..50f199aa16 100644
@@ -53,10 +53,10 @@ index d719fa6e08..5cd93394a9 100644
 +sha256 f1d631920ed4ae15f368ba7b8b3caa4ed604f5223372cc6debbd39a101eb8d74 rpi-firmware-81cca1a9380c828299e884dba5efd0d4acb39e8d.tar.gz
 +sha256 5edff641f216d2e09c75469dc2e9fc66aff290e212a1cd43ed31c499f99ea055 rpi-firmware-287af2a2be0787a5d45281d1d6183a2161c798d4.tar.gz
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index 272db1c321..483974d588 100644
+index 272db1c321..f570860e40 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
-@@ -4,7 +4,17 @@
+@@ -4,7 +4,18 @@
  #
  ################################################################################
  
@@ -64,6 +64,7 @@ index 272db1c321..483974d588 100644
 +RPI_FIRMWARE_VERSION = 287af2a2be0787a5d45281d1d6183a2161c798d4
 +else
 +ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_14),y)
++# In nerves_system_br 1.7.x, 81cca1a was used with Linux 4.14 and 4.19
 +RPI_FIRMWARE_VERSION = 81cca1a9380c828299e884dba5efd0d4acb39e8d
 +else
 +# Linux 4.19
