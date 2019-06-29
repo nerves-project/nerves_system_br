@@ -1,4 +1,4 @@
-From 5f3bbf24d1841e074d4bd30a4f0143f31eb6f7a5 Mon Sep 17 00:00:00 2001
+From b741e764b09781d4156385910f2e2c94e79235b5 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 6 Feb 2019 12:15:09 -0500
 Subject: [PATCH] erlang: don't build host-erlang for Nerves
