@@ -986,12 +986,12 @@ index 72e3cdbfd2..0000000000
 -sha256 eb7e9ab9690124c5c9f42bdc81383d886a3dede26345b6ed15bbad7caf81f7ea  src/3rdparty/ninja/COPYING
 diff --git a/package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch b/package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch
 new file mode 100644
-index 0000000000..d7d6fcc4b6
+index 0000000000..36287c3fbd
 --- /dev/null
 +++ b/package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch
 @@ -0,0 +1,21 @@
-+--- src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc	2019-07-09 12:43:54.000000000 +0200
-++++ src/3rdparty/gn/tools/gn/ninja_action_target_writer.ccc	2019-07-09 12:45:20.000000000 +0200
++--- a/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
+++++ b/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
 +@@ -118,9 +118,18 @@
 +     // strictly necessary for regular one-shot actions, but it's easier to
 +     // just always define unique_name.
