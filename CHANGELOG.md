@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.8.3
+
+* Package updates
+  * Raspberry Pi firmware updates to support the Raspberry Pi 4
+  * Erlang/OTP 22.0.5, 21.3.8.4, and 20.3.8.9
+  * Qt 5.13.0 - This fixes compilation errors when building Chromium for x86_64.
+    Unfortunately, Raspberry Pi compiles still don't work.
+  * Buildroot 2019.05.1 - security and bug fixes to a variety of packages
+
 ## v1.8.2
 
 * Package updates
