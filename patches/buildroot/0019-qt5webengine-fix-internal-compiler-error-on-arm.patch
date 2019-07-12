@@ -1,0 +1,49 @@
+From c7ad2038b234f1075b5f482a477ebc72c963c7a5 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Fri, 12 Jul 2019 19:53:09 -0400
+Subject: [PATCH] qt5webengine: fix internal compiler error on arm
+
+See
+https://skia-review.googlesource.com/c/skcms/+/162005/2/src/Transform_inl.h#544,
+but this also affects our ARM builds.
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ ...2-Fix-internal-compiler-error-on-arm.patch | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+ create mode 100644 package/qt5/qt5webengine/5.13.0/0002-Fix-internal-compiler-error-on-arm.patch
+
+diff --git a/package/qt5/qt5webengine/5.13.0/0002-Fix-internal-compiler-error-on-arm.patch b/package/qt5/qt5webengine/5.13.0/0002-Fix-internal-compiler-error-on-arm.patch
+new file mode 100644
+index 0000000000..a648c35f28
+--- /dev/null
++++ b/package/qt5/qt5webengine/5.13.0/0002-Fix-internal-compiler-error-on-arm.patch
+@@ -0,0 +1,25 @@
++From 440ed39daac176eff555177dc94e9ef232fd9fdc Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Fri, 12 Jul 2019 19:35:51 -0400
++Subject: [PATCH] Fix internal compiler error on arm
++
++---
++ .../third_party/skia/third_party/skcms/src/Transform_inl.h      | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/src/3rdparty/chromium/third_party/skia/third_party/skcms/src/Transform_inl.h b/src/3rdparty/chromium/third_party/skia/third_party/skcms/src/Transform_inl.h
++index 9a69fcf1b..ffb1aaac1 100644
++--- a/src/3rdparty/chromium/third_party/skia/third_party/skcms/src/Transform_inl.h
+++++ b/src/3rdparty/chromium/third_party/skia/third_party/skcms/src/Transform_inl.h
++@@ -559,7 +559,7 @@ SI void sample_clut_16(const skcms_A2B* a2b, I32 ix, F* r, F* g, F* b) {
++ 
++ // GCC 7.2.0 hits an internal compiler error with -finline-functions (or -O3)
++ // when targeting MIPS 64,  I think attempting to inline clut() into exec_ops().
++-#if 1 && defined(__GNUC__) && !defined(__clang__) && defined(__mips64)
+++#if 1 && defined(__GNUC__) && !defined(__clang__) && (defined(__mips64) || defined(__arm__))
++     #define MAYBE_NOINLINE __attribute__((noinline))
++ #else
++     #define MAYBE_NOINLINE
++-- 
++2.17.1
++
+-- 
+2.17.1
+
