@@ -70,6 +70,7 @@ RUN dpkg --add-architecture i386 \
     squashfs-tools \
     gnupg \
     libmnl-dev \
+    gawk \
   && curl -o "/tmp/${ERLANG_PKG}" ${ERLANG_URL} \
   && dpkg -i "/tmp/${ERLANG_PKG}" \
   && apt-get update \
