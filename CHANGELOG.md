@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.8.4
+
+* Patches
+  * Qt 5.13.0 - Fixes compilation errors when building Chromium for arm.
+
+* Package updates
+  * Erlang/OTP 22.0.7
+
 ## v1.8.3
 
 * Package updates
