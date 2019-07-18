@@ -71,6 +71,7 @@ RUN dpkg --add-architecture i386 \
     gnupg \
     libmnl-dev \
     gawk \
+    jq \
   && curl -o "/tmp/${ERLANG_PKG}" ${ERLANG_URL} \
   && dpkg -i "/tmp/${ERLANG_PKG}" \
   && apt-get update \
