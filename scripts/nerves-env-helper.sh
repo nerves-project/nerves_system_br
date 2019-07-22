@@ -35,9 +35,6 @@ if [[ -e "$NERVES_SYSTEM/host" ]]; then
     # For Buildroot builds, use the Buildroot provided versions of pkg-config
     # and perl.
     export PKG_CONFIG=$NERVES_TOOLCHAIN/usr/bin/pkg-config
-    export PKG_CONFIG_SYSROOT_DIR=$NERVES_SYSTEM/staging
-    export PKG_CONFIG_LIBDIR=$NERVES_SYSTEM/staging/usr/lib/pkgconfig
-
     export PERLLIB=$NERVES_TOOLCHAIN/usr/lib/perl
 
     pathadd "$NERVES_TOOLCHAIN/usr/bin"
@@ -120,6 +117,10 @@ export STRIP=$CROSSCOMPILE-strip
 export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
 export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lerl_interface -lei"
 export REBAR_TARGET_ARCH="$(basename "$CROSSCOMPILE")"
+
+# pkg-config
+export PKG_CONFIG_SYSROOT_DIR="$NERVES_SDK_SYSROOT"
+export PKG_CONFIG_LIBDIR="$NERVES_SDK_SYSROOT/usr/lib/pkgconfig"
 
 # Qt/QMake
 if [ -e "$NERVES_SDK_SYSROOT/mkspecs/devices/linux-buildroot-g++" ]; then

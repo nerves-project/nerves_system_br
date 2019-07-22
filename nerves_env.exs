@@ -135,6 +135,10 @@ System.put_env("LDFLAGS", "--sysroot=#{sdk_sysroot}")
 System.put_env("ERL_CFLAGS", "-I#{erts_dir}/include -I#{erl_interface_dir}/include")
 System.put_env("ERL_LDFLAGS", "-L#{erts_dir}/lib -L#{erl_interface_dir}/lib -lerts -lerl_interface -lei")
 
+# pkg-config
+System.put_env("PKG_CONFIG_SYSROOT_DIR", sdk_sysroot)
+System.put_env("PKG_CONFIG_LIBDIR", "#{sdk_sysroot}/usr/lib/pkgconfig")
+
 # Qt/Qmake support
 qmakespec_dir =
   Path.join(system_path, "staging/mkspecs/devices/linux-buildroot-g++")
