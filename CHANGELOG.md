@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.8.5
+
+* Package updates
+  * rpi-firmware - Bump to latest version to fix framebuffer issue found on
+    Raspberry Pi Zeros
+
+* Improvements
+  * Export pkg-config paths so that C programs with Makefiles that use
+    pkg-config have a better chance of working
+
 ## v1.8.4
 
 * Patches
