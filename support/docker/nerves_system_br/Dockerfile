@@ -73,6 +73,7 @@ RUN dpkg --add-architecture i386 \
     gawk \
     jq \
     pkg-config \
+    vim-tiny \
   && curl -o "/tmp/${ERLANG_PKG}" ${ERLANG_URL} \
   && dpkg -i "/tmp/${ERLANG_PKG}" \
   && apt-get update \
