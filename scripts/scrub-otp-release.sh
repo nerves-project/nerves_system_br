@@ -130,9 +130,13 @@ for EXECUTABLE in $EXECUTABLES; do
             echo "   'mix clean' in that directory to avoid pulling in any of its"
             echo "   build products."
             echo
-            echo "2. Did you recently upgrade to Nerves 1.3 or Distillery 2.0? Make"
-            echo "   sure that your 'rel/config.exs' has 'plugin Nerves'. See"
-            echo "   https://hexdocs.pm/nerves/updating-projects.html#updating-from-v1-0-to-v1-3-0"
+            echo "2. Did you recently upgrade to Elixir 1.9 or Nerves 1.5?"
+            echo "   Nerves 1.5 adds support for Elixir 1.9 Releases and requires"
+            echo "   you to either add an Elixir 1.9 Release configuration or add"
+            echo "   Distillery as a dependency. Without this, the OTP binaries"
+            echo "   for your build machine will get included incorrectly and cause"
+            echo "   this error. See"
+            echo "   https://hexdocs.pm/nerves/updating-projects.html#updating-from-v1-4-to-v1-5"
             echo
             echo "3. Did you recently upgrade or change your Nerves system? If so,"
             echo "   try cleaning and rebuilding this project and its deps."
