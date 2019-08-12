@@ -174,7 +174,24 @@ if host_erl_major_ver != target_erl_major_version do
     Target version: #{target_erl_major_version}
 
   This will likely cause Erlang code compiled for the target to fail in
-  unexpected ways. Install an Erlang OTP release that matches the target
-  version before continuing.
+  unexpected ways.
+
+  The easiest way to resolve this issue is to install the same version of
+  Erlang/OTP on your host. See the Nerves installation guide for doing this
+  using the `asdf` version manager.
+
+  The Nerves System (nerves_system_*) dependency determines the OTP version
+  running on the target. It is possible that a recent update to the Nerves
+  System pulled in a new version of Erlang/OTP. If you are using an official
+  Nerves System, you can verify this by reviewing the CHANGELOG.md file that
+  comes with the release. Run 'mix deps' to see the Nerves System version and
+  go to that system's repository on https://github.com/nerves-project.
+
+  If you need to run a particular version of Erlang/OTP on your target, you can
+  either lock the nerves_system_* dependency in your mix.exs to an older
+  version. Note that this route prevents you from receiving security updates
+  from the official systems. The other option is to build a custom Nerves
+  system. See the Nerves documentation for building a custom system and then
+  run 'make menuconfig' and look for the Erlang options.
   """
 end
