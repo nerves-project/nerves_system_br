@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.8.6
+
+* Package updates
+  * erlinit v1.5.1 - Fix issue where erlinit would stop reaping zombies if they
+    were being created too quickly
+
 ## v1.8.5
 
 * Package updates
