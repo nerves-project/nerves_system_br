@@ -31,7 +31,7 @@ CACHED_TARBALL_PATH=$DL/$TARBALL_NAME
 BUILDROOT_PATH=$WHERE/buildroot
 
 # Clean up in case previous extraction failed.
-rm -fr $EXTRACTED_DIRNAME $BUILDROOT_PATH
+rm -fr "$EXTRACTED_DIRNAME" "$BUILDROOT_PATH"
 
 if [[ ! -e "$CACHED_TARBALL_PATH" ]]; then
     # Download from Buildroot
@@ -48,11 +48,11 @@ if [[ ! -e "$CACHED_TARBALL_PATH" ]]; then
     # If the above URLs fail, we host a backup.
     ALTERNATIVE_URL=https://s3.amazonaws.com/nerves/build/$TARBALL_NAME
 
-    pushd $DL
-    if ! wget $DOWNLOAD_URL; then
+    pushd "$DL"
+    if ! wget "$DOWNLOAD_URL"; then
       echo "Failed to download $TARBALL_NAME from primary location $DOWNLOAD_URL."
       echo "Attempting to download from $ALTERNATIVE_URL instead..."
-      if ! wget $ALTERNATIVE_URL; then
+      if ! wget "$ALTERNATIVE_URL"; then
         echo "Failed to download buildroot $TARBALL_NAME from $ALTERNATIVE_URL.";
         exit 1;
       fi
@@ -63,10 +63,10 @@ fi
 # Extract the cached tarball
 # We can't rely on the first level directory naming, so force it to
 # the expected path
-mkdir -p $EXTRACTED_DIRNAME
-tar xzf $CACHED_TARBALL_PATH -C $EXTRACTED_DIRNAME --strip-components=1
+mkdir -p "$EXTRACTED_DIRNAME"
+tar xzf "$CACHED_TARBALL_PATH" -C "$EXTRACTED_DIRNAME" --strip-components=1
 
 # Symlink for easier access
-ln -s $EXTRACTED_DIRNAME $BUILDROOT_PATH
+ln -s "$EXTRACTED_DIRNAME" "$BUILDROOT_PATH"
 
 echo "Buildroot extracted to $BUILDROOT_PATH."
