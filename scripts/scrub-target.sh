@@ -70,5 +70,6 @@ find "$TARGET_DIR/etc" -type d -empty -delete
 find "$TARGET_DIR/usr" -type d -empty -delete
 echo 'If the next line fails, add the following to nerves_defconfig and build clean (sorry):'
 echo '  BR2_ROOTFS_SKELETON_CUSTOM=y'
+# shellcheck disable=SC2016
 echo '  BR2_ROOTFS_SKELETON_CUSTOM_PATH="${BR2_EXTERNAL_NERVES_PATH}/board/nerves-common/skeleton"'
 find "$TARGET_DIR/var" -type d -empty -delete
