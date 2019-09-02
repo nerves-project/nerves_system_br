@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.9.0
+
+This updates Buildroot to 2019.08. Buildroot release notes are at
+http://lists.busybox.net/pipermail/buildroot/2019-September/258136.html.
+
+* Package updates
+  * Buildroot 2019.08
+
 ## v1.8.6
 
 * Package updates
