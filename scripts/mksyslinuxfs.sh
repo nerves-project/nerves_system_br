@@ -34,8 +34,8 @@ if [[ ! -f $SYSLINUX ]]; then
 fi
 
 # Create the boot partition and run it through syslinux
-rm -f $BOOTPART
-dd if=/dev/zero of=$BOOTPART count=0 seek=$BOOTSIZE 2>/dev/null
-$MKFS_VFAT -F 12 -n BOOT $BOOTPART >/dev/null
-$SYSLINUX -i $BOOTPART
+rm -f "$BOOTPART"
+dd if=/dev/zero of="$BOOTPART" count=0 seek="$BOOTSIZE" 2>/dev/null
+"$MKFS_VFAT" -F 12 -n BOOT "$BOOTPART" >/dev/null
+"$SYSLINUX" -i "$BOOTPART"
 
