@@ -19,10 +19,10 @@ export LD_LIBRARY_PATH=
 
 # Run build in a subdirectory so that we're testing out of tree builds
 mkdir -p ci
-cd ci
+cd ci || exit
 
 # Configure platform
-../create-build.sh ../configs/${CI_DEFCONFIG_DIR}/${CI_DEFCONFIG}_defconfig out || exit 1
+../create-build.sh "../configs/${CI_DEFCONFIG_DIR}/${CI_DEFCONFIG}_defconfig" out || exit 1
 
 # Build the SDK
 
