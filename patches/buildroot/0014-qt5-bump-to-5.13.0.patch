@@ -1,4 +1,4 @@
-From 80746909a46cb3f8195330735ca67b17a7b61183 Mon Sep 17 00:00:00 2001
+From d52006fd421985b6e713f291f3bb797c23e380ee Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 9 Jul 2019 15:35:26 -0400
 Subject: [PATCH] qt5: bump to 5.13.0
@@ -8,51 +8,86 @@ See https://github.com/nerves-project/nerves_system_br/pull/337
  package/qt5/Config.in                         |   1 -
  package/qt5/qt5.mk                            |   4 +-
  package/qt5/qt53d/qt53d.hash                  |   4 +-
- package/qt5/qt5base/5.12.2/qt5base.hash       |   4 +-
+ ...tbase-Fix-build-error-when-using-EGL.patch |  37 --
+ ...ble-conversion-enable-for-microblaze.patch |  29 --
+ ...x-dependency_libs-entry-of-.la-files.patch |  75 ---
+ package/qt5/qt5base/5.12.4/qt5base.hash       |  11 -
  ...tbase-Fix-build-error-when-using-EGL.patch |  37 ++
  ...ble-conversion-enable-for-microblaze.patch |  29 ++
  package/qt5/qt5base/5.13.0/qt5base.hash       |  11 +
  package/qt5/qt5canvas3d/Config.in             |  18 -
  package/qt5/qt5canvas3d/qt5canvas3d.hash      |  14 -
  package/qt5/qt5canvas3d/qt5canvas3d.mk        |  44 --
- package/qt5/qt5charts/qt5charts.hash          |   4 +-
- .../5.12.2/qt5connectivity.hash               |   4 +-
+ package/qt5/qt5charts/qt5charts.hash          |   8 -
+ .../5.12.4/qt5connectivity.hash               |   9 -
+ .../5.13.0/qt5connectivity.hash               |   9 +
+ ...gtexture-fix-debug-build-with-uclibc.patch |  45 --
+ ...gtexture-fix-debug-build-with-uclibc.patch |  45 ++
  .../qt5/qt5declarative/qt5declarative.hash    |   4 +-
  .../qt5graphicaleffects.hash                  |   4 +-
  .../qt5/qt5imageformats/qt5imageformats.hash  |   4 +-
  package/qt5/qt5location/qt5location.hash      |   4 +-
+ ...en-no-opengl-in-QVideoSurfacePainter.patch |  47 --
+ ...en-no-opengl-in-QVideoSurfacePainter.patch |  47 ++
  package/qt5/qt5multimedia/qt5multimedia.hash  |   4 +-
  .../qt5quickcontrols/qt5quickcontrols.hash    |   4 +-
- .../5.12.2/qt5quickcontrols2.hash             |   7 -
+ .../5.12.4/qt5quickcontrols2.hash             |   7 -
  .../5.13.0/qt5quickcontrols2.hash             |   7 +
  package/qt5/qt5script/qt5script.hash          |   4 +-
  package/qt5/qt5scxml/qt5scxml.hash            |   4 +-
  package/qt5/qt5sensors/qt5sensors.hash        |   4 +-
- .../qt5/qt5serialbus/5.12.2/qt5serialbus.hash |   4 +-
- .../qt5serialport/5.12.2/qt5serialport.hash   |   4 +-
+ ...er-error-SIOCGSTAMP-was-not-declared.patch |  36 --
+ .../qt5/qt5serialbus/5.12.4/qt5serialbus.hash |   8 -
+ ...er-error-SIOCGSTAMP-was-not-declared.patch |  36 ++
+ .../qt5/qt5serialbus/5.13.0/qt5serialbus.hash |   8 +
+ .../qt5serialport/5.12.4/qt5serialport.hash   |   9 -
+ .../qt5serialport/5.13.0/qt5serialport.hash   |   9 +
  package/qt5/qt5svg/qt5svg.hash                |   4 +-
  package/qt5/qt5tools/qt5tools.hash            |   4 +-
- .../5.12.2/qt5virtualkeyboard.hash            |   4 +-
+ .../5.12.4/qt5virtualkeyboard.hash            |   9 -
+ .../5.13.0/qt5virtualkeyboard.hash            |   9 +
  package/qt5/qt5wayland/qt5wayland.hash        |   4 +-
  package/qt5/qt5webchannel/qt5webchannel.hash  |   4 +-
- .../qt5/qt5webengine/5.12.2/qt5webengine.hash | 456 ------------------
+ .../qt5/qt5webengine/5.12.4/qt5webengine.hash | 457 ------------------
  ...rkaround-for-too-long-.rps-file-name.patch |  21 +
- .../qt5/qt5webengine/5.13.0/qt5webengine.hash | 456 ++++++++++++++++++
+ .../qt5/qt5webengine/5.13.0/qt5webengine.hash | 456 +++++++++++++++++
  package/qt5/qt5websockets/qt5websockets.hash  |   4 +-
- .../qt5/qt5x11extras/5.12.2/qt5x11extras.hash |   4 +-
+ .../qt5/qt5x11extras/5.12.4/qt5x11extras.hash |   9 -
+ .../qt5/qt5x11extras/5.13.0/qt5x11extras.hash |   9 +
  .../qt5/qt5xmlpatterns/qt5xmlpatterns.hash    |   4 +-
- 36 files changed, 609 insertions(+), 588 deletions(-)
+ 50 files changed, 767 insertions(+), 907 deletions(-)
+ delete mode 100644 package/qt5/qt5base/5.12.4/0001-qtbase-Fix-build-error-when-using-EGL.patch
+ delete mode 100644 package/qt5/qt5base/5.12.4/0004-double-conversion-enable-for-microblaze.patch
+ delete mode 100644 package/qt5/qt5base/5.12.4/0005-Fix-dependency_libs-entry-of-.la-files.patch
+ delete mode 100644 package/qt5/qt5base/5.12.4/qt5base.hash
  create mode 100644 package/qt5/qt5base/5.13.0/0001-qtbase-Fix-build-error-when-using-EGL.patch
  create mode 100644 package/qt5/qt5base/5.13.0/0004-double-conversion-enable-for-microblaze.patch
  create mode 100644 package/qt5/qt5base/5.13.0/qt5base.hash
  delete mode 100644 package/qt5/qt5canvas3d/Config.in
  delete mode 100644 package/qt5/qt5canvas3d/qt5canvas3d.hash
  delete mode 100644 package/qt5/qt5canvas3d/qt5canvas3d.mk
- delete mode 100644 package/qt5/qt5quickcontrols2/5.12.2/qt5quickcontrols2.hash
+ delete mode 100644 package/qt5/qt5charts/qt5charts.hash
+ delete mode 100644 package/qt5/qt5connectivity/5.12.4/qt5connectivity.hash
+ create mode 100644 package/qt5/qt5connectivity/5.13.0/qt5connectivity.hash
+ delete mode 100644 package/qt5/qt5declarative/5.12.4/0001-qsgtexture-fix-debug-build-with-uclibc.patch
+ create mode 100644 package/qt5/qt5declarative/5.13.0/0001-qsgtexture-fix-debug-build-with-uclibc.patch
+ delete mode 100644 package/qt5/qt5multimedia/5.12.4/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch
+ create mode 100644 package/qt5/qt5multimedia/5.13.0/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch
+ delete mode 100644 package/qt5/qt5quickcontrols2/5.12.4/qt5quickcontrols2.hash
  create mode 100644 package/qt5/qt5quickcontrols2/5.13.0/qt5quickcontrols2.hash
- delete mode 100644 package/qt5/qt5webengine/5.12.2/qt5webengine.hash
+ delete mode 100644 package/qt5/qt5serialbus/5.12.4/0001-SocketCAN-Fix-compiler-error-SIOCGSTAMP-was-not-declared.patch
+ delete mode 100644 package/qt5/qt5serialbus/5.12.4/qt5serialbus.hash
+ create mode 100644 package/qt5/qt5serialbus/5.13.0/0001-SocketCAN-Fix-compiler-error-SIOCGSTAMP-was-not-declared.patch
+ create mode 100644 package/qt5/qt5serialbus/5.13.0/qt5serialbus.hash
+ delete mode 100644 package/qt5/qt5serialport/5.12.4/qt5serialport.hash
+ create mode 100644 package/qt5/qt5serialport/5.13.0/qt5serialport.hash
+ delete mode 100644 package/qt5/qt5virtualkeyboard/5.12.4/qt5virtualkeyboard.hash
+ create mode 100644 package/qt5/qt5virtualkeyboard/5.13.0/qt5virtualkeyboard.hash
+ delete mode 100644 package/qt5/qt5webengine/5.12.4/qt5webengine.hash
  create mode 100644 package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch
  create mode 100644 package/qt5/qt5webengine/5.13.0/qt5webengine.hash
+ delete mode 100644 package/qt5/qt5x11extras/5.12.4/qt5x11extras.hash
+ create mode 100644 package/qt5/qt5x11extras/5.13.0/qt5x11extras.hash
 
 diff --git a/package/qt5/Config.in b/package/qt5/Config.in
 index b9598b2be7..14a7ab4c18 100644
@@ -67,7 +102,7 @@ index b9598b2be7..14a7ab4c18 100644
  source "package/qt5/qt5connectivity/Config.in"
  source "package/qt5/qt5declarative/Config.in"
 diff --git a/package/qt5/qt5.mk b/package/qt5/qt5.mk
-index 4e738c75db..c1c5542bd4 100644
+index 468c1ac4d5..818b353bb7 100644
 --- a/package/qt5/qt5.mk
 +++ b/package/qt5/qt5.mk
 @@ -5,8 +5,8 @@
@@ -75,39 +110,203 @@ index 4e738c75db..c1c5542bd4 100644
  
  ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST),y)
 -QT5_VERSION_MAJOR = 5.12
--QT5_VERSION = $(QT5_VERSION_MAJOR).2
+-QT5_VERSION = $(QT5_VERSION_MAJOR).4
 +QT5_VERSION_MAJOR = 5.13
 +QT5_VERSION = $(QT5_VERSION_MAJOR).0
  QT5_SOURCE_TARBALL_PREFIX = everywhere-src
  else
  QT5_VERSION_MAJOR = 5.6
 diff --git a/package/qt5/qt53d/qt53d.hash b/package/qt5/qt53d/qt53d.hash
-index 5c0eac7c34..bb9b7ef729 100644
+index 6cf05c0ba4..bb9b7ef729 100644
 --- a/package/qt5/qt53d/qt53d.hash
 +++ b/package/qt5/qt53d/qt53d.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qt3d-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 10d05a30e925fcad971126c7f47a5e32c39f007dab96b298b2094501f9607ffe qt3d-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qt3d-everywhere-src-5.12.2.tar.xz.sha256
--sha256 d4036e7ac146ba78784dde0dd99e8182372b7c38e832e33b61fed4187de0ad06 qt3d-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qt3d-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 cfad2e16f40fa07f8be59fa29c0c246743ee67db417ca29772a92f36fa322af3 qt3d-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qt3d-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 9f6b317acbcf483bf78465956669957eb19fdd8df610e9a580d42017e629ec4f qt3d-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 edfe70e99be2a7c109d860b19204609e582720b211c50caedac729da372a1253 LICENSE.GPL
-diff --git a/package/qt5/qt5base/5.12.2/qt5base.hash b/package/qt5/qt5base/5.12.2/qt5base.hash
-index c6758471f6..3e73c9e689 100644
---- a/package/qt5/qt5base/5.12.2/qt5base.hash
-+++ b/package/qt5/qt5base/5.12.2/qt5base.hash
-@@ -1,5 +1,5 @@
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtbase-everywhere-src-5.12.2.tar.xz.sha256
--sha256 562c095a59c95f393762ec53bc05c0d80fad1758fd5ff7a5231967d1a98d56c1 qtbase-everywhere-src-5.12.2.tar.xz
-+# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtbase-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 ff6964b3b528cd3b1d21bcf3470006e8e5cbe69591923f982871d886ea0488fe qtbase-everywhere-src-5.13.0.tar.xz
- 
- # Hashes for license files:
- sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
+diff --git a/package/qt5/qt5base/5.12.4/0001-qtbase-Fix-build-error-when-using-EGL.patch b/package/qt5/qt5base/5.12.4/0001-qtbase-Fix-build-error-when-using-EGL.patch
+deleted file mode 100644
+index 6876498022..0000000000
+--- a/package/qt5/qt5base/5.12.4/0001-qtbase-Fix-build-error-when-using-EGL.patch
++++ /dev/null
+@@ -1,37 +0,0 @@
+-From c11299086b7718332e2b4fbc37ce6f6ff427c5ba Mon Sep 17 00:00:00 2001
+-From: Yuqing Zhu <carol.zhu@nxp.com>
+-Date: Mon, 27 Mar 2017 15:33:35 +0800
+-Subject: [PATCH] qtbase: Fix build error when using EGL
+-MIME-Version: 1.0
+-Content-Type: text/plain; charset=utf-8
+-Content-Transfer-Encoding: 8bit
+-
+-A build error was occurring due to missing EGL configuration.
+-
+-Fixed by adding the necessary ties to the EGL pkg-config.
+-
+-Task-number: QTBUG-61712
+-Change-Id: I87190ea39392b4604c563cf9d89edb85068d85fc
+-Upstream-Status: Pending
+-Signed-off-by: Gaël PORTAY <gael.portay@savoirfairelinux.com>
+----
+- mkspecs/features/egl.prf | 6 ++++++
+- 1 file changed, 6 insertions(+)
+-
+-diff --git a/mkspecs/features/egl.prf b/mkspecs/features/egl.prf
+-index 9fa0c9e219..85d5852ba6 100644
+---- a/mkspecs/features/egl.prf
+-+++ b/mkspecs/features/egl.prf
+-@@ -1,3 +1,9 @@
+-+# egl headers need a definition
+-+PKG_CONFIG = $$pkgConfigExecutable()
+-+PKGCONFIG_CFLAGS = $$system($$PKG_CONFIG --cflags egl)
+-+PKGCONFIG_CFLAGS = $$find(PKGCONFIG_CFLAGS, ^-D.*)
+-+QMAKE_CFLAGS_EGL = $$PKGCONFIG_CFLAGS
+-+
+- INCLUDEPATH += $$QMAKE_INCDIR_EGL
+- LIBS_PRIVATE += $$QMAKE_LIBS_EGL
+- QMAKE_CFLAGS += $$QMAKE_CFLAGS_EGL
+--- 
+-2.16.1
+-
+diff --git a/package/qt5/qt5base/5.12.4/0004-double-conversion-enable-for-microblaze.patch b/package/qt5/qt5base/5.12.4/0004-double-conversion-enable-for-microblaze.patch
+deleted file mode 100644
+index c91d812695..0000000000
+--- a/package/qt5/qt5base/5.12.4/0004-double-conversion-enable-for-microblaze.patch
++++ /dev/null
+@@ -1,29 +0,0 @@
+-From 014958d2d17045dd63d93cb3061d1e40b15725b7 Mon Sep 17 00:00:00 2001
+-From: Peter Seiderer <ps.report@gmx.net>
+-Date: Tue, 21 Aug 2018 21:11:40 +0200
+-Subject: [PATCH] double-conversion: enable for microblaze
+-
+-Signed-off-by: Peter Seiderer <ps.report@gmx.net>
+-[Rebased for Qt5.12.0]
+-Signed-off-by: Peter Seiderer <ps.report@gmx.net>
+----
+- .../double-conversion/include/double-conversion/utils.h        | 3 ++-
+- 1 file changed, 2 insertions(+), 1 deletion(-)
+-
+-diff --git a/src/3rdparty/double-conversion/include/double-conversion/utils.h b/src/3rdparty/double-conversion/include/double-conversion/utils.h
+-index 7622fe6162..d29de95094 100644
+---- a/src/3rdparty/double-conversion/include/double-conversion/utils.h
+-+++ b/src/3rdparty/double-conversion/include/double-conversion/utils.h
+-@@ -94,7 +94,8 @@ int main(int argc, char** argv) {
+-     defined(_MIPS_ARCH_MIPS32R2) || \
+-     defined(__AARCH64EL__) || defined(__aarch64__) || defined(__AARCH64EB__) || \
+-     defined(__riscv) || defined(__EMSCRIPTEN__) || \
+--    defined(__or1k__)
+-+    defined(__or1k__)  || \
+-+    defined(__microblaze__)
+- #define DOUBLE_CONVERSION_CORRECT_DOUBLE_OPERATIONS 1
+- #elif defined(__mc68000__) || \
+-     defined(__pnacl__) || defined(__native_client__)
+--- 
+-2.19.2
+-
+diff --git a/package/qt5/qt5base/5.12.4/0005-Fix-dependency_libs-entry-of-.la-files.patch b/package/qt5/qt5base/5.12.4/0005-Fix-dependency_libs-entry-of-.la-files.patch
+deleted file mode 100644
+index 5081d56b4b..0000000000
+--- a/package/qt5/qt5base/5.12.4/0005-Fix-dependency_libs-entry-of-.la-files.patch
++++ /dev/null
+@@ -1,75 +0,0 @@
+-From 23e437bb5cba5b13ee327c36d8199a49aad9a8da Mon Sep 17 00:00:00 2001
+-From: Joerg Bornemann <joerg.bornemann@qt.io>
+-Date: Wed, 31 Jul 2019 10:55:14 +0200
+-Subject: [PATCH] Fix dependency_libs entry of .la files
+-
+-Libtool cannot cope with absolute paths in the dependency_libs entry.
+-We split absolute paths into -L and -l here.
+-
+-Change-Id: I30bf11e490d1993d2a4d88c114e07bbae12def6d
+-Fixes: QTBUG-76625
+-
+-Upstream: https://codereview.qt-project.org/c/qt/qtbase/+/269146
+-Signed-off-by: Peter Seiderer <ps.report@gmx.net>
+----
+- qmake/generators/unix/unixmake2.cpp | 36 +++++++++++++++++++++++++----
+- 1 file changed, 31 insertions(+), 5 deletions(-)
+-
+-diff --git a/qmake/generators/unix/unixmake2.cpp b/qmake/generators/unix/unixmake2.cpp
+-index d9bcccf2e2..ddc3b063d4 100644
+---- a/qmake/generators/unix/unixmake2.cpp
+-+++ b/qmake/generators/unix/unixmake2.cpp
+-@@ -1450,6 +1450,33 @@ UnixMakefileGenerator::libtoolFileName(bool fixify)
+- void
+- UnixMakefileGenerator::writeLibtoolFile()
+- {
+-+    auto fixAbsolutePaths
+-+            = [this](const ProStringList &libs)
+-+              {
+-+                  ProStringList result;
+-+                  for (auto lib : libs) {
+-+                      auto fi = fileInfo(lib.toQString());
+-+                      if (fi.isAbsolute()) {
+-+                          const QString libDirArg = "-L" + fi.path();
+-+                          if (!result.contains(libDirArg))
+-+                              result += libDirArg;
+-+                          QString namespec = fi.fileName();
+-+                          int dotPos = namespec.lastIndexOf('.');
+-+                          if (dotPos != -1 && namespec.startsWith("lib")) {
+-+                              namespec.truncate(dotPos);
+-+                              namespec.remove(0, 3);
+-+                          } else {
+-+                              namespec.prepend(':');
+-+                          }
+-+                          result += "-l" + namespec;
+-+                      } else {
+-+
+-+                          result += lib;
+-+                      }
+-+                  }
+-+                  return result;
+-+              };
+-+
+-     QString fname = libtoolFileName(), lname = fname;
+-     mkdir(fileInfo(fname).path());
+-     int slsh = lname.lastIndexOf(Option::dir_sep);
+-@@ -1488,12 +1515,11 @@ UnixMakefileGenerator::writeLibtoolFile()
+-                          << ".a'\n\n";
+-
+-     t << "# Libraries that this one depends upon.\n";
+-+    static const ProKey libVars[] = { "LIBS", "QMAKE_LIBS" };
+-     ProStringList libs;
+--    libs << "LIBS" << "QMAKE_LIBS";
+--    t << "dependency_libs='";
+--    for (ProStringList::ConstIterator it = libs.begin(); it != libs.end(); ++it)
+--        t << fixLibFlags((*it).toKey()).join(' ') << ' ';
+--    t << "'\n\n";
+-+    for (auto var : libVars)
+-+        libs += fixLibFlags(var);
+-+    t << "dependency_libs='" << fixAbsolutePaths(libs).join(' ') << "'\n\n";
+-
+-     t << "# Version information for " << lname << "\n";
+-     int maj = project->first("VER_MAJ").toInt();
+---
+-2.22.0
+-
+diff --git a/package/qt5/qt5base/5.12.4/qt5base.hash b/package/qt5/qt5base/5.12.4/qt5base.hash
+deleted file mode 100644
+index 5e507ccc0a..0000000000
+--- a/package/qt5/qt5base/5.12.4/qt5base.hash
++++ /dev/null
+@@ -1,11 +0,0 @@
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtbase-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 20fbc7efa54ff7db9552a7a2cdf9047b80253c1933c834f35b0bc5c1ae021195 qtbase-everywhere-src-5.12.4.tar.xz
+-
+-# Hashes for license files:
+-sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
+-sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
+-sha256 0dbe024961f6ab5c52689cbd036c977975d0d0f6a67ff97762d96cb819dd5652 LICENSE.GPL3-EXCEPT
+-sha256 88ec689407cf2df9b2eb5c45952564d51ce73c129a3bdffb15c0d2d161ad7558 LICENSE.LGPLv3
+-sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
+-sha256 1f4fa3d202198f5d836993748eac9d91157e2cec7fb8426f56000a02a677cdc5 header.BSD
+-sha256 2a886915de4f296cdae5ed67064f86dba01d0c55286d86e8487f2a5caaf40216 src/3rdparty/harfbuzz-ng/COPYING
 diff --git a/package/qt5/qt5base/5.13.0/0001-qtbase-Fix-build-error-when-using-EGL.patch b/package/qt5/qt5base/5.13.0/0001-qtbase-Fix-build-error-when-using-EGL.patch
 new file mode 100644
 index 0000000000..6876498022
@@ -229,15 +428,15 @@ index 04c04730bd..0000000000
 -	depends on BR2_PACKAGE_QT5_JSCORE_AVAILABLE
 diff --git a/package/qt5/qt5canvas3d/qt5canvas3d.hash b/package/qt5/qt5canvas3d/qt5canvas3d.hash
 deleted file mode 100644
-index fc36119164..0000000000
+index 6173ec7453..0000000000
 --- a/package/qt5/qt5canvas3d/qt5canvas3d.hash
 +++ /dev/null
 @@ -1,14 +0,0 @@
 -# Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtcanvas3d-opensource-src-5.6.3.tar.xz.mirrorlist
 -sha256 e99e0e159f2fba539b7947a1921072f6807f20958d32809edbf12aac571f56ff qtcanvas3d-opensource-src-5.6.3.tar.xz
 -
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtcanvas3d-everywhere-src-5.12.2.tar.xz.sha256
--sha256 5e74b083294956505945621f6f56a3d7a314502277a109d6fb6b25c74dea2dca qtcanvas3d-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtcanvas3d-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 d7e0e8aa542d077a929fb7700411ca9de1f65ae4748d64168d2e7533facd7869 qtcanvas3d-everywhere-src-5.12.4.tar.xz
 -
 -# Hashes for license files:
 -sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
@@ -298,130 +497,355 @@ index b550ff00f2..0000000000
 -
 -$(eval $(generic-package))
 diff --git a/package/qt5/qt5charts/qt5charts.hash b/package/qt5/qt5charts/qt5charts.hash
-index 5ec0c07790..154901ecdc 100644
+deleted file mode 100644
+index 25d821700a..0000000000
 --- a/package/qt5/qt5charts/qt5charts.hash
-+++ b/package/qt5/qt5charts/qt5charts.hash
-@@ -1,8 +1,8 @@
- # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtcharts-opensource-src-2.1.3.tar.xz.mirrorlist
- sha256 f636a9b1c255f678f11b36cd73abc807d16dae0c31ecbc75c09524703aae7d2f  qtcharts-opensource-src-2.1.3.tar.xz
- 
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtcharts-everywhere-src-5.12.2.tar.xz.sha256
--sha256 11d88d3e0ec86730219f7c2efa17f696ec8766415c488b208bfcb8f3c3a68a31 qtcharts-everywhere-src-5.12.2.tar.xz
-+# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtcharts-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 04e381ec287edf230583eb32fbcde40bce62119d3eabbe2978f4ce8366e36b27 qtcharts-everywhere-src-5.13.0.tar.xz
- 
- # Hashes for license files:
- sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
-diff --git a/package/qt5/qt5connectivity/5.12.2/qt5connectivity.hash b/package/qt5/qt5connectivity/5.12.2/qt5connectivity.hash
-index 180d18f016..6fe8af59f6 100644
---- a/package/qt5/qt5connectivity/5.12.2/qt5connectivity.hash
-+++ b/package/qt5/qt5connectivity/5.12.2/qt5connectivity.hash
-@@ -1,5 +1,5 @@
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtconnectivity-everywhere-src-5.12.2.tar.xz.sha256
--sha256 15eb21a1c102408e43c7204a82ad144e97ebe05dc4a15edb0900cd49762a226e qtconnectivity-everywhere-src-5.12.2.tar.xz
++++ /dev/null
+@@ -1,8 +0,0 @@
+-# Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtcharts-opensource-src-2.1.3.tar.xz.mirrorlist
+-sha256 f636a9b1c255f678f11b36cd73abc807d16dae0c31ecbc75c09524703aae7d2f  qtcharts-opensource-src-2.1.3.tar.xz
+-
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtcharts-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 06ff68a80dc377847429cdd87d4e46465e1d6fbc417d52700a0a59d197669c9e qtcharts-everywhere-src-5.12.4.tar.xz
+-
+-# Hashes for license files:
+-sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
+diff --git a/package/qt5/qt5connectivity/5.12.4/qt5connectivity.hash b/package/qt5/qt5connectivity/5.12.4/qt5connectivity.hash
+deleted file mode 100644
+index 3afaffa9c8..0000000000
+--- a/package/qt5/qt5connectivity/5.12.4/qt5connectivity.hash
++++ /dev/null
+@@ -1,9 +0,0 @@
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtconnectivity-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 749d05242b9fae12e80f569fb6b918dc011cb191eeb05147cbde474ca6b173ef qtconnectivity-everywhere-src-5.12.4.tar.xz
+-
+-# Hashes for license files:
+-sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
+-sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
+-sha256 0dbe024961f6ab5c52689cbd036c977975d0d0f6a67ff97762d96cb819dd5652 LICENSE.GPL3-EXCEPT
+-sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768 LICENSE.LGPL3
+-sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
+diff --git a/package/qt5/qt5connectivity/5.13.0/qt5connectivity.hash b/package/qt5/qt5connectivity/5.13.0/qt5connectivity.hash
+new file mode 100644
+index 0000000000..6fe8af59f6
+--- /dev/null
++++ b/package/qt5/qt5connectivity/5.13.0/qt5connectivity.hash
+@@ -0,0 +1,9 @@
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtconnectivity-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 64fad0692c639d25295cc85f12526f3fe2eaeb51bcf47d8561ad00dd57ad5053 qtconnectivity-everywhere-src-5.13.0.tar.xz
- 
- # Hashes for license files:
- sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
++
++# Hashes for license files:
++sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
++sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
++sha256 0dbe024961f6ab5c52689cbd036c977975d0d0f6a67ff97762d96cb819dd5652 LICENSE.GPL3-EXCEPT
++sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768 LICENSE.LGPL3
++sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
+diff --git a/package/qt5/qt5declarative/5.12.4/0001-qsgtexture-fix-debug-build-with-uclibc.patch b/package/qt5/qt5declarative/5.12.4/0001-qsgtexture-fix-debug-build-with-uclibc.patch
+deleted file mode 100644
+index 1c0f6eccc5..0000000000
+--- a/package/qt5/qt5declarative/5.12.4/0001-qsgtexture-fix-debug-build-with-uclibc.patch
++++ /dev/null
+@@ -1,45 +0,0 @@
+-From 2a5711651bee9d021733da19126a71aeda45e646 Mon Sep 17 00:00:00 2001
+-From: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+-Date: Thu, 29 Nov 2018 23:33:10 +0100
+-Subject: [PATCH] qsgtexture: fix debug build with uclibc
+-
+-Debug build of gsgtexture fails on uclibc since version 5.11 and
+-https://github.com/qt/qtdeclarative/commit/7c507eaac3f848f92f2ebdafe8ded4a064d68351:
+-
+-scenegraph/util/qsgtexture.cpp:69:22: fatal error: execinfo.h: No such file or directory
+- #include <execinfo.h>
+-
+-Indeed, !defined(__UCLIBC__) has been replaced by defined(__GBLIBC__) to
+-fix build on musl but as a result, build fails on uclibc because uclibc
+-also defines __GLIBC__ (and it does not have execinfo like musl)
+-
+-This error is raised only when building in debug mode because
+-CAN_BACKTRACE_EXECINFO is undefined if QT_NO_DEBUG is set
+-
+-So keep defined(__GLIBC__), but put back !defined(__UCLIBC__)
+-
+-Fixes:
+- - http://autobuild.buildroot.org/results/6fce0ce5aea943e097532efbbc8d1e28f41e5866
+-
+-Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+-[Upstream status: https://github.com/qt/qtdeclarative/pull/4]
+----
+- src/quick/scenegraph/util/qsgtexture.cpp | 2 +-
+- 1 file changed, 1 insertion(+), 1 deletion(-)
+-
+-diff --git a/src/quick/scenegraph/util/qsgtexture.cpp b/src/quick/scenegraph/util/qsgtexture.cpp
+-index fea92a512..a26191006 100644
+---- a/src/quick/scenegraph/util/qsgtexture.cpp
+-+++ b/src/quick/scenegraph/util/qsgtexture.cpp
+-@@ -53,7 +53,7 @@
+- #endif
+- #include <private/qsgmaterialshader_p.h>
+- 
+--#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID) && defined(__GLIBC__)
+-+#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID) && defined(__GLIBC__) && !defined(__UCLIBC__)
+- #define CAN_BACKTRACE_EXECINFO
+- #endif
+- 
+--- 
+-2.14.1
+-
+diff --git a/package/qt5/qt5declarative/5.13.0/0001-qsgtexture-fix-debug-build-with-uclibc.patch b/package/qt5/qt5declarative/5.13.0/0001-qsgtexture-fix-debug-build-with-uclibc.patch
+new file mode 100644
+index 0000000000..1c0f6eccc5
+--- /dev/null
++++ b/package/qt5/qt5declarative/5.13.0/0001-qsgtexture-fix-debug-build-with-uclibc.patch
+@@ -0,0 +1,45 @@
++From 2a5711651bee9d021733da19126a71aeda45e646 Mon Sep 17 00:00:00 2001
++From: Fabrice Fontaine <fontaine.fabrice@gmail.com>
++Date: Thu, 29 Nov 2018 23:33:10 +0100
++Subject: [PATCH] qsgtexture: fix debug build with uclibc
++
++Debug build of gsgtexture fails on uclibc since version 5.11 and
++https://github.com/qt/qtdeclarative/commit/7c507eaac3f848f92f2ebdafe8ded4a064d68351:
++
++scenegraph/util/qsgtexture.cpp:69:22: fatal error: execinfo.h: No such file or directory
++ #include <execinfo.h>
++
++Indeed, !defined(__UCLIBC__) has been replaced by defined(__GBLIBC__) to
++fix build on musl but as a result, build fails on uclibc because uclibc
++also defines __GLIBC__ (and it does not have execinfo like musl)
++
++This error is raised only when building in debug mode because
++CAN_BACKTRACE_EXECINFO is undefined if QT_NO_DEBUG is set
++
++So keep defined(__GLIBC__), but put back !defined(__UCLIBC__)
++
++Fixes:
++ - http://autobuild.buildroot.org/results/6fce0ce5aea943e097532efbbc8d1e28f41e5866
++
++Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
++[Upstream status: https://github.com/qt/qtdeclarative/pull/4]
++---
++ src/quick/scenegraph/util/qsgtexture.cpp | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/src/quick/scenegraph/util/qsgtexture.cpp b/src/quick/scenegraph/util/qsgtexture.cpp
++index fea92a512..a26191006 100644
++--- a/src/quick/scenegraph/util/qsgtexture.cpp
+++++ b/src/quick/scenegraph/util/qsgtexture.cpp
++@@ -53,7 +53,7 @@
++ #endif
++ #include <private/qsgmaterialshader_p.h>
++ 
++-#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID) && defined(__GLIBC__)
+++#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID) && defined(__GLIBC__) && !defined(__UCLIBC__)
++ #define CAN_BACKTRACE_EXECINFO
++ #endif
++ 
++-- 
++2.14.1
++
 diff --git a/package/qt5/qt5declarative/qt5declarative.hash b/package/qt5/qt5declarative/qt5declarative.hash
-index 422b45249f..4c52f95b4a 100644
+index e1c24c93c7..4c52f95b4a 100644
 --- a/package/qt5/qt5declarative/qt5declarative.hash
 +++ b/package/qt5/qt5declarative/qt5declarative.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtdeclarative-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 f63fc053d0d16b8a9ca9308f8ead77874b470ae31b66057e2bd336bf648191fc qtdeclarative-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtdeclarative-everywhere-src-5.12.2.tar.xz.sha256
--sha256 470568745602e7fa21cdca42b1641162e4257cfeb7a2dcf8af24538c9516cc5b qtdeclarative-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtdeclarative-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 614105ed73079d67d81b34fef31c9934c5e751342e4b2e0297128c8c301acda7 qtdeclarative-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtdeclarative-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 b9e8780aef0af4a60e64dcc405bdf5c03a04b28e3b94d5c2e69d0006db566ba9 qtdeclarative-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
 diff --git a/package/qt5/qt5graphicaleffects/qt5graphicaleffects.hash b/package/qt5/qt5graphicaleffects/qt5graphicaleffects.hash
-index b46c68542c..a662806201 100644
+index 7abdfa117e..a662806201 100644
 --- a/package/qt5/qt5graphicaleffects/qt5graphicaleffects.hash
 +++ b/package/qt5/qt5graphicaleffects/qt5graphicaleffects.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtgraphicaleffects-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 c742592d5e45b122b29df60b69be23ba7c817f2dc471db86e054f6ea24a999ed qtgraphicaleffects-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtgraphicaleffects-everywhere-src-5.12.2.tar.xz.sha256
--sha256 429398b6c661897b3c7cd62fb3657a2de60ad9152578edeeca0abde6e7ae5a86 qtgraphicaleffects-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtgraphicaleffects-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 0bc38b168fa724411984525173d667aa47076c8cbd4eeb791d0da7fe4b9bdf73 qtgraphicaleffects-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtgraphicaleffects-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 33bf92d6560d4d7b87f3e99dfacbc9cafc7ea5ef3d40f00cc3777a005251d0ff qtgraphicaleffects-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
 diff --git a/package/qt5/qt5imageformats/qt5imageformats.hash b/package/qt5/qt5imageformats/qt5imageformats.hash
-index da656554cb..689741432b 100644
+index bf7a06d017..689741432b 100644
 --- a/package/qt5/qt5imageformats/qt5imageformats.hash
 +++ b/package/qt5/qt5imageformats/qt5imageformats.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtimageformats-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 efe4da3c90c976c9b9a2eb6b081d2b8e1435935695104456276ce98e8a5848c3 qtimageformats-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtimageformats-everywhere-src-5.12.2.tar.xz.sha256
--sha256 1ea757728f205deb6b3f5873f5c7c3129cded5993077500a9fb249559bee7a9c qtimageformats-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtimageformats-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 2dee25c3eea90d172cbd40f41450153322b902da1daa7d2370a55124b2307bb3 qtimageformats-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtimageformats-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 91cb638e5f856acc17ab5a2e1a052dc91bb1af2bdbd7d99ba6a8a48f4a15f499 qtimageformats-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 edfe70e99be2a7c109d860b19204609e582720b211c50caedac729da372a1253 LICENSE.GPLv2
 diff --git a/package/qt5/qt5location/qt5location.hash b/package/qt5/qt5location/qt5location.hash
-index 2a52e1f116..3abae4b096 100644
+index 656243eca5..3abae4b096 100644
 --- a/package/qt5/qt5location/qt5location.hash
 +++ b/package/qt5/qt5location/qt5location.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtlocation-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 b7a81c58cc331fb15bea8fba21d3c9a59f6dc6ad2e4855e30a14ce59a2af1466 qtlocation-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtlocation-everywhere-src-5.12.2.tar.xz.sha256
--sha256 a31f27f457ac57e7203ae808b95ba0053d182e22425de03840af761e343d8bef qtlocation-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtlocation-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 127b40bd7679fead3fb98f4c9c1d71dde9d6d416e90a6000129b61a5f128b3a0 qtlocation-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtlocation-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 205a47d259841b3879c59d3054d8b1098d3b0e7b45c64ad327daedefb4421414 qtlocation-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
+diff --git a/package/qt5/qt5multimedia/5.12.4/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch b/package/qt5/qt5multimedia/5.12.4/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch
+deleted file mode 100644
+index 1dc7701c08..0000000000
+--- a/package/qt5/qt5multimedia/5.12.4/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch
++++ /dev/null
+@@ -1,47 +0,0 @@
+-From 9bbf9f0d862b8d458e59690d36641618fb101b4e Mon Sep 17 00:00:00 2001
+-From: Val Doroshchuk <valentyn.doroshchuk@qt.io>
+-Date: Mon, 17 Jun 2019 15:20:22 +0200
+-Subject: Fix compile issue when no opengl in QVideoSurfacePainter
+-
+-error: invalid use of incomplete type 'class QGLContext'
+-
+-Change-Id: I4bc9bd4231e663b187d3cef917b7a551ba614ba9
+-Fixes: QTBUG-76405
+-Reviewed-by: Andy Shaw <andy.shaw@qt.io>
+-
+-[Retrieved from:
+-https://code.qt.io/cgit/qt/qtmultimedia.git/commit/?id=9bbf9f0d862b8d458e59690d36641618fb101b4e]
+-Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+----
+- src/multimediawidgets/qpaintervideosurface.cpp | 8 ++++----
+- 1 file changed, 4 insertions(+), 4 deletions(-)
+-
+-diff --git a/src/multimediawidgets/qpaintervideosurface.cpp b/src/multimediawidgets/qpaintervideosurface.cpp
+-index 440d5c858..6af0c7588 100644
+---- a/src/multimediawidgets/qpaintervideosurface.cpp
+-+++ b/src/multimediawidgets/qpaintervideosurface.cpp
+-@@ -57,10 +57,6 @@
+- #ifndef GL_RGB8
+- #define GL_RGB8 0x8051
+- #endif
+--#endif
+--
+--#include <QtDebug>
+--QT_BEGIN_NAMESPACE
+- 
+- static void makeCurrent(QGLContext *context)
+- {
+-@@ -70,6 +66,10 @@ static void makeCurrent(QGLContext *context)
+-     if (handle && QOpenGLContext::currentContext() != handle)
+-         handle->makeCurrent(handle->surface());
+- }
+-+#endif
+-+
+-+#include <QtDebug>
+-+QT_BEGIN_NAMESPACE
+- 
+- QVideoSurfacePainter::~QVideoSurfacePainter()
+- {
+--- 
+-cgit v1.2.1
+-
+diff --git a/package/qt5/qt5multimedia/5.13.0/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch b/package/qt5/qt5multimedia/5.13.0/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch
+new file mode 100644
+index 0000000000..1dc7701c08
+--- /dev/null
++++ b/package/qt5/qt5multimedia/5.13.0/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch
+@@ -0,0 +1,47 @@
++From 9bbf9f0d862b8d458e59690d36641618fb101b4e Mon Sep 17 00:00:00 2001
++From: Val Doroshchuk <valentyn.doroshchuk@qt.io>
++Date: Mon, 17 Jun 2019 15:20:22 +0200
++Subject: Fix compile issue when no opengl in QVideoSurfacePainter
++
++error: invalid use of incomplete type 'class QGLContext'
++
++Change-Id: I4bc9bd4231e663b187d3cef917b7a551ba614ba9
++Fixes: QTBUG-76405
++Reviewed-by: Andy Shaw <andy.shaw@qt.io>
++
++[Retrieved from:
++https://code.qt.io/cgit/qt/qtmultimedia.git/commit/?id=9bbf9f0d862b8d458e59690d36641618fb101b4e]
++Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
++---
++ src/multimediawidgets/qpaintervideosurface.cpp | 8 ++++----
++ 1 file changed, 4 insertions(+), 4 deletions(-)
++
++diff --git a/src/multimediawidgets/qpaintervideosurface.cpp b/src/multimediawidgets/qpaintervideosurface.cpp
++index 440d5c858..6af0c7588 100644
++--- a/src/multimediawidgets/qpaintervideosurface.cpp
+++++ b/src/multimediawidgets/qpaintervideosurface.cpp
++@@ -57,10 +57,6 @@
++ #ifndef GL_RGB8
++ #define GL_RGB8 0x8051
++ #endif
++-#endif
++-
++-#include <QtDebug>
++-QT_BEGIN_NAMESPACE
++ 
++ static void makeCurrent(QGLContext *context)
++ {
++@@ -70,6 +66,10 @@ static void makeCurrent(QGLContext *context)
++     if (handle && QOpenGLContext::currentContext() != handle)
++         handle->makeCurrent(handle->surface());
++ }
+++#endif
+++
+++#include <QtDebug>
+++QT_BEGIN_NAMESPACE
++ 
++ QVideoSurfacePainter::~QVideoSurfacePainter()
++ {
++-- 
++cgit v1.2.1
++
 diff --git a/package/qt5/qt5multimedia/qt5multimedia.hash b/package/qt5/qt5multimedia/qt5multimedia.hash
-index 8c150cce40..3a5312ba09 100644
+index 927123e83c..3a5312ba09 100644
 --- a/package/qt5/qt5multimedia/qt5multimedia.hash
 +++ b/package/qt5/qt5multimedia/qt5multimedia.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtmultimedia-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 ae36039ea8037742342f1615687e0ca2188f3ed0d700627a5e5be546c15e1b46 qtmultimedia-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtmultimedia-everywhere-src-5.12.2.tar.xz.sha256
--sha256 5d3c90c546e64abf523432a3df5e7a3f1b5ad72e7d0b5ea6260729fbefeb30f5 qtmultimedia-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtmultimedia-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 7c0759ab6fca2480b10b71a35beeffe0b847adeff5af94eacd1a4531d033423d qtmultimedia-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtmultimedia-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 5076219d277083d2535e5f739d06783abe2e059e9d3fd9f924a1fa7970946d72 qtmultimedia-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
 diff --git a/package/qt5/qt5quickcontrols/qt5quickcontrols.hash b/package/qt5/qt5quickcontrols/qt5quickcontrols.hash
-index c7944c89ba..256f85d6a6 100644
+index a3a01364ce..256f85d6a6 100644
 --- a/package/qt5/qt5quickcontrols/qt5quickcontrols.hash
 +++ b/package/qt5/qt5quickcontrols/qt5quickcontrols.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtquickcontrols-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 31bb0fc8f21b855af6ff02c415be3246128b523d0ef7c05e248e92281ab0db8e qtquickcontrols-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtquickcontrols-everywhere-src-5.12.2.tar.xz.sha256
--sha256 9b5c87605d08849927dd09bf9b03a939511461372b7e20004abe1116cf9fc73e qtquickcontrols-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtquickcontrols-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 32d4c2505337c67b0bac26d7f565ec8fabdc616e61247e98674820769dda9858 qtquickcontrols-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtquickcontrols-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 a5c6d40e0432246129d3f350a9aa419901dd73f2e4f8af6efb7a3e86e57ae167 qtquickcontrols-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 edfe70e99be2a7c109d860b19204609e582720b211c50caedac729da372a1253 LICENSE.GPLv2
-diff --git a/package/qt5/qt5quickcontrols2/5.12.2/qt5quickcontrols2.hash b/package/qt5/qt5quickcontrols2/5.12.2/qt5quickcontrols2.hash
+diff --git a/package/qt5/qt5quickcontrols2/5.12.4/qt5quickcontrols2.hash b/package/qt5/qt5quickcontrols2/5.12.4/qt5quickcontrols2.hash
 deleted file mode 100644
-index 25ae01a67d..0000000000
---- a/package/qt5/qt5quickcontrols2/5.12.2/qt5quickcontrols2.hash
+index b5e897654f..0000000000
+--- a/package/qt5/qt5quickcontrols2/5.12.4/qt5quickcontrols2.hash
 +++ /dev/null
 @@ -1,7 +0,0 @@
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtquickcontrols2-everywhere-src-5.12.2.tar.xz.sha256
--sha256 1fbd703612a2c0257861e07a2b709f6fbad00cb6df70a1c2c1fafa9de522e549 qtquickcontrols2-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtquickcontrols2-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 9a447eed38bc8c7d7be7bc407317f58940377c077ddca74c9a641b1ee6200331 qtquickcontrols2-everywhere-src-5.12.4.tar.xz
 -
 -# Hashes for license files:
 -sha256 d2cfc059acb4abd8e513cd0a73cd8489f34cbafa7bc34d5d31fb3210821cf8ca LICENSE.GPLv3
@@ -441,151 +865,287 @@ index 0000000000..352e52741d
 +sha256 9e63a04ce021b8bf811b30881fa51c8c3db88afeead942cd59322f2fb69c75bc LICENSE.LGPLv3
 +sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
 diff --git a/package/qt5/qt5script/qt5script.hash b/package/qt5/qt5script/qt5script.hash
-index 4683dce90b..67d5fc0ecb 100644
+index c40b842f3f..67d5fc0ecb 100644
 --- a/package/qt5/qt5script/qt5script.hash
 +++ b/package/qt5/qt5script/qt5script.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtscript-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 f08720dd0e3a70377c1cb7fa3b129e24f4cdedade279e51b67c9271ab470b389 qtscript-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtscript-everywhere-src-5.12.2.tar.xz.sha256
--sha256 f8717d51072b4d4455755ae081e45f23f3d0ce25602f96231dd7703bd818a2e6 qtscript-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtscript-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 7adb3fe77638c7a6f2a26bca850b0ff54f5fb7e5561d2e4141d14a84305c2b6a qtscript-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtscript-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 2323eb93a215b837d8d276f7f35e7dfb6a28b952d8b51fb92c60619813a37a80 qtscript-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
 diff --git a/package/qt5/qt5scxml/qt5scxml.hash b/package/qt5/qt5scxml/qt5scxml.hash
-index 437d18891b..adae7b7104 100644
+index 5a4b58a0ad..adae7b7104 100644
 --- a/package/qt5/qt5scxml/qt5scxml.hash
 +++ b/package/qt5/qt5scxml/qt5scxml.hash
 @@ -1,5 +1,5 @@
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtscxml-everywhere-src-5.12.2.tar.xz.sha256
--sha256 69592542fdf4b2efe6a6378ecb1bfdda9e7f48007e191d7f77a0009e213a8623 qtscxml-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtscxml-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 696fb72a62018151275fe589fc80cb160d2becab9a3254321d40e2e11a0ad4f8 qtscxml-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtscxml-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 fcd5b347a51d47b70b8192a20934951bb80cafa18fa55413ffc9e1fcb1bb2766 qtscxml-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  
 diff --git a/package/qt5/qt5sensors/qt5sensors.hash b/package/qt5/qt5sensors/qt5sensors.hash
-index f297d2aa2a..fac19ddf9e 100644
+index 69db8df051..fac19ddf9e 100644
 --- a/package/qt5/qt5sensors/qt5sensors.hash
 +++ b/package/qt5/qt5sensors/qt5sensors.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtsensors-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 7502d4dc5571865a7eea2a4180c3be396dfb8ce22df4c4f3d7e9ff32ab334973 qtsensors-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtsensors-everywhere-src-5.12.2.tar.xz.sha256
--sha256 758a131ad86c4b8b8364e48d659a680ed12d03c091c5ab2958d06b7b0aa2e50c qtsensors-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtsensors-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 95873c7ea5960008d6eb41368ca64d68fbd05594ca8c2cd848b1612fc4aec0a9 qtsensors-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtsensors-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 1fae52836c786a9fd50e9e1d590384b9aea479f4569e33fc2d69536bbe2cde48 qtsensors-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
-diff --git a/package/qt5/qt5serialbus/5.12.2/qt5serialbus.hash b/package/qt5/qt5serialbus/5.12.2/qt5serialbus.hash
-index 098f05f2bb..7c12a57eb5 100644
---- a/package/qt5/qt5serialbus/5.12.2/qt5serialbus.hash
-+++ b/package/qt5/qt5serialbus/5.12.2/qt5serialbus.hash
-@@ -1,5 +1,5 @@
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtserialbus-everywhere-src-5.12.2.tar.xz.sha256
--sha256 16bfee0be81805d82d4f9c04425b5bc2678ca01fa1617fc72613a893438aaa48 qtserialbus-everywhere-src-5.12.2.tar.xz
+diff --git a/package/qt5/qt5serialbus/5.12.4/0001-SocketCAN-Fix-compiler-error-SIOCGSTAMP-was-not-declared.patch b/package/qt5/qt5serialbus/5.12.4/0001-SocketCAN-Fix-compiler-error-SIOCGSTAMP-was-not-declared.patch
+deleted file mode 100644
+index 8573e304fa..0000000000
+--- a/package/qt5/qt5serialbus/5.12.4/0001-SocketCAN-Fix-compiler-error-SIOCGSTAMP-was-not-declared.patch
++++ /dev/null
+@@ -1,36 +0,0 @@
+-From 43d746c2c0c87c8694e835f3b052317c8fa02482 Mon Sep 17 00:00:00 2001
+-From: Andre Hartmann <aha_1980@gmx.de>
+-Date: Mon, 8 Jul 2019 21:35:12 +0200
+-Subject: =?UTF-8?q?SocketCAN:=20Fix=20compiler=20error=20"=E2=80=98SIOCGST?=
+- =?UTF-8?q?AMP=E2=80=99=20was=20not=20declared"?=
+-MIME-Version: 1.0
+-Content-Type: text/plain; charset=UTF-8
+-Content-Transfer-Encoding: 8bit
+-
+-Fixes: QTBUG-76957
+-Change-Id: I8c4c86aa23137d67f5d20eedfe1c46a241c0632b
+-Reviewed-by: Alex Blasche <alexander.blasche@qt.io>
+-Reviewed-by: Denis Shienkov <denis.shienkov@gmail.com>
+-
+-[Retrieved from:
+-https://code.qt.io/cgit/qt/qtserialbus.git/commit/?id=43d746c2c0c87c8694e835f3b052317c8fa02482]
+-Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
+----
+- src/plugins/canbus/socketcan/socketcanbackend.cpp | 1 +
+- 1 file changed, 1 insertion(+)
+-
+-diff --git a/src/plugins/canbus/socketcan/socketcanbackend.cpp b/src/plugins/canbus/socketcan/socketcanbackend.cpp
+-index 74b0d1d..a2da146 100644
+---- a/src/plugins/canbus/socketcan/socketcanbackend.cpp
+-+++ b/src/plugins/canbus/socketcan/socketcanbackend.cpp
+-@@ -45,6 +45,7 @@
+- 
+- #include <linux/can/error.h>
+- #include <linux/can/raw.h>
+-+#include <linux/sockios.h>
+- #include <errno.h>
+- #include <unistd.h>
+- #include <net/if.h>
+--- 
+-cgit v1.2.1
+-
+diff --git a/package/qt5/qt5serialbus/5.12.4/qt5serialbus.hash b/package/qt5/qt5serialbus/5.12.4/qt5serialbus.hash
+deleted file mode 100644
+index d81c73d86b..0000000000
+--- a/package/qt5/qt5serialbus/5.12.4/qt5serialbus.hash
++++ /dev/null
+@@ -1,8 +0,0 @@
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtserialbus-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 69d56905f43ee13e670750e8f46d373835fae81d6343baa7c4004d2a2c6311fc qtserialbus-everywhere-src-5.12.4.tar.xz
+-
+-# Hashes for license files:
+-sha256 edfe70e99be2a7c109d860b19204609e582720b211c50caedac729da372a1253 LICENSE.GPLv2
+-sha256 245248009fd0af1725d183248380e476c1283383909358a13686606352bf2a17 LICENSE.GPLv3
+-sha256 5ceb37d1c7c1d92878b82af3c0fd5558087f3d5a08a3a4d43850bad4ad265a52 LICENSE.LGPLv3
+-sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
+diff --git a/package/qt5/qt5serialbus/5.13.0/0001-SocketCAN-Fix-compiler-error-SIOCGSTAMP-was-not-declared.patch b/package/qt5/qt5serialbus/5.13.0/0001-SocketCAN-Fix-compiler-error-SIOCGSTAMP-was-not-declared.patch
+new file mode 100644
+index 0000000000..8573e304fa
+--- /dev/null
++++ b/package/qt5/qt5serialbus/5.13.0/0001-SocketCAN-Fix-compiler-error-SIOCGSTAMP-was-not-declared.patch
+@@ -0,0 +1,36 @@
++From 43d746c2c0c87c8694e835f3b052317c8fa02482 Mon Sep 17 00:00:00 2001
++From: Andre Hartmann <aha_1980@gmx.de>
++Date: Mon, 8 Jul 2019 21:35:12 +0200
++Subject: =?UTF-8?q?SocketCAN:=20Fix=20compiler=20error=20"=E2=80=98SIOCGST?=
++ =?UTF-8?q?AMP=E2=80=99=20was=20not=20declared"?=
++MIME-Version: 1.0
++Content-Type: text/plain; charset=UTF-8
++Content-Transfer-Encoding: 8bit
++
++Fixes: QTBUG-76957
++Change-Id: I8c4c86aa23137d67f5d20eedfe1c46a241c0632b
++Reviewed-by: Alex Blasche <alexander.blasche@qt.io>
++Reviewed-by: Denis Shienkov <denis.shienkov@gmail.com>
++
++[Retrieved from:
++https://code.qt.io/cgit/qt/qtserialbus.git/commit/?id=43d746c2c0c87c8694e835f3b052317c8fa02482]
++Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
++---
++ src/plugins/canbus/socketcan/socketcanbackend.cpp | 1 +
++ 1 file changed, 1 insertion(+)
++
++diff --git a/src/plugins/canbus/socketcan/socketcanbackend.cpp b/src/plugins/canbus/socketcan/socketcanbackend.cpp
++index 74b0d1d..a2da146 100644
++--- a/src/plugins/canbus/socketcan/socketcanbackend.cpp
+++++ b/src/plugins/canbus/socketcan/socketcanbackend.cpp
++@@ -45,6 +45,7 @@
++ 
++ #include <linux/can/error.h>
++ #include <linux/can/raw.h>
+++#include <linux/sockios.h>
++ #include <errno.h>
++ #include <unistd.h>
++ #include <net/if.h>
++-- 
++cgit v1.2.1
++
+diff --git a/package/qt5/qt5serialbus/5.13.0/qt5serialbus.hash b/package/qt5/qt5serialbus/5.13.0/qt5serialbus.hash
+new file mode 100644
+index 0000000000..7c12a57eb5
+--- /dev/null
++++ b/package/qt5/qt5serialbus/5.13.0/qt5serialbus.hash
+@@ -0,0 +1,8 @@
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtserialbus-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 5ef8ce8d7dbdd4065e1a1e842d7effb7134ce262790fcd59076937f3b40b78f3 qtserialbus-everywhere-src-5.13.0.tar.xz
- 
- # Hashes for license files:
- sha256 edfe70e99be2a7c109d860b19204609e582720b211c50caedac729da372a1253 LICENSE.GPLv2
-diff --git a/package/qt5/qt5serialport/5.12.2/qt5serialport.hash b/package/qt5/qt5serialport/5.12.2/qt5serialport.hash
-index 66ddf16f35..be62045447 100644
---- a/package/qt5/qt5serialport/5.12.2/qt5serialport.hash
-+++ b/package/qt5/qt5serialport/5.12.2/qt5serialport.hash
-@@ -1,5 +1,5 @@
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtserialport-everywhere-src-5.12.2.tar.xz.mirrorlist
--sha256 72163cedda4c6fa787db8666bec6b5057272dc87bf8de6addba3440dd472bd7f qtserialport-everywhere-src-5.12.2.tar.xz
++
++# Hashes for license files:
++sha256 edfe70e99be2a7c109d860b19204609e582720b211c50caedac729da372a1253 LICENSE.GPLv2
++sha256 245248009fd0af1725d183248380e476c1283383909358a13686606352bf2a17 LICENSE.GPLv3
++sha256 5ceb37d1c7c1d92878b82af3c0fd5558087f3d5a08a3a4d43850bad4ad265a52 LICENSE.LGPLv3
++sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
+diff --git a/package/qt5/qt5serialport/5.12.4/qt5serialport.hash b/package/qt5/qt5serialport/5.12.4/qt5serialport.hash
+deleted file mode 100644
+index 6b93cf5c27..0000000000
+--- a/package/qt5/qt5serialport/5.12.4/qt5serialport.hash
++++ /dev/null
+@@ -1,9 +0,0 @@
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtserialport-everywhere-src-5.12.4.tar.xz.mirrorlist
+-sha256 bf487df8a9fb2eddf103842b57a75b17ef4c498ee40306ae9997017c82b0ad39 qtserialport-everywhere-src-5.12.4.tar.xz
+-
+-# Hashes for license files:
+-sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
+-sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
+-sha256 0dbe024961f6ab5c52689cbd036c977975d0d0f6a67ff97762d96cb819dd5652 LICENSE.GPL3-EXCEPT
+-sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768 LICENSE.LGPL3
+-sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
+diff --git a/package/qt5/qt5serialport/5.13.0/qt5serialport.hash b/package/qt5/qt5serialport/5.13.0/qt5serialport.hash
+new file mode 100644
+index 0000000000..be62045447
+--- /dev/null
++++ b/package/qt5/qt5serialport/5.13.0/qt5serialport.hash
+@@ -0,0 +1,9 @@
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtserialport-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 2f58309789e1d6b3a2653922f932703cfffddaea06bff63a552900bd63beb985 qtserialport-everywhere-src-5.13.0.tar.xz
- 
- # Hashes for license files:
- sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
++
++# Hashes for license files:
++sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
++sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
++sha256 0dbe024961f6ab5c52689cbd036c977975d0d0f6a67ff97762d96cb819dd5652 LICENSE.GPL3-EXCEPT
++sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768 LICENSE.LGPL3
++sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
 diff --git a/package/qt5/qt5svg/qt5svg.hash b/package/qt5/qt5svg/qt5svg.hash
-index 4f06a21d86..36ee862e18 100644
+index 54523ea5a4..36ee862e18 100644
 --- a/package/qt5/qt5svg/qt5svg.hash
 +++ b/package/qt5/qt5svg/qt5svg.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtsvg-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 100f183517b46554079beabd8d2cabe3070a74dd0a2e64b6a304eac71cfadcec qtsvg-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtsvg-everywhere-src-5.12.2.tar.xz.sha256
--sha256 ed9f2118a6d33f53e5d9ed18dcd36f252a4fbaf68382a1c4a663ba75b25ae7bd qtsvg-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtsvg-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 110812515a73c650e5ebc41305d9a243dadeb21f485aaed773e394dd84ce0d04 qtsvg-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtsvg-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 0f568e20d13418c6d8e395db2ce4d2d706d3fb470cd665853e3637a29fde0eaf qtsvg-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
 diff --git a/package/qt5/qt5tools/qt5tools.hash b/package/qt5/qt5tools/qt5tools.hash
-index 41c98e733a..4b7959ef36 100644
+index 2f9af2be6d..4b7959ef36 100644
 --- a/package/qt5/qt5tools/qt5tools.hash
 +++ b/package/qt5/qt5tools/qt5tools.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qttools-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 1a63ba838058d73cb540040589b235ded77f76402693decfd6d4d3c75ea67926 qttools-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qttools-everywhere-src-5.12.2.tar.xz.sha256
--sha256 4aa3a089794ab1c629b666fffb5da4371351a9e85ea691d5d988c2ff63586005 qttools-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qttools-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 3b0e353860a9c0cd4db9eeae5f94fef8811ed7d107e3e5e97e4a557f61bd6eb6 qttools-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qttools-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 a7887a618dc6434c2567521990c2a7ca72ca6a8379c1d93c5aa6c1798d7a0819 qttools-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
-diff --git a/package/qt5/qt5virtualkeyboard/5.12.2/qt5virtualkeyboard.hash b/package/qt5/qt5virtualkeyboard/5.12.2/qt5virtualkeyboard.hash
-index 245f2b4a70..ec6b3e73ed 100644
---- a/package/qt5/qt5virtualkeyboard/5.12.2/qt5virtualkeyboard.hash
-+++ b/package/qt5/qt5virtualkeyboard/5.12.2/qt5virtualkeyboard.hash
-@@ -1,5 +1,5 @@
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtvirtualkeyboard-everywhere-src-5.12.2.tar.xz.sha256
--sha256 7111de5c78f8a0d29394409727647b90ae5906fd5105c843af98c3ae3804248d qtvirtualkeyboard-everywhere-src-5.12.2.tar.xz
+diff --git a/package/qt5/qt5virtualkeyboard/5.12.4/qt5virtualkeyboard.hash b/package/qt5/qt5virtualkeyboard/5.12.4/qt5virtualkeyboard.hash
+deleted file mode 100644
+index 10960b1cfa..0000000000
+--- a/package/qt5/qt5virtualkeyboard/5.12.4/qt5virtualkeyboard.hash
++++ /dev/null
+@@ -1,9 +0,0 @@
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtvirtualkeyboard-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 33ac0356f916995fe5a91582e12b4c4f730c705808ea3c14e75c6e350e8131e6 qtvirtualkeyboard-everywhere-src-5.12.4.tar.xz
+-
+-# Hashes for license files:
+-sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
+-sha256 7a45a9769d19545480a241230e6ea520b5156fac00930dcd69b6886749743d10 src/plugins/lipi-toolkit/3rdparty/lipi-toolkit/MIT_LICENSE.txt
+-sha256 05cc719deafd0ab083b03296bb2911de10d116953b626a7629b9ca59938038b1 src/plugins/openwnn/3rdparty/openwnn/NOTICE
+-sha256 b5830d96fb5a7e7e7ebcc295f352846b4b998e78fdc8f9aa68e134d2e4b39986 src/plugins/pinyin/3rdparty/pinyin/NOTICE
+-sha256 9400a6128693d2f25653698e695f554660c71efccc8c21af28bf143e35199db6 src/plugins/tcime/3rdparty/tcime/COPYING
+diff --git a/package/qt5/qt5virtualkeyboard/5.13.0/qt5virtualkeyboard.hash b/package/qt5/qt5virtualkeyboard/5.13.0/qt5virtualkeyboard.hash
+new file mode 100644
+index 0000000000..ec6b3e73ed
+--- /dev/null
++++ b/package/qt5/qt5virtualkeyboard/5.13.0/qt5virtualkeyboard.hash
+@@ -0,0 +1,9 @@
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtvirtualkeyboard-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 91483feb79c648ec8820a238ee2a12cf1aa117e8f3a5b06d069450e0c9ad42e9 qtvirtualkeyboard-everywhere-src-5.13.0.tar.xz
- 
- # Hashes for license files:
- sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
++
++# Hashes for license files:
++sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
++sha256 7a45a9769d19545480a241230e6ea520b5156fac00930dcd69b6886749743d10 src/plugins/lipi-toolkit/3rdparty/lipi-toolkit/MIT_LICENSE.txt
++sha256 05cc719deafd0ab083b03296bb2911de10d116953b626a7629b9ca59938038b1 src/plugins/openwnn/3rdparty/openwnn/NOTICE
++sha256 b5830d96fb5a7e7e7ebcc295f352846b4b998e78fdc8f9aa68e134d2e4b39986 src/plugins/pinyin/3rdparty/pinyin/NOTICE
++sha256 9400a6128693d2f25653698e695f554660c71efccc8c21af28bf143e35199db6 src/plugins/tcime/3rdparty/tcime/COPYING
 diff --git a/package/qt5/qt5wayland/qt5wayland.hash b/package/qt5/qt5wayland/qt5wayland.hash
-index 2fdcc34382..0dfe1fa0aa 100644
+index a511ee6071..0dfe1fa0aa 100644
 --- a/package/qt5/qt5wayland/qt5wayland.hash
 +++ b/package/qt5/qt5wayland/qt5wayland.hash
 @@ -1,8 +1,8 @@
  # hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtwayland-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 5a475278b2db73aa7fa7f3ba6d98d8d72774f5c77e172495007d79f91d09daa3 qtwayland-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtwayland-everywhere-src-5.12.2.tar.xz.sha256
--sha256 b7840692420d106871433eb1b678277f09927d48ec6eb31a1851ee9c60d9df84 qtwayland-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtwayland-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 2fade959c3927687134c597d85c12ba1af22129a60ab326c2dc77a648e74e6b7 qtwayland-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtwayland-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 b67a6d8119628bca3301bd03992880db07d61d405534067c9cd2a598695a7cf3 qtwayland-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
 diff --git a/package/qt5/qt5webchannel/qt5webchannel.hash b/package/qt5/qt5webchannel/qt5webchannel.hash
-index e56c7907eb..137a410737 100644
+index 4712349f79..137a410737 100644
 --- a/package/qt5/qt5webchannel/qt5webchannel.hash
 +++ b/package/qt5/qt5webchannel/qt5webchannel.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtwebchannel-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 8eb1b0ac2286653c7932758c21e7760788a5d7cfd6162da09afa926d5be50713 qtwebchannel-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtwebchannel-everywhere-src-5.12.2.tar.xz.sha256
--sha256 8eb9cff9492937daa1bf5d001e39afec68c310ce5596807345e2a555dcc80b8e qtwebchannel-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtwebchannel-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 ab571a1b699e61a86be1a6b8d6ffd998d431c4850cc27e9a21f81fa5923bfdb7 qtwebchannel-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtwebchannel-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 7f6260c73bca968511ab2facfbb14b4d8cc7a9c5b2d0f9211e7390ed8fb52b9a qtwebchannel-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
-diff --git a/package/qt5/qt5webengine/5.12.2/qt5webengine.hash b/package/qt5/qt5webengine/5.12.2/qt5webengine.hash
+diff --git a/package/qt5/qt5webengine/5.12.4/qt5webengine.hash b/package/qt5/qt5webengine/5.12.4/qt5webengine.hash
 deleted file mode 100644
-index 72e3cdbfd2..0000000000
---- a/package/qt5/qt5webengine/5.12.2/qt5webengine.hash
+index 232807f0cd..0000000000
+--- a/package/qt5/qt5webengine/5.12.4/qt5webengine.hash
 +++ /dev/null
-@@ -1,456 +0,0 @@
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtwebengine-everywhere-src-5.12.2.tar.xz.sha256
--sha256 082b1d6e60c1be61881bc8533acc67d9688620d6b3a538417f62b27b34ead493 qtwebengine-everywhere-src-5.12.2.tar.xz
+@@ -1,457 +0,0 @@
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtwebengine-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 fccf5c945412c19c3805323211b504ac8becbf191c638a2dc85ec91abfb1b331 qtwebengine-everywhere-src-5.12.4.tar.xz
 -
 -# Locally calculated
 -sha256 f34787ef0342c614b667186a6ec2f5d6b9d650e30142a2788a589a89743e88e9  LICENSE.Chromium
@@ -596,447 +1156,448 @@ index 72e3cdbfd2..0000000000
 -sha256 9ae1959e86bd49b9680f78e0b49d4e52ae88a3f234d497e175e42a7e8ed59216  LICENSE.LGPL3
 -
 -# Locally calculated with:
--# for i in $(find src/3rdparty/ -type f \( -iname 'license*' -o -iname 'copying*' -o -name 'APPLE_LICENSE' -o -name 'Copyright' -o -path '*/license_texts/*' -o -path '*/licenses/*' \) -a -not -name '*.cc' -not -name '*.py' -not -name '*.h' -not -name 'LICENSE.sha1' -not -name 'licensecheck.pl*' -not -name 'license.after' -not -name 'license.before') ; do echo -n "sha256 " ; sha256sum $i ; done
--sha256 7a209dd1b94cabdb5ea9c6f9164b9546ffa5daaa671e7767d49510db055f5c51  src/3rdparty/chromium/mojo/public/LICENSE
--sha256 18351de3d7e2dc469cc83e77d38a3e25d010251e34eb348bbd1a76275e313997  src/3rdparty/chromium/base/third_party/xdg_user_dirs/LICENSE
--sha256 d55a403514532af12dc2fbfb2e41900090a5dd6c7c76c8e4d9b20bcc737eac35  src/3rdparty/chromium/base/third_party/nspr/LICENSE
--sha256 538edc6f52c563cf06eca1bac8dd785ff60ef5a371a950265700d5d40386db6e  src/3rdparty/chromium/base/third_party/symbolize/LICENSE
+-# for i in $(find src/3rdparty/ -type f \( -iname 'license*' -o -iname 'copying*' -o -name 'APPLE_LICENSE' -o -name 'Copyright' -o -path '*/license_texts/*' -o -path '*/licenses/*' \) -a -not -name '*.cc' -not -name '*.py' -not -name '*.h' -not -name 'LICENSE.sha1' -not -name 'licensecheck.pl*' -not -name 'license.after' -not -name 'license.before') ; do echo -n "sha256 " ; sha256sum $i ; done | sort --key=3
 -sha256 d04360743ae3338bb08ab2106b51e24309e3ca4b1c6b1186139531ade351b7e3  src/3rdparty/chromium/base/third_party/dmg_fp/LICENSE
--sha256 5d85142a5609ad177a2d7a2e7cae060b886b8b42f25c5b9803cf0cb5ee04ad2f  src/3rdparty/chromium/base/third_party/icu/LICENSE
--sha256 c45766baef552c59eeb1fdfbbc690e52e4cd5b135dfd325f21bdfe8ddfe28ce6  src/3rdparty/chromium/base/third_party/xdg_mime/LICENSE
--sha256 9ad1d4223b80349f3d3ab9cec92f93431b9da14a1b5d41de468ce054a28cf8aa  src/3rdparty/chromium/base/third_party/libevent/LICENSE
--sha256 79955cd80438f041387eb080f2675394e36a806b8b17eca63a4bc568d839509e  src/3rdparty/chromium/base/third_party/valgrind/LICENSE
--sha256 90b2201c340cee36b40a443f949d9eb416f0a0d204c32d350aff87fedeb67ae8  src/3rdparty/chromium/base/third_party/superfasthash/LICENSE
 -sha256 96e7ccbf8d17e319dd77c4ebd4965b64a820bbcc3142a2478fbf95af77417b6a  src/3rdparty/chromium/base/third_party/dynamic_annotations/LICENSE
--sha256 63f0c0039b477857e54708d9501ed91b7a46e828ac3c623bedbc318129ceb174  src/3rdparty/chromium/tools/origin_trials/third_party/ed25519/LICENSE
--sha256 4fde1ca31ffe4e16a76098f56170166c61a5493d3bafcc6a5903d3cb60aa7560  src/3rdparty/chromium/tools/symsrc/COPYING-pefile
--sha256 70eb89e4cb460d1b27173348c9f9fca5cf67c09d722ddaa07c5d0fcd6262a97e  src/3rdparty/chromium/tools/gyp/LICENSE
--sha256 7389900fb68d920c6cb21b70702a2bc240523472a3fd091023d6135cf01d1c5c  src/3rdparty/chromium/tools/win/ChromeDebug/ChromeDebug/LICENSE
--sha256 f5b244982699ca9fe5cc8fa8a7c08cf5dee5d3a0c8896892899e5df13316e1b7  src/3rdparty/chromium/tools/page_cycler/acid3/LICENSE
+-sha256 5d85142a5609ad177a2d7a2e7cae060b886b8b42f25c5b9803cf0cb5ee04ad2f  src/3rdparty/chromium/base/third_party/icu/LICENSE
+-sha256 9ad1d4223b80349f3d3ab9cec92f93431b9da14a1b5d41de468ce054a28cf8aa  src/3rdparty/chromium/base/third_party/libevent/LICENSE
+-sha256 d55a403514532af12dc2fbfb2e41900090a5dd6c7c76c8e4d9b20bcc737eac35  src/3rdparty/chromium/base/third_party/nspr/LICENSE
+-sha256 90b2201c340cee36b40a443f949d9eb416f0a0d204c32d350aff87fedeb67ae8  src/3rdparty/chromium/base/third_party/superfasthash/LICENSE
+-sha256 538edc6f52c563cf06eca1bac8dd785ff60ef5a371a950265700d5d40386db6e  src/3rdparty/chromium/base/third_party/symbolize/LICENSE
+-sha256 79955cd80438f041387eb080f2675394e36a806b8b17eca63a4bc568d839509e  src/3rdparty/chromium/base/third_party/valgrind/LICENSE
+-sha256 c45766baef552c59eeb1fdfbbc690e52e4cd5b135dfd325f21bdfe8ddfe28ce6  src/3rdparty/chromium/base/third_party/xdg_mime/LICENSE
+-sha256 18351de3d7e2dc469cc83e77d38a3e25d010251e34eb348bbd1a76275e313997  src/3rdparty/chromium/base/third_party/xdg_user_dirs/LICENSE
+-sha256 7a209dd1b94cabdb5ea9c6f9164b9546ffa5daaa671e7767d49510db055f5c51  src/3rdparty/chromium/buildtools/LICENSE
 -sha256 845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308  src/3rdparty/chromium/LICENSE
--sha256 8338ce8d922bb4416ce3dd1e5680173332435e3f0755007ac7801ccd674fe682  src/3rdparty/chromium/third_party/opus/src/COPYING
--sha256 7efb4989e0cd1b256229bdf2f09300c5d14e35db0e7476bfb87fac243498273d  src/3rdparty/chromium/third_party/opus/src/LICENSE_PLEASE_READ.txt
--sha256 d18e75f216f177d41304f5e94c2cba7d1bf9f8f8583a0777cceb5cca0c5ad137  src/3rdparty/chromium/third_party/icu4j/LICENSE
--sha256 55172044f7e241207117448a4d9d6ba1d0925c8ad66b5d4c08c70adfa9cc3de6  src/3rdparty/chromium/third_party/snappy/src/COPYING
+-sha256 212c5a071f61512786b5e5840b3d70c85e017f3f82939ad4d4a870fc48b33477  src/3rdparty/chromium/LICENSE.chromium_os
+-sha256 7a209dd1b94cabdb5ea9c6f9164b9546ffa5daaa671e7767d49510db055f5c51  src/3rdparty/chromium/mojo/public/LICENSE
+-sha256 bed70fc84f1bea2b4b144564b9a0f9a5a3bc7b0d78f6e62092aeb689cac56bdd  src/3rdparty/chromium/net/third_party/mozilla_security_manager/LICENSE
+-sha256 a20c1a32d1f8102432360b42e932869f7c11c7cdbacf9cac554c422132af47f4  src/3rdparty/chromium/net/third_party/nss/LICENSE
+-sha256 834ee20e8fc3235722ed801bae30cc539c2775be656ff9cc2810fe674e53d5ec  src/3rdparty/chromium/ppapi/LICENSE
+-sha256 d3e2f59e1d71176dfdb555ece6a41f7a5aa0f52ff21211010ace314f57695f6b  src/3rdparty/chromium/third_party/abseil-cpp/LICENSE
+-sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/accessibility_test_framework/LICENSE
 -sha256 bf4da21bd20bcfb5b60b7ecc67fa864a79be049e21d6178076887f178dd6c71a  src/3rdparty/chromium/third_party/angle/LICENSE
 -sha256 3f6f1b520bc53e878ccbb698ad0bacef3752a5f4e4b50a26552bd70f60b40748  src/3rdparty/chromium/third_party/angle/src/common/third_party/smhasher/LICENSE
 -sha256 a08ba10adec47027ef8078848729837b1c5a42f140718d7afd65c23f1eeec392  src/3rdparty/chromium/third_party/angle/src/third_party/compiler/LICENSE
 -sha256 31346421254a3e6e12687cf17f19f6357ee73a617fa7b3d3ccefdcbabe49bdd3  src/3rdparty/chromium/third_party/angle/src/third_party/libXNVCtrl/LICENSE
--sha256 923e74e5ae41345038da0a56dfdc983356917fbbb139176e654d1b33100b723f  src/3rdparty/chromium/third_party/jmake/LICENSE
--sha256 0d74de3c3cd3196a9ed1bc612cfd5f81d7509d66c4be34a50f99d61bd1ad00d4  src/3rdparty/chromium/third_party/ots/LICENSE
--sha256 795f8d76eade6130129b680ac72ea81cb3e143467a65ea1f5f64946151d7fa20  src/3rdparty/chromium/third_party/yasm/source/patched-yasm/COPYING
--sha256 d600ff20c150a675461dde76752e35f4cc3be6e7d8e70b8da3e775ea7e5ec4aa  src/3rdparty/chromium/third_party/test_fonts/LICENSE
--sha256 294f58267c6f473c4ce7270bf5c8d34b2003cb43804552459654c36553431276  src/3rdparty/chromium/third_party/proguard/LICENSE
--sha256 dd4930c619afd8527591353c7d3d1c1d7f4bf62ed1cb411f4f507dbdee7738a2  src/3rdparty/chromium/third_party/ply/LICENSE
--sha256 685b3b09870f1361f8db2d3f37acdb765d5da1722a18b182765da4b79a8f63ff  src/3rdparty/chromium/third_party/ply/license.patch
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/libprotobuf-mutator/src/LICENSE
--sha256 f56ff606104d4ef18e617921a75c73ad73b5a1a1d70c69590c29de16919e04ad  src/3rdparty/chromium/third_party/openvr/src/LICENSE
--sha256 cb5e8e7e5f4a3988e1063c142c60dc2df75605f4c46515e776e3aca6df976e14  src/3rdparty/chromium/third_party/pyjson5/src/LICENSE
--sha256 d51b39e7ed0391e75e0add75d1a162fdf4a0d6b49fba7635ed0ac4e16f324773  src/3rdparty/chromium/third_party/webdriver/COPYING
--sha256 6d83e980b9b843cf6fe24cb94714d00f9b0cf69cb00d0e3b0bed018d49d6f24f  src/3rdparty/chromium/third_party/webdriver/LICENSE
--sha256 71a19392a0eb3255ab2055ed978bb0f93865cea84d31a3510eaffb74d8981e7f  src/3rdparty/chromium/third_party/khronos/LICENSE
--sha256 a412a53925efc6b50800bf8519a2e033949243d5a5a8c5422bae8a5007ad09c8  src/3rdparty/chromium/third_party/iccjpeg/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/feed/LICENSE
--sha256 7a92c5e7a83b5ddcc693bb84ea8bdb842308509c1758cffdfe24717609154c75  src/3rdparty/chromium/third_party/isimpledom/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/guava/LICENSE
--sha256 60bd7c54856bf9387221bde5ab55d516d7cea15870d0fed69406bcd1c8ec7c9d  src/3rdparty/chromium/third_party/boringssl/src/LICENSE
--sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/boringssl/src/third_party/wycheproof_testvectors/LICENSE
--sha256 201d494a3f42450a28df2f0919a147e9a5296e841df5d415172a0ca8b558d0a8  src/3rdparty/chromium/third_party/boringssl/src/third_party/android-cmake/LICENSE
--sha256 9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138  src/3rdparty/chromium/third_party/boringssl/src/third_party/googletest/LICENSE
--sha256 0c125a4dab5ab869473e6491db22f6c0a7f8a4de58588d03bb2b16c0c8ebd7de  src/3rdparty/chromium/third_party/boringssl/src/third_party/fiat/LICENSE
--sha256 942755efa272dbfbcd7afea7a38556801e36c16dcad002d572378367094a2593  src/3rdparty/chromium/third_party/zlib/LICENSE
--sha256 8e19d42a1eec9561f3f347253ddf2e385c55f392f025bb0fd41b88dbf38db5ae  src/3rdparty/chromium/third_party/libsrtp/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/errorprone/LICENSE
 -sha256 29028ec63522121b5545046e0c4d3ccc1e01fc8d9aaa3272554f74829cdacf84  src/3rdparty/chromium/third_party/apache-portable-runtime/LICENSE
--sha256 c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4  src/3rdparty/chromium/third_party/shaderc/src/LICENSE
--sha256 19096ed2f05a693b92433405a6bf1018044b31ed5fa8883ab865cf2cd166f6e9  src/3rdparty/chromium/third_party/shaderc/src/third_party/LICENSE.spirv-tools
--sha256 b5a00e94f058edc87e05978329b55730d8689abe61205d9018443d03de4f07da  src/3rdparty/chromium/third_party/shaderc/src/third_party/LICENSE.glslang
--sha256 af67c58de2e18677a0b8cb5fffbe2232aabb8eb2930e8cd684769cef3d74a262  src/3rdparty/chromium/third_party/protobuf/LICENSE
--sha256 e2f59ff41d9d03adc3dcf3deff170f8c8cf4a6eb4a9b174762a7656d23200ffa  src/3rdparty/chromium/third_party/rnnoise/COPYING
--sha256 721cb11de618fcf9bbb7d25a389207bf2227357e6694bc326ab32a6699f9b951  src/3rdparty/chromium/third_party/libFuzzer/LICENSE.TXT
--sha256 43452b94e6aa0c2d076ad25b87f580c11571689d52f3aa1a1f7bdcab31a0bd15  src/3rdparty/chromium/third_party/decklink/LICENSE
--sha256 f8c8ccecdbb044fd6fa1a586c596a055fb2b14fb3e335d8ed282db58d80b7410  src/3rdparty/chromium/third_party/pyelftools/LICENSE
--sha256 f8d0c347a0dcc6ebe1671640dfae8d2411b6ded892e06a6764f8208b218b2af4  src/3rdparty/chromium/third_party/pyelftools/elftools/construct/LICENSE
--sha256 3d1d2669d0ba87069b5e202f106193c4eb0e140a2aead31dca9670a0581dd979  src/3rdparty/chromium/third_party/chaijs/LICENSE
--sha256 e075583a46bca13a3f25af4181e2a0064f442c1f55c4312275cbcf05b892d3f4  src/3rdparty/chromium/third_party/mocha/LICENSE
--sha256 0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594  src/3rdparty/chromium/third_party/sqlite4java/LICENSE
--sha256 2a886915de4f296cdae5ed67064f86dba01d0c55286d86e8487f2a5caaf40216  src/3rdparty/chromium/third_party/harfbuzz-ng/src/COPYING
--sha256 ec20cbe051200fc846caf4dc253cf660e874a2d9e4f3a682e08354b567fae409  src/3rdparty/chromium/third_party/harfbuzz-ng/src/src/hb-ucdn/COPYING
--sha256 ef5b39dfcafe08323262e3f51a3a9de649978a55ed8ef8eef3c451f2c1e78a53  src/3rdparty/chromium/third_party/ced/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/ced/src/LICENSE
--sha256 fd056de4196903a676208ef58cfddafc7d583d1f28fa2e44c309cf84a59e62fb  src/3rdparty/chromium/third_party/freetype/src/docs/LICENSE.TXT
--sha256 d27678cba0d529e77201e2d2a053628143e986aad8f1e77f7039ad4366c8f978  src/3rdparty/chromium/third_party/skia/LICENSE
--sha256 3e3a91ec5c3fa243ad1f5a25cedee0abafd9824d061378cd3c81c541b044bf09  src/3rdparty/chromium/third_party/skia/third_party/gif/LICENSE
--sha256 e59bb5c5c6ba426a9ac4ba9fe667ad14c5166b12aa25be8af1d122b14fbe2e36  src/3rdparty/chromium/third_party/skia/third_party/skcms/LICENSE
--sha256 d27678cba0d529e77201e2d2a053628143e986aad8f1e77f7039ad4366c8f978  src/3rdparty/chromium/third_party/skia/third_party/vulkanmemoryallocator/LICENSE
--sha256 e21477eed484b07902a861a1b18d1e4ecd3e6f22fa81e2410f0770cfb67290e8  src/3rdparty/chromium/third_party/skia/third_party/vulkanmemoryallocator/include/LICENSE.txt
--sha256 b5730da9a26472a405b0b1c61d3d166714d9d654ab3282e54e4a01a5f66316c3  src/3rdparty/chromium/third_party/objenesis/LICENSE
--sha256 c2d13ec3b431617beb314705c0f42d17ca579eed00032ed8a13dbcd23fc9bdd5  src/3rdparty/chromium/third_party/cld_3/LICENSE
--sha256 c2d13ec3b431617beb314705c0f42d17ca579eed00032ed8a13dbcd23fc9bdd5  src/3rdparty/chromium/third_party/cld_3/src/LICENSE
--sha256 a1f30b77c01e0995fa32a00119e00749e8731ee8a3c4c3549bce74083c72b0b6  src/3rdparty/chromium/third_party/crc32c/src/LICENSE
--sha256 6e3e0a978f1e136cb3efb89702f4314671581a0c70c9a52447669e00f7b129e8  src/3rdparty/chromium/third_party/lzma_sdk/LICENSE
--sha256 fa53711b25af4b9a9b8dadfea3cb38166ec4b96760c8d62b284055554537d9ef  src/3rdparty/chromium/third_party/usrsctp/usrsctplib/LICENSE.md
--sha256 7a4a31e05391919c05a996f09fc20ffc80c69af72cb3e69ac71b70c825fbdd1d  src/3rdparty/chromium/third_party/usrsctp/LICENSE
--sha256 9f45b3cf29b76b5bf4ad467938b0e61a720eec6ef6c219c566f7c262b0cc7854  src/3rdparty/chromium/third_party/haha/LICENSE
--sha256 87642305968765a4030fd202ff7006afa67274da7f9bde84506e51ae58ecc2b4  src/3rdparty/chromium/third_party/minizip/src/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/netty-tcnative/LICENSE
--sha256 6629d6edceffa9c68f4245b817137d2265fdab1e98068893420edb6689ccce9e  src/3rdparty/chromium/third_party/usb_ids/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/woff2/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/google-truth/LICENSE
--sha256 c93465d6a75e6ade8785edb4ec125ece083ab0910ed0417b4ff346792ba0f851  src/3rdparty/chromium/third_party/mesa/LICENSE
--sha256 e8800bd573e8f844a5b87cf43cc4d55767314b4e95a6092cf26ce9c6ed00b877  src/3rdparty/chromium/third_party/mesa/src/docs/COPYING
--sha256 1efd6dec259877be94db3dbd005c93a5c94a73a492bd85eede6e14885e480e0e  src/3rdparty/chromium/third_party/mesa/src/docs/license.html
--sha256 704179825bb7c4600acbff3d1fcd95f1eb61b2c4a11b66bb150d7cefea8f6371  src/3rdparty/chromium/third_party/mesa/src/src/gallium/drivers/radeon/LICENSE.TXT
--sha256 8c6db340475136df3c1201d458fa5755698eace76e510471ecc9d857d6083dac  src/3rdparty/chromium/third_party/ijar/LICENSE
--sha256 e320e0b6915c2a93dc7f6db28c014f223ae32de61f5033300db2b75d506daa1f  src/3rdparty/chromium/third_party/sfntly/src/cpp/COPYING.txt
--sha256 e320e0b6915c2a93dc7f6db28c014f223ae32de61f5033300db2b75d506daa1f  src/3rdparty/chromium/third_party/sfntly/COPYING.txt
--sha256 0a90947436dc17f047f8c95b64593e2cc9a2b6d4ff6618f2f0beba5a9b568c14  src/3rdparty/chromium/third_party/unrar/LICENSE
--sha256 6ecc1687808b7d66b24f874755abfed7464d9751ed0001cd4e8e5d9bf397ff8a  src/3rdparty/chromium/third_party/unrar/src/license.txt
--sha256 846f295f64194ebcf615d6e35e445990645583764b52295177fc09a69051df1f  src/3rdparty/chromium/third_party/visualmetrics/src/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/libaddressinput/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/libaddressinput/src/LICENSE
--sha256 c9a5bd7c8cc1267ddacdc5228c68ecd811cf6d74286e9141bc80d8af2eb1a025  src/3rdparty/chromium/third_party/libaddressinput/src/cpp/LICENSE.chromium
--sha256 5a7f623a50e384aaf6d2ced068339ddf93d0a50d3a0ecbe86f125b07804ecc78  src/3rdparty/chromium/third_party/v4l-utils/COPYING.libv4l
--sha256 83bb6bd9ccd2cf5230cb1807ed16258289768dc4d9cb80069a814e04415a1275  src/3rdparty/chromium/third_party/minigbm/LICENSE
--sha256 8610954adbca6c6b85d8b1ae5613b44b0014e437d32fcad6683bb27541411686  src/3rdparty/chromium/third_party/minigbm/src/LICENSE
--sha256 10054db83ace18e5a455749d0d247857ec50508cecda79a5abe66fe4778d7721  src/3rdparty/chromium/third_party/d3/src/LICENSE
--sha256 5df07007198989c622f5d41de8d703e7bef3d0e79d62e24332ee739a452af62a  src/3rdparty/chromium/third_party/libusb/src/COPYING
--sha256 a661d10f8f194b1963a75bb4d308f17b078cc064624313a556902d89705f6876  src/3rdparty/chromium/third_party/WebKit/LICENSE_FOR_ABOUT_CREDITS
--sha256 9f5db2544e04e3e0fb39ea277b9bb6f8efcc8bb84f6264630978ce4708495535  src/3rdparty/chromium/third_party/gestures/gestures/LICENSE
--sha256 4bd9e329f9b268bd0dec2df0560a03382fe426adf83daa7b314d2f46b9b22c9a  src/3rdparty/chromium/third_party/gestures/LICENSE
--sha256 46336ab2fec900803e2f1a4253e325ac01d998efb09bc6906651f7259e636f76  src/3rdparty/chromium/third_party/expat/files/COPYING
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/apk-patch-size-estimator/LICENSE
+-sha256 b23e682fda7310afe43505ed6041919ccff8f9e0c6799ebd7542cbcef11102e3  src/3rdparty/chromium/third_party/apple_apsl/LICENSE
+-sha256 584e795ba5833279c327245594d6dc216fc664144fa3626a0bdf136bc00af76c  src/3rdparty/chromium/third_party/arcore-android-sdk/LICENSE
+-sha256 af175b9d96ee93c21a036152e1b905b0b95304d4ae8c2c921c7609100ba8df7e  src/3rdparty/chromium/third_party/axe-core/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/bazel/LICENSE
 -sha256 0518cf49c09398259d54fcfff0b5fd36456162c6439886660e53627b3073ef22  src/3rdparty/chromium/third_party/blanketjs/LICENSE
--sha256 e9427cf6abc4eaeda0bcd094fca46af4067970079f426b65d5cbacb87bff6366  src/3rdparty/chromium/third_party/cros_system_api/LICENSE
--sha256 7975c0027cfa5d08253fbb6ff4676acc38248bd5e046d0dbab3d810971e97970  src/3rdparty/chromium/third_party/jinja2/LICENSE
--sha256 0cd1bd4b934ffdc5e7f1bcfa9d08bd17295e5414bdca99c06b1036278b01f0b1  src/3rdparty/chromium/third_party/node/LICENSE
+-sha256 228eadfc94c664f3e31833d7eb2d682127038cb44a0d482b6d6c1026f3fce306  src/3rdparty/chromium/third_party/blink/renderer/build/scripts/license.pyc
+-sha256 0b5d3a7cc325942567373b0ecd757d07c132e0ebd7c97bfc63f7e1a76094edb4  src/3rdparty/chromium/third_party/blink/renderer/core/LICENSE-APPLE
+-sha256 7555fa34bc131a75ca56d65c40cc1ea8f9515d23e353d4c15d58573a042f7805  src/3rdparty/chromium/third_party/blink/renderer/core/LICENSE-LGPL-2
+-sha256 f2b3bd09663381deb99721109d22b47af1213bb43007a8b56a06c6375c8050ce  src/3rdparty/chromium/third_party/blink/renderer/core/LICENSE-LGPL-2.1
+-sha256 7ec9661a8afafab1eee3523d6f1a193eff76314a5ab10b4ce96aefd87621b0c3  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/audits2/lighthouse/LICENSE
+-sha256 7ec9661a8afafab1eee3523d6f1a193eff76314a5ab10b4ce96aefd87621b0c3  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/audits2_worker/lighthouse/LICENSE
+-sha256 a3f2fe2ac6b471aa80c737c5d283dd049bdc903a73835ee6d4d2cac02fdd53bf  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/cm/LICENSE
+-sha256 c6daa4e8737d15aa7140b4f7eb82b9d4829bd2fd27132c43e282203b9c67dfc4  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/cm/LICENSE_python
+-sha256 13110d66c514a7890c4b388a353bc08fa094fe13d5ed7f3a222cc0a0caa3fd17  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/cm_modes/LICENSE
+-sha256 7cdb44aabddbdd78998119d68a39c87424119b663945c79891fc1b022301824c  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/formatter_worker/acorn/LICENSE
+-sha256 1490793b8913f0fa78af7bf2e70076f54272748e278f065c50794529eaed8e74  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/terminal/xterm.js/LICENSE
+-sha256 7a209dd1b94cabdb5ea9c6f9164b9546ffa5daaa671e7767d49510db055f5c51  src/3rdparty/chromium/third_party/blink/renderer/devtools/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/blink/renderer/devtools/scripts/closure/COPYING
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/blink/renderer/platform/testing/data/third_party/Roboto/LICENSE.txt
+-sha256 4af93c12062c58058378de2397dc1c92bbff9ddfb1d583a01c84127557ce97ca  src/3rdparty/chromium/third_party/blink/renderer/platform/wtf/dtoa/COPYING
+-sha256 4af93c12062c58058378de2397dc1c92bbff9ddfb1d583a01c84127557ce97ca  src/3rdparty/chromium/third_party/blink/renderer/platform/wtf/dtoa/LICENSE
+-sha256 4165ae4c9c71da3e655a9acee8ee3368bba20f0702f4dcc994da315132ab90de  src/3rdparty/chromium/third_party/blink/tools/blinkpy/third_party/wpt/wpt/LICENSE.md
+-sha256 16a39991619e92f18680932da2a9199fdf7d95df3ecaedc52ea06218aabafd6f  src/3rdparty/chromium/third_party/blink/tools/blinkpy/third_party/wpt/wpt/tools/third_party/html5lib/LICENSE
+-sha256 63478682e84e8c98f4c46308995f1f521a6886976e25421827d2a2be03581328  src/3rdparty/chromium/third_party/blink/tools/blinkpy/third_party/wpt/wpt/tools/third_party/six/LICENSE
+-sha256 df336397e09e764416fc33b555703b1cdddd3a0cfea8a013ad1cad565c8be2f5  src/3rdparty/chromium/third_party/blink/tools/blinkpy/third_party/wpt/wpt/tools/wptserve/LICENSE
+-sha256 60bd7c54856bf9387221bde5ab55d516d7cea15870d0fed69406bcd1c8ec7c9d  src/3rdparty/chromium/third_party/boringssl/src/LICENSE
+-sha256 201d494a3f42450a28df2f0919a147e9a5296e841df5d415172a0ca8b558d0a8  src/3rdparty/chromium/third_party/boringssl/src/third_party/android-cmake/LICENSE
+-sha256 0c125a4dab5ab869473e6491db22f6c0a7f8a4de58588d03bb2b16c0c8ebd7de  src/3rdparty/chromium/third_party/boringssl/src/third_party/fiat/LICENSE
+-sha256 9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138  src/3rdparty/chromium/third_party/boringssl/src/third_party/googletest/LICENSE
+-sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/boringssl/src/third_party/wycheproof_testvectors/LICENSE
+-sha256 5740985669353ef52e0f320413ff68dc62b6c23a596cd78b6d6b80764f1c50ab  src/3rdparty/chromium/third_party/bouncycastle/LICENSE
 -sha256 f9752a0a4ac5215eaa3a4f0ec29cd52563c883de5d7870525cc0bc3a21cb8e15  src/3rdparty/chromium/third_party/breakpad/breakpad/LICENSE
 -sha256 4d03f91b94e0db3bdc9ddaf0060dd41cc94a2096094fbc1417713a2f059658c7  src/3rdparty/chromium/third_party/breakpad/breakpad/src/third_party/curl/COPYING
 -sha256 d8eaba95b8d03c5912da9b5823de2c920e84a993133039a22fc8100f9edb33a1  src/3rdparty/chromium/third_party/breakpad/breakpad/src/third_party/libdisasm/LICENSE
 -sha256 015b2d5cedb3024339446a63963d073fa831544cf253c5ddd713fccc8d83e939  src/3rdparty/chromium/third_party/breakpad/LICENSE
--sha256 946b733afbaa20a192c8dc022b4e43090e78f28fd293494d1b307f7301552c9b  src/3rdparty/chromium/third_party/flac/COPYING.Xiph
--sha256 f45cc81b400a048b56c9edbd4c3317f7a8958463dfd55aa96f268ecfd6baa12c  src/3rdparty/chromium/third_party/flac/COPYING.FDL
--sha256 5df07007198989c622f5d41de8d703e7bef3d0e79d62e24332ee739a452af62a  src/3rdparty/chromium/third_party/flac/COPYING.LGPL
--sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  src/3rdparty/chromium/third_party/flac/COPYING.GPL
--sha256 3f6f1b520bc53e878ccbb698ad0bacef3752a5f4e4b50a26552bd70f60b40748  src/3rdparty/chromium/third_party/smhasher/LICENSE
--sha256 09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b  src/3rdparty/chromium/third_party/custom_tabs_client/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/netty4/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/libsync/LICENSE
--sha256 19c9b910bec5a4f2c420747d1bf81e975ffdb1377ad91c5d9b1e8dd3e38f4c17  src/3rdparty/chromium/third_party/robolectric/licenses/extreme.indiana.edu.license.txt
--sha256 5b6ac717e37db4f6d17bda7791f4ce3f99947aeb21e6e72b705aa3d1ee2de480  src/3rdparty/chromium/third_party/robolectric/licenses/pivotal.labs.license.txt
--sha256 a7436c952fa2dc0701860cf4187d1e8e8e6de6720dec0ae9e0b641bc50eebced  src/3rdparty/chromium/third_party/robolectric/licenses/javolution.license.txt
--sha256 0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594  src/3rdparty/chromium/third_party/robolectric/LICENSE
--sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/material_design_icons/LICENSE
--sha256 19af539b1ec692ea9ccf71b6ea97d602bcf7187eab27b0ea806aea1cd10b0b13  src/3rdparty/chromium/third_party/libjpeg/LICENSE
--sha256 68834f116f8ff545f05d14753357b620748156d60ee36b26beab4cb3f317efe4  src/3rdparty/chromium/third_party/r8/LICENSE
--sha256 dd5c1c9668512530fa5a96e4c29ac4033d70a7eeb0eed7a42fddb6dd794ebdbb  src/3rdparty/chromium/third_party/openh264/src/LICENSE
--sha256 d47e8390fb0d7ad4a18f26aedd6283c7ab6b5b4fabab536ccb4db7f9f6d90c08  src/3rdparty/chromium/third_party/modp_b64/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/javax_inject/LICENSE
--sha256 4f5753ce8acf3feafc758599058746d30bda07bc0d4cc3a6a1eb8e039fdba1dc  src/3rdparty/chromium/third_party/dom_distiller_js/LICENSE
--sha256 c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4  src/3rdparty/chromium/third_party/gif_player/LICENSE
--sha256 0bbe88228fd63d20ec097f64e58d5a0a465123ae139140a18d406c60b48824b5  src/3rdparty/chromium/third_party/markupsafe/LICENSE
--sha256 913b3eb6f19defc77c00e2bebbbce464326331b0b59eb6d1d1b23d68a8c27f6b  src/3rdparty/chromium/third_party/libpng/LICENSE
--sha256 4eac19453ddf356478db3be6b101a6d872d0046cdc8222df1ff5c997dd4b9fbe  src/3rdparty/chromium/third_party/icu/LICENSE
--sha256 845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308  src/3rdparty/chromium/third_party/icu/scripts/LICENSE
--sha256 c62d7697c03979f5056d28b338fafc7a1152820f7b379adf4a9d88cd37160f96  src/3rdparty/chromium/third_party/icu/license.html
--sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768  src/3rdparty/chromium/third_party/ffmpeg/COPYING.LGPLv3
--sha256 b634ab5640e258563c536e658cad87080553df6f34f62269a21d554844e58bfe  src/3rdparty/chromium/third_party/ffmpeg/COPYING.LGPLv2.1
--sha256 b4c85cce2b772f27d83f4562c20787057dc6949fcecc820a82c1d2e7047e89c3  src/3rdparty/chromium/third_party/ffmpeg/chromium/scripts/license_texts/oggparse_ahlberg_rullgayrd_2005.txt
--sha256 857d5f537af3aa164e7a27eda60147d34195e5781abe7b1d358d9fb01e222ae0  src/3rdparty/chromium/third_party/ffmpeg/chromium/scripts/license_texts/mips.txt
--sha256 d9c904abd0ead61b3fbaef0a609285548076ff9c3f814cc1cf019c5d7150736d  src/3rdparty/chromium/third_party/ffmpeg/chromium/scripts/license_texts/full_lgpl.txt
--sha256 a8579e3fc40c11ab147bc299257733eb749cd455010385f7c117f70d7aef24e4  src/3rdparty/chromium/third_party/ffmpeg/chromium/scripts/license_texts/jpeg.txt
--sha256 73d99bc83313fff665b426d6672b4e0479102bc402fe22314ac9ce94a38aa5ff  src/3rdparty/chromium/third_party/ffmpeg/LICENSE.md
--sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  src/3rdparty/chromium/third_party/ffmpeg/COPYING.GPLv2
--sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903  src/3rdparty/chromium/third_party/ffmpeg/COPYING.GPLv3
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/checkstyle/LICENSE.apache20
+-sha256 3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94  src/3rdparty/chromium/third_party/brotli/LICENSE
+-sha256 98f8746a39f9a42da35df7046a15b56d0e2f4f76eefc352d67f1bf76e85360b4  src/3rdparty/chromium/third_party/bspatch/LICENSE
+-sha256 b5730da9a26472a405b0b1c61d3d166714d9d654ab3282e54e4a01a5f66316c3  src/3rdparty/chromium/third_party/byte_buddy/LICENSE
+-sha256 ef5b39dfcafe08323262e3f51a3a9de649978a55ed8ef8eef3c451f2c1e78a53  src/3rdparty/chromium/third_party/ced/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/ced/src/LICENSE
+-sha256 3d1d2669d0ba87069b5e202f106193c4eb0e140a2aead31dca9670a0581dd979  src/3rdparty/chromium/third_party/chaijs/LICENSE
 -sha256 a190dc9c8043755d90f8b0a75fa66b9e42d4af4c980bf5ddc633f0124db3cee7  src/3rdparty/chromium/third_party/checkstyle/LICENSE
--sha256 984fb04a16a9f1e0145ffd891125dc366a01cd921f58c9b0369be400c720790d  src/3rdparty/chromium/third_party/polymer/v1_0/components-chromium/polymer/LICENSE.txt
--sha256 a5adc2955c0dd848c97aa6afb14e0047a610f0fcfa6ce0011efad01a0e051406  src/3rdparty/chromium/third_party/polymer/v1_0/components-chromium/polymer2/LICENSE.txt
--sha256 33c9a2fe619e1200937629f318895898ffcd1bf7d0ddd39adc382c030925e61e  src/3rdparty/chromium/third_party/simplejson/LICENSE.txt
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/checkstyle/LICENSE.apache20
 -sha256 5a12a0c01bfcdbc90b550c9cd8bfc3e90e6be9c9bbfdb58bfb5daaf6817eb78f  src/3rdparty/chromium/third_party/chromevox/LICENSE
 -sha256 a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9  src/3rdparty/chromium/third_party/chromevox/third_party/closure-library/LICENSE
 -sha256 0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594  src/3rdparty/chromium/third_party/chromevox/third_party/sre/LICENSE
--sha256 e479bcdfa777738226b4282bf8536cc5416a25cec3100cbe210b8be4d1e2ed84  src/3rdparty/chromium/third_party/requests/LICENSE
--sha256 d3e2f59e1d71176dfdb555ece6a41f7a5aa0f52ff21211010ace314f57695f6b  src/3rdparty/chromium/third_party/abseil-cpp/LICENSE
--sha256 845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308  src/3rdparty/chromium/third_party/metrics_proto/LICENSE
+-sha256 c2d13ec3b431617beb314705c0f42d17ca579eed00032ed8a13dbcd23fc9bdd5  src/3rdparty/chromium/third_party/cld_3/LICENSE
+-sha256 c2d13ec3b431617beb314705c0f42d17ca579eed00032ed8a13dbcd23fc9bdd5  src/3rdparty/chromium/third_party/cld_3/src/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/crashpad/crashpad/LICENSE
+-sha256 212846e0145aa50fb3a5aef254a370311a93acf6c1e792e47e0068d64c8c3885  src/3rdparty/chromium/third_party/crashpad/crashpad/third_party/apple_cf/APPLE_LICENSE
+-sha256 4b45cbe16d7b71b89ae6127e26e0d90a029198ca5e958ad8e3d0b8bbed364d8b  src/3rdparty/chromium/third_party/crashpad/crashpad/third_party/cpp-httplib/cpp-httplib/LICENSE
+-sha256 f40ee07401827b6ac9cf0aee1aaffb00e42a3f2c729f9c83f96a3daafef5d944  src/3rdparty/chromium/third_party/crashpad/crashpad/third_party/getopt/LICENSE
+-sha256 a1f30b77c01e0995fa32a00119e00749e8731ee8a3c4c3549bce74083c72b0b6  src/3rdparty/chromium/third_party/crc32c/src/LICENSE
+-sha256 e9427cf6abc4eaeda0bcd094fca46af4067970079f426b65d5cbacb87bff6366  src/3rdparty/chromium/third_party/cros_system_api/LICENSE
+-sha256 09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b  src/3rdparty/chromium/third_party/custom_tabs_client/LICENSE
+-sha256 10054db83ace18e5a455749d0d247857ec50508cecda79a5abe66fe4778d7721  src/3rdparty/chromium/third_party/d3/src/LICENSE
+-sha256 43452b94e6aa0c2d076ad25b87f580c11571689d52f3aa1a1f7bdcab31a0bd15  src/3rdparty/chromium/third_party/decklink/LICENSE
 -sha256 5a2ed53cc5975569e9fa146c4245eaf53377dc1a88bdcb923da6487e53cba55e  src/3rdparty/chromium/third_party/devscripts/COPYING
--sha256 7a92c5e7a83b5ddcc693bb84ea8bdb842308509c1758cffdfe24717609154c75  src/3rdparty/chromium/third_party/mozilla/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/quic_trace/src/LICENSE
--sha256 5740985669353ef52e0f320413ff68dc62b6c23a596cd78b6d6b80764f1c50ab  src/3rdparty/chromium/third_party/bouncycastle/LICENSE
--sha256 6040cda75d90b1738292a631d89934c411ef7ffd543c4d6a1b7edfc8edf29449  src/3rdparty/chromium/third_party/re2/LICENSE
--sha256 6040cda75d90b1738292a631d89934c411ef7ffd543c4d6a1b7edfc8edf29449  src/3rdparty/chromium/third_party/re2/src/LICENSE
--sha256 dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551  src/3rdparty/chromium/third_party/libudev/LICENSE
--sha256 f54c49d3ff865458c5d3c68c3367a1f6e0d7b3f686f8c88a6a563ef90f84ad9e  src/3rdparty/chromium/third_party/gvr-android-sdk/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/devtools-node-modules/LICENSE
+-sha256 a19859c623cc60b717560cafb5fe64244735022c1200b65a649a3c2eef912fb4  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/acorn-jsx/LICENSE
+-sha256 491b4012bfc95982e66859c59641be20f4fd2c9b3bc2b6a7f26b6166e462dda1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/acorn-jsx/node_modules/acorn/LICENSE
+-sha256 e2ddad70d6b6bcfec887c32d7143a77ccbdb58e38d9c43f5b7f30f715b874b80  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/acorn/LICENSE
+-sha256 a25dce9c94c3ad622574cffbefd4b8845b418aa65df966d97e3204ad276ed240  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ajv-keywords/LICENSE
+-sha256 4969b0ff94c4f2ad3f1613d95b3966cb4c3147d8b893654aced81029241de176  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ajv/LICENSE
+-sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ansi-escapes/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ansi-regex/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ansi-styles/LICENSE
+-sha256 c8442419dc614089ea022b3da6bfc089b41a58fb7b9030d1e651f2f36189dce2  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/argparse/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/array-union/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/array-uniq/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/arrify/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/babel-code-frame/node_modules/chalk/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/babel-code-frame/node_modules/strip-ansi/LICENSE
+-sha256 a1bd5deadb6a06dd74efa852c1b8b23f63b67f2214fbe9c8bd591da51da69268  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/balanced-match/LICENSE
+-sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/chalk/LICENSE
+-sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/chalk/node_modules/ansi-styles/LICENSE
+-sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/chalk/node_modules/supports-color/LICENSE
+-sha256 7d043a9e52b7e1e3acab9ca3377e30ca72d25d39ad6e6c5a22b407fe39c6d703  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/chardet/LICENSE
+-sha256 aa7c48d39d3bb837efa4fce39f971fa6ae8e5cb148724af8867a7a4a7121ad6a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/circular-json/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/cli-cursor/LICENSE
+-sha256 33fa5470b2195e410b075a32516b6ad27784b8a8ff74ae90cfd60c14b76e6644  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/cli-width/LICENSE
+-sha256 29f4d474804f60aae177d7fed67d0d613d00006640cc9cf80077eef03fb9a2cc  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/co/LICENSE
+-sha256 693866fc419c6f61c8570438ec00659d156ec2b4d4a4d04091711f5f11a365d4  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/color-convert/LICENSE
+-sha256 7357445bac398c76c0aef75a587009fe406d40de6a79789eb5b7ecbbad317ef2  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/color-name/LICENSE
+-sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/concat-map/LICENSE
+-sha256 96b29c9aaa611a05349b362d48c2ffce0966fe408401a2d1a157be312c035b5f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/concat-stream/LICENSE
+-sha256 33b734d60042d0fe0c92dd1fc1e874193a1c899ec3e276a2eb935d2d0bf5b710  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/core-util-is/LICENSE
+-sha256 b1344bd78ebcbf8a359225ec444d038a653c6a5f9ecf405a50d4a5c11fbf27d1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/cross-spawn/LICENSE
+-sha256 98c970de440dcfc77471610aec2377c9d9b0db2b3be6d1add524a586e1d7f422  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/debug/LICENSE
+-sha256 f2042f3634c4136d06b5139c9c6aefb81a3a462b514548bc1845953233dfba98  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/deep-is/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/del/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/doctrine/LICENSE
+-sha256 0e74697a68cebdcd61502c30fe80ab7f9e341d995dcd452023654d57133534b1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/doctrine/LICENSE.esprima
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/escape-string-regexp/LICENSE
+-sha256 db83f2ede67f36cfab1ea0721ea2ee97515863e9a65346881f305e430451cc91  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/eslint/LICENSE
+-sha256 8be44da6cc59e890c406d6d05c3ce1850f29bb2e0da2a2d686d593e5ad3ecf59  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/eslint-scope/LICENSE
+-sha256 6273faa0d14a54972c0341a724010eb8cd928ee486745a9eea8cf80680ba5098  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/espree/LICENSE
+-sha256 94bcb9959136723aa4fb36e1a6c4d5c662a2369978cfae344dabfb83ae619e79  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/esprima/LICENSE
+-sha256 ac68116ae73740de4190892f334992e449a124600924ec761e64319d3aac9e6e  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/esquery/LICENSE
+-sha256 0e74697a68cebdcd61502c30fe80ab7f9e341d995dcd452023654d57133534b1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/estraverse/LICENSE
+-sha256 0e74697a68cebdcd61502c30fe80ab7f9e341d995dcd452023654d57133534b1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/esutils/LICENSE
+-sha256 e33b7bc13a0e5ea9ed6718e12e99a5b0b60276162f0195aa7f342397f4b0155d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/external-editor/LICENSE
+-sha256 7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/fast-deep-equal/LICENSE
+-sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/fast-json-stable-stringify/LICENSE
+-sha256 942a98cb8846a6354266193f173c1354615827fbb7d67f68399599dff12c4d6a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/fast-levenshtein/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/figures/LICENSE
+-sha256 c8c8324aff32c44f9e501aac5b3b97540c26af7d6dd6af8bce5e34300596e27d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/file-entry-cache/LICENSE
+-sha256 c8c8324aff32c44f9e501aac5b3b97540c26af7d6dd6af8bce5e34300596e27d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/flat-cache/LICENSE
+-sha256 8465b04b67f473341171b5c9c8b2c741a4a395b3f6ed58339b3a4f4db3db7472  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/fs.realpath/LICENSE
+-sha256 e67aed7df22dc8031e4fcf5338fe91cb33e3817e5c58a99a2a2802eea9069791  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/functional-red-black-tree/LICENSE
+-sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/globals/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/globby/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/glob/LICENSE
+-sha256 2fc5460f1526810979054ecd18cd01349b57f38ea56d1e920afdea34d104540c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/graceful-fs/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/has-ansi/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/has-flag/LICENSE
+-sha256 ac779f7314c74f232ef847ea86e714abe25cf6eeb5cc97b69451b74e2af6492d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/iconv-lite/LICENSE
+-sha256 05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/inflight/LICENSE
+-sha256 5ffe28e7ade7d8f10d85d5337a73fd793dac5c462fb9a28fbf8c5046c7fbca3b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/inherits/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/isexe/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/is-fullwidth-code-point/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/is-path-inside/LICENSE
+-sha256 44191656d296391e0ec97e32f5385f0d02b6f2992694082d22ea04ba0f66f9e4  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/is-promise/LICENSE
+-sha256 4ceea53e36c7ff67a946e9905e50b41f350ef7b107c59afec9b91cbe97fbcaea  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/is-resolvable/LICENSE
+-sha256 7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/json-schema-traverse/LICENSE
+-sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/json-stable-stringify-without-jsonify/LICENSE
+-sha256 e8d64ff1e54883c69759db53d10adfaa8e09b6ef628788885fe8068bc1fdb1b7  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/js-tokens/LICENSE
+-sha256 a07bc24468b9654ce76a547d47a2db282d07733b715db4c73a98bd63961f9550  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/js-yaml/LICENSE
+-sha256 b9eb082c39fe245e38793699074c394c43a722c51fce031c3c165cb92a31035c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/levn/LICENSE
+-sha256 e159c6d48c989185448658f276375bfb2300362ec6d4ae5525a2d49c4bcb947d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/lodash/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/lru-cache/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/mimic-fn/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/minimatch/LICENSE
+-sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/minimist/LICENSE
+-sha256 05991c2e8f070b69ec5b656c2c12fd07cd0153dd157d39b050b82af59b319a01  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/mkdirp/LICENSE
+-sha256 6652830c2607c722b66f1b57de15877ab8fc5dca406cc5b335afeb365d0f32c1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ms/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/mute-stream/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/object-assign/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/once/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/onetime/LICENSE
+-sha256 b9eb082c39fe245e38793699074c394c43a722c51fce031c3c165cb92a31035c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/optionator/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/os-tmpdir/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/path-is-absolute/LICENSE
+-sha256 0e356f8c0a756758ce04a143b1871585402b6bcf8f8e6a26873beb9992242e7a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/path-is-inside/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pify/LICENSE
+-sha256 6ee0feb1f6ef996ff5a68600f8cf98909cf412d39ef3cdceaefd87d636fa1b7f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pinkie/LICENSE
+-sha256 6ee0feb1f6ef996ff5a68600f8cf98909cf412d39ef3cdceaefd87d636fa1b7f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pinkie-promise/LICENSE
+-sha256 5822e0d816e53e3537b306a4132cb7a70881897cf51bf483282148a602979076  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pluralize/LICENSE
+-sha256 b9eb082c39fe245e38793699074c394c43a722c51fce031c3c165cb92a31035c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/prelude-ls/LICENSE
+-sha256 ecdccbcf39024f624ded480c01c0b25458e1eca8f26ecf040933865ce56d9a4f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/process-nextick-args/LICENSE
+-sha256 d7d2a7786de7c7cfd96f920c6f12927d74e1d2a861ca4498bf465c3bc3f4c21c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/progress/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pseudomap/LICENSE
+-sha256 ec62dc96da0099b87f4511736c87309335527fb7031639493e06c95728dc8c54  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/readable-stream/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/require-uncached/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/resolve-from/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/restore-cursor/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/rimraf/LICENSE
+-sha256 e5c1364118b39fa98b959138ce4aa4d0e68cfbee12d115e69730579fecb1dc1b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/run-async/LICENSE
+-sha256 c7cc929b57080f4b9d0c6cf57669f0463fc5b39906344dfc8d3bc43426b30eac  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/safe-buffer/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/semver/LICENSE
+-sha256 e6fdf7ac2af533b4436d99aa75df32aa78690510f7d68a3e73e8576967298d2f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/shebang-command/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/shebang-regex/LICENSE
+-sha256 e05b1eaf5b5f99b7ad75cd1f38858ff9a311780b97715ead67936d60bf96aa7e  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/signal-exit/LICENSE
+-sha256 3dc3b3d3a284d871f7f307655c90fb101d73abbf87bbddeefd2f67883353bdbc  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/slice-ansi/LICENSE
+-sha256 a4cdda44b5adea4731d53dcae78fb5124f8fd853e994f01e25d8c33a7daf818b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/sprintf-js/LICENSE
+-sha256 11f2aafb37d06b3ee5bdaf06e9811141d0da05263c316f3d627f45c20d43261b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/string_decoder/LICENSE
+-sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/string-width/LICENSE
+-sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/strip-ansi/LICENSE
+-sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/strip-ansi/node_modules/ansi-regex/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/strip-json-comments/LICENSE
+-sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/supports-color/LICENSE
+-sha256 ef088ddea300fe4ea038bc47db929e320033b66981cf12a20b517d6b66a2fa3e  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/table/LICENSE
+-sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/text-table/LICENSE
+-sha256 e8734448285a2dd773d40136ed5d5e8163a70701dd540cdc796cfca232f67d55  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/through/LICENSE
+-sha256 d72dea1a8cdf3f4dfa2f594253d0c5b37baefc76e806f5ecb0e426393edcd505  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/through/LICENSE.MIT
+-sha256 162413c61e0982abe89a06bf7a02ec760dc49a7364d838bd9f01daebb5b95954  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/tmp/LICENSE
+-sha256 b9eb082c39fe245e38793699074c394c43a722c51fce031c3c165cb92a31035c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/type-check/LICENSE
+-sha256 26181ebee1063f3dc6766a3b6d05999a0da058f172eadf2ca5d15105ffd9735a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/typedarray/LICENSE
+-sha256 0154425673db15cdfa80ecba2c9b1f1a867f7197a006764712849bfc3a93cbb7  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/util-deprecate/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/which/LICENSE
+-sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/wordwrap/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/wrappy/LICENSE
+-sha256 daca23d50b0f54d36d6da1b16c82dfea6461e2ae20de0e869957e44cc6d34781  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/write/LICENSE
+-sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/yallist/LICENSE
+-sha256 4f5753ce8acf3feafc758599058746d30bda07bc0d4cc3a6a1eb8e039fdba1dc  src/3rdparty/chromium/third_party/dom_distiller_js/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/errorprone/LICENSE
+-sha256 9021fdb5341ebbb2eb5c771ac5cfac527790673179d3b21a42de1ab2798ec30f  src/3rdparty/chromium/third_party/espresso/LICENSE
+-sha256 46336ab2fec900803e2f1a4253e325ac01d998efb09bc6906651f7259e636f76  src/3rdparty/chromium/third_party/expat/files/COPYING
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/feed/LICENSE
+-sha256 d9c904abd0ead61b3fbaef0a609285548076ff9c3f814cc1cf019c5d7150736d  src/3rdparty/chromium/third_party/ffmpeg/chromium/scripts/license_texts/full_lgpl.txt
+-sha256 a8579e3fc40c11ab147bc299257733eb749cd455010385f7c117f70d7aef24e4  src/3rdparty/chromium/third_party/ffmpeg/chromium/scripts/license_texts/jpeg.txt
+-sha256 857d5f537af3aa164e7a27eda60147d34195e5781abe7b1d358d9fb01e222ae0  src/3rdparty/chromium/third_party/ffmpeg/chromium/scripts/license_texts/mips.txt
+-sha256 b4c85cce2b772f27d83f4562c20787057dc6949fcecc820a82c1d2e7047e89c3  src/3rdparty/chromium/third_party/ffmpeg/chromium/scripts/license_texts/oggparse_ahlberg_rullgayrd_2005.txt
+-sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  src/3rdparty/chromium/third_party/ffmpeg/COPYING.GPLv2
+-sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903  src/3rdparty/chromium/third_party/ffmpeg/COPYING.GPLv3
+-sha256 b634ab5640e258563c536e658cad87080553df6f34f62269a21d554844e58bfe  src/3rdparty/chromium/third_party/ffmpeg/COPYING.LGPLv2.1
+-sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768  src/3rdparty/chromium/third_party/ffmpeg/COPYING.LGPLv3
+-sha256 73d99bc83313fff665b426d6672b4e0479102bc402fe22314ac9ce94a38aa5ff  src/3rdparty/chromium/third_party/ffmpeg/LICENSE.md
 -sha256 5d0c892ea452c3828f1e311637cde4e3a04eb6431554308b3fcdac8c1b330168  src/3rdparty/chromium/third_party/fips181/COPYING
--sha256 81ebf38708899097aacaac9723679b3ffa17640c14cd3193c46b75197de18b2c  src/3rdparty/chromium/third_party/tcmalloc/gperftools-2.0/vendor/COPYING
--sha256 ad4672b403488876635d2b455918f74b829d478da868ffc0c621a00fc99195f5  src/3rdparty/chromium/third_party/tcmalloc/LICENSE
--sha256 81ebf38708899097aacaac9723679b3ffa17640c14cd3193c46b75197de18b2c  src/3rdparty/chromium/third_party/tcmalloc/vendor/COPYING
--sha256 b9be92f13356083392d97da13cab8ae543c7911f44eff5289b693da8b17b9e08  src/3rdparty/chromium/third_party/inspector_protocol/LICENSE
--sha256 b23e682fda7310afe43505ed6041919ccff8f9e0c6799ebd7542cbcef11102e3  src/3rdparty/chromium/third_party/apple_apsl/LICENSE
--sha256 e88ae39d2e7c9ae8f5470bb23fdd7ce55fe58aca06f3d4399182f5bb0ffcf1dd  src/3rdparty/chromium/third_party/pyftpdlib/src/LICENSE
--sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/gson/LICENSE
--sha256 23681c6986fb33d57957660543f6e9dcbbcf6d2ae2f9fa2dbdb5efec5aa0d95f  src/3rdparty/chromium/third_party/pywebsocket/src/LICENSE
--sha256 b578cdd2345840ada550bd12519533812320d5f1d21cf4c1c7e1b1b0a31c98b7  src/3rdparty/chromium/third_party/pdfium/LICENSE
--sha256 32759d1397d8f7b9e15ece146e4038b22b90e93b4935b5a840bcef4d2ba5ea55  src/3rdparty/chromium/third_party/pdfium/third_party/bigint/LICENSE
--sha256 c5b14f5a3814d2e57b9bb9520dcf57a2c3817b65c4f989e5c82e332c82af1038  src/3rdparty/chromium/third_party/pdfium/third_party/pymock/LICENSE.txt
--sha256 584e795ba5833279c327245594d6dc216fc664144fa3626a0bdf136bc00af76c  src/3rdparty/chromium/third_party/arcore-android-sdk/LICENSE
--sha256 7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819  src/3rdparty/chromium/third_party/libxslt/src/Copyright
--sha256 7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819  src/3rdparty/chromium/third_party/libxslt/linux/COPYING
--sha256 2ab28b982a7f3150e1597befaa87e1636b9973c80aef3752597945d270c4c4e4  src/3rdparty/chromium/third_party/pycoverage/LICENSE
--sha256 c5b14f5a3814d2e57b9bb9520dcf57a2c3817b65c4f989e5c82e332c82af1038  src/3rdparty/chromium/third_party/pymock/LICENSE.txt
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/motemplate/LICENSE
--sha256 3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94  src/3rdparty/chromium/third_party/brotli/LICENSE
--sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903  src/3rdparty/chromium/third_party/hunspell/COPYING
--sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768  src/3rdparty/chromium/third_party/hunspell/COPYING.LESSER
--sha256 53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f  src/3rdparty/chromium/third_party/hunspell/COPYING.MPL
--sha256 ab00a482b6a3902e40211b43c5d0441962ea99b6cc7c25c0f243fa270b78d482  src/3rdparty/chromium/third_party/webrtc/LICENSE
--sha256 1f7a086c17fa2bdbe27d3eb6424a64b9bea9d7db89a4e220fef52ca24addb9e9  src/3rdparty/chromium/third_party/webrtc/license_template.txt
--sha256 21a742dd8cceebb1d5df7c6f945c75ccf1ad4f0d4c17e404517500c1a7de86a4  src/3rdparty/chromium/third_party/webrtc/examples/objc/AppRTCMobile/third_party/SocketRocket/LICENSE
--sha256 0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594  src/3rdparty/chromium/third_party/webrtc/examples/androidapp/third_party/autobanh/LICENSE
--sha256 26d2d16d48825edf1194cb3907c5c0b7d01f9c5527eb0fefb949c51f304635e9  src/3rdparty/chromium/third_party/webrtc/examples/androidapp/third_party/autobanh/LICENSE.md
--sha256 3ee0b54b13060355b0f5d0d1476536d25ad10552211098cc4086a46fb8c61f42  src/3rdparty/chromium/third_party/webrtc/LICENSE_THIRD_PARTY
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/ub-uiautomator/LICENSE
--sha256 fb3ab1e1621c6c469499a6ba1e926c027f32af3063c0456282f89382591cc46a  src/3rdparty/chromium/third_party/libevdev/LICENSE
--sha256 b5730da9a26472a405b0b1c61d3d166714d9d654ab3282e54e4a01a5f66316c3  src/3rdparty/chromium/third_party/byte_buddy/LICENSE
--sha256 31346421254a3e6e12687cf17f19f6357ee73a617fa7b3d3ccefdcbabe49bdd3  src/3rdparty/chromium/third_party/libXNVCtrl/LICENSE
--sha256 610809f1586ee4d22468f1e97c256153cea8be7a662193db70d6ca424e0f17c8  src/3rdparty/chromium/third_party/iaccessible2/LICENSE
--sha256 c903100da706172066fa1b6f02eba60f202fea63036492d2c4a01267e32aa7a8  src/3rdparty/chromium/third_party/qcms/src/COPYING
--sha256 376b54d4c5f4aa99421823fa4da93e3ab73096fce2400e89858632aa7da24a14  src/3rdparty/chromium/third_party/wds/LICENSE
--sha256 376b54d4c5f4aa99421823fa4da93e3ab73096fce2400e89858632aa7da24a14  src/3rdparty/chromium/third_party/wds/src/COPYING
--sha256 9f98bab33648b77578d85ac0f1d1c3941a72aa6d7e65015ba181f2fe804bb85d  src/3rdparty/chromium/third_party/pexpect/LICENSE
--sha256 0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594  src/3rdparty/chromium/third_party/ocmock/License.txt
--sha256 9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138  src/3rdparty/chromium/third_party/googletest/src/LICENSE
+-sha256 f45cc81b400a048b56c9edbd4c3317f7a8958463dfd55aa96f268ecfd6baa12c  src/3rdparty/chromium/third_party/flac/COPYING.FDL
+-sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  src/3rdparty/chromium/third_party/flac/COPYING.GPL
+-sha256 5df07007198989c622f5d41de8d703e7bef3d0e79d62e24332ee739a452af62a  src/3rdparty/chromium/third_party/flac/COPYING.LGPL
+-sha256 946b733afbaa20a192c8dc022b4e43090e78f28fd293494d1b307f7301552c9b  src/3rdparty/chromium/third_party/flac/COPYING.Xiph
+-sha256 7ec9661a8afafab1eee3523d6f1a193eff76314a5ab10b4ce96aefd87621b0c3  src/3rdparty/chromium/third_party/flatbuffers/LICENSE
+-sha256 7ec9661a8afafab1eee3523d6f1a193eff76314a5ab10b4ce96aefd87621b0c3  src/3rdparty/chromium/third_party/flatbuffers/src/LICENSE.txt
+-sha256 e09d954054165670b6a669e6da59673d9e85f343b9983e92a220623ff0198f8c  src/3rdparty/chromium/third_party/flot/LICENSE.txt
+-sha256 fa4cd9ab005185e10cd8f7504518856c7dd36c01e766c2bac87f4fc638e9f886  src/3rdparty/chromium/third_party/fontconfig/LICENSE
+-sha256 fa4cd9ab005185e10cd8f7504518856c7dd36c01e766c2bac87f4fc638e9f886  src/3rdparty/chromium/third_party/fontconfig/src/COPYING
+-sha256 fd056de4196903a676208ef58cfddafc7d583d1f28fa2e44c309cf84a59e62fb  src/3rdparty/chromium/third_party/freetype/src/docs/LICENSE.TXT
+-sha256 9f5db2544e04e3e0fb39ea277b9bb6f8efcc8bb84f6264630978ce4708495535  src/3rdparty/chromium/third_party/gestures/gestures/LICENSE
+-sha256 4bd9e329f9b268bd0dec2df0560a03382fe426adf83daa7b314d2f46b9b22c9a  src/3rdparty/chromium/third_party/gestures/LICENSE
+-sha256 c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4  src/3rdparty/chromium/third_party/gif_player/LICENSE
+-sha256 23353f4505b1c8ce4f8f72fc3b11dc74b4a8a7bf95921d93ff77f227c171a710  src/3rdparty/chromium/third_party/glslang/LICENSE
 -sha256 9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138  src/3rdparty/chromium/third_party/googletest/src/googlemock/LICENSE
 -sha256 5e0df8c845c742e76f2f64d2d9ce1b7e74a2422fddbc577ae6a56319083de0bf  src/3rdparty/chromium/third_party/googletest/src/googlemock/scripts/generator/LICENSE
 -sha256 9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138  src/3rdparty/chromium/third_party/googletest/src/googletest/LICENSE
--sha256 76c45ece83a26117f86f4e349e7df118708e061e87225328fb478ce1e8b3eb86  src/3rdparty/chromium/third_party/jsoncpp/LICENSE
--sha256 a1a33180d02960ab1c5de36cf20b1a2f0fe9888d83826ad263da5db52f1b183b  src/3rdparty/chromium/third_party/libsecret/LICENSE
--sha256 1599cc232dbd003e6691c7f4e360f2068f84ebaef6510a26ab919c3a7fec27fd  src/3rdparty/chromium/third_party/openmax_dl/LICENSE
--sha256 ab00a482b6a3902e40211b43c5d0441962ea99b6cc7c25c0f243fa270b78d482  src/3rdparty/chromium/third_party/libjingle_xmpp/LICENSE
--sha256 956c3b678228a216142df38d039bba56ee6509d3298e7a4b8dd5bc3eaa80fe33  src/3rdparty/chromium/third_party/Python-Markdown/LICENSE.md
--sha256 23353f4505b1c8ce4f8f72fc3b11dc74b4a8a7bf95921d93ff77f227c171a710  src/3rdparty/chromium/third_party/glslang/LICENSE
--sha256 c55ce1e876843853a8a2e5c936df6dc8dd3d185f83d85e6d113143b8c24f542e  src/3rdparty/chromium/third_party/swiftshader/third_party/subzero/LICENSE.TXT
--sha256 0a731c5e376f4b604b9fd099d4797d64a5c0bc6e3770baf17b55988cb7737e2e  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/LICENSE.TXT
--sha256 9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/utils/unittest/googletest/LICENSE.TXT
--sha256 a63ee63574ed21e930765c4418a4fa2fa571b72c47cd023ee588dbf8b21fb4ee  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/projects/sample/autoconf/LICENSE.TXT
--sha256 a63ee63574ed21e930765c4418a4fa2fa571b72c47cd023ee588dbf8b21fb4ee  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/autoconf/LICENSE.TXT
--sha256 a012d664e4e01df52a65b2eeafdfb8aeb856fec0e6c372265d01b0109c3f5e2a  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/include/llvm/Support/LICENSE.TXT
--sha256 b2d24d77041fbf66b93519758cd80671425c55614b2f65262046fdbe8c3247a8  src/3rdparty/chromium/third_party/swiftshader/third_party/PowerVR_SDK/License.txt
--sha256 9c9a05118ed1b6d96781a2e52335f7d4ec3dd6e7139340a8aa95fbf7eb4f199a  src/3rdparty/chromium/third_party/swiftshader/third_party/llvm-subzero/LICENSE.TXT
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/swiftshader/LICENSE.txt
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/web-animations-js/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/web-animations-js/sources/COPYING
--sha256 9021fdb5341ebbb2eb5c771ac5cfac527790673179d3b21a42de1ab2798ec30f  src/3rdparty/chromium/third_party/espresso/LICENSE
--sha256 ccc19f1da0798ed666609b65a5b44dd8b3abe6fc08b9c0592eb76e82e174db19  src/3rdparty/chromium/third_party/leveldatabase/src/LICENSE
--sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/leakcanary/LICENSE
--sha256 f98f3db81b4dd3873d8672117e409286142cfae9b7673ab6d7aab4bae1527d20  src/3rdparty/chromium/third_party/qunit/LICENSE
--sha256 fffd497be5f4ae0a10b8258e191125fb58b90250ecbf3c79398d79604dd00b7d  src/3rdparty/chromium/third_party/libjpeg_turbo/LICENSE.md
--sha256 b25948e48c44312d04ffc626a9d52cae7c04539a1a8e0c1be47b7bfa0da03e1d  src/3rdparty/chromium/third_party/sinonjs/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/crashpad/crashpad/LICENSE
--sha256 f40ee07401827b6ac9cf0aee1aaffb00e42a3f2c729f9c83f96a3daafef5d944  src/3rdparty/chromium/third_party/crashpad/crashpad/third_party/getopt/LICENSE
--sha256 4b45cbe16d7b71b89ae6127e26e0d90a029198ca5e958ad8e3d0b8bbed364d8b  src/3rdparty/chromium/third_party/crashpad/crashpad/third_party/cpp-httplib/cpp-httplib/LICENSE
--sha256 212846e0145aa50fb3a5aef254a370311a93acf6c1e792e47e0068d64c8c3885  src/3rdparty/chromium/third_party/crashpad/crashpad/third_party/apple_cf/APPLE_LICENSE
--sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/accessibility_test_framework/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/apk-patch-size-estimator/LICENSE
--sha256 9dd8d2fb95ba862a5d166a167682c1c67a209acd3bf09b6fd03f76d3579729bc  src/3rdparty/chromium/third_party/ow2_asm/LICENSE
--sha256 98f8746a39f9a42da35df7046a15b56d0e2f4f76eefc352d67f1bf76e85360b4  src/3rdparty/chromium/third_party/bspatch/LICENSE
--sha256 5f593432ef4e7ecefa6326042babb8a03d8d6ce502b4f0b78b105e18d19f8052  src/3rdparty/chromium/third_party/molokocacao/LICENSE
--sha256 b244f73c3d21edaf44ec253b9a7c389ec43313c417f52f8b71914b0c40d87325  src/3rdparty/chromium/third_party/xdg-utils/LICENSE
--sha256 7973776647df23457a9910075547e3f345fbc5e0e41147b4586d714582dfdd76  src/3rdparty/chromium/third_party/mach_override/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/s2cellid/LICENSE
--sha256 06545a6ec25fbbff6c62f205f94a35be49e38f33bea827a8cfb07d7b82e4b083  src/3rdparty/chromium/third_party/sqlite/LICENSE
--sha256 66e056b6e8687f32af30d5187611b98b12a8f46f07aaf62f43585f276e8f0ac9  src/3rdparty/chromium/third_party/sqlite/src/autoconf/tea/license.terms
+-sha256 9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138  src/3rdparty/chromium/third_party/googletest/src/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/google-truth/LICENSE
+-sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/gson/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/guava/LICENSE
 -sha256 ca382aa537f8923d6c0991fb976d184a2009eb76080313bf10dcecdc9311f0dd  src/3rdparty/chromium/third_party/gvr-android-keyboard/LICENSE
--sha256 c5c63674f8a83c4d2e385d96d1c670a03cb871ba2927755467017317878574bd  src/3rdparty/chromium/third_party/libxml/src/Copyright
--sha256 c5c63674f8a83c4d2e385d96d1c670a03cb871ba2927755467017317878574bd  src/3rdparty/chromium/third_party/libxml/src/COPYING
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/jstemplate/COPYING
--sha256 5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf  src/3rdparty/chromium/third_party/libwebm/source/LICENSE.TXT
--sha256 af175b9d96ee93c21a036152e1b905b0b95304d4ae8c2c921c7609100ba8df7e  src/3rdparty/chromium/third_party/axe-core/LICENSE
--sha256 1cf71700f3403ca26f002e2dc1d1861dcb3d2af9bb9d98d529a903be9d7f06fc  src/3rdparty/chromium/third_party/xstream/LICENSE
--sha256 380893a2f01aea5c3328b1a8b08cdc488bf236916abac3af0d1f1a5d2634c31a  src/3rdparty/chromium/third_party/mockito/LICENSE
+-sha256 f54c49d3ff865458c5d3c68c3367a1f6e0d7b3f686f8c88a6a563ef90f84ad9e  src/3rdparty/chromium/third_party/gvr-android-sdk/LICENSE
+-sha256 9f45b3cf29b76b5bf4ad467938b0e61a720eec6ef6c219c566f7c262b0cc7854  src/3rdparty/chromium/third_party/haha/LICENSE
+-sha256 96e5bbd81970983d666e702fa56f67dfd2fdaa363b8a4266e8d98847374cd7c8  src/3rdparty/chromium/third_party/hamcrest/LICENSE
+-sha256 2a886915de4f296cdae5ed67064f86dba01d0c55286d86e8487f2a5caaf40216  src/3rdparty/chromium/third_party/harfbuzz-ng/src/COPYING
+-sha256 ec20cbe051200fc846caf4dc253cf660e874a2d9e4f3a682e08354b567fae409  src/3rdparty/chromium/third_party/harfbuzz-ng/src/src/hb-ucdn/COPYING
+-sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903  src/3rdparty/chromium/third_party/hunspell/COPYING
+-sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768  src/3rdparty/chromium/third_party/hunspell/COPYING.LESSER
+-sha256 53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f  src/3rdparty/chromium/third_party/hunspell/COPYING.MPL
+-sha256 610809f1586ee4d22468f1e97c256153cea8be7a662193db70d6ca424e0f17c8  src/3rdparty/chromium/third_party/iaccessible2/LICENSE
+-sha256 a412a53925efc6b50800bf8519a2e033949243d5a5a8c5422bae8a5007ad09c8  src/3rdparty/chromium/third_party/iccjpeg/LICENSE
+-sha256 d18e75f216f177d41304f5e94c2cba7d1bf9f8f8583a0777cceb5cca0c5ad137  src/3rdparty/chromium/third_party/icu4j/LICENSE
+-sha256 4eac19453ddf356478db3be6b101a6d872d0046cdc8222df1ff5c997dd4b9fbe  src/3rdparty/chromium/third_party/icu/LICENSE
+-sha256 c62d7697c03979f5056d28b338fafc7a1152820f7b379adf4a9d88cd37160f96  src/3rdparty/chromium/third_party/icu/license.html
+-sha256 845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308  src/3rdparty/chromium/third_party/icu/scripts/LICENSE
+-sha256 8c6db340475136df3c1201d458fa5755698eace76e510471ecc9d857d6083dac  src/3rdparty/chromium/third_party/ijar/LICENSE
+-sha256 b9be92f13356083392d97da13cab8ae543c7911f44eff5289b693da8b17b9e08  src/3rdparty/chromium/third_party/inspector_protocol/LICENSE
 -sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/intellij/LICENSE
--sha256 7ec9661a8afafab1eee3523d6f1a193eff76314a5ab10b4ce96aefd87621b0c3  src/3rdparty/chromium/third_party/flatbuffers/LICENSE
--sha256 7ec9661a8afafab1eee3523d6f1a193eff76314a5ab10b4ce96aefd87621b0c3  src/3rdparty/chromium/third_party/flatbuffers/src/LICENSE.txt
--sha256 bb04dd22ee55fe3c24ee2a3c82bd1efdebbd965f7c178224a2977edc2457bb2f  src/3rdparty/chromium/third_party/tlslite/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/bazel/LICENSE
--sha256 6de6fe48ff7b249a51ec5522d1af618dd50effc6f030fd24e17878566ad2ca5d  src/3rdparty/chromium/third_party/libwebp/LICENSE
+-sha256 7a92c5e7a83b5ddcc693bb84ea8bdb842308509c1758cffdfe24717609154c75  src/3rdparty/chromium/third_party/isimpledom/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/javax_inject/LICENSE
+-sha256 7975c0027cfa5d08253fbb6ff4676acc38248bd5e046d0dbab3d810971e97970  src/3rdparty/chromium/third_party/jinja2/LICENSE
+-sha256 923e74e5ae41345038da0a56dfdc983356917fbbb139176e654d1b33100b723f  src/3rdparty/chromium/third_party/jmake/LICENSE
+-sha256 76c45ece83a26117f86f4e349e7df118708e061e87225328fb478ce1e8b3eb86  src/3rdparty/chromium/third_party/jsoncpp/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/jstemplate/COPYING
+-sha256 71a19392a0eb3255ab2055ed978bb0f93865cea84d31a3510eaffb74d8981e7f  src/3rdparty/chromium/third_party/khronos/LICENSE
+-sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/leakcanary/LICENSE
+-sha256 ccc19f1da0798ed666609b65a5b44dd8b3abe6fc08b9c0592eb76e82e174db19  src/3rdparty/chromium/third_party/leveldatabase/src/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/libaddressinput/LICENSE
+-sha256 c9a5bd7c8cc1267ddacdc5228c68ecd811cf6d74286e9141bc80d8af2eb1a025  src/3rdparty/chromium/third_party/libaddressinput/src/cpp/LICENSE.chromium
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/libaddressinput/src/LICENSE
+-sha256 fb3ab1e1621c6c469499a6ba1e926c027f32af3063c0456282f89382591cc46a  src/3rdparty/chromium/third_party/libevdev/LICENSE
+-sha256 721cb11de618fcf9bbb7d25a389207bf2227357e6694bc326ab32a6699f9b951  src/3rdparty/chromium/third_party/libFuzzer/LICENSE.TXT
+-sha256 ab00a482b6a3902e40211b43c5d0441962ea99b6cc7c25c0f243fa270b78d482  src/3rdparty/chromium/third_party/libjingle_xmpp/LICENSE
+-sha256 19af539b1ec692ea9ccf71b6ea97d602bcf7187eab27b0ea806aea1cd10b0b13  src/3rdparty/chromium/third_party/libjpeg/LICENSE
+-sha256 fffd497be5f4ae0a10b8258e191125fb58b90250ecbf3c79398d79604dd00b7d  src/3rdparty/chromium/third_party/libjpeg_turbo/LICENSE.md
+-sha256 3bf128851aff9f392953276ea8ade3e41da0f40b853fde58ec21034aa91ccc31  src/3rdparty/chromium/third_party/libovr/LICENSE
+-sha256 913b3eb6f19defc77c00e2bebbbce464326331b0b59eb6d1d1b23d68a8c27f6b  src/3rdparty/chromium/third_party/libpng/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/libprotobuf-mutator/src/LICENSE
+-sha256 a1a33180d02960ab1c5de36cf20b1a2f0fe9888d83826ad263da5db52f1b183b  src/3rdparty/chromium/third_party/libsecret/LICENSE
+-sha256 8e19d42a1eec9561f3f347253ddf2e385c55f392f025bb0fd41b88dbf38db5ae  src/3rdparty/chromium/third_party/libsrtp/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/libsync/LICENSE
+-sha256 dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551  src/3rdparty/chromium/third_party/libudev/LICENSE
+-sha256 5df07007198989c622f5d41de8d703e7bef3d0e79d62e24332ee739a452af62a  src/3rdparty/chromium/third_party/libusb/src/COPYING
 -sha256 8267348d5af1262c11d1a08de2f5afc77457755f1ac658627dd9acf71011d615  src/3rdparty/chromium/third_party/libvpx/source/libvpx/LICENSE
--sha256 719d8fa235f2068e0ae6d6a7dceb0a7720d7840f0f0ebed29957989e6ded3cd8  src/3rdparty/chromium/third_party/libvpx/source/libvpx/third_party/x86inc/LICENSE
 -sha256 9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138  src/3rdparty/chromium/third_party/libvpx/source/libvpx/third_party/googletest/src/LICENSE
 -sha256 5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf  src/3rdparty/chromium/third_party/libvpx/source/libvpx/third_party/libwebm/LICENSE.TXT
 -sha256 2b2cc1180c7e6988328ad2033b04b80117419db9c4c584918bbb3cfec7e9364f  src/3rdparty/chromium/third_party/libvpx/source/libvpx/third_party/libyuv/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/devtools-node-modules/LICENSE
--sha256 f2042f3634c4136d06b5139c9c6aefb81a3a462b514548bc1845953233dfba98  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/deep-is/LICENSE
--sha256 162413c61e0982abe89a06bf7a02ec760dc49a7364d838bd9f01daebb5b95954  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/tmp/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/minimatch/LICENSE
--sha256 11f2aafb37d06b3ee5bdaf06e9811141d0da05263c316f3d627f45c20d43261b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/string_decoder/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/onetime/LICENSE
--sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ansi-escapes/LICENSE
--sha256 33b734d60042d0fe0c92dd1fc1e874193a1c899ec3e276a2eb935d2d0bf5b710  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/core-util-is/LICENSE
--sha256 a4cdda44b5adea4731d53dcae78fb5124f8fd853e994f01e25d8c33a7daf818b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/sprintf-js/LICENSE
--sha256 2fc5460f1526810979054ecd18cd01349b57f38ea56d1e920afdea34d104540c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/graceful-fs/LICENSE
--sha256 6273faa0d14a54972c0341a724010eb8cd928ee486745a9eea8cf80680ba5098  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/espree/LICENSE
--sha256 05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/inflight/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ansi-regex/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/resolve-from/LICENSE
--sha256 a1bd5deadb6a06dd74efa852c1b8b23f63b67f2214fbe9c8bd591da51da69268  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/balanced-match/LICENSE
--sha256 942a98cb8846a6354266193f173c1354615827fbb7d67f68399599dff12c4d6a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/fast-levenshtein/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/path-is-absolute/LICENSE
--sha256 96b29c9aaa611a05349b362d48c2ffce0966fe408401a2d1a157be312c035b5f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/concat-stream/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/array-union/LICENSE
--sha256 94bcb9959136723aa4fb36e1a6c4d5c662a2369978cfae344dabfb83ae619e79  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/esprima/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/del/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/globby/LICENSE
--sha256 e159c6d48c989185448658f276375bfb2300362ec6d4ae5525a2d49c4bcb947d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/lodash/LICENSE
--sha256 ecdccbcf39024f624ded480c01c0b25458e1eca8f26ecf040933865ce56d9a4f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/process-nextick-args/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/mimic-fn/LICENSE
--sha256 b1344bd78ebcbf8a359225ec444d038a653c6a5f9ecf405a50d4a5c11fbf27d1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/cross-spawn/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/escape-string-regexp/LICENSE
--sha256 693866fc419c6f61c8570438ec00659d156ec2b4d4a4d04091711f5f11a365d4  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/color-convert/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/is-fullwidth-code-point/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/semver/LICENSE
--sha256 ef088ddea300fe4ea038bc47db929e320033b66981cf12a20b517d6b66a2fa3e  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/table/LICENSE
--sha256 aa7c48d39d3bb837efa4fce39f971fa6ae8e5cb148724af8867a7a4a7121ad6a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/circular-json/LICENSE
--sha256 44191656d296391e0ec97e32f5385f0d02b6f2992694082d22ea04ba0f66f9e4  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/is-promise/LICENSE
--sha256 5822e0d816e53e3537b306a4132cb7a70881897cf51bf483282148a602979076  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pluralize/LICENSE
--sha256 7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/fast-deep-equal/LICENSE
--sha256 db83f2ede67f36cfab1ea0721ea2ee97515863e9a65346881f305e430451cc91  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/eslint/LICENSE
--sha256 b9eb082c39fe245e38793699074c394c43a722c51fce031c3c165cb92a31035c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/optionator/LICENSE
--sha256 4969b0ff94c4f2ad3f1613d95b3966cb4c3147d8b893654aced81029241de176  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ajv/LICENSE
--sha256 7bf9b2de73a6b356761c948d0e9eeb4be6c1270bd04c79cd489c1e400ffdfc1a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/json-schema-traverse/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/rimraf/LICENSE
--sha256 e6fdf7ac2af533b4436d99aa75df32aa78690510f7d68a3e73e8576967298d2f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/shebang-command/LICENSE
--sha256 7d043a9e52b7e1e3acab9ca3377e30ca72d25d39ad6e6c5a22b407fe39c6d703  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/chardet/LICENSE
--sha256 e2ddad70d6b6bcfec887c32d7143a77ccbdb58e38d9c43f5b7f30f715b874b80  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/acorn/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/wrappy/LICENSE
--sha256 e33b7bc13a0e5ea9ed6718e12e99a5b0b60276162f0195aa7f342397f4b0155d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/external-editor/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/shebang-regex/LICENSE
--sha256 0e74697a68cebdcd61502c30fe80ab7f9e341d995dcd452023654d57133534b1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/estraverse/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/restore-cursor/LICENSE
--sha256 a25dce9c94c3ad622574cffbefd4b8845b418aa65df966d97e3204ad276ed240  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ajv-keywords/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/has-ansi/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/require-uncached/LICENSE
--sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/strip-ansi/node_modules/ansi-regex/LICENSE
--sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/strip-ansi/LICENSE
--sha256 c8c8324aff32c44f9e501aac5b3b97540c26af7d6dd6af8bce5e34300596e27d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/flat-cache/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/supports-color/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/which/LICENSE
--sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/text-table/LICENSE
--sha256 0e74697a68cebdcd61502c30fe80ab7f9e341d995dcd452023654d57133534b1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/esutils/LICENSE
--sha256 b9eb082c39fe245e38793699074c394c43a722c51fce031c3c165cb92a31035c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/type-check/LICENSE
--sha256 c7cc929b57080f4b9d0c6cf57669f0463fc5b39906344dfc8d3bc43426b30eac  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/safe-buffer/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/yallist/LICENSE
--sha256 c8442419dc614089ea022b3da6bfc089b41a58fb7b9030d1e651f2f36189dce2  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/argparse/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/is-path-inside/LICENSE
--sha256 6ee0feb1f6ef996ff5a68600f8cf98909cf412d39ef3cdceaefd87d636fa1b7f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pinkie-promise/LICENSE
--sha256 6ee0feb1f6ef996ff5a68600f8cf98909cf412d39ef3cdceaefd87d636fa1b7f  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pinkie/LICENSE
--sha256 e5c1364118b39fa98b959138ce4aa4d0e68cfbee12d115e69730579fecb1dc1b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/run-async/LICENSE
--sha256 c8c8324aff32c44f9e501aac5b3b97540c26af7d6dd6af8bce5e34300596e27d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/file-entry-cache/LICENSE
--sha256 33fa5470b2195e410b075a32516b6ad27784b8a8ff74ae90cfd60c14b76e6644  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/cli-width/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/strip-json-comments/LICENSE
--sha256 e05b1eaf5b5f99b7ad75cd1f38858ff9a311780b97715ead67936d60bf96aa7e  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/signal-exit/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/arrify/LICENSE
--sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/concat-map/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pseudomap/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/has-flag/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ansi-styles/LICENSE
--sha256 5ffe28e7ade7d8f10d85d5337a73fd793dac5c462fb9a28fbf8c5046c7fbca3b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/inherits/LICENSE
--sha256 8be44da6cc59e890c406d6d05c3ce1850f29bb2e0da2a2d686d593e5ad3ecf59  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/eslint-scope/LICENSE
--sha256 e8734448285a2dd773d40136ed5d5e8163a70701dd540cdc796cfca232f67d55  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/through/LICENSE
--sha256 d72dea1a8cdf3f4dfa2f594253d0c5b37baefc76e806f5ecb0e426393edcd505  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/through/LICENSE.MIT
--sha256 4ceea53e36c7ff67a946e9905e50b41f350ef7b107c59afec9b91cbe97fbcaea  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/is-resolvable/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/cli-cursor/LICENSE
--sha256 e8d64ff1e54883c69759db53d10adfaa8e09b6ef628788885fe8068bc1fdb1b7  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/js-tokens/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/array-uniq/LICENSE
--sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/wordwrap/LICENSE
--sha256 b9eb082c39fe245e38793699074c394c43a722c51fce031c3c165cb92a31035c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/prelude-ls/LICENSE
--sha256 491b4012bfc95982e66859c59641be20f4fd2c9b3bc2b6a7f26b6166e462dda1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/acorn-jsx/node_modules/acorn/LICENSE
--sha256 a19859c623cc60b717560cafb5fe64244735022c1200b65a649a3c2eef912fb4  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/acorn-jsx/LICENSE
--sha256 8465b04b67f473341171b5c9c8b2c741a4a395b3f6ed58339b3a4f4db3db7472  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/fs.realpath/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/lru-cache/LICENSE
--sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/chalk/node_modules/supports-color/LICENSE
--sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/chalk/node_modules/ansi-styles/LICENSE
--sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/chalk/LICENSE
--sha256 29f4d474804f60aae177d7fed67d0d613d00006640cc9cf80077eef03fb9a2cc  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/co/LICENSE
--sha256 d7d2a7786de7c7cfd96f920c6f12927d74e1d2a861ca4498bf465c3bc3f4c21c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/progress/LICENSE
--sha256 a07bc24468b9654ce76a547d47a2db282d07733b715db4c73a98bd63961f9550  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/js-yaml/LICENSE
--sha256 e67aed7df22dc8031e4fcf5338fe91cb33e3817e5c58a99a2a2802eea9069791  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/functional-red-black-tree/LICENSE
--sha256 daca23d50b0f54d36d6da1b16c82dfea6461e2ae20de0e869957e44cc6d34781  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/write/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/doctrine/LICENSE
--sha256 0e74697a68cebdcd61502c30fe80ab7f9e341d995dcd452023654d57133534b1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/doctrine/LICENSE.esprima
--sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/string-width/LICENSE
--sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/minimist/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/mute-stream/LICENSE
--sha256 ec62dc96da0099b87f4511736c87309335527fb7031639493e06c95728dc8c54  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/readable-stream/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/glob/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/pify/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/figures/LICENSE
--sha256 26181ebee1063f3dc6766a3b6d05999a0da058f172eadf2ca5d15105ffd9735a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/typedarray/LICENSE
--sha256 05991c2e8f070b69ec5b656c2c12fd07cd0153dd157d39b050b82af59b319a01  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/mkdirp/LICENSE
--sha256 0154425673db15cdfa80ecba2c9b1f1a867f7197a006764712849bfc3a93cbb7  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/util-deprecate/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/os-tmpdir/LICENSE
--sha256 b9eb082c39fe245e38793699074c394c43a722c51fce031c3c165cb92a31035c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/levn/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/babel-code-frame/node_modules/strip-ansi/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/babel-code-frame/node_modules/chalk/LICENSE
--sha256 0e356f8c0a756758ce04a143b1871585402b6bcf8f8e6a26873beb9992242e7a  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/path-is-inside/LICENSE
--sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/json-stable-stringify-without-jsonify/LICENSE
--sha256 6fb9754611c20f6649f68805e8c990e83261f29316e29de9e6cedae607b8634c  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/object-assign/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/isexe/LICENSE
--sha256 ac779f7314c74f232ef847ea86e714abe25cf6eeb5cc97b69451b74e2af6492d  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/iconv-lite/LICENSE
--sha256 48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/globals/LICENSE
--sha256 435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/fast-json-stable-stringify/LICENSE
--sha256 7357445bac398c76c0aef75a587009fe406d40de6a79789eb5b7ecbbad317ef2  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/color-name/LICENSE
--sha256 3dc3b3d3a284d871f7f307655c90fb101d73abbf87bbddeefd2f67883353bdbc  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/slice-ansi/LICENSE
--sha256 6652830c2607c722b66f1b57de15877ab8fc5dca406cc5b335afeb365d0f32c1  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/ms/LICENSE
--sha256 4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/once/LICENSE
--sha256 ac68116ae73740de4190892f334992e449a124600924ec761e64319d3aac9e6e  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/esquery/LICENSE
--sha256 98c970de440dcfc77471610aec2377c9d9b0db2b3be6d1add524a586e1d7f422  src/3rdparty/chromium/third_party/devtools-node-modules/third_party/node_modules/debug/LICENSE
+-sha256 719d8fa235f2068e0ae6d6a7dceb0a7720d7840f0f0ebed29957989e6ded3cd8  src/3rdparty/chromium/third_party/libvpx/source/libvpx/third_party/x86inc/LICENSE
+-sha256 5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf  src/3rdparty/chromium/third_party/libwebm/source/LICENSE.TXT
+-sha256 6de6fe48ff7b249a51ec5522d1af618dd50effc6f030fd24e17878566ad2ca5d  src/3rdparty/chromium/third_party/libwebp/LICENSE
+-sha256 c5c63674f8a83c4d2e385d96d1c670a03cb871ba2927755467017317878574bd  src/3rdparty/chromium/third_party/libxml/src/COPYING
+-sha256 c5c63674f8a83c4d2e385d96d1c670a03cb871ba2927755467017317878574bd  src/3rdparty/chromium/third_party/libxml/src/Copyright
+-sha256 31346421254a3e6e12687cf17f19f6357ee73a617fa7b3d3ccefdcbabe49bdd3  src/3rdparty/chromium/third_party/libXNVCtrl/LICENSE
+-sha256 7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819  src/3rdparty/chromium/third_party/libxslt/linux/COPYING
+-sha256 7e48e290b6bfccc2ec1b297023a1d77f2fd87417f71fbb9f50aabef40a851819  src/3rdparty/chromium/third_party/libxslt/src/Copyright
+-sha256 2b2cc1180c7e6988328ad2033b04b80117419db9c4c584918bbb3cfec7e9364f  src/3rdparty/chromium/third_party/libyuv/LICENSE
+-sha256 6e3e0a978f1e136cb3efb89702f4314671581a0c70c9a52447669e00f7b129e8  src/3rdparty/chromium/third_party/lzma_sdk/LICENSE
+-sha256 7973776647df23457a9910075547e3f345fbc5e0e41147b4586d714582dfdd76  src/3rdparty/chromium/third_party/mach_override/LICENSE
+-sha256 0bbe88228fd63d20ec097f64e58d5a0a465123ae139140a18d406c60b48824b5  src/3rdparty/chromium/third_party/markupsafe/LICENSE
+-sha256 58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd  src/3rdparty/chromium/third_party/material_design_icons/LICENSE
+-sha256 c93465d6a75e6ade8785edb4ec125ece083ab0910ed0417b4ff346792ba0f851  src/3rdparty/chromium/third_party/mesa/LICENSE
+-sha256 e8800bd573e8f844a5b87cf43cc4d55767314b4e95a6092cf26ce9c6ed00b877  src/3rdparty/chromium/third_party/mesa/src/docs/COPYING
+-sha256 1efd6dec259877be94db3dbd005c93a5c94a73a492bd85eede6e14885e480e0e  src/3rdparty/chromium/third_party/mesa/src/docs/license.html
+-sha256 704179825bb7c4600acbff3d1fcd95f1eb61b2c4a11b66bb150d7cefea8f6371  src/3rdparty/chromium/third_party/mesa/src/src/gallium/drivers/radeon/LICENSE.TXT
+-sha256 845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308  src/3rdparty/chromium/third_party/metrics_proto/LICENSE
+-sha256 83bb6bd9ccd2cf5230cb1807ed16258289768dc4d9cb80069a814e04415a1275  src/3rdparty/chromium/third_party/minigbm/LICENSE
+-sha256 8610954adbca6c6b85d8b1ae5613b44b0014e437d32fcad6683bb27541411686  src/3rdparty/chromium/third_party/minigbm/src/LICENSE
+-sha256 87642305968765a4030fd202ff7006afa67274da7f9bde84506e51ae58ecc2b4  src/3rdparty/chromium/third_party/minizip/src/LICENSE
+-sha256 e075583a46bca13a3f25af4181e2a0064f442c1f55c4312275cbcf05b892d3f4  src/3rdparty/chromium/third_party/mocha/LICENSE
+-sha256 380893a2f01aea5c3328b1a8b08cdc488bf236916abac3af0d1f1a5d2634c31a  src/3rdparty/chromium/third_party/mockito/LICENSE
+-sha256 d47e8390fb0d7ad4a18f26aedd6283c7ab6b5b4fabab536ccb4db7f9f6d90c08  src/3rdparty/chromium/third_party/modp_b64/LICENSE
+-sha256 5f593432ef4e7ecefa6326042babb8a03d8d6ce502b4f0b78b105e18d19f8052  src/3rdparty/chromium/third_party/molokocacao/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/motemplate/LICENSE
+-sha256 7a92c5e7a83b5ddcc693bb84ea8bdb842308509c1758cffdfe24717609154c75  src/3rdparty/chromium/third_party/mozilla/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/netty4/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/netty-tcnative/LICENSE
+-sha256 0cd1bd4b934ffdc5e7f1bcfa9d08bd17295e5414bdca99c06b1036278b01f0b1  src/3rdparty/chromium/third_party/node/LICENSE
+-sha256 b5730da9a26472a405b0b1c61d3d166714d9d654ab3282e54e4a01a5f66316c3  src/3rdparty/chromium/third_party/objenesis/LICENSE
+-sha256 0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594  src/3rdparty/chromium/third_party/ocmock/License.txt
+-sha256 dd5c1c9668512530fa5a96e4c29ac4033d70a7eeb0eed7a42fddb6dd794ebdbb  src/3rdparty/chromium/third_party/openh264/src/LICENSE
+-sha256 1599cc232dbd003e6691c7f4e360f2068f84ebaef6510a26ab919c3a7fec27fd  src/3rdparty/chromium/third_party/openmax_dl/LICENSE
+-sha256 f56ff606104d4ef18e617921a75c73ad73b5a1a1d70c69590c29de16919e04ad  src/3rdparty/chromium/third_party/openvr/src/LICENSE
+-sha256 8338ce8d922bb4416ce3dd1e5680173332435e3f0755007ac7801ccd674fe682  src/3rdparty/chromium/third_party/opus/src/COPYING
+-sha256 7efb4989e0cd1b256229bdf2f09300c5d14e35db0e7476bfb87fac243498273d  src/3rdparty/chromium/third_party/opus/src/LICENSE_PLEASE_READ.txt
+-sha256 0d74de3c3cd3196a9ed1bc612cfd5f81d7509d66c4be34a50f99d61bd1ad00d4  src/3rdparty/chromium/third_party/ots/LICENSE
+-sha256 9dd8d2fb95ba862a5d166a167682c1c67a209acd3bf09b6fd03f76d3579729bc  src/3rdparty/chromium/third_party/ow2_asm/LICENSE
+-sha256 b578cdd2345840ada550bd12519533812320d5f1d21cf4c1c7e1b1b0a31c98b7  src/3rdparty/chromium/third_party/pdfium/LICENSE
+-sha256 32759d1397d8f7b9e15ece146e4038b22b90e93b4935b5a840bcef4d2ba5ea55  src/3rdparty/chromium/third_party/pdfium/third_party/bigint/LICENSE
+-sha256 c5b14f5a3814d2e57b9bb9520dcf57a2c3817b65c4f989e5c82e332c82af1038  src/3rdparty/chromium/third_party/pdfium/third_party/pymock/LICENSE.txt
+-sha256 9f98bab33648b77578d85ac0f1d1c3941a72aa6d7e65015ba181f2fe804bb85d  src/3rdparty/chromium/third_party/pexpect/LICENSE
+-sha256 dd4930c619afd8527591353c7d3d1c1d7f4bf62ed1cb411f4f507dbdee7738a2  src/3rdparty/chromium/third_party/ply/LICENSE
+-sha256 685b3b09870f1361f8db2d3f37acdb765d5da1722a18b182765da4b79a8f63ff  src/3rdparty/chromium/third_party/ply/license.patch
+-sha256 a5adc2955c0dd848c97aa6afb14e0047a610f0fcfa6ce0011efad01a0e051406  src/3rdparty/chromium/third_party/polymer/v1_0/components-chromium/polymer2/LICENSE.txt
+-sha256 984fb04a16a9f1e0145ffd891125dc366a01cd921f58c9b0369be400c720790d  src/3rdparty/chromium/third_party/polymer/v1_0/components-chromium/polymer/LICENSE.txt
+-sha256 294f58267c6f473c4ce7270bf5c8d34b2003cb43804552459654c36553431276  src/3rdparty/chromium/third_party/proguard/LICENSE
+-sha256 af67c58de2e18677a0b8cb5fffbe2232aabb8eb2930e8cd684769cef3d74a262  src/3rdparty/chromium/third_party/protobuf/LICENSE
+-sha256 2ab28b982a7f3150e1597befaa87e1636b9973c80aef3752597945d270c4c4e4  src/3rdparty/chromium/third_party/pycoverage/LICENSE
+-sha256 f8d0c347a0dcc6ebe1671640dfae8d2411b6ded892e06a6764f8208b218b2af4  src/3rdparty/chromium/third_party/pyelftools/elftools/construct/LICENSE
+-sha256 f8c8ccecdbb044fd6fa1a586c596a055fb2b14fb3e335d8ed282db58d80b7410  src/3rdparty/chromium/third_party/pyelftools/LICENSE
+-sha256 e88ae39d2e7c9ae8f5470bb23fdd7ce55fe58aca06f3d4399182f5bb0ffcf1dd  src/3rdparty/chromium/third_party/pyftpdlib/src/LICENSE
+-sha256 cb5e8e7e5f4a3988e1063c142c60dc2df75605f4c46515e776e3aca6df976e14  src/3rdparty/chromium/third_party/pyjson5/src/LICENSE
+-sha256 c5b14f5a3814d2e57b9bb9520dcf57a2c3817b65c4f989e5c82e332c82af1038  src/3rdparty/chromium/third_party/pymock/LICENSE.txt
 -sha256 318cea263a2fb726d767e2777771a431a3220008e6940dd5138a235a1fc498fc  src/3rdparty/chromium/third_party/pystache/LICENSE
--sha256 96e5bbd81970983d666e702fa56f67dfd2fdaa363b8a4266e8d98847374cd7c8  src/3rdparty/chromium/third_party/hamcrest/LICENSE
+-sha256 956c3b678228a216142df38d039bba56ee6509d3298e7a4b8dd5bc3eaa80fe33  src/3rdparty/chromium/third_party/Python-Markdown/LICENSE.md
+-sha256 23681c6986fb33d57957660543f6e9dcbbcf6d2ae2f9fa2dbdb5efec5aa0d95f  src/3rdparty/chromium/third_party/pywebsocket/src/LICENSE
+-sha256 c903100da706172066fa1b6f02eba60f202fea63036492d2c4a01267e32aa7a8  src/3rdparty/chromium/third_party/qcms/src/COPYING
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/quic_trace/src/LICENSE
+-sha256 f98f3db81b4dd3873d8672117e409286142cfae9b7673ab6d7aab4bae1527d20  src/3rdparty/chromium/third_party/qunit/LICENSE
+-sha256 68834f116f8ff545f05d14753357b620748156d60ee36b26beab4cb3f317efe4  src/3rdparty/chromium/third_party/r8/LICENSE
+-sha256 6040cda75d90b1738292a631d89934c411ef7ffd543c4d6a1b7edfc8edf29449  src/3rdparty/chromium/third_party/re2/LICENSE
+-sha256 6040cda75d90b1738292a631d89934c411ef7ffd543c4d6a1b7edfc8edf29449  src/3rdparty/chromium/third_party/re2/src/LICENSE
+-sha256 e479bcdfa777738226b4282bf8536cc5416a25cec3100cbe210b8be4d1e2ed84  src/3rdparty/chromium/third_party/requests/LICENSE
+-sha256 e2f59ff41d9d03adc3dcf3deff170f8c8cf4a6eb4a9b174762a7656d23200ffa  src/3rdparty/chromium/third_party/rnnoise/COPYING
+-sha256 0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594  src/3rdparty/chromium/third_party/robolectric/LICENSE
+-sha256 19c9b910bec5a4f2c420747d1bf81e975ffdb1377ad91c5d9b1e8dd3e38f4c17  src/3rdparty/chromium/third_party/robolectric/licenses/extreme.indiana.edu.license.txt
+-sha256 a7436c952fa2dc0701860cf4187d1e8e8e6de6720dec0ae9e0b641bc50eebced  src/3rdparty/chromium/third_party/robolectric/licenses/javolution.license.txt
+-sha256 5b6ac717e37db4f6d17bda7791f4ce3f99947aeb21e6e72b705aa3d1ee2de480  src/3rdparty/chromium/third_party/robolectric/licenses/pivotal.labs.license.txt
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/s2cellid/LICENSE
+-sha256 e320e0b6915c2a93dc7f6db28c014f223ae32de61f5033300db2b75d506daa1f  src/3rdparty/chromium/third_party/sfntly/COPYING.txt
+-sha256 e320e0b6915c2a93dc7f6db28c014f223ae32de61f5033300db2b75d506daa1f  src/3rdparty/chromium/third_party/sfntly/src/cpp/COPYING.txt
+-sha256 c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4  src/3rdparty/chromium/third_party/shaderc/src/LICENSE
+-sha256 b5a00e94f058edc87e05978329b55730d8689abe61205d9018443d03de4f07da  src/3rdparty/chromium/third_party/shaderc/src/third_party/LICENSE.glslang
+-sha256 19096ed2f05a693b92433405a6bf1018044b31ed5fa8883ab865cf2cd166f6e9  src/3rdparty/chromium/third_party/shaderc/src/third_party/LICENSE.spirv-tools
+-sha256 33c9a2fe619e1200937629f318895898ffcd1bf7d0ddd39adc382c030925e61e  src/3rdparty/chromium/third_party/simplejson/LICENSE.txt
+-sha256 b25948e48c44312d04ffc626a9d52cae7c04539a1a8e0c1be47b7bfa0da03e1d  src/3rdparty/chromium/third_party/sinonjs/LICENSE
+-sha256 d27678cba0d529e77201e2d2a053628143e986aad8f1e77f7039ad4366c8f978  src/3rdparty/chromium/third_party/skia/LICENSE
+-sha256 3e3a91ec5c3fa243ad1f5a25cedee0abafd9824d061378cd3c81c541b044bf09  src/3rdparty/chromium/third_party/skia/third_party/gif/LICENSE
+-sha256 e59bb5c5c6ba426a9ac4ba9fe667ad14c5166b12aa25be8af1d122b14fbe2e36  src/3rdparty/chromium/third_party/skia/third_party/skcms/LICENSE
+-sha256 e21477eed484b07902a861a1b18d1e4ecd3e6f22fa81e2410f0770cfb67290e8  src/3rdparty/chromium/third_party/skia/third_party/vulkanmemoryallocator/include/LICENSE.txt
+-sha256 d27678cba0d529e77201e2d2a053628143e986aad8f1e77f7039ad4366c8f978  src/3rdparty/chromium/third_party/skia/third_party/vulkanmemoryallocator/LICENSE
+-sha256 3f6f1b520bc53e878ccbb698ad0bacef3752a5f4e4b50a26552bd70f60b40748  src/3rdparty/chromium/third_party/smhasher/LICENSE
+-sha256 55172044f7e241207117448a4d9d6ba1d0925c8ad66b5d4c08c70adfa9cc3de6  src/3rdparty/chromium/third_party/snappy/src/COPYING
 -sha256 23353f4505b1c8ce4f8f72fc3b11dc74b4a8a7bf95921d93ff77f227c171a710  src/3rdparty/chromium/third_party/SPIRV-Tools/LICENSE
 -sha256 23353f4505b1c8ce4f8f72fc3b11dc74b4a8a7bf95921d93ff77f227c171a710  src/3rdparty/chromium/third_party/SPIRV-Tools/src/LICENSE
--sha256 e09d954054165670b6a669e6da59673d9e85f343b9983e92a220623ff0198f8c  src/3rdparty/chromium/third_party/flot/LICENSE.txt
--sha256 7cdb44aabddbdd78998119d68a39c87424119b663945c79891fc1b022301824c  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/formatter_worker/acorn/LICENSE
--sha256 7ec9661a8afafab1eee3523d6f1a193eff76314a5ab10b4ce96aefd87621b0c3  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/audits2/lighthouse/LICENSE
--sha256 13110d66c514a7890c4b388a353bc08fa094fe13d5ed7f3a222cc0a0caa3fd17  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/cm_modes/LICENSE
--sha256 a3f2fe2ac6b471aa80c737c5d283dd049bdc903a73835ee6d4d2cac02fdd53bf  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/cm/LICENSE
--sha256 c6daa4e8737d15aa7140b4f7eb82b9d4829bd2fd27132c43e282203b9c67dfc4  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/cm/LICENSE_python
--sha256 1490793b8913f0fa78af7bf2e70076f54272748e278f065c50794529eaed8e74  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/terminal/xterm.js/LICENSE
--sha256 7ec9661a8afafab1eee3523d6f1a193eff76314a5ab10b4ce96aefd87621b0c3  src/3rdparty/chromium/third_party/blink/renderer/devtools/front_end/audits2_worker/lighthouse/LICENSE
--sha256 7a209dd1b94cabdb5ea9c6f9164b9546ffa5daaa671e7767d49510db055f5c51  src/3rdparty/chromium/third_party/blink/renderer/devtools/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/blink/renderer/devtools/scripts/closure/COPYING
--sha256 4af93c12062c58058378de2397dc1c92bbff9ddfb1d583a01c84127557ce97ca  src/3rdparty/chromium/third_party/blink/renderer/platform/wtf/dtoa/COPYING
--sha256 4af93c12062c58058378de2397dc1c92bbff9ddfb1d583a01c84127557ce97ca  src/3rdparty/chromium/third_party/blink/renderer/platform/wtf/dtoa/LICENSE
--sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/blink/renderer/platform/testing/data/third_party/Roboto/LICENSE.txt
--sha256 7555fa34bc131a75ca56d65c40cc1ea8f9515d23e353d4c15d58573a042f7805  src/3rdparty/chromium/third_party/blink/renderer/core/LICENSE-LGPL-2
--sha256 0b5d3a7cc325942567373b0ecd757d07c132e0ebd7c97bfc63f7e1a76094edb4  src/3rdparty/chromium/third_party/blink/renderer/core/LICENSE-APPLE
--sha256 f2b3bd09663381deb99721109d22b47af1213bb43007a8b56a06c6375c8050ce  src/3rdparty/chromium/third_party/blink/renderer/core/LICENSE-LGPL-2.1
--sha256 63478682e84e8c98f4c46308995f1f521a6886976e25421827d2a2be03581328  src/3rdparty/chromium/third_party/blink/tools/blinkpy/third_party/wpt/wpt/tools/third_party/six/LICENSE
--sha256 16a39991619e92f18680932da2a9199fdf7d95df3ecaedc52ea06218aabafd6f  src/3rdparty/chromium/third_party/blink/tools/blinkpy/third_party/wpt/wpt/tools/third_party/html5lib/LICENSE
--sha256 df336397e09e764416fc33b555703b1cdddd3a0cfea8a013ad1cad565c8be2f5  src/3rdparty/chromium/third_party/blink/tools/blinkpy/third_party/wpt/wpt/tools/wptserve/LICENSE
--sha256 4165ae4c9c71da3e655a9acee8ee3368bba20f0702f4dcc994da315132ab90de  src/3rdparty/chromium/third_party/blink/tools/blinkpy/third_party/wpt/wpt/LICENSE.md
--sha256 3bf128851aff9f392953276ea8ade3e41da0f40b853fde58ec21034aa91ccc31  src/3rdparty/chromium/third_party/libovr/LICENSE
--sha256 efdabc1c1f655528b8c3a59b03668d446746d87273fab76f8af800b6e8891bd2  src/3rdparty/chromium/third_party/yara/src/COPYING
--sha256 fa4cd9ab005185e10cd8f7504518856c7dd36c01e766c2bac87f4fc638e9f886  src/3rdparty/chromium/third_party/fontconfig/LICENSE
--sha256 fa4cd9ab005185e10cd8f7504518856c7dd36c01e766c2bac87f4fc638e9f886  src/3rdparty/chromium/third_party/fontconfig/src/COPYING
+-sha256 0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594  src/3rdparty/chromium/third_party/sqlite4java/LICENSE
+-sha256 06545a6ec25fbbff6c62f205f94a35be49e38f33bea827a8cfb07d7b82e4b083  src/3rdparty/chromium/third_party/sqlite/LICENSE
+-sha256 66e056b6e8687f32af30d5187611b98b12a8f46f07aaf62f43585f276e8f0ac9  src/3rdparty/chromium/third_party/sqlite/src/autoconf/tea/license.terms
 -sha256 28113a6e9e2fd7584187c738a7c5484452a1c383307a1741bec50a73262fac08  src/3rdparty/chromium/third_party/sudden_motion_sensor/LICENSE
--sha256 2b2cc1180c7e6988328ad2033b04b80117419db9c4c584918bbb3cfec7e9364f  src/3rdparty/chromium/third_party/libyuv/LICENSE
--sha256 bed70fc84f1bea2b4b144564b9a0f9a5a3bc7b0d78f6e62092aeb689cac56bdd  src/3rdparty/chromium/net/third_party/mozilla_security_manager/LICENSE
--sha256 a20c1a32d1f8102432360b42e932869f7c11c7cdbacf9cac554c422132af47f4  src/3rdparty/chromium/net/third_party/nss/LICENSE
--sha256 212c5a071f61512786b5e5840b3d70c85e017f3f82939ad4d4a870fc48b33477  src/3rdparty/chromium/LICENSE.chromium_os
--sha256 7a209dd1b94cabdb5ea9c6f9164b9546ffa5daaa671e7767d49510db055f5c51  src/3rdparty/chromium/buildtools/LICENSE
--sha256 834ee20e8fc3235722ed801bae30cc539c2775be656ff9cc2810fe674e53d5ec  src/3rdparty/chromium/ppapi/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/swiftshader/LICENSE.txt
+-sha256 a63ee63574ed21e930765c4418a4fa2fa571b72c47cd023ee588dbf8b21fb4ee  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/autoconf/LICENSE.TXT
+-sha256 a012d664e4e01df52a65b2eeafdfb8aeb856fec0e6c372265d01b0109c3f5e2a  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/include/llvm/Support/LICENSE.TXT
+-sha256 0a731c5e376f4b604b9fd099d4797d64a5c0bc6e3770baf17b55988cb7737e2e  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/LICENSE.TXT
+-sha256 a63ee63574ed21e930765c4418a4fa2fa571b72c47cd023ee588dbf8b21fb4ee  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/projects/sample/autoconf/LICENSE.TXT
+-sha256 9c9a05118ed1b6d96781a2e52335f7d4ec3dd6e7139340a8aa95fbf7eb4f199a  src/3rdparty/chromium/third_party/swiftshader/third_party/llvm-subzero/LICENSE.TXT
+-sha256 9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138  src/3rdparty/chromium/third_party/swiftshader/third_party/LLVM/utils/unittest/googletest/LICENSE.TXT
+-sha256 b2d24d77041fbf66b93519758cd80671425c55614b2f65262046fdbe8c3247a8  src/3rdparty/chromium/third_party/swiftshader/third_party/PowerVR_SDK/License.txt
+-sha256 c55ce1e876843853a8a2e5c936df6dc8dd3d185f83d85e6d113143b8c24f542e  src/3rdparty/chromium/third_party/swiftshader/third_party/subzero/LICENSE.TXT
+-sha256 81ebf38708899097aacaac9723679b3ffa17640c14cd3193c46b75197de18b2c  src/3rdparty/chromium/third_party/tcmalloc/gperftools-2.0/vendor/COPYING
+-sha256 ad4672b403488876635d2b455918f74b829d478da868ffc0c621a00fc99195f5  src/3rdparty/chromium/third_party/tcmalloc/LICENSE
+-sha256 81ebf38708899097aacaac9723679b3ffa17640c14cd3193c46b75197de18b2c  src/3rdparty/chromium/third_party/tcmalloc/vendor/COPYING
+-sha256 d600ff20c150a675461dde76752e35f4cc3be6e7d8e70b8da3e775ea7e5ec4aa  src/3rdparty/chromium/third_party/test_fonts/LICENSE
+-sha256 bb04dd22ee55fe3c24ee2a3c82bd1efdebbd965f7c178224a2977edc2457bb2f  src/3rdparty/chromium/third_party/tlslite/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/ub-uiautomator/LICENSE
+-sha256 0a90947436dc17f047f8c95b64593e2cc9a2b6d4ff6618f2f0beba5a9b568c14  src/3rdparty/chromium/third_party/unrar/LICENSE
+-sha256 6ecc1687808b7d66b24f874755abfed7464d9751ed0001cd4e8e5d9bf397ff8a  src/3rdparty/chromium/third_party/unrar/src/license.txt
+-sha256 6629d6edceffa9c68f4245b817137d2265fdab1e98068893420edb6689ccce9e  src/3rdparty/chromium/third_party/usb_ids/LICENSE
+-sha256 7a4a31e05391919c05a996f09fc20ffc80c69af72cb3e69ac71b70c825fbdd1d  src/3rdparty/chromium/third_party/usrsctp/LICENSE
+-sha256 fa53711b25af4b9a9b8dadfea3cb38166ec4b96760c8d62b284055554537d9ef  src/3rdparty/chromium/third_party/usrsctp/usrsctplib/LICENSE.md
+-sha256 5a7f623a50e384aaf6d2ced068339ddf93d0a50d3a0ecbe86f125b07804ecc78  src/3rdparty/chromium/third_party/v4l-utils/COPYING.libv4l
+-sha256 846f295f64194ebcf615d6e35e445990645583764b52295177fc09a69051df1f  src/3rdparty/chromium/third_party/visualmetrics/src/LICENSE
+-sha256 376b54d4c5f4aa99421823fa4da93e3ab73096fce2400e89858632aa7da24a14  src/3rdparty/chromium/third_party/wds/LICENSE
+-sha256 376b54d4c5f4aa99421823fa4da93e3ab73096fce2400e89858632aa7da24a14  src/3rdparty/chromium/third_party/wds/src/COPYING
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/web-animations-js/LICENSE
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/web-animations-js/sources/COPYING
+-sha256 d51b39e7ed0391e75e0add75d1a162fdf4a0d6b49fba7635ed0ac4e16f324773  src/3rdparty/chromium/third_party/webdriver/COPYING
+-sha256 6d83e980b9b843cf6fe24cb94714d00f9b0cf69cb00d0e3b0bed018d49d6f24f  src/3rdparty/chromium/third_party/webdriver/LICENSE
+-sha256 a661d10f8f194b1963a75bb4d308f17b078cc064624313a556902d89705f6876  src/3rdparty/chromium/third_party/WebKit/LICENSE_FOR_ABOUT_CREDITS
+-sha256 0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594  src/3rdparty/chromium/third_party/webrtc/examples/androidapp/third_party/autobanh/LICENSE
+-sha256 26d2d16d48825edf1194cb3907c5c0b7d01f9c5527eb0fefb949c51f304635e9  src/3rdparty/chromium/third_party/webrtc/examples/androidapp/third_party/autobanh/LICENSE.md
+-sha256 21a742dd8cceebb1d5df7c6f945c75ccf1ad4f0d4c17e404517500c1a7de86a4  src/3rdparty/chromium/third_party/webrtc/examples/objc/AppRTCMobile/third_party/SocketRocket/LICENSE
+-sha256 ab00a482b6a3902e40211b43c5d0441962ea99b6cc7c25c0f243fa270b78d482  src/3rdparty/chromium/third_party/webrtc/LICENSE
+-sha256 1f7a086c17fa2bdbe27d3eb6424a64b9bea9d7db89a4e220fef52ca24addb9e9  src/3rdparty/chromium/third_party/webrtc/license_template.txt
+-sha256 3ee0b54b13060355b0f5d0d1476536d25ad10552211098cc4086a46fb8c61f42  src/3rdparty/chromium/third_party/webrtc/LICENSE_THIRD_PARTY
+-sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  src/3rdparty/chromium/third_party/woff2/LICENSE
+-sha256 b244f73c3d21edaf44ec253b9a7c389ec43313c417f52f8b71914b0c40d87325  src/3rdparty/chromium/third_party/xdg-utils/LICENSE
+-sha256 1cf71700f3403ca26f002e2dc1d1861dcb3d2af9bb9d98d529a903be9d7f06fc  src/3rdparty/chromium/third_party/xstream/LICENSE
+-sha256 efdabc1c1f655528b8c3a59b03668d446746d87273fab76f8af800b6e8891bd2  src/3rdparty/chromium/third_party/yara/src/COPYING
+-sha256 795f8d76eade6130129b680ac72ea81cb3e143467a65ea1f5f64946151d7fa20  src/3rdparty/chromium/third_party/yasm/source/patched-yasm/COPYING
+-sha256 942755efa272dbfbcd7afea7a38556801e36c16dcad002d572378367094a2593  src/3rdparty/chromium/third_party/zlib/LICENSE
+-sha256 70eb89e4cb460d1b27173348c9f9fca5cf67c09d722ddaa07c5d0fcd6262a97e  src/3rdparty/chromium/tools/gyp/LICENSE
+-sha256 63f0c0039b477857e54708d9501ed91b7a46e828ac3c623bedbc318129ceb174  src/3rdparty/chromium/tools/origin_trials/third_party/ed25519/LICENSE
+-sha256 f5b244982699ca9fe5cc8fa8a7c08cf5dee5d3a0c8896892899e5df13316e1b7  src/3rdparty/chromium/tools/page_cycler/acid3/LICENSE
+-sha256 4fde1ca31ffe4e16a76098f56170166c61a5493d3bafcc6a5903d3cb60aa7560  src/3rdparty/chromium/tools/symsrc/COPYING-pefile
+-sha256 7389900fb68d920c6cb21b70702a2bc240523472a3fd091023d6135cf01d1c5c  src/3rdparty/chromium/tools/win/ChromeDebug/ChromeDebug/LICENSE
+-sha256 284545e873c704952e5b1b39d457dd83a3b115a51d9f1eb5175137bd69b8fa1b  src/3rdparty/chromium/url/third_party/mozilla/LICENSE.txt
 -sha256 5426333ff30d2ba9127bfe11ba51ca98be02d704ddac48afd19de47dc7748ee6  src/3rdparty/chromium/v8/LICENSE
--sha256 b1b379fcaf3219593a4c433feb1b35c780bed23fafaae440b1ae2771a9521e3a  src/3rdparty/chromium/v8/third_party/antlr4/LICENSE.txt
--sha256 b9be92f13356083392d97da13cab8ae543c7911f44eff5289b693da8b17b9e08  src/3rdparty/chromium/v8/third_party/inspector_protocol/LICENSE
--sha256 15137d6c822e3ab097093a33c3a39a9df699f373f6438867ad534ff60762a947  src/3rdparty/chromium/v8/third_party/colorama/LICENSE
 -sha256 e7115e18444dae09d17f361ddc365fb1d342640fe500796209c63f7c80dfae10  src/3rdparty/chromium/v8/LICENSE.fdlibm
 -sha256 6a585a9f466654abc8fc0829d56b1bc987e3a073d31faa03bba37d33640a23cd  src/3rdparty/chromium/v8/LICENSE.strongtalk
+-sha256 4af93c12062c58058378de2397dc1c92bbff9ddfb1d583a01c84127557ce97ca  src/3rdparty/chromium/v8/LICENSE.v8
+-sha256 cae8c00ca6e90a682c321ec11e7a5a345d0d317aa0b8f038e03ef03a18095b2f  src/3rdparty/chromium/v8/LICENSE.valgrind
 -sha256 3f712e5fbdfdbd5ee7d9b8c8152580220df55de47f4eba2f26c95c4de19ad096  src/3rdparty/chromium/v8/src/third_party/utf8-decoder/LICENSE
 -sha256 ebf25b8ce59c9e8883acd1ca75b6fc121937ca034f666c4077d2be739d2e1622  src/3rdparty/chromium/v8/src/third_party/valgrind/LICENSE
 -sha256 cfe7599e45f340a35b4635090382897ca1526bc49b5e1889047f0168d131c415  src/3rdparty/chromium/v8/src/third_party/vtune/LICENSE
--sha256 cae8c00ca6e90a682c321ec11e7a5a345d0d317aa0b8f038e03ef03a18095b2f  src/3rdparty/chromium/v8/LICENSE.valgrind
--sha256 4af93c12062c58058378de2397dc1c92bbff9ddfb1d583a01c84127557ce97ca  src/3rdparty/chromium/v8/LICENSE.v8
--sha256 284545e873c704952e5b1b39d457dd83a3b115a51d9f1eb5175137bd69b8fa1b  src/3rdparty/chromium/url/third_party/mozilla/LICENSE.txt
+-sha256 b1b379fcaf3219593a4c433feb1b35c780bed23fafaae440b1ae2771a9521e3a  src/3rdparty/chromium/v8/third_party/antlr4/LICENSE.txt
+-sha256 15137d6c822e3ab097093a33c3a39a9df699f373f6438867ad534ff60762a947  src/3rdparty/chromium/v8/third_party/colorama/LICENSE
+-sha256 b9be92f13356083392d97da13cab8ae543c7911f44eff5289b693da8b17b9e08  src/3rdparty/chromium/v8/third_party/inspector_protocol/LICENSE
 -sha256 5d85142a5609ad177a2d7a2e7cae060b886b8b42f25c5b9803cf0cb5ee04ad2f  src/3rdparty/gn/base/third_party/icu/LICENSE
 -sha256 845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308  src/3rdparty/gn/LICENSE
 -sha256 eb7e9ab9690124c5c9f42bdc81383d886a3dede26345b6ed15bbad7caf81f7ea  src/3rdparty/ninja/COPYING
@@ -1530,42 +2091,60 @@ index 0000000000..4f45183476
 +sha256 845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308  src/3rdparty/gn/LICENSE
 +sha256 eb7e9ab9690124c5c9f42bdc81383d886a3dede26345b6ed15bbad7caf81f7ea  src/3rdparty/ninja/COPYING
 diff --git a/package/qt5/qt5websockets/qt5websockets.hash b/package/qt5/qt5websockets/qt5websockets.hash
-index 3f4f438a4d..e2609c2eb4 100644
+index e4286d3239..e2609c2eb4 100644
 --- a/package/qt5/qt5websockets/qt5websockets.hash
 +++ b/package/qt5/qt5websockets/qt5websockets.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtwebsockets-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 a2439045616c89dfe06333734ff4726075c92e01db6e6b6863bc138e39c028eb qtwebsockets-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtwebsockets-everywhere-src-5.12.2.tar.xz.sha256
--sha256 ab9ce815b1466abe52910c9b50c0f61df8af74f9521574bb534f7f562d0e8c04 qtwebsockets-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtwebsockets-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 b471eda2f486d21c51fc3bc53bb8844022117e746d5f15c5eabb82cd37eb2abe qtwebsockets-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtwebsockets-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 f941dd44f6e16041a25723c1b70ce9e28910c630509da0044ecb9fdda28a6e34 qtwebsockets-everywhere-src-5.13.0.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
-diff --git a/package/qt5/qt5x11extras/5.12.2/qt5x11extras.hash b/package/qt5/qt5x11extras/5.12.2/qt5x11extras.hash
-index 1ab741d9e8..c467b101ae 100644
---- a/package/qt5/qt5x11extras/5.12.2/qt5x11extras.hash
-+++ b/package/qt5/qt5x11extras/5.12.2/qt5x11extras.hash
-@@ -1,5 +1,5 @@
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtx11extras-everywhere-src-5.12.2.tar.xz.mirrorlist
--sha256 711f39ddc6237787a5522278be235fe3af547a4674bb265e6dff5c2892fe6084 qtx11extras-everywhere-src-5.12.2.tar.xz
+diff --git a/package/qt5/qt5x11extras/5.12.4/qt5x11extras.hash b/package/qt5/qt5x11extras/5.12.4/qt5x11extras.hash
+deleted file mode 100644
+index a9657493e5..0000000000
+--- a/package/qt5/qt5x11extras/5.12.4/qt5x11extras.hash
++++ /dev/null
+@@ -1,9 +0,0 @@
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtx11extras-everywhere-src-5.12.4.tar.xz.mirrorlist
+-sha256 49cc009eaf4a01ca7dbe12651ef39de9a43860acb674aec372e70b209f9bae1e qtx11extras-everywhere-src-5.12.4.tar.xz
+-
+-# Hashes for license files:
+-sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
+-sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
+-sha256 0dbe024961f6ab5c52689cbd036c977975d0d0f6a67ff97762d96cb819dd5652 LICENSE.GPL3-EXCEPT
+-sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768 LICENSE.LGPL3
+-sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
+diff --git a/package/qt5/qt5x11extras/5.13.0/qt5x11extras.hash b/package/qt5/qt5x11extras/5.13.0/qt5x11extras.hash
+new file mode 100644
+index 0000000000..c467b101ae
+--- /dev/null
++++ b/package/qt5/qt5x11extras/5.13.0/qt5x11extras.hash
+@@ -0,0 +1,9 @@
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtx11extras-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 f33fe1cf2258bc972171f723c6f37208da47f578b09876fea47c7ba558a8f1d6 qtx11extras-everywhere-src-5.13.0.tar.xz
- 
- # Hashes for license files:
- sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
++
++# Hashes for license files:
++sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
++sha256 8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903 LICENSE.GPL3
++sha256 0dbe024961f6ab5c52689cbd036c977975d0d0f6a67ff97762d96cb819dd5652 LICENSE.GPL3-EXCEPT
++sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768 LICENSE.LGPL3
++sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
 diff --git a/package/qt5/qt5xmlpatterns/qt5xmlpatterns.hash b/package/qt5/qt5xmlpatterns/qt5xmlpatterns.hash
-index 1113860644..e9f21e1270 100644
+index ca47666a0f..e9f21e1270 100644
 --- a/package/qt5/qt5xmlpatterns/qt5xmlpatterns.hash
 +++ b/package/qt5/qt5xmlpatterns/qt5xmlpatterns.hash
 @@ -1,8 +1,8 @@
  # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtxmlpatterns-opensource-src-5.6.3.tar.xz.mirrorlist
  sha256 a461ff9f0d7310de9b9904ff9cd34919e958bf4071a6fc7096450b8990ab51f6 qtxmlpatterns-opensource-src-5.6.3.tar.xz
  
--# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.2/submodules/qtxmlpatterns-everywhere-src-5.12.2.tar.xz.sha256
--sha256 2e535ec17b542f2a0b87a9db93284666015cc07b6188894ace7e75104c6d860d qtxmlpatterns-everywhere-src-5.12.2.tar.xz
+-# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.4/submodules/qtxmlpatterns-everywhere-src-5.12.4.tar.xz.sha256
+-sha256 0bea1719bb948f65cbed4375cc3e997a6464f35d25b631bafbd7a3161f8f5666 qtxmlpatterns-everywhere-src-5.12.4.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtxmlpatterns-everywhere-src-5.13.0.tar.xz.sha256
 +sha256 75186ff075d9a3bd30cee145bad6bc69d491b5e555b048d11136727f050d7319 qtxmlpatterns-everywhere-src-5.13.0.tar.xz
  

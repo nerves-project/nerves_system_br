@@ -1,4 +1,4 @@
-From f4f04349c0144156ed78e32fa28856cf7d43ea9e Mon Sep 17 00:00:00 2001
+From 9da4d5673440ad0e5599f99181c28b9a189f1ed0 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 11:56:50 -0400
 Subject: [PATCH] erlang: run autoconf via otp_build
