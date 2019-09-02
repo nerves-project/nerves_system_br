@@ -77,7 +77,7 @@ while getopts "a:c:f:o:p:" opt; do
             ;;
     esac
 done
-shift $(($OPTIND-1))
+shift $((OPTIND-1))
 
 if [[ $# -lt 1 ]]; then
     echo "$SCRIPT_NAME: ERROR: Expecting release directory"
