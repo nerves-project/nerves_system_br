@@ -6,12 +6,12 @@ if [[ -n "$UID" ]] && [[ "$UID" != "0" ]] && [[ -n "$GID" ]] && [[ "$GID" != "0"
   echo "UID: $UID"
   echo "GID: $GID"
 
-  groupadd -o -g $GID nerves
-  useradd -o -g $GID -u $UID -m nerves
+  groupadd -o -g "$GID" nerves
+  useradd -o -g "$GID" -u "$UID" -m nerves
 
   echo "Switching user"
 
-  gosu nerves $@
+  gosu nerves "$@"
 else
   exec "$@"
 fi
