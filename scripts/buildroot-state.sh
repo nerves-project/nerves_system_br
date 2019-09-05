@@ -33,7 +33,7 @@ fi
 # Trust the passed in version
 echo "Buildroot: $BR_VERSION"
 
-pushd $BR_PATCH_DIR >/dev/null
+pushd "$BR_PATCH_DIR" >/dev/null
 
 # Run a SHA256 on all of the patches (in sorted order)
 find . -name "*.patch" | sort | xargs sha256sum
