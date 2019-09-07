@@ -30,7 +30,7 @@ if [[ -e "$NERVES_SYSTEM/host" ]]; then
     # This is a Linux Buildroot build, so use tools as
     # provided by Buildroot
     NERVES_TOOLCHAIN=$NERVES_SYSTEM/host
-    ALL_CROSSCOMPILE=$(ls "$NERVES_TOOLCHAIN"/usr/bin/*gcc | sed -e s/-gcc//)
+    ALL_CROSSCOMPILE=$(find "$NERVES_TOOLCHAIN"/usr/bin/ -maxdepth 1 -name "*gcc" | sed -e s/-gcc//)
 
     # For Buildroot builds, use the Buildroot provided versions of pkg-config
     # and perl.
@@ -47,7 +47,7 @@ else
     if [[ -z "$NERVES_TOOLCHAIN" ]]; then
         NERVES_TOOLCHAIN=$NERVES_SYSTEM/../nerves-toolchain
     fi
-    ALL_CROSSCOMPILE=$(ls "$NERVES_TOOLCHAIN"/bin/*gcc | sed -e s/-gcc//)
+    ALL_CROSSCOMPILE=$(find "$NERVES_TOOLCHAIN"/usr/bin/ -maxdepth 1 -name "*gcc" | sed -e s/-gcc//)
 
     pathadd "$NERVES_TOOLCHAIN/bin"
 fi
@@ -106,6 +106,8 @@ done
 # as issues are identified since there's not a fixed convention for how these
 # are used. The Rebar project source code for compiling C ports was very helpful
 # initially.
+REBAR_TARGET_ARCH="$(basename "$CROSSCOMPILE")"
+export REBAR_TARGET_ARCH
 export CROSSCOMPILE
 export REBAR_PLT_DIR=$NERVES_SDK_SYSROOT/usr/lib/erlang
 export CC=$CROSSCOMPILE-gcc
@@ -116,7 +118,6 @@ export LDFLAGS="--sysroot=$NERVES_SDK_SYSROOT"
 export STRIP=$CROSSCOMPILE-strip
 export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
 export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lerl_interface -lei"
-export REBAR_TARGET_ARCH="$(basename "$CROSSCOMPILE")"
 
 # pkg-config
 export PKG_CONFIG_SYSROOT_DIR="$NERVES_SDK_SYSROOT"
