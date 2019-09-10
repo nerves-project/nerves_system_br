@@ -75,14 +75,13 @@ cp -R "$BR2_EXTERNAL_NERVES_PATH/scripts" "$WORK_DIR/$ARCHIVE_NAME"
 cp "$BASE_DIR/.config" "$WORK_DIR/$ARCHIVE_NAME"
 
 # Copy the staging and images directories over
-mkdir -p "$WORK_DIR/$ARCHIVE_NAME/images" "$WORK_DIR/$ARCHIVE_NAME/staging"
-cp -R "$BASE_DIR/images/*" "$WORK_DIR/$ARCHIVE_NAME/images"
-cp -R "$BASE_DIR/staging/*" "$WORK_DIR/$ARCHIVE_NAME/staging"
+cp -R "$BASE_DIR/images" "$WORK_DIR/$ARCHIVE_NAME"
+cp -HR "$BASE_DIR/staging" "$WORK_DIR/$ARCHIVE_NAME"
 
 # Clean up extra files that were copied over and aren't needed
-rm -f "$WORK_DIR/$ARCHIVE_NAME/images/*.fw"
+rm -f "$WORK_DIR/$ARCHIVE_NAME/images"/*.fw
 rm -f "$WORK_DIR/$ARCHIVE_NAME/images/$ARCHIVE_NAME.img"
 
-tar c -z -f "$BASE_DIR/$ARCHIVE_NAME.tar.gz" -C "$WORK_DIR $ARCHIVE_NAME"
+tar c -z -f "$BASE_DIR/$ARCHIVE_NAME.tar.gz" -C "$WORK_DIR" "$ARCHIVE_NAME"
 
 rm -fr "$WORK_DIR"

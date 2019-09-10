@@ -38,9 +38,11 @@ fi
 rm -fr artifacts
 mkdir -p artifacts/$ARTIFACT_SUBDIR
 
-WORK_DIR="_build/*/nerves/system"
+# shellcheck disable=SC2125
+WORK_DIR=_build/*/nerves/system
 if [ ! -d "$WORK_DIR" ]; then
-  WORK_DIR=".nerves/artifacts/*"
+  # shellcheck disable=SC2125
+  WORK_DIR=.nerves/artifacts/*
 fi
 
 cp "$WORK_DIR/${CI_SYSTEM_NAME}.tar.gz" "artifacts/$ARTIFACT_SUBDIR/${CI_SYSTEM_NAME}-$BRANCH_OR_TAG.tar.gz"
