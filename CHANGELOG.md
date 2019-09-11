@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.9.1
+
+* Bug fixes
+  * Fix regression with CI scripts preventing artifacts from being published.
+
 ## v1.9.0
 
 This updates Buildroot to 2019.08. Buildroot release notes are at
