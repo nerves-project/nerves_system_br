@@ -38,6 +38,7 @@ RUN dpkg --add-architecture i386 \
     python-flake8 \
     python-nose2 \
     python-pexpect \
+    python3-distutils \
     rsync \
     subversion \
     unzip \
