@@ -1,4 +1,4 @@
-From d52006fd421985b6e713f291f3bb797c23e380ee Mon Sep 17 00:00:00 2001
+From 0c38e91896d1b18a453e90201d49bd90744296b0 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 9 Jul 2019 15:35:26 -0400
 Subject: [PATCH] qt5: bump to 5.13.0
@@ -49,13 +49,13 @@ See https://github.com/nerves-project/nerves_system_br/pull/337
  package/qt5/qt5wayland/qt5wayland.hash        |   4 +-
  package/qt5/qt5webchannel/qt5webchannel.hash  |   4 +-
  .../qt5/qt5webengine/5.12.4/qt5webengine.hash | 457 ------------------
- ...rkaround-for-too-long-.rps-file-name.patch |  21 +
+ ...rkaround-for-too-long-.rps-file-name.patch |  39 ++
  .../qt5/qt5webengine/5.13.0/qt5webengine.hash | 456 +++++++++++++++++
  package/qt5/qt5websockets/qt5websockets.hash  |   4 +-
  .../qt5/qt5x11extras/5.12.4/qt5x11extras.hash |   9 -
  .../qt5/qt5x11extras/5.13.0/qt5x11extras.hash |   9 +
  .../qt5/qt5xmlpatterns/qt5xmlpatterns.hash    |   4 +-
- 50 files changed, 767 insertions(+), 907 deletions(-)
+ 50 files changed, 785 insertions(+), 907 deletions(-)
  delete mode 100644 package/qt5/qt5base/5.12.4/0001-qtbase-Fix-build-error-when-using-EGL.patch
  delete mode 100644 package/qt5/qt5base/5.12.4/0004-double-conversion-enable-for-microblaze.patch
  delete mode 100644 package/qt5/qt5base/5.12.4/0005-Fix-dependency_libs-entry-of-.la-files.patch
@@ -1603,22 +1603,37 @@ index 232807f0cd..0000000000
 -sha256 eb7e9ab9690124c5c9f42bdc81383d886a3dede26345b6ed15bbad7caf81f7ea  src/3rdparty/ninja/COPYING
 diff --git a/package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch b/package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch
 new file mode 100644
-index 0000000000..36287c3fbd
+index 0000000000..6df772ce2c
 --- /dev/null
 +++ b/package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch
-@@ -0,0 +1,21 @@
+@@ -0,0 +1,39 @@
++From 8050413f181271b6e69a16af25962137945c2051 Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Tue, 17 Sep 2019 16:06:54 -0400
++Subject: [PATCH] chromium workaround for too long .rps file name
++
++See https://codereview.qt-project.org/c/yocto/meta-qt5/+/192172 for
++origin.
++
++To work on CircleCI, the paths need to be shorter than 242 characters.
++---
++ src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc | 9 +++++++++
++ 1 file changed, 9 insertions(+)
++
++diff --git a/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc b/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
++index 7e945c0de..a50e35522 100644
 +--- a/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
 ++++ b/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
-+@@ -118,9 +118,18 @@
++@@ -118,9 +118,18 @@ std::string NinjaActionTargetWriter::WriteRuleDefinition() {
 +     // strictly necessary for regular one-shot actions, but it's easier to
 +     // just always define unique_name.
 +     std::string rspfile = custom_rule_name;
 ++
-++    //quick workaround if filename length > 255 - ".rsp", just cut the dirs starting from the end
+++    //quick workaround if filename length > 242 - ".rsp", just cut the dirs starting from the end
 ++    //please note ".$unique_name" is not used at the moment
 ++    int pos = 0;
 ++    std::string delimiter("_");
-++    while (rspfile.length() > 251 && (pos = rspfile.find_last_of(delimiter)) != std::string::npos)
+++    while (rspfile.length() > 238 && (pos = rspfile.find_last_of(delimiter)) != std::string::npos)
 ++        rspfile = rspfile.substr(0,pos);
 ++
 +     if (!target_->sources().empty())
@@ -1626,8 +1641,11 @@ index 0000000000..36287c3fbd
 +     rspfile += ".rsp";
 ++
 +     out_ << "  rspfile = " << rspfile << std::endl;
-+
++ 
 +     // Response file contents.
++-- 
++2.17.1
++
 diff --git a/package/qt5/qt5webengine/5.13.0/qt5webengine.hash b/package/qt5/qt5webengine/5.13.0/qt5webengine.hash
 new file mode 100644
 index 0000000000..4f45183476
