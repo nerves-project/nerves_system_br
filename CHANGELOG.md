@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.9.2
+
+* Bug fixes
+  * Fix path length issue when building qt5webengine/chromium on CircleCI
+
+* Package updates
+  * erlinit v1.5.2 - Reproducible build support
+
 ## v1.9.1
 
 * Bug fixes
