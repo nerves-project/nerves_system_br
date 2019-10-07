@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.9.3
+
+This updates Buildroot to 2019.08.1 which is a security and bug fix update to
+2019.08.
+
+* Package updates
+  * Buildroot 2019.08.1
+  * Erlang/OTP 22.1.1
+
 ## v1.9.2
 
 * Bug fixes
