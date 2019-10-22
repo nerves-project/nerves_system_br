@@ -1,0 +1,50 @@
+From 2b6f152a102551a0a8d86b021331937980867952 Mon Sep 17 00:00:00 2001
+From: Sergey Matyukevich <geomatsi@gmail.com>
+Date: Mon, 9 Sep 2019 23:20:34 +0300
+Subject: [PATCH] package/wpa_supplicant: fix AP mode settings
+
+New wpa_supplicant v2.9 enables by default AP, P2P, WIFI_DISPLAY
+features in defconfig. However these features make sense only for
+wpa_supplicant drivers supporting AP mode.
+
+That is why, for consistent configuration, these features should
+be explicitely disabled in wpa_supplicant .config file unless
+they are requested by Config.in options.
+
+Note that at the moment AP support in Buildroot can be enabled
+only for NL80211 driver.
+
+Fixes:
+http://autobuild.buildroot.net/results/d37672374db935ac29953263ec68a2786ee65cc2/
+
+Signed-off-by: Sergey Matyukevich <geomatsi@gmail.com>
+Tested-by: Matt Weber <matthew.weber@rockwellcollins.com>
+Signed-off-by: Arnout Vandecappelle (Essensium/Mind) <arnout@mind.be>
+---
+ package/wpa_supplicant/wpa_supplicant.mk | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/package/wpa_supplicant/wpa_supplicant.mk b/package/wpa_supplicant/wpa_supplicant.mk
+index 283c006052..9dcebca9bf 100644
+--- a/package/wpa_supplicant/wpa_supplicant.mk
++++ b/package/wpa_supplicant/wpa_supplicant.mk
+@@ -67,10 +67,16 @@ ifeq ($(BR2_PACKAGE_WPA_SUPPLICANT_AP_SUPPORT),y)
+ WPA_SUPPLICANT_CONFIG_ENABLE += \
+ 	CONFIG_AP \
+ 	CONFIG_P2P
++else
++WPA_SUPPLICANT_CONFIG_DISABLE += \
++	CONFIG_AP \
++	CONFIG_P2P
+ endif
+ 
+ ifeq ($(BR2_PACKAGE_WPA_SUPPLICANT_WIFI_DISPLAY),y)
+ WPA_SUPPLICANT_CONFIG_ENABLE += CONFIG_WIFI_DISPLAY
++else
++WPA_SUPPLICANT_CONFIG_DISABLE += CONFIG_WIFI_DISPLAY
+ endif
+ 
+ ifeq ($(BR2_PACKAGE_WPA_SUPPLICANT_MESH_NETWORKING),y)
+-- 
+2.17.1
+
