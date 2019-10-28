@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.9.4
+
+* Package updates
+  * wpa_supplicant v2.9 - This pull in several security fixes and addresses a
+    WPA-EAP crash on Raspberry Pis.
+  * bborg-overlays - Update to latest device tree overlays for Beaglebone
+    boards.
+
 ## v1.9.3
 
 This updates Buildroot to 2019.08.1 which is a security and bug fix update to
