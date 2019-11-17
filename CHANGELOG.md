@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.9.5
+
+This release pulls in security and bug fixes from Buildroot and Erlang.
+
+* Package updates
+  * Buildroot 2019.08.2
+  * Erlang/OTP 22.1.7
+  * fwup 1.5.0 - GPT support, experimental filesystem encryption
+  * erlinit 1.5.3 - Bug fix to support Erlang slave nodes
+
 ## v1.9.4
 
 * Package updates
