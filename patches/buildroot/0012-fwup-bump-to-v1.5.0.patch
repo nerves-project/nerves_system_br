@@ -1,7 +1,7 @@
-From 29ae68b8a043fb09449e1f2420c681893d4fc02f Mon Sep 17 00:00:00 2001
+From 7640acf2103f420b49813a3e1cfe714c38ccee05 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 4 Oct 2018 23:12:34 -0400
-Subject: [PATCH] fwup: bump to v1.4.0
+Subject: [PATCH] fwup: bump to v1.5.0
 
 ---
  package/fwup/fwup.hash | 2 +-
@@ -9,16 +9,16 @@ Subject: [PATCH] fwup: bump to v1.4.0
  2 files changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/package/fwup/fwup.hash b/package/fwup/fwup.hash
-index 337883f9a8..2723e1a602 100644
+index 337883f9a8..f6dee1c9c6 100644
 --- a/package/fwup/fwup.hash
 +++ b/package/fwup/fwup.hash
 @@ -1,3 +1,3 @@
  # Locally calculated
 -sha256 20302dc96cef88438034e15551e178bb0652c28d99aa7ca5260100cb3bebbc2a  fwup-1.2.5.tar.gz
-+sha256 5f744364b9c4604153f3eb178426db110fecfa7f9b4e396cd58022d88f26e7f1  fwup-1.4.0.tar.gz
++sha256 a440a28a7bfe240d586747007668c1df58bd7e9307a01551899d8eefd20e925a  fwup-1.5.0.tar.gz
  sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  LICENSE
 diff --git a/package/fwup/fwup.mk b/package/fwup/fwup.mk
-index e1e5467765..a919c31222 100644
+index e1e5467765..bd301ff816 100644
 --- a/package/fwup/fwup.mk
 +++ b/package/fwup/fwup.mk
 @@ -4,7 +4,7 @@
@@ -26,7 +26,7 @@ index e1e5467765..a919c31222 100644
  ################################################################################
  
 -FWUP_VERSION = 1.2.5
-+FWUP_VERSION = 1.4.0
++FWUP_VERSION = 1.5.0
  FWUP_SITE = $(call github,fhunleth,fwup,v$(FWUP_VERSION))
  FWUP_LICENSE = Apache-2.0
  FWUP_LICENSE_FILES = LICENSE
@@ -39,5 +39,5 @@ index e1e5467765..a919c31222 100644
  $(eval $(autotools-package))
  $(eval $(host-autotools-package))
 -- 
-2.17.1
+2.20.1
 
