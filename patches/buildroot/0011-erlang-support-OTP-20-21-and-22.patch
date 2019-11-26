@@ -1,4 +1,4 @@
-From d7831efe4d7f9266ad1c0ed4e4e5dfcce112239d Mon Sep 17 00:00:00 2001
+From 26df23b024f5e54114a7812f672f7890a8920787 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 20, 21, and 22
@@ -35,9 +35,9 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/21.3.8.4/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/21.3.8.4/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
  create mode 100644 package/erlang/21.3.8.4/0004-erlang-enable-deterministic-builds.patch
- create mode 100644 package/erlang/22.1.7/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
- create mode 100644 package/erlang/22.1.7/0002-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/22.1.7/0003-erlang-enable-deterministic-builds.patch
+ create mode 100644 package/erlang/22.1.8/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ create mode 100644 package/erlang/22.1.8/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ create mode 100644 package/erlang/22.1.8/0003-erlang-enable-deterministic-builds.patch
 
 diff --git a/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 deleted file mode 100644
@@ -598,11 +598,11 @@ index 0000000000..1a7e66eca5
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/22.1.7/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/22.1.7/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+diff --git a/package/erlang/22.1.8/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/22.1.8/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
 index 0000000000..4d3dd75ce2
 --- /dev/null
-+++ b/package/erlang/22.1.7/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
++++ b/package/erlang/22.1.8/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 @@ -0,0 +1,71 @@
 +From 7040c252fb45e5423512094a1c9ca4a0a8fc77f0 Mon Sep 17 00:00:00 2001
 +From: "Yann E. MORIN" <yann.morin.1998@free.fr>
@@ -675,11 +675,11 @@ index 0000000000..4d3dd75ce2
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/22.1.7/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/22.1.7/0002-erts-emulator-reorder-inclued-headers-paths.patch
+diff --git a/package/erlang/22.1.8/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/22.1.8/0002-erts-emulator-reorder-inclued-headers-paths.patch
 new file mode 100644
 index 0000000000..7f2585870a
 --- /dev/null
-+++ b/package/erlang/22.1.7/0002-erts-emulator-reorder-inclued-headers-paths.patch
++++ b/package/erlang/22.1.8/0002-erts-emulator-reorder-inclued-headers-paths.patch
 @@ -0,0 +1,49 @@
 +From 2142338c7a82360087a21dc71cfdad777d43e6a8 Mon Sep 17 00:00:00 2001
 +From: Romain Naour <romain.naour@openwide.fr>
@@ -730,11 +730,11 @@ index 0000000000..7f2585870a
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/22.1.7/0003-erlang-enable-deterministic-builds.patch b/package/erlang/22.1.7/0003-erlang-enable-deterministic-builds.patch
+diff --git a/package/erlang/22.1.8/0003-erlang-enable-deterministic-builds.patch b/package/erlang/22.1.8/0003-erlang-enable-deterministic-builds.patch
 new file mode 100644
 index 0000000000..043c6f48c6
 --- /dev/null
-+++ b/package/erlang/22.1.7/0003-erlang-enable-deterministic-builds.patch
++++ b/package/erlang/22.1.8/0003-erlang-enable-deterministic-builds.patch
 @@ -0,0 +1,28 @@
 +From fed869414aa22aeea1c6e971a0600df3d5d0077e Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -798,7 +798,7 @@ index ab87eab6ff..141759ea70 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 616c85e9ae..50581dc8eb 100644
+index 616c85e9ae..b5ad577ab7 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,4 +1,5 @@
@@ -806,12 +806,12 @@ index 616c85e9ae..50581dc8eb 100644
 -md5 350988f024f88e9839c3715b35e7e27a  otp_src_21.0.tar.gz
 -sha256 c7d247c0cad2d2e718eaca2e2dff051136a1347a92097abf19ebf65ea2870131  otp_src_21.0.tar.gz
 +# sha256 locally computed
-+sha256 f0f8ad265121e4170598d0339ebba4e77f04d31db894d5e70c5a953544f62a47  OTP-22.1.7.tar.gz
++sha256 7302be70cee2c33689bf2c2a3e7cfee597415d0fb3e4e71bd3e86bd1eff9cfdc  OTP-22.1.8.tar.gz
 +sha256 a5d558cb189e026cd45114ffa9bb52752945e7e450c6e7e396b2e626e5fffcc8  OTP-21.3.8.4.tar.gz
 +sha256 897dd8b66c901bfbce09ed64e0245256aca9e6e9bdf78c36954b9b7117192519  OTP-20.3.8.9.tar.gz
  sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 757e483389..e2cbe95fce 100644
+index 757e483389..2b66fe3e0d 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,16 @@
@@ -825,7 +825,7 @@ index 757e483389..e2cbe95fce 100644
 +ifeq ($(BR2_PACKAGE_ERLANG_21),y)
 +ERLANG_VERSION = 21.3.8.4
 +else
-+ERLANG_VERSION = 22.1.7
++ERLANG_VERSION = 22.1.8
 +endif
 +endif
 +
@@ -850,5 +850,5 @@ index 757e483389..e2cbe95fce 100644
  # The configure checks for these functions fail incorrectly
  ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes \
 -- 
-2.17.1
+2.20.1
 
