@@ -1,4 +1,4 @@
-From 96032ded39c4db100c8c00db333cd7556e58be52 Mon Sep 17 00:00:00 2001
+From b10a182a66877395fec89cac69c3548e6c7cff48 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 18 Mar 2014 13:14:22 -0400
 Subject: [PATCH] mtools: Disable iconv use on target
@@ -29,5 +29,5 @@ index bd3444022f..de86114a54 100644
  
  # Package does not build in parallel due to improper make rules
 -- 
-2.17.1
+2.20.1
 

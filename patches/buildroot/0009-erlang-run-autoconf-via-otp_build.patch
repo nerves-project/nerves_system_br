@@ -1,4 +1,4 @@
-From 9da4d5673440ad0e5599f99181c28b9a189f1ed0 Mon Sep 17 00:00:00 2001
+From ba0bf5647f68b1dda62f8e8ddfa0524dfcd10f1b Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 11:56:50 -0400
 Subject: [PATCH] erlang: run autoconf via otp_build
@@ -56,5 +56,5 @@ index fe9b93c1b6..45e03fa62d 100644
  $(eval $(autotools-package))
  $(eval $(host-autotools-package))
 -- 
-2.17.1
+2.20.1
 

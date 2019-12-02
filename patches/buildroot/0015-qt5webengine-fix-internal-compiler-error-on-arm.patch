@@ -1,4 +1,4 @@
-From f7c41802cf930b827f742ca45a615ad767c1b7e5 Mon Sep 17 00:00:00 2001
+From cbb3ca83bcb12f9383591ea1dd59b3513b2c3cf3 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Fri, 12 Jul 2019 19:53:09 -0400
 Subject: [PATCH] qt5webengine: fix internal compiler error on arm
@@ -45,5 +45,5 @@ index 0000000000..a648c35f28
 +2.17.1
 +
 -- 
-2.17.1
+2.20.1
 

@@ -1,4 +1,4 @@
-From afb2318ce5863e96e35454f916babcfd50f3274b Mon Sep 17 00:00:00 2001
+From 7e30334ffb7ddf73e82dd8750f0d992e7cd1f26c Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 11:54:25 -0400
 Subject: [PATCH] erlang: switch to Github
@@ -25,5 +25,5 @@ index 6cb410f5cf..fe9b93c1b6 100644
  
  ERLANG_LICENSE = Apache-2.0
 -- 
-2.17.1
+2.20.1
 

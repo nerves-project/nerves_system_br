@@ -1,4 +1,4 @@
-From 26df23b024f5e54114a7812f672f7890a8920787 Mon Sep 17 00:00:00 2001
+From 9f0bc0c921ec78028b22a684924da54dd70e7d03 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 20, 21, and 22
