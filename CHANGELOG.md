@@ -1,5 +1,26 @@
 # Changelog
 
+## v1.10.0
+
+This release updates Buildroot to 2019.11. Buildroot release notes are at
+http://lists.busybox.net/pipermail/buildroot/2019-December/267603.html.
+
+The second major change is to enable dnsd, udhcpd and ifconfig in the default
+Busybox configuration. Due to some cleanup, Busybox's footprint actual shrank
+this release. However, the new utilities that were enabled make it possible to
+support the new
+[`vintage_net`](https://github.com/nerves-networking/vintage_net) and
+[`vintage_net_wizard`](https://github.com/nerves-networking/vintage_net_wizard)
+out of the box.
+
+* Package updates
+  * Buildroot 2019.11
+  * Erlang/OTP 22.1.8
+  * fwup 1.5.1
+
+* Improvements
+  * Busybox - Clean default configuration and enable dnsd, udhcpd, and ifconfig
+
 ## v1.9.5
 
 This release pulls in security and bug fixes from Buildroot and Erlang.
