@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.10.1
+
+This release pulls in security and bug fixes from Buildroot and Erlang.
+
+* Package updates
+  * Buildroot 2019.11.1
+  * Erlang/OTP 22.2.3
+  * erlinit 1.6.0 - Feature update to support Yocto so no changes for Nerves
+    users.
+  * boardid 1.6.0 - Support serial numbers stored in DMI/BIOS on x86
+  * mesa3d - Experimental update to support the Raspberry Pi 4's V3D driver
+
 ## v1.10.0
 
 This release updates Buildroot to 2019.11. Buildroot release notes are at
