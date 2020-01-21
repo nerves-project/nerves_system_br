@@ -17,7 +17,7 @@ define EDK2_EXTRACT_CMDS
 endef
 
 define EDK2_INSTALL_IMAGES_CMDS
-	cp $(@D)/MinUefiShell/X64/Shell.efi $(BINARIES_DIR)/efi-part
+	cp $(@D)/MinUefiShell/X64/Shell.efi $(BINARIES_DIR)/shell.efi
 endef
 
 $(eval $(generic-package))
