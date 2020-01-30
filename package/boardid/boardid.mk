@@ -4,8 +4,8 @@
 #
 #############################################################
 
-BOARDID_VERSION = v1.6.0
-BOARDID_SITE = $(call github,fhunleth,boardid,$(BOARDID_VERSION))
+BOARDID_VERSION = v1.7.0
+BOARDID_SITE = $(call github,nerves-project,boardid,$(BOARDID_VERSION))
 BOARDID_LICENSE = Apache-2.0
 BOARDID_LICENSE_FILES = LICENSE
 
