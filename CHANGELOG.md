@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.10.2
+
+This release fixes a warning and startup delay that was introduced with the
+rng-tools update in Buildroot. In v1.10.0, rngd would try jitterentropy even if
+the platform has a hwrng. Additionally jitterentropy's sanity checks fail on
+platforms like the Raspberry Pi Zero and print error messages to the console.
+With this update, jitterentropy must be manually enabled, but this behavior will
+change depending of the outcome of
+https://bugs.busybox.net/show_bug.cgi?id=12511.
+
+* Package updates
+  * Erlang/OTP 22.2.4
+  * boardid 1.7.0 - Support for hardcoded serial number prefixes
+
 ## v1.10.1
 
 This release pulls in security and bug fixes from Buildroot and Erlang.
