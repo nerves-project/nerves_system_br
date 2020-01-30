@@ -3,4 +3,4 @@ config BR2_PACKAGE_BOARDID
 	help
 	  Print out a platform-specific board serial number
 
-	  https://github.com/fhunleth/boardid
+	  https://github.com/nerves-project/boardid
