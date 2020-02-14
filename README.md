@@ -114,3 +114,11 @@ will only be stored in your build directory. To make them permanent, save the
 `.config` (see `build/busybox-*/.config`) to your configuration directory. You
 will need to run `make menuconfig` to update the location of the Busybox
 configuration.
+
+### Adding system-specific buildroot patches
+
+A Nerves system can include additional buildroot patches to be applied in the
+the directory `${NERVES_DEFCONFIG_DIR}/patches/buildroot` where
+`NERVES_DEFCONFIG_DIR` is the director to where your defocnfig file exists.
+Any `.patch` file in this directory will be applied after the Nerves-specific
+buildroot patches found in `${NERVES_SYSTEM_BR}/patches/buildroot`.
