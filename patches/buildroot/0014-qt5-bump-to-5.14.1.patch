@@ -1,9 +1,8 @@
-From beb00e61e9623d031b02bee8dc9753494ee74ac4 Mon Sep 17 00:00:00 2001
+From 6700da11f9d06bd5b3d7cfce688d0470d5faf543 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 9 Jul 2019 15:35:26 -0400
-Subject: [PATCH] qt5: bump to 5.13.0
+Subject: [PATCH] qt5: bump to 5.14.1
 
-See https://github.com/nerves-project/nerves_system_br/pull/337
 ---
  package/qt5/Config.in                         |   1 -
  package/qt5/qt5.mk                            |   4 +-
@@ -12,8 +11,7 @@ See https://github.com/nerves-project/nerves_system_br/pull/337
  ...ble-conversion-enable-for-microblaze.patch |  29 --
  package/qt5/qt5base/5.12.5/qt5base.hash       |  11 -
  ...tbase-Fix-build-error-when-using-EGL.patch |  37 ++
- ...ble-conversion-enable-for-microblaze.patch |  29 ++
- package/qt5/qt5base/5.13.0/qt5base.hash       |  11 +
+ package/qt5/qt5base/5.14.1/qt5base.hash       |  11 +
  package/qt5/qt5canvas3d/Config.in             |  18 -
  package/qt5/qt5canvas3d/qt5canvas3d.hash      |  14 -
  package/qt5/qt5canvas3d/qt5canvas3d.mk        |  44 --
@@ -21,16 +19,14 @@ See https://github.com/nerves-project/nerves_system_br/pull/337
  .../5.12.5/qt5connectivity.hash               |   9 -
  .../5.13.0/qt5connectivity.hash               |   9 +
  ...gtexture-fix-debug-build-with-uclibc.patch |  45 --
- ...gtexture-fix-debug-build-with-uclibc.patch |  45 ++
  .../qt5/qt5declarative/qt5declarative.hash    |   4 +-
  .../qt5graphicaleffects.hash                  |   4 +-
  .../qt5/qt5imageformats/qt5imageformats.hash  |   4 +-
  package/qt5/qt5location/qt5location.hash      |   4 +-
- ...en-no-opengl-in-QVideoSurfacePainter.patch |  47 ++
  package/qt5/qt5multimedia/qt5multimedia.hash  |   4 +-
  .../qt5quickcontrols/qt5quickcontrols.hash    |   4 +-
  .../5.12.5/qt5quickcontrols2.hash             |   7 -
- .../5.13.0/qt5quickcontrols2.hash             |   7 +
+ .../5.14.1/qt5quickcontrols2.hash             |   7 +
  package/qt5/qt5script/qt5script.hash          |   4 +-
  package/qt5/qt5scxml/qt5scxml.hash            |   4 +-
  package/qt5/qt5sensors/qt5sensors.hash        |   4 +-
@@ -45,20 +41,20 @@ See https://github.com/nerves-project/nerves_system_br/pull/337
  .../5.13.0/qt5virtualkeyboard.hash            |   9 +
  package/qt5/qt5wayland/qt5wayland.hash        |   4 +-
  package/qt5/qt5webchannel/qt5webchannel.hash  |   4 +-
+ ..._config-Fixes-when-use_sysroot-false.patch |  57 ---
  .../qt5/qt5webengine/5.12.5/qt5webengine.hash | 457 ------------------
  ...rkaround-for-too-long-.rps-file-name.patch |  39 ++
- .../qt5/qt5webengine/5.13.0/qt5webengine.hash | 456 +++++++++++++++++
+ .../qt5/qt5webengine/5.14.1/qt5webengine.hash | 456 +++++++++++++++++
  package/qt5/qt5websockets/qt5websockets.hash  |   4 +-
  .../qt5/qt5x11extras/5.12.5/qt5x11extras.hash |   9 -
  .../qt5/qt5x11extras/5.13.0/qt5x11extras.hash |   9 +
  .../qt5/qt5xmlpatterns/qt5xmlpatterns.hash    |   4 +-
- 47 files changed, 785 insertions(+), 749 deletions(-)
+ 45 files changed, 664 insertions(+), 806 deletions(-)
  delete mode 100644 package/qt5/qt5base/5.12.5/0001-qtbase-Fix-build-error-when-using-EGL.patch
  delete mode 100644 package/qt5/qt5base/5.12.5/0002-double-conversion-enable-for-microblaze.patch
  delete mode 100644 package/qt5/qt5base/5.12.5/qt5base.hash
- create mode 100644 package/qt5/qt5base/5.13.0/0001-qtbase-Fix-build-error-when-using-EGL.patch
- create mode 100644 package/qt5/qt5base/5.13.0/0004-double-conversion-enable-for-microblaze.patch
- create mode 100644 package/qt5/qt5base/5.13.0/qt5base.hash
+ create mode 100644 package/qt5/qt5base/5.14.1/0001-qtbase-Fix-build-error-when-using-EGL.patch
+ create mode 100644 package/qt5/qt5base/5.14.1/qt5base.hash
  delete mode 100644 package/qt5/qt5canvas3d/Config.in
  delete mode 100644 package/qt5/qt5canvas3d/qt5canvas3d.hash
  delete mode 100644 package/qt5/qt5canvas3d/qt5canvas3d.mk
@@ -66,10 +62,8 @@ See https://github.com/nerves-project/nerves_system_br/pull/337
  delete mode 100644 package/qt5/qt5connectivity/5.12.5/qt5connectivity.hash
  create mode 100644 package/qt5/qt5connectivity/5.13.0/qt5connectivity.hash
  delete mode 100644 package/qt5/qt5declarative/5.12.5/0001-qsgtexture-fix-debug-build-with-uclibc.patch
- create mode 100644 package/qt5/qt5declarative/5.13.0/0001-qsgtexture-fix-debug-build-with-uclibc.patch
- create mode 100644 package/qt5/qt5multimedia/5.13.0/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch
  delete mode 100644 package/qt5/qt5quickcontrols2/5.12.5/qt5quickcontrols2.hash
- create mode 100644 package/qt5/qt5quickcontrols2/5.13.0/qt5quickcontrols2.hash
+ create mode 100644 package/qt5/qt5quickcontrols2/5.14.1/qt5quickcontrols2.hash
  delete mode 100644 package/qt5/qt5serialbus/5.12.5/qt5serialbus.hash
  create mode 100644 package/qt5/qt5serialbus/5.13.0/0001-SocketCAN-Fix-compiler-error-SIOCGSTAMP-was-not-declared.patch
  create mode 100644 package/qt5/qt5serialbus/5.13.0/qt5serialbus.hash
@@ -77,9 +71,10 @@ See https://github.com/nerves-project/nerves_system_br/pull/337
  create mode 100644 package/qt5/qt5serialport/5.13.0/qt5serialport.hash
  delete mode 100644 package/qt5/qt5virtualkeyboard/5.12.5/qt5virtualkeyboard.hash
  create mode 100644 package/qt5/qt5virtualkeyboard/5.13.0/qt5virtualkeyboard.hash
+ delete mode 100644 package/qt5/qt5webengine/5.12.5/0001-pkg_config-Fixes-when-use_sysroot-false.patch
  delete mode 100644 package/qt5/qt5webengine/5.12.5/qt5webengine.hash
- create mode 100644 package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch
- create mode 100644 package/qt5/qt5webengine/5.13.0/qt5webengine.hash
+ create mode 100644 package/qt5/qt5webengine/5.14.1/0001-chromium-workaround-for-too-long-.rps-file-name.patch
+ create mode 100644 package/qt5/qt5webengine/5.14.1/qt5webengine.hash
  delete mode 100644 package/qt5/qt5x11extras/5.12.5/qt5x11extras.hash
  create mode 100644 package/qt5/qt5x11extras/5.13.0/qt5x11extras.hash
 
@@ -96,7 +91,7 @@ index def79fa680..0ed7ce20b8 100644
  source "package/qt5/qt5connectivity/Config.in"
  source "package/qt5/qt5declarative/Config.in"
 diff --git a/package/qt5/qt5.mk b/package/qt5/qt5.mk
-index 8169faf7c7..818b353bb7 100644
+index 8169faf7c7..023aa2e7ca 100644
 --- a/package/qt5/qt5.mk
 +++ b/package/qt5/qt5.mk
 @@ -5,8 +5,8 @@
@@ -105,8 +100,8 @@ index 8169faf7c7..818b353bb7 100644
  ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST),y)
 -QT5_VERSION_MAJOR = 5.12
 -QT5_VERSION = $(QT5_VERSION_MAJOR).5
-+QT5_VERSION_MAJOR = 5.13
-+QT5_VERSION = $(QT5_VERSION_MAJOR).0
++QT5_VERSION_MAJOR = 5.14
++QT5_VERSION = $(QT5_VERSION_MAJOR).1
  QT5_SOURCE_TARBALL_PREFIX = everywhere-src
  else
  QT5_VERSION_MAJOR = 5.6
@@ -220,11 +215,11 @@ index 6689d09efc..0000000000
 -sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
 -sha256 1f4fa3d202198f5d836993748eac9d91157e2cec7fb8426f56000a02a677cdc5 header.BSD
 -sha256 2a886915de4f296cdae5ed67064f86dba01d0c55286d86e8487f2a5caaf40216 src/3rdparty/harfbuzz-ng/COPYING
-diff --git a/package/qt5/qt5base/5.13.0/0001-qtbase-Fix-build-error-when-using-EGL.patch b/package/qt5/qt5base/5.13.0/0001-qtbase-Fix-build-error-when-using-EGL.patch
+diff --git a/package/qt5/qt5base/5.14.1/0001-qtbase-Fix-build-error-when-using-EGL.patch b/package/qt5/qt5base/5.14.1/0001-qtbase-Fix-build-error-when-using-EGL.patch
 new file mode 100644
 index 0000000000..6876498022
 --- /dev/null
-+++ b/package/qt5/qt5base/5.13.0/0001-qtbase-Fix-build-error-when-using-EGL.patch
++++ b/package/qt5/qt5base/5.14.1/0001-qtbase-Fix-build-error-when-using-EGL.patch
 @@ -0,0 +1,37 @@
 +From c11299086b7718332e2b4fbc37ce6f6ff427c5ba Mon Sep 17 00:00:00 2001
 +From: Yuqing Zhu <carol.zhu@nxp.com>
@@ -263,49 +258,14 @@ index 0000000000..6876498022
 +-- 
 +2.16.1
 +
-diff --git a/package/qt5/qt5base/5.13.0/0004-double-conversion-enable-for-microblaze.patch b/package/qt5/qt5base/5.13.0/0004-double-conversion-enable-for-microblaze.patch
+diff --git a/package/qt5/qt5base/5.14.1/qt5base.hash b/package/qt5/qt5base/5.14.1/qt5base.hash
 new file mode 100644
-index 0000000000..c91d812695
+index 0000000000..dbba85d716
 --- /dev/null
-+++ b/package/qt5/qt5base/5.13.0/0004-double-conversion-enable-for-microblaze.patch
-@@ -0,0 +1,29 @@
-+From 014958d2d17045dd63d93cb3061d1e40b15725b7 Mon Sep 17 00:00:00 2001
-+From: Peter Seiderer <ps.report@gmx.net>
-+Date: Tue, 21 Aug 2018 21:11:40 +0200
-+Subject: [PATCH] double-conversion: enable for microblaze
-+
-+Signed-off-by: Peter Seiderer <ps.report@gmx.net>
-+[Rebased for Qt5.12.0]
-+Signed-off-by: Peter Seiderer <ps.report@gmx.net>
-+---
-+ .../double-conversion/include/double-conversion/utils.h        | 3 ++-
-+ 1 file changed, 2 insertions(+), 1 deletion(-)
-+
-+diff --git a/src/3rdparty/double-conversion/include/double-conversion/utils.h b/src/3rdparty/double-conversion/include/double-conversion/utils.h
-+index 7622fe6162..d29de95094 100644
-+--- a/src/3rdparty/double-conversion/include/double-conversion/utils.h
-++++ b/src/3rdparty/double-conversion/include/double-conversion/utils.h
-+@@ -94,7 +94,8 @@ int main(int argc, char** argv) {
-+     defined(_MIPS_ARCH_MIPS32R2) || \
-+     defined(__AARCH64EL__) || defined(__aarch64__) || defined(__AARCH64EB__) || \
-+     defined(__riscv) || defined(__EMSCRIPTEN__) || \
-+-    defined(__or1k__)
-++    defined(__or1k__)  || \
-++    defined(__microblaze__)
-+ #define DOUBLE_CONVERSION_CORRECT_DOUBLE_OPERATIONS 1
-+ #elif defined(__mc68000__) || \
-+     defined(__pnacl__) || defined(__native_client__)
-+-- 
-+2.19.2
-+
-diff --git a/package/qt5/qt5base/5.13.0/qt5base.hash b/package/qt5/qt5base/5.13.0/qt5base.hash
-new file mode 100644
-index 0000000000..3e73c9e689
---- /dev/null
-+++ b/package/qt5/qt5base/5.13.0/qt5base.hash
++++ b/package/qt5/qt5base/5.14.1/qt5base.hash
 @@ -0,0 +1,11 @@
-+# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtbase-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 ff6964b3b528cd3b1d21bcf3470006e8e5cbe69591923f982871d886ea0488fe qtbase-everywhere-src-5.13.0.tar.xz
++# Hash from: http://download.qt.io/official_releases/qt/5.14/5.14.1/submodules/qtbase-everywhere-src-5.14.1.tar.xz.sha256
++sha256 d9d423a6e7bcf1055c0372fc029f14a6fe67dd62c67b83095cde68b60b762cf7 qtbase-everywhere-src-5.14.1.tar.xz
 +
 +# Hashes for license files:
 +sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
@@ -504,59 +464,8 @@ index 1c0f6eccc5..0000000000
 --- 
 -2.14.1
 -
-diff --git a/package/qt5/qt5declarative/5.13.0/0001-qsgtexture-fix-debug-build-with-uclibc.patch b/package/qt5/qt5declarative/5.13.0/0001-qsgtexture-fix-debug-build-with-uclibc.patch
-new file mode 100644
-index 0000000000..1c0f6eccc5
---- /dev/null
-+++ b/package/qt5/qt5declarative/5.13.0/0001-qsgtexture-fix-debug-build-with-uclibc.patch
-@@ -0,0 +1,45 @@
-+From 2a5711651bee9d021733da19126a71aeda45e646 Mon Sep 17 00:00:00 2001
-+From: Fabrice Fontaine <fontaine.fabrice@gmail.com>
-+Date: Thu, 29 Nov 2018 23:33:10 +0100
-+Subject: [PATCH] qsgtexture: fix debug build with uclibc
-+
-+Debug build of gsgtexture fails on uclibc since version 5.11 and
-+https://github.com/qt/qtdeclarative/commit/7c507eaac3f848f92f2ebdafe8ded4a064d68351:
-+
-+scenegraph/util/qsgtexture.cpp:69:22: fatal error: execinfo.h: No such file or directory
-+ #include <execinfo.h>
-+
-+Indeed, !defined(__UCLIBC__) has been replaced by defined(__GBLIBC__) to
-+fix build on musl but as a result, build fails on uclibc because uclibc
-+also defines __GLIBC__ (and it does not have execinfo like musl)
-+
-+This error is raised only when building in debug mode because
-+CAN_BACKTRACE_EXECINFO is undefined if QT_NO_DEBUG is set
-+
-+So keep defined(__GLIBC__), but put back !defined(__UCLIBC__)
-+
-+Fixes:
-+ - http://autobuild.buildroot.org/results/6fce0ce5aea943e097532efbbc8d1e28f41e5866
-+
-+Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
-+[Upstream status: https://github.com/qt/qtdeclarative/pull/4]
-+---
-+ src/quick/scenegraph/util/qsgtexture.cpp | 2 +-
-+ 1 file changed, 1 insertion(+), 1 deletion(-)
-+
-+diff --git a/src/quick/scenegraph/util/qsgtexture.cpp b/src/quick/scenegraph/util/qsgtexture.cpp
-+index fea92a512..a26191006 100644
-+--- a/src/quick/scenegraph/util/qsgtexture.cpp
-++++ b/src/quick/scenegraph/util/qsgtexture.cpp
-+@@ -53,7 +53,7 @@
-+ #endif
-+ #include <private/qsgmaterialshader_p.h>
-+ 
-+-#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID) && defined(__GLIBC__)
-++#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID) && defined(__GLIBC__) && !defined(__UCLIBC__)
-+ #define CAN_BACKTRACE_EXECINFO
-+ #endif
-+ 
-+-- 
-+2.14.1
-+
 diff --git a/package/qt5/qt5declarative/qt5declarative.hash b/package/qt5/qt5declarative/qt5declarative.hash
-index 6bac255578..4c52f95b4a 100644
+index 6bac255578..abbee1f122 100644
 --- a/package/qt5/qt5declarative/qt5declarative.hash
 +++ b/package/qt5/qt5declarative/qt5declarative.hash
 @@ -1,8 +1,8 @@
@@ -566,7 +475,7 @@ index 6bac255578..4c52f95b4a 100644
 -# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.5/submodules/qtdeclarative-everywhere-src-5.12.5.tar.xz.sha256
 -sha256 22c5323d4b01259e6e352eef1b54129d6dfee00a406f0312905fa7db322b9190  qtdeclarative-everywhere-src-5.12.5.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtdeclarative-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 b9e8780aef0af4a60e64dcc405bdf5c03a04b28e3b94d5c2e69d0006db566ba9 qtdeclarative-everywhere-src-5.13.0.tar.xz
++sha256 762fe495d2f97fd70f06dc7d3929506ea3b5e3151ad813e0629209b7bc504c8a qtdeclarative-everywhere-src-5.14.1.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
@@ -615,61 +524,8 @@ index 27ad8efd9e..3abae4b096 100644
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
-diff --git a/package/qt5/qt5multimedia/5.13.0/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch b/package/qt5/qt5multimedia/5.13.0/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch
-new file mode 100644
-index 0000000000..1dc7701c08
---- /dev/null
-+++ b/package/qt5/qt5multimedia/5.13.0/0001-Fix-compile-issue-when-no-opengl-in-QVideoSurfacePainter.patch
-@@ -0,0 +1,47 @@
-+From 9bbf9f0d862b8d458e59690d36641618fb101b4e Mon Sep 17 00:00:00 2001
-+From: Val Doroshchuk <valentyn.doroshchuk@qt.io>
-+Date: Mon, 17 Jun 2019 15:20:22 +0200
-+Subject: Fix compile issue when no opengl in QVideoSurfacePainter
-+
-+error: invalid use of incomplete type 'class QGLContext'
-+
-+Change-Id: I4bc9bd4231e663b187d3cef917b7a551ba614ba9
-+Fixes: QTBUG-76405
-+Reviewed-by: Andy Shaw <andy.shaw@qt.io>
-+
-+[Retrieved from:
-+https://code.qt.io/cgit/qt/qtmultimedia.git/commit/?id=9bbf9f0d862b8d458e59690d36641618fb101b4e]
-+Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
-+---
-+ src/multimediawidgets/qpaintervideosurface.cpp | 8 ++++----
-+ 1 file changed, 4 insertions(+), 4 deletions(-)
-+
-+diff --git a/src/multimediawidgets/qpaintervideosurface.cpp b/src/multimediawidgets/qpaintervideosurface.cpp
-+index 440d5c858..6af0c7588 100644
-+--- a/src/multimediawidgets/qpaintervideosurface.cpp
-++++ b/src/multimediawidgets/qpaintervideosurface.cpp
-+@@ -57,10 +57,6 @@
-+ #ifndef GL_RGB8
-+ #define GL_RGB8 0x8051
-+ #endif
-+-#endif
-+-
-+-#include <QtDebug>
-+-QT_BEGIN_NAMESPACE
-+ 
-+ static void makeCurrent(QGLContext *context)
-+ {
-+@@ -70,6 +66,10 @@ static void makeCurrent(QGLContext *context)
-+     if (handle && QOpenGLContext::currentContext() != handle)
-+         handle->makeCurrent(handle->surface());
-+ }
-++#endif
-++
-++#include <QtDebug>
-++QT_BEGIN_NAMESPACE
-+ 
-+ QVideoSurfacePainter::~QVideoSurfacePainter()
-+ {
-+-- 
-+cgit v1.2.1
-+
 diff --git a/package/qt5/qt5multimedia/qt5multimedia.hash b/package/qt5/qt5multimedia/qt5multimedia.hash
-index 93bb6f1ccc..3a5312ba09 100644
+index 93bb6f1ccc..d06cf6e4ba 100644
 --- a/package/qt5/qt5multimedia/qt5multimedia.hash
 +++ b/package/qt5/qt5multimedia/qt5multimedia.hash
 @@ -1,8 +1,8 @@
@@ -679,12 +535,12 @@ index 93bb6f1ccc..3a5312ba09 100644
 -# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.5/submodules/qtmultimedia-everywhere-src-5.12.5.tar.xz.sha256
 -sha256 d5a0a4fddc5ef14d641160a1fc0011b190ff8d9f19009498d586516b8ee3479c  qtmultimedia-everywhere-src-5.12.5.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtmultimedia-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 5076219d277083d2535e5f739d06783abe2e059e9d3fd9f924a1fa7970946d72 qtmultimedia-everywhere-src-5.13.0.tar.xz
++sha256 c458121c8db7ff77eefe643a7c9847ff324647f2603bb5664bcafa6435edeae7 qtmultimedia-everywhere-src-5.14.1.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
 diff --git a/package/qt5/qt5quickcontrols/qt5quickcontrols.hash b/package/qt5/qt5quickcontrols/qt5quickcontrols.hash
-index 71727972b4..256f85d6a6 100644
+index 71727972b4..c1bb88de54 100644
 --- a/package/qt5/qt5quickcontrols/qt5quickcontrols.hash
 +++ b/package/qt5/qt5quickcontrols/qt5quickcontrols.hash
 @@ -1,8 +1,8 @@
@@ -694,7 +550,7 @@ index 71727972b4..256f85d6a6 100644
 -# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.5/submodules/qtquickcontrols-everywhere-src-5.12.5.tar.xz.sha256
 -sha256 46deaefbdac3daa576c748e807956f5f82b2318923b1a36e434a3ff32d1d2559  qtquickcontrols-everywhere-src-5.12.5.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtquickcontrols-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 a5c6d40e0432246129d3f350a9aa419901dd73f2e4f8af6efb7a3e86e57ae167 qtquickcontrols-everywhere-src-5.13.0.tar.xz
++sha256 54519e7c6748bb9af46435a7ba2ce1c53e4ad164a70e88915fe0e61277540a1a qtquickcontrols-everywhere-src-5.14.1.tar.xz
  
  # Hashes for license files:
  sha256 edfe70e99be2a7c109d860b19204609e582720b211c50caedac729da372a1253 LICENSE.GPLv2
@@ -711,14 +567,14 @@ index e886661527..0000000000
 -sha256 d2cfc059acb4abd8e513cd0a73cd8489f34cbafa7bc34d5d31fb3210821cf8ca LICENSE.GPLv3
 -sha256 9e63a04ce021b8bf811b30881fa51c8c3db88afeead942cd59322f2fb69c75bc LICENSE.LGPLv3
 -sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
-diff --git a/package/qt5/qt5quickcontrols2/5.13.0/qt5quickcontrols2.hash b/package/qt5/qt5quickcontrols2/5.13.0/qt5quickcontrols2.hash
+diff --git a/package/qt5/qt5quickcontrols2/5.14.1/qt5quickcontrols2.hash b/package/qt5/qt5quickcontrols2/5.14.1/qt5quickcontrols2.hash
 new file mode 100644
-index 0000000000..352e52741d
+index 0000000000..0d88480310
 --- /dev/null
-+++ b/package/qt5/qt5quickcontrols2/5.13.0/qt5quickcontrols2.hash
++++ b/package/qt5/qt5quickcontrols2/5.14.1/qt5quickcontrols2.hash
 @@ -0,0 +1,7 @@
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtquickcontrols2-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 a5cb7e6d68285203bfb1aee87551228879fa9d93d87be5c8bab38e5a79dc916d qtquickcontrols2-everywhere-src-5.13.0.tar.xz
++sha256 52d652c48933cc8416a91138eb6fb4c31625734265671f286b6c0d3e27d120ae qtquickcontrols2-everywhere-src-5.14.1.tar.xz
 +
 +# Hashes for license files:
 +sha256 d2cfc059acb4abd8e513cd0a73cd8489f34cbafa7bc34d5d31fb3210821cf8ca LICENSE.GPLv3
@@ -942,7 +798,7 @@ index 523ef9e9f2..0dfe1fa0aa 100644
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
 diff --git a/package/qt5/qt5webchannel/qt5webchannel.hash b/package/qt5/qt5webchannel/qt5webchannel.hash
-index 42b2d9a6fe..137a410737 100644
+index 42b2d9a6fe..96729b1492 100644
 --- a/package/qt5/qt5webchannel/qt5webchannel.hash
 +++ b/package/qt5/qt5webchannel/qt5webchannel.hash
 @@ -1,8 +1,8 @@
@@ -952,10 +808,73 @@ index 42b2d9a6fe..137a410737 100644
 -# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.5/submodules/qtwebchannel-everywhere-src-5.12.5.tar.xz.sha256
 -sha256 9f1d1ac20722ee053ecf071d4ec0070a45a765cb67b6e31add61004fb4b3c5e8  qtwebchannel-everywhere-src-5.12.5.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtwebchannel-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 7f6260c73bca968511ab2facfbb14b4d8cc7a9c5b2d0f9211e7390ed8fb52b9a qtwebchannel-everywhere-src-5.13.0.tar.xz
++sha256 3af5262fde14c7dfe7bcc12d5796a482837bd09f0878851fd8de5db0b1985e6a qtwebchannel-everywhere-src-5.14.1.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
+diff --git a/package/qt5/qt5webengine/5.12.5/0001-pkg_config-Fixes-when-use_sysroot-false.patch b/package/qt5/qt5webengine/5.12.5/0001-pkg_config-Fixes-when-use_sysroot-false.patch
+deleted file mode 100644
+index a0fdad4da3..0000000000
+--- a/package/qt5/qt5webengine/5.12.5/0001-pkg_config-Fixes-when-use_sysroot-false.patch
++++ /dev/null
+@@ -1,57 +0,0 @@
+-From cc35cac78c053c14da01d6b1e5b05b0615360148 Mon Sep 17 00:00:00 2001
+-From: Tom Anderson <thomasanderson@chromium.org>
+-Date: Thu, 2 Aug 2018 01:59:28 +0000
+-Subject: [PATCH] pkg_config: Fixes when use_sysroot=false
+-
+-This CL introduces 2 changes to the behavior of pkg_config when
+-use_sysroot=false:
+-
+-1. The path is not made relative to the build directory.  This fixes the case
+-where your src directory may be mounted at different locations.
+-
+-2. -I is used instead of -isystem.  When -isystem is used, dep files do not
+-reference the system header files.  This is OK when using the sysroot because
+-the CR_SYSROOT_HASH macro contains the sysroot revision so any source files will
+-be rebuilt when the sysroot updates.
+-
+-R=dpranke
+-
+-Change-Id: Ia3d7df51880205fee888923283b76078ccb3112f
+-Reviewed-on: https://chromium-review.googlesource.com/1159689
+-Reviewed-by: Dirk Pranke <dpranke@chromium.org>
+-Commit-Queue: Thomas Anderson <thomasanderson@chromium.org>
+-Cr-Original-Commit-Position: refs/heads/master@{#580030}
+-Cr-Mirrored-From: https://chromium.googlesource.com/chromium/src
+-Cr-Mirrored-Commit: a8c8396fd20d98666d517c45b358c63736e345ef
+-Signed-off-by: Bartosz Bilas <b.bilas@grinn-global.com>
+----
+- src/3rdparty/chromium/build/config/linux/pkg_config.gni | 12 ++++++++----
+- 1 file changed, 8 insertions(+), 4 deletions(-)
+-
+-diff --git a/src/3rdparty/chromium/build/config/linux/pkg_config.gni b/src/3rdparty/chromium/build/config/linux/pkg_config.gni
+-index 53ee353af..428e44ac0 100644
+---- a/src/3rdparty/chromium/build/config/linux/pkg_config.gni
+-+++ b/src/3rdparty/chromium/build/config/linux/pkg_config.gni
+-@@ -103,11 +103,15 @@ template("pkg_config") {
+-     pkgresult = exec_script(pkg_config_script, args, "value")
+-     cflags = pkgresult[1]
+- 
+--    # We want the system include paths to use -isystem instead of -I to suppress
+--    # warnings in those headers.
+-     foreach(include, pkgresult[0]) {
+--      include_relativized = rebase_path(include, root_build_dir)
+--      cflags += [ "-isystem$include_relativized" ]
+-+      if (use_sysroot) {
+-+        # We want the system include paths to use -isystem instead of -I to
+-+        # suppress warnings in those headers.
+-+        include_relativized = rebase_path(include, root_build_dir)
+-+        cflags += [ "-isystem$include_relativized" ]
+-+      } else {
+-+        cflags += [ "-I$include" ]
+-+      }
+-     }
+- 
+-     if (!defined(invoker.ignore_libs) || !invoker.ignore_libs) {
+--- 
+-2.21.0
+-
 diff --git a/package/qt5/qt5webengine/5.12.5/qt5webengine.hash b/package/qt5/qt5webengine/5.12.5/qt5webengine.hash
 deleted file mode 100644
 index 0956f504ed..0000000000
@@ -1419,13 +1338,13 @@ index 0956f504ed..0000000000
 -sha256 5d85142a5609ad177a2d7a2e7cae060b886b8b42f25c5b9803cf0cb5ee04ad2f  src/3rdparty/gn/base/third_party/icu/LICENSE
 -sha256 845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308  src/3rdparty/gn/LICENSE
 -sha256 eb7e9ab9690124c5c9f42bdc81383d886a3dede26345b6ed15bbad7caf81f7ea  src/3rdparty/ninja/COPYING
-diff --git a/package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch b/package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch
+diff --git a/package/qt5/qt5webengine/5.14.1/0001-chromium-workaround-for-too-long-.rps-file-name.patch b/package/qt5/qt5webengine/5.14.1/0001-chromium-workaround-for-too-long-.rps-file-name.patch
 new file mode 100644
-index 0000000000..6df772ce2c
+index 0000000000..ed7a864189
 --- /dev/null
-+++ b/package/qt5/qt5webengine/5.13.0/0001-chromium-workaround-for-too-long-.rps-file-name.patch
++++ b/package/qt5/qt5webengine/5.14.1/0001-chromium-workaround-for-too-long-.rps-file-name.patch
 @@ -0,0 +1,39 @@
-+From 8050413f181271b6e69a16af25962137945c2051 Mon Sep 17 00:00:00 2001
++From f3a7564ece905292f5ac7a6c0110d036e26bb0e6 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
 +Date: Tue, 17 Sep 2019 16:06:54 -0400
 +Subject: [PATCH] chromium workaround for too long .rps file name
@@ -1439,10 +1358,10 @@ index 0000000000..6df772ce2c
 + 1 file changed, 9 insertions(+)
 +
 +diff --git a/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc b/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
-+index 7e945c0de..a50e35522 100644
++index 5f4fbaad8..929c72ed6 100644
 +--- a/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
 ++++ b/src/3rdparty/gn/tools/gn/ninja_action_target_writer.cc
-+@@ -118,9 +118,18 @@ std::string NinjaActionTargetWriter::WriteRuleDefinition() {
++@@ -119,9 +119,18 @@ std::string NinjaActionTargetWriter::WriteRuleDefinition() {
 +     // strictly necessary for regular one-shot actions, but it's easier to
 +     // just always define unique_name.
 +     std::string rspfile = custom_rule_name;
@@ -1462,16 +1381,16 @@ index 0000000000..6df772ce2c
 + 
 +     // Response file contents.
 +-- 
-+2.17.1
++2.20.1
 +
-diff --git a/package/qt5/qt5webengine/5.13.0/qt5webengine.hash b/package/qt5/qt5webengine/5.13.0/qt5webengine.hash
+diff --git a/package/qt5/qt5webengine/5.14.1/qt5webengine.hash b/package/qt5/qt5webengine/5.14.1/qt5webengine.hash
 new file mode 100644
-index 0000000000..4f45183476
+index 0000000000..ae116cf42a
 --- /dev/null
-+++ b/package/qt5/qt5webengine/5.13.0/qt5webengine.hash
++++ b/package/qt5/qt5webengine/5.14.1/qt5webengine.hash
 @@ -0,0 +1,456 @@
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtwebengine-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 e0af82ecee1ab41b6732697f667b98b7b0c53164bebcfaad8070e88b2e064efe qtwebengine-everywhere-src-5.13.0.tar.xz
++sha256 4ec77040a876a83aa2a833ebfe7b3e88dcc167ceb317095eb226a0b8d455e887  qtwebengine-everywhere-src-5.14.1.tar.xz
 +
 +# Locally calculated
 +sha256 f34787ef0342c614b667186a6ec2f5d6b9d650e30142a2788a589a89743e88e9  LICENSE.Chromium
@@ -1927,7 +1846,7 @@ index 0000000000..4f45183476
 +sha256 845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308  src/3rdparty/gn/LICENSE
 +sha256 eb7e9ab9690124c5c9f42bdc81383d886a3dede26345b6ed15bbad7caf81f7ea  src/3rdparty/ninja/COPYING
 diff --git a/package/qt5/qt5websockets/qt5websockets.hash b/package/qt5/qt5websockets/qt5websockets.hash
-index ae3b7c83e7..e2609c2eb4 100644
+index ae3b7c83e7..8137683d02 100644
 --- a/package/qt5/qt5websockets/qt5websockets.hash
 +++ b/package/qt5/qt5websockets/qt5websockets.hash
 @@ -1,8 +1,8 @@
@@ -1937,7 +1856,7 @@ index ae3b7c83e7..e2609c2eb4 100644
 -# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.5/submodules/qtwebsockets-everywhere-src-5.12.5.tar.xz.sha256
 -sha256 5d58e697c49c0ea19a8299deba84b5360dca8c336a1636d38de0351757293262  qtwebsockets-everywhere-src-5.12.5.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtwebsockets-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 f941dd44f6e16041a25723c1b70ce9e28910c630509da0044ecb9fdda28a6e34 qtwebsockets-everywhere-src-5.13.0.tar.xz
++sha256 742fb3d39043728ca4fc1533e9a1e3b701bc5bf4e27cba316077e9f0df0b3fef qtwebsockets-everywhere-src-5.14.1.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
@@ -1972,7 +1891,7 @@ index 0000000000..c467b101ae
 +sha256 da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768 LICENSE.LGPL3
 +sha256 ed8742a95cb9db653a09b050e27ccff5e67ba69c14aa2c3137f2a4e1892f6c0d LICENSE.FDL
 diff --git a/package/qt5/qt5xmlpatterns/qt5xmlpatterns.hash b/package/qt5/qt5xmlpatterns/qt5xmlpatterns.hash
-index a5ec76dbb2..e9f21e1270 100644
+index a5ec76dbb2..01d694dbee 100644
 --- a/package/qt5/qt5xmlpatterns/qt5xmlpatterns.hash
 +++ b/package/qt5/qt5xmlpatterns/qt5xmlpatterns.hash
 @@ -1,8 +1,8 @@
@@ -1982,7 +1901,7 @@ index a5ec76dbb2..e9f21e1270 100644
 -# Hash from: https://download.qt.io/official_releases/qt/5.12/5.12.5/submodules/qtxmlpatterns-everywhere-src-5.12.5.tar.xz.sha256
 -sha256 b905d9107f87798ef0f142942fc45c0f63fc113522ab041e791d3cb744a8babd  qtxmlpatterns-everywhere-src-5.12.5.tar.xz
 +# Hash from: http://download.qt.io/official_releases/qt/5.13/5.13.0/submodules/qtxmlpatterns-everywhere-src-5.13.0.tar.xz.sha256
-+sha256 75186ff075d9a3bd30cee145bad6bc69d491b5e555b048d11136727f050d7319 qtxmlpatterns-everywhere-src-5.13.0.tar.xz
++sha256 fb993a112e591c84ea159a752a4026031a212a7af6f31a1b288552c924c18224 qtxmlpatterns-everywhere-src-5.14.1.tar.xz
  
  # Hashes for license files:
  sha256 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643 LICENSE.GPL2
