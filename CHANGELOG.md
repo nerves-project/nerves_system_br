@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.10.3
+
+This release updates Qt so that kiosk projects using Qt Webengine can use a more
+recent chromium build. Qt 5.14.1 requires gcc 9.2 (See [Nerves toolchain release
+1.3.0](https://github.com/nerves-project/toolchains/releases/tag/v1.3.0)) to get
+past an internal compiler error.
+
+* Package updates
+  * Erlang/OTP 22.2.6
+  * Qt 5.14.1
+
 ## v1.10.2
 
 This release fixes a warning and startup delay that was introduced with the
