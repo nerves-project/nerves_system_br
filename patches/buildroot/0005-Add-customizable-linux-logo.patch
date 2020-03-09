@@ -1,4 +1,4 @@
-From 3c5706fdb4640f5aa93ac6b2a7c550bd005111ff Mon Sep 17 00:00:00 2001
+From d19ed4e49538bf4d5bec320998db5fa83a8be481 Mon Sep 17 00:00:00 2001
 From: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 Date: Wed, 3 Feb 2016 00:05:42 +0100
 Subject: [PATCH] Add customizable linux logo
@@ -20,7 +20,7 @@ Signed-off-by: Angelo Compagnucci <angelo.compagnucci@gmail.com>
  create mode 100644 package/customlogo/customlogo.mk
 
 diff --git a/linux/Config.ext.in b/linux/Config.ext.in
-index 14140d352c..a1a6ca2411 100644
+index 734a52a533..256fe23148 100644
 --- a/linux/Config.ext.in
 +++ b/linux/Config.ext.in
 @@ -1,5 +1,14 @@
@@ -56,10 +56,10 @@ index 0000000000..ed9cbc1caf
 +	cp $(CUSTOMLOGO_DIR)/logo_linux_*.p?m $(LINUX_DIR)/drivers/video/logo
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index f72c77b416..5e73261634 100644
+index edf7687ab7..6578e110d9 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -245,6 +245,7 @@ comment "Sounds"
+@@ -247,6 +247,7 @@ comment "Sounds"
  
  comment "Themes"
  	source "package/gtk2-engines/Config.in"

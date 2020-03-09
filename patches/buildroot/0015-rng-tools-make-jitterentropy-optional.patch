@@ -1,4 +1,4 @@
-From 6964d81666fa9bf7228b245f5ba688e2321666ec Mon Sep 17 00:00:00 2001
+From f5e686b8be861e2e5f8fa4c7222425a0f17c7dd6 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 30 Jan 2020 14:55:15 -0500
 Subject: [PATCH] rng-tools: make jitterentropy optional
@@ -21,8 +21,8 @@ acceleration, so it's not really necessary (assuming the hwrng is
 trustworthy, but then if it's not, do you trust jitterentropy...).
 ---
  package/rng-tools/Config.in    | 11 ++++++++++-
- package/rng-tools/rng-tools.mk |  8 +++++++-
- 2 files changed, 17 insertions(+), 2 deletions(-)
+ package/rng-tools/rng-tools.mk |  9 ++++++++-
+ 2 files changed, 18 insertions(+), 2 deletions(-)
 
 diff --git a/package/rng-tools/Config.in b/package/rng-tools/Config.in
 index 71514260e6..2824e69cb1 100644
@@ -53,19 +53,20 @@ index 71514260e6..2824e69cb1 100644
  comment "rng-tools needs a toolchain w/ NPTL"
  	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL
 diff --git a/package/rng-tools/rng-tools.mk b/package/rng-tools/rng-tools.mk
-index fa23b3316f..1d0b3ccac6 100644
+index 5338e95590..e69c4a25f5 100644
 --- a/package/rng-tools/rng-tools.mk
 +++ b/package/rng-tools/rng-tools.mk
-@@ -8,7 +8,7 @@ RNG_TOOLS_VERSION = 6.7
+@@ -8,7 +8,8 @@ RNG_TOOLS_VERSION = 6.9
  RNG_TOOLS_SITE = $(call github,nhorman,$(RNG_TOOLS_NAME),v$(RNG_TOOLS_VERSION))
  RNG_TOOLS_LICENSE = GPL-2.0
  RNG_TOOLS_LICENSE_FILES = COPYING
 -RNG_TOOLS_DEPENDENCIES = libsysfs jitterentropy-library host-pkgconf
 +RNG_TOOLS_DEPENDENCIES = libsysfs host-pkgconf
- 
++
+ # From git
  RNG_TOOLS_AUTORECONF = YES
  
-@@ -29,6 +29,12 @@ else
+@@ -29,6 +30,12 @@ else
  RNG_TOOLS_CONF_OPTS += --without-libgcrypt
  endif
  

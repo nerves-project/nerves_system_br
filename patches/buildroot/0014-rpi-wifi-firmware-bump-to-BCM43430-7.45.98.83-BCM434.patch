@@ -1,4 +1,4 @@
-From 4d8b343f044aadee5e465965010ed511ce693beb Mon Sep 17 00:00:00 2001
+From 5f8883e04700a3bb7f368fb18d789553bd1f35f9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 4 Dec 2019 22:02:57 -0500
 Subject: [PATCH] rpi-wifi-firmware: bump to BCM43430 (7.45.98.83), BCM4345

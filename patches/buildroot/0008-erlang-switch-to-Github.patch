@@ -1,4 +1,4 @@
-From 7e30334ffb7ddf73e82dd8750f0d992e7cd1f26c Mon Sep 17 00:00:00 2001
+From 29aa6538c1a0a12549b2f3ce4cd4757c90499707 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 11:54:25 -0400
 Subject: [PATCH] erlang: switch to Github
@@ -10,13 +10,13 @@ ones.
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 6cb410f5cf..fe9b93c1b6 100644
+index e2cd02f68d..6e6030a012 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -6,8 +6,8 @@
  
  # See note below when updating Erlang
- ERLANG_VERSION = 21.0
+ ERLANG_VERSION = 22.2
 -ERLANG_SITE = http://www.erlang.org/download
 -ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
 +ERLANG_SITE = https://github.com/erlang/otp/archive
