@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.11.0
+
+This release updates Buildroot to 2020.02. Buildroot release notes are at
+http://lists.busybox.net/pipermail/buildroot/2020-March/276231.html.
+
+* Package updates
+  * Erlang/OTP 22.2.8
+  * rpi-firmware 1.20200212 - Raspberry Pi-based systems are encouraged to upgrade their Linux kernels to the 1.20200212 versions to match.
+  * boardid 1.8.0 - Support for nVidia Jetson Nano and similar boards
+
+* Improvements
+  * The default Busybox configuration contains the `mknod` now.
+  * The new default Busybox configuration filename is `busybox.config`. The old
+    name `busybox-1.22.config` still works, but is a symlink.
+
 ## v1.10.3
 
 This release updates Qt so that kiosk projects using Qt Webengine can use a more
