@@ -6,7 +6,7 @@ description="Container with everything needed to build Nerves Systems"
 USER root
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV ERLANG_OTP_VERSION=22.2.8-1
+ENV ERLANG_OTP_VERSION=22.3-1
 ENV FWUP_VERSION=1.5.1
 ENV ERLANG_PKG='erlang-solutions_1.0_all.deb'
 ENV ERLANG_URL="https://packages.erlang-solutions.com/${ERLANG_PKG}"
