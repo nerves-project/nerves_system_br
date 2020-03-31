@@ -1,5 +1,6 @@
 # nerves_system_br
 
+[![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_br.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_br)
 [![Hex version](https://img.shields.io/hexpm/v/nerves_system_br.svg "Hex version")](https://hex.pm/packages/nerves_system_br)
 
 Nerves System BR provides the common logic for building Nerves Systems using
@@ -10,14 +11,14 @@ want to look at this repository. Please check out the official
 For examples of using `nerves_system_br`, take a look at the officially
 supported hardware systems:
 
+* [Beaglebones](https://github.com/nerves-project/nerves_system_bbb)
 * [Raspberry Pi Zero](https://github.com/nerves-project/nerves_system_rpi0)
 * [Raspberry Pi Zero, A+, B and B+](https://github.com/nerves-project/nerves_system_rpi)
 * [Raspberry Pi 2 Model B](https://github.com/nerves-project/nerves_system_rpi2)
-* [Raspberry Pi 3 Model B](https://github.com/nerves-project/nerves_system_rpi3)
-* [Beaglebone Black](https://github.com/nerves-project/nerves_system_bbb)
-* [Lego Mindstorms EV3](https://github.com/nerves-project/nerves_system_ev3)
+* [Raspberry Pi 3 Model B and B+](https://github.com/nerves-project/nerves_system_rpi3)
+* [Raspberry Pi 3 Model A+](https://github.com/nerves-project/nerves_system_rpi3a)
+* [Raspberry Pi 4 Model B](https://github.com/nerves-project/nerves_system_rpi4)
 * [Generic x86_64](https://github.com/nerves-project/nerves_system_x86_64)
-* [Qemu ARM](https://github.com/nerves-project/nerves_system_qemu_arm)
 
 We only officially support easily obtained hardware, but that doesn't mean that
 Nerves only works on these boards. If it's possible to use Buildroot to create a
