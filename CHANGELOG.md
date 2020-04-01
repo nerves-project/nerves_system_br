@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.11.1
+
+This release updates Erlang/OTP to the latest official release. It also includes
+an update to `fwup` that removes a dependency on `libsodium`. Unless another
+package requires it, the `libsodium` shared libraries will no longer be
+installed in firmware images. If you are using `libsodium`, double check that
+it's enabled in your configuration.
+
+* Package updates
+  * Erlang/OTP 22.3
+  * erlinit 1.6.1 - Fix for /dev/rootdisk symlink issue on some x86 and
+    eMMC-using systems
+  * fwup 1.5.2 - Footprint reduction
+
 ## v1.11.0
 
 This release updates Buildroot to 2020.02. Buildroot release notes are at
