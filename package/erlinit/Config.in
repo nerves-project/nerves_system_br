@@ -4,4 +4,4 @@ config BR2_PACKAGE_ERLINIT
 	help
 	  Erlinit is a replacement for /sbin/init that starts erlang.
 
-	  https://github.com/fhunleth/erlinit
+	  https://github.com/nerves-project/erlinit
