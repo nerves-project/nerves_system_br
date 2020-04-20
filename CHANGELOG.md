@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.11.2
+
+This is a minor update that brings in a patch update to Erlang/OTP (22.3.1) and
+initial support for applying delta firmware updates. Delta firmware updates
+significantly reduce Nerves firmware images sizes for small code changes. This
+contains the building blocks for delta firmware updates. The current process
+for creating patches is manual and tooling is not available yet.
+
+* Package updates
+  * Erlang/OTP 22.3.1
+  * erlinit 1.7.0 - tty initialization support
+  * fwup 1.6.0 - xdelta3/VCDIFF patch support
+
+* Improvements
+  * Support for the `NERVES_MKSQUASHFS_FLAGS` variable to adjust SquashFS
+    filesystem creation to reduce patch size when using `fwup 1.6.0`'s delta
+    firmware update support.
+
 ## v1.11.1
 
 This release updates Erlang/OTP to the latest official release. It also includes
