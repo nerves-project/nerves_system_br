@@ -1,0 +1,47 @@
+From 8bc53dae0749780592de712599454740205c08fc Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Tue, 5 May 2020 21:30:15 -0400
+Subject: [PATCH] erlang(disksup): update df call for Busybox
+
+---
+ ...-update-df-call-to-work-with-Busybox.patch | 28 +++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+ create mode 100644 package/erlang/22.3.3/0004-disksup-update-df-call-to-work-with-Busybox.patch
+
+diff --git a/package/erlang/22.3.3/0004-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/22.3.3/0004-disksup-update-df-call-to-work-with-Busybox.patch
+new file mode 100644
+index 0000000000..9f98c4ad82
+--- /dev/null
++++ b/package/erlang/22.3.3/0004-disksup-update-df-call-to-work-with-Busybox.patch
+@@ -0,0 +1,28 @@
++From 46b36f8b73b65b2697ec0fb499dd4af610e9ddd9 Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Tue, 5 May 2020 21:19:01 -0400
++Subject: [PATCH] disksup: update df call to work with Busybox
++
++Busybox's df doesn't support `-x` and `-l` and this removes those
++options. Plus SquashFS filesystems are nice to view on Nerves so we
++don't want to exclude them anyway.
++---
++ lib/os_mon/src/disksup.erl | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/lib/os_mon/src/disksup.erl b/lib/os_mon/src/disksup.erl
++index 4253067c90..971c017e14 100644
++--- a/lib/os_mon/src/disksup.erl
+++++ b/lib/os_mon/src/disksup.erl
++@@ -264,7 +264,7 @@ check_disk_space({unix, irix}, Port, Threshold) ->
++     Result = my_cmd("/usr/sbin/df -lk",Port),
++     check_disks_irix(skip_to_eol(Result), Threshold);
++ check_disk_space({unix, linux}, Port, Threshold) ->
++-    Result = my_cmd("/bin/df -lk -x squashfs", Port),
+++    Result = my_cmd("/bin/df -k", Port),
++     check_disks_solaris(skip_to_eol(Result), Threshold);
++ check_disk_space({unix, posix}, Port, Threshold) ->
++     Result = my_cmd("df -k -P", Port),
++-- 
++2.20.1
++
+-- 
+2.20.1
+
