@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.11.3
+
+This is a minor update that bumps Erlang/OTP to 22.3.3 and fwup to 1.7.0. The
+fwup update changes the default write behavior to verify every write. This may
+detect some rare, but recoverable, MicroSD failures earlier.
+
+* Package updates
+  * Erlang/OTP 22.3.3
+  * fwup 1.7.0 - verified write support
+  * Busybox - include brctl utility (~ 5 KB) to support bridge creation with
+    VintageNet
+
+* Bug fixes
+  * `:os_mon`'s disk usage monitoring works now. If you're using the Phoenix
+    LiveDashboard, disk usage monitoring will show up now.
+
 ## v1.11.2
 
 This is a minor update that brings in a patch update to Erlang/OTP (22.3.1) and
