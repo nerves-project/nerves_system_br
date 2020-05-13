@@ -117,7 +117,7 @@ export CXXFLAGS="-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=6
 export LDFLAGS="--sysroot=$NERVES_SDK_SYSROOT"
 export STRIP=$CROSSCOMPILE-strip
 export ERL_CFLAGS="-I$ERTS_DIR/include -I$ERL_INTERFACE_DIR/include"
-export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lerl_interface -lei"
+export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lei"
 
 # pkg-config
 export PKG_CONFIG_SYSROOT_DIR="$NERVES_SDK_SYSROOT"
