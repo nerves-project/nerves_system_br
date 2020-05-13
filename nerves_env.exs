@@ -133,7 +133,7 @@ System.put_env("CFLAGS", "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFS
 System.put_env("CXXFLAGS", "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -Os -I#{system_include_path}")
 System.put_env("LDFLAGS", "--sysroot=#{sdk_sysroot}")
 System.put_env("ERL_CFLAGS", "-I#{erts_dir}/include -I#{erl_interface_dir}/include")
-System.put_env("ERL_LDFLAGS", "-L#{erts_dir}/lib -L#{erl_interface_dir}/lib -lerts -lerl_interface -lei")
+System.put_env("ERL_LDFLAGS", "-L#{erts_dir}/lib -L#{erl_interface_dir}/lib -lerts -lei")
 
 # pkg-config
 System.put_env("PKG_CONFIG_SYSROOT_DIR", sdk_sysroot)
