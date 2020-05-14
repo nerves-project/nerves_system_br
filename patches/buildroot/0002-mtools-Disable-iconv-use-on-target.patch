@@ -1,4 +1,4 @@
-From a8372d97b25bd9884cf79f32ac49396419c5bee6 Mon Sep 17 00:00:00 2001
+From 69f797c22d0d10963efa67638f2ee0be5eae2053 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 18 Mar 2014 13:14:22 -0400
 Subject: [PATCH] mtools: Disable iconv use on target
@@ -13,7 +13,7 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/package/mtools/mtools.mk b/package/mtools/mtools.mk
-index bd3444022f..de86114a54 100644
+index 268c3003d7..5ffa305f33 100644
 --- a/package/mtools/mtools.mk
 +++ b/package/mtools/mtools.mk
 @@ -26,6 +26,11 @@ HOST_MTOOLS_CONF_ENV = \
@@ -29,5 +29,5 @@ index bd3444022f..de86114a54 100644
  
  # Package does not build in parallel due to improper make rules
 -- 
-2.20.1
+2.25.1
 

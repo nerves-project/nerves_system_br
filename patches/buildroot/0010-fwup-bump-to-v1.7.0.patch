@@ -1,4 +1,4 @@
-From ecfd2c6323b58f2a00fc76a1da03f7769ce60bd9 Mon Sep 17 00:00:00 2001
+From 0aab9d5349ba011c3264d3bdb12ed77ccd0ddb18 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 4 Oct 2018 23:12:34 -0400
 Subject: [PATCH] fwup: bump to v1.7.0
@@ -54,5 +54,5 @@ index e1e5467765..fe63e46a8d 100644
  $(eval $(autotools-package))
  $(eval $(host-autotools-package))
 -- 
-2.20.1
+2.25.1
 

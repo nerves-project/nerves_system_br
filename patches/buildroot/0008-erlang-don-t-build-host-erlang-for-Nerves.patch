@@ -1,4 +1,4 @@
-From ff62d6a4856a187d0b4c399e8e120e14a8e5105d Mon Sep 17 00:00:00 2001
+From 6192fa78a2d96724d2b9ca2eea8b92d001b797cc Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 6 Feb 2019 12:15:09 -0500
 Subject: [PATCH] erlang: don't build host-erlang for Nerves
@@ -22,5 +22,5 @@ index 6e6030a012..836edf9bce 100644
  ERLANG_LICENSE = Apache-2.0
  ERLANG_LICENSE_FILES = LICENSE.txt
 -- 
-2.20.1
+2.25.1
 

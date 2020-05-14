@@ -1,4 +1,4 @@
-From 1ce3c0bf5dc8bb03d9c97ddccfe6f616282baab6 Mon Sep 17 00:00:00 2001
+From 73e096d9b6d12497bde4a7c1c9d4cc8e8fd60611 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 13 Jul 2016 19:29:03 -0400
 Subject: [PATCH] erlang: force configure options
@@ -35,5 +35,5 @@ index 9786590159..e2cd02f68d 100644
  
  # Force ERL_TOP to the downloaded source directory. This prevents
 -- 
-2.20.1
+2.25.1
 

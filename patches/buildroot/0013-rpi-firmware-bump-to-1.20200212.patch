@@ -1,4 +1,4 @@
-From 19ac83749896c589bdbd5ef0274086337f205e73 Mon Sep 17 00:00:00 2001
+From 0d14c036848b3e1cbdf35f520d16f341b335887f Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 9 Mar 2020 21:29:27 -0400
 Subject: [PATCH] rpi-firmware: bump to 1.20200212
@@ -34,5 +34,5 @@ index e78fd4853d..a2a935f433 100644
  endif
  
 -- 
-2.20.1
+2.25.1
 
