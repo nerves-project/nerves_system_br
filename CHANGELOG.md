@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.12.0-rc.0
+
+This is a major update that includes Erlang/OTP 22.3 and Buildroot 2020.05-rc1.
+
+* Package updates
+  * [Buildroot 2020.05-rc1](http://lists.busybox.net/pipermail/buildroot/2020-May/282192.html)
+  * [Erlang/OTP 22.3](https://erlang.org/download/OTP-23.0.README)
+  * Qt 5.14.2 - This is an update from 5.14.1 that may affect webengine kiosk
+    users
+
 ## v1.11.3
 
 This is a minor update that bumps Erlang/OTP to 22.3.3 and fwup to 1.7.0. The
