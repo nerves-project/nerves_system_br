@@ -61,7 +61,6 @@ RUN dpkg --add-architecture i386 \
     libz-dev \
     xz-utils \
     gcc-multilib \
-    g++-multilib \
     curl \
     git \
     openssh-client \
