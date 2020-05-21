@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.11.4
+
+This is a minor update to pull in Erlang and Buildroot updates. It removes
+references to the `erl_interface` library since it has be deprecated for a while
+and is removed in OTP 23.0.
+
+* Package updates
+  * Erlang/OTP 22.3.4.1
+  * Buildroot 2020.02.1
+
 ## v1.11.3
 
 This is a minor update that bumps Erlang/OTP to 22.3.3 and fwup to 1.7.0. The
