@@ -1,14 +1,23 @@
 # Changelog
 
-## v1.12.0-rc.0
+## v1.12.0
 
-This is a major update that includes Erlang/OTP 22.3 and Buildroot 2020.05-rc1.
+This is a major update that includes Erlang/OTP 23.0.2 and Buildroot 2020.05. If
+you cannot upgrade to OTP 23, it is possible to continue using OTP 22 (22.3.4.1)
+by creating a custom system with the `BR2_PACKAGE_ERLANG_22` in the Buildroot
+configuration.
 
 * Package updates
-  * [Buildroot 2020.05-rc1](http://lists.busybox.net/pipermail/buildroot/2020-May/282192.html)
-  * [Erlang/OTP 22.3](https://erlang.org/download/OTP-23.0.README)
+  * [Buildroot 2020.05](http://lists.busybox.net/pipermail/buildroot/2020-June/283817.html)
+  * [Erlang/OTP 23.0.2](https://erlang.org/download/OTP-23.0.2.README)
   * Qt 5.14.2 - This is an update from 5.14.1 that may affect webengine kiosk
     users
+  * bb.org overlays - The device tree overlays for the Beaglebone boards has
+    been bumped to the latest. This adds support for new Beaglebone boards and
+    peripherals.
+  * [Raspberry Pi firmware](https://github.com/raspberrypi/firmware/tree/1.20200601) - This
+    has been bumped to the 1.2020601 branch. If you have a custom Raspberry Pi
+    system, you're encouraged to bump your Linux kernel to the same tag.
 
 ## v1.11.3
 
