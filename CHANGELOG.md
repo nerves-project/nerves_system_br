@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.12.1
+
+* New packages
+  * nerves_initramfs 0.4.0 - Support for failing back to known good firmware
+    images and complicated rootfs mounting procedures for devices with limited
+    bootloaders.
+
+* Package updates
+  * boardid 1.9.0 - Support reading serial numbers from redundant U-Boot
+    environment blocks
+  * erlinit 1.7.1 - Set $HOME based on `/etc/passwd`. This does not affect most
+    Nerves devices.
+
 ## v1.12.0
 
 This is a major update that includes Erlang/OTP 23.0.2 and Buildroot 2020.05. If
