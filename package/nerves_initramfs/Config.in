@@ -1,0 +1,6 @@
+config BR2_PACKAGE_NERVES_INITRAMFS
+	bool "nerves_initramfs"
+	help
+          An initramfs for early boot handling of Nerves devices
+
+	  https://github.com/nerves-project/nerves_initramfs
