@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.12.2
+
+* Package updates
+  * [Erlang/OTP 23.0.3](https://erlang.org/download/OTP-23.0.3.README)
+
+* Bug fixes
+  * Fixed references to using the `-Os` optimization flag for compiling C and
+    C++ code. Nerves uses `-O2` by default everywhere else, so this makes it
+    consistent. This will affect the optimization setting for code compiled by
+    `elixir_make` unless a project has overridden it.
+
 ## v1.12.1
 
 * New packages
