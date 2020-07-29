@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.12.3
+
+* Package updates
+  * [Buildroot 2020.05.1](http://lists.busybox.net/pipermail/buildroot/2020-July/287824.html)
+
 ## v1.12.2
 
 * Package updates
