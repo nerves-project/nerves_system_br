@@ -36,11 +36,10 @@ help:
 release:
 	rm -fr rel/$(ELIXIR_APP_NAME) # Clean up unused apps
 	mix release
-	$(REL2FW) -f _images/$(ELIXIR_APP_NAME).fw -a rel/rootfs-additions rel/$(ELIXIR_APP_NAME)
+	$(REL2FW) -f _images/$(ELIXIR_APP_NAME).fw -a rel/rootfs_overlay rel/$(ELIXIR_APP_NAME)
 	@echo
 	@echo The firmware is in the _images directory and can be loaded onto the target.
 	@echo E.g., run \"make burn\" to program the image to an SDCard.
-
 
 compile:
 	mix compile

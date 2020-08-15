@@ -22,7 +22,7 @@ usage() {
     echo "Usage: $SCRIPT_NAME [options] <Release directory>"
     echo
     echo "Options:"
-    echo "  -a <path to rootfs additions> May be supplied multiple times."
+    echo "  -a <path to rootfs overlay> May be supplied multiple times."
     echo "  -c <fwup.conf>             Default is $NERVES_SDK_IMAGES/fwup.conf"
     echo "  -f <firmware output file>  Default is $PROJECT_DIR.fw"
     echo "  -o <image output file>     Default is $PROJECT_DIR.img"
@@ -50,7 +50,7 @@ END
 while getopts "a:c:f:o:p:" opt; do
     case $opt in
         a)
-            ROOTFS_ADDITIONS="$ROOTFS_ADDITIONS $OPTARG"
+            ROOTFS_OVERLAYS="$ROOTFS_OVERLAYS $OPTARG"
             ;;
         c)
             FWUP_CONFIG="$OPTARG"
@@ -132,29 +132,29 @@ mkdir -p "$(dirname "$FW_FILENAME")"
 echo "Updating base firmware image with Erlang release..."
 
 # Construct the proper path for the Erlang/OTP release
-mkdir -p "$TMP_DIR/rootfs-additions/srv/erlang"
-cp -R "$RELEASE_DIR/." "$TMP_DIR/rootfs-additions/srv/erlang"
+mkdir -p "$TMP_DIR/rootfs_overlay/srv/erlang"
+cp -R "$RELEASE_DIR/." "$TMP_DIR/rootfs_overlay/srv/erlang"
 
 # Clean up the Erlang release of all the files that we don't need.
-"$NERVES_SYSTEM/scripts/scrub-otp-release.sh" "$TMP_DIR/rootfs-additions/srv/erlang"
+"$NERVES_SYSTEM/scripts/scrub-otp-release.sh" "$TMP_DIR/rootfs_overlay/srv/erlang"
 
-# Copy over any rootfs additions from the user
+# Copy over any rootfs overlays from the user
 # IMPORTANT: This must be the final step before the merge so that the user can
 #            override anything.
-if [[ "$ROOTFS_ADDITIONS" ]]; then
-    for ADDITION in $ROOTFS_ADDITIONS; do
-      if [[ -d $ADDITION ]]; then
-          echo "Copying rootfs_overlay: $ADDITION"
-          cp -Rf "$ADDITION/." "$TMP_DIR/rootfs-additions"
-      elif [[ -n "$ADDITION" ]]; then
-          echo "rootfs_overlay: $ADDITION does not exist!"
+if [[ "$ROOTFS_OVERLAYS" ]]; then
+    for OVERLAY in $ROOTFS_OVERLAYS; do
+      if [[ -d $OVERLAY ]]; then
+          echo "Copying rootfs_overlay: $OVERLAY"
+          cp -Rf "$OVERLAY/." "$TMP_DIR/rootfs_overlay"
+      elif [[ -n "$OVERLAY" ]]; then
+          echo "rootfs_overlay: $OVERLAY does not exist!"
           exit 1
       fi
     done
 fi
 
 # Merge the Erlang/OTP release onto the base image
-"$NERVES_SYSTEM/scripts/merge-squashfs" "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs" "$TMP_DIR/rootfs-additions" "$SQUASHFS_PRIORITIES"
+"$NERVES_SYSTEM/scripts/merge-squashfs" "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs" "$TMP_DIR/rootfs_overlay" "$SQUASHFS_PRIORITIES"
 
 # Build the firmware image
 echo "Building $FW_FILENAME..."
