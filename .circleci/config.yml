@@ -3,6 +3,12 @@ defaults: &defaults
     - image: nerveshub/docker-build:alpine-3.8
   working_directory: ~/repo
 
+run_tests: &run_tests
+  run:
+    name: Run tests
+    command: |
+      cd tests && ./run_tests.sh
+
 remote_docker: &remote_docker
   setup_remote_docker:
     version: 17.09.0-ce
@@ -12,7 +18,7 @@ docker_env: &docker_env
     name: Set docker env
     command: |
       REPO=nervesproject/nerves_system_br
-      
+
       if [ -z "$CIRCLE_TAG" ]; then
         SHA=$(git rev-parse --short HEAD)
         TAG=$(echo "$SHA" | sed 's/\//_/g')
@@ -51,7 +57,7 @@ docker_import: &docker_import
         -i /docker/latest.tar
 
 docker_push: &docker_push
-  run: 
+  run:
     name: Push docker images to dockerhub
     command: |
       docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
@@ -71,7 +77,15 @@ jobs:
       - save_cache:
           key: docker-{{ .Branch }}-{{ .Revision }}
           paths: "/docker"
-      
+
+  test:
+    docker:
+        - image: nervesproject/nerves_system_br:latest
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - <<: *run_tests
+
   push:
     <<: *defaults
     steps:
@@ -93,9 +107,16 @@ workflows:
             filters:
               tags:
                 only: /.*/
+        - test:
+            context: org-global
+            requires:
+              - build
+            filters:
+              tags:
+                only: /.*/
         - push:
             context: org-global
-            requires: 
+            requires:
               - build
             filters:
               branches:

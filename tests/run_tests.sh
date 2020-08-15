@@ -2,20 +2,24 @@
 
 set -e
 
+TEST_OUTPUT="$PWD/test_output"
+TEST_DIR="$PWD"
+
 run_test() {
     TEST=$1
-    echo Running $TEST
-    rm -fr output
-    make -C .. O=$PWD/output DEFCONFIG=$PWD/$TEST/test_defconfig config
-    make -C output
-    rm -fr output
-    echo $TEST succeeded
+    echo "Running $TEST"
+    rm -fr "$TEST_OUTPUT/$TEST"
+    ../create-build.sh "$TEST_DIR/$TEST/nerves_defconfig" "$TEST_OUTPUT/$TEST"
+    make -C "$TEST_OUTPUT/$TEST"
+    echo "$TEST succeeded"
 }
 
-
-run_test test-rootfs-additions
-run_test test-user-package
+# Add tests here
+run_test smoke-test
 
 echo
-echo All tests passed!
+echo "All tests passed!"
 echo
+
+# Clean up
+rm -fr "$TEST_OUTPUT"
