@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.12.4
+
+This release starts the migration from using `/root` and the writable
+application directory to using `/data`. Currently `/data` is a symlink to
+`/root`. Users are encourage to update paths in their programs to `/data` as
+makes sense.
+
+* Package updates
+  * nerves_heart 0.3.0 - Supports configuration of the watchdog device path via
+    `HEART_WATCHDOG_PATH`
+
 ## v1.12.3
 
 * Package updates
