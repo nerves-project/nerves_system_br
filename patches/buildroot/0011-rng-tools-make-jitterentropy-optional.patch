@@ -1,4 +1,4 @@
-From 839285b109f9dc5f86da146bacb4cada2d95b0ab Mon Sep 17 00:00:00 2001
+From e15018c60719d21128fcacd9c6419c0fa76b2c67 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 30 Jan 2020 14:55:15 -0500
 Subject: [PATCH] rng-tools: make jitterentropy optional
