@@ -1,4 +1,4 @@
-From 8fc44790ee62e2250399df4e37bd55ff027cbfc3 Mon Sep 17 00:00:00 2001
+From c8744ad6c831a40281b9f721fdc5c244865a68e8 Mon Sep 17 00:00:00 2001
 From: Justin Schneck <jschneck@mac.com>
 Date: Fri, 5 Jun 2020 15:19:52 -0400
 Subject: [PATCH] rpi-firmware bump to 1.20200601
@@ -21,7 +21,7 @@ index 01206f9066..e65f3fd1ba 100644
 -sha256 ba76edfc10a248166d965b8eaf320771c44f4f432d4fce2fd31fd272e7038add boot/LICENCE.broadcom
 +sha256 c7283ff51f863d93a275c66e3b4cb08021a5dd4d8c1e7acc47d872fbe52d3d6b boot/LICENCE.broadcom
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index e78fd4853d..4b19a45772 100644
+index 6f7c304999..c21eaf3905 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
 @@ -12,7 +12,7 @@ ifeq ($(BR2_PACKAGE_RPI_FIRMWARE_KERNEL_4_14),y)
