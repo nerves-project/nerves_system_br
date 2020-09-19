@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.13.0
+
+This is a major update to Buildroot 2020.08. Please review the Buildroot change
+notes for updated libraries and system programs. In particular, a change to the
+gcc version default requires that most Nerves system update their
+`nerves_defconfig` files with the following line:
+
+```
+BR2_TOOLCHAIN_EXTERNAL_GCC_9=y
+```
+
+* Package updates
+  * [Buildroot 2020.08](http://lists.busybox.net/pipermail/buildroot/2020-September/290797.html)
+  * [Erlang/OTP 23.0.4](https://erlang.org/download/OTP-23.0.4.README)
+
 ## v1.12.4
 
 This release starts the migration from using `/root` and the writable
