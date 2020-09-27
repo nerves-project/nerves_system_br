@@ -156,6 +156,18 @@ System.put_env("ERTS_INCLUDE_DIR", "#{erts_dir}/include")
 System.put_env("ERL_INTERFACE_LIB_DIR", Path.join(erl_interface_dir, "lib"))
 System.put_env("ERL_INTERFACE_INCLUDE_DIR", Path.join(erl_interface_dir, "include"))
 
+# Host tools
+System.put_env("AR_FOR_BUILD", "ar")
+System.put_env("AS_FOR_BUILD", "as")
+System.put_env("CC_FOR_BUILD", "cc")
+System.put_env("GCC_FOR_BUILD", "gcc")
+System.put_env("CXX_FOR_BUILD", "g++")
+System.put_env("LD_FOR_BUILD", "ld")
+System.put_env("CPPFLAGS_FOR_BUILD", "")
+System.put_env("CFLAGS_FOR_BUILD", "")
+System.put_env("CXXFLAGS_FOR_BUILD", "")
+System.put_env("LDFLAGS_FOR_BUILD", "")
+
 host_erl_major_ver = :erlang.system_info(:otp_release) |> to_string
 [target_erl_major_version | _] =
   sdk_sysroot

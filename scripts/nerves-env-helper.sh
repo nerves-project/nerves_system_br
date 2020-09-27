@@ -137,6 +137,18 @@ export ERTS_INCLUDE_DIR="$ERTS_DIR/include"
 export ERL_INTERFACE_LIB_DIR="$ERL_INTERFACE_DIR/lib"
 export ERL_INTERFACE_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"
 
+# Host tools
+export AR_FOR_BUILD=ar
+export AS_FOR_BUILD=as
+export CC_FOR_BUILD=cc
+export GCC_FOR_BUILD=gcc
+export CXX_FOR_BUILD=g++
+export LD_FOR_BUILD=ld
+export CPPFLAGS_FOR_BUILD=
+export CFLAGS_FOR_BUILD=
+export CXXFLAGS_FOR_BUILD=
+export LDFLAGS_FOR_BUILD=
+
 # Since it is so important that the host and target Erlang installs
 # match, check it here.
 
