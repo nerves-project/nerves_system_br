@@ -20,8 +20,7 @@ docker_env: &docker_env
       REPO=nervesproject/nerves_system_br
 
       if [ -z "$CIRCLE_TAG" ]; then
-        SHA=$(git rev-parse --short HEAD)
-        TAG=$(echo "$SHA" | sed 's/\//_/g')
+        TAG=$CIRCLE_SHA1
       else
         TAG=$(cat VERSION)
       fi
@@ -35,7 +34,6 @@ docker_build: &docker_build
     name: Build docker images
     command: |
       docker build -t $DOCKER_REPO:$DOCKER_TAG $DOCKER_PATH
-      docker build -t $DOCKER_REPO:latest $DOCKER_PATH
 
 docker_save: &docker_save
   run:
@@ -44,8 +42,6 @@ docker_save: &docker_save
       mkdir -p /docker
       docker save $DOCKER_REPO:$DOCKER_TAG \
         -o /docker/$DOCKER_TAG.tar
-      docker save $DOCKER_REPO:latest \
-        -o /docker/latest.tar
 
 docker_import: &docker_import
   run:
@@ -53,16 +49,21 @@ docker_import: &docker_import
     command: |
       docker load \
         -i /docker/$DOCKER_TAG.tar
-      docker load \
-        -i /docker/latest.tar
 
 docker_push: &docker_push
   run:
     name: Push docker images to dockerhub
     command: |
       docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
-      docker push $DOCKER_REPO:$DOCKER_TAG
-      docker push $DOCKER_REPO:latest
+
+      docker image tag $DOCKER_REPO:$DOCKER_TAG $DOCKER_REPO:dev
+      docker push $DOCKER_REPO:dev
+
+      if [ -n "$CIRCLE_TAG" ]; then
+        docker image tag $DOCKER_REPO:$DOCKER_TAG $DOCKER_REPO:latest
+        docker push $DOCKER_REPO:$DOCKER_TAG
+        docker push $DOCKER_REPO:latest
+      fi
 
 version: 2
 jobs:
@@ -80,7 +81,7 @@ jobs:
 
   test:
     docker:
-        - image: nervesproject/nerves_system_br:latest
+      - image: nervesproject/nerves_system_br:dev
     working_directory: ~/repo
     steps:
       - checkout
@@ -104,22 +105,11 @@ workflows:
       jobs:
         - build:
             context: org-global
-            filters:
-              tags:
-                only: /.*/
-        - test:
-            context: org-global
-            requires:
-              - build
-            filters:
-              tags:
-                only: /.*/
         - push:
             context: org-global
             requires:
               - build
-            filters:
-              branches:
-                ignore: /.*/
-              tags:
-                only: /v.*/
+        - test:
+            context: org-global
+            requires:
+              - push
