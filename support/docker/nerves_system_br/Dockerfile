@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM hexpm/erlang:23.1-ubuntu-bionic-20200630
 LABEL maintainer="Nerves Project developers <nerves@nerves-project.org>" \
       vendor="NervesProject" \
 description="Container with everything needed to build Nerves Systems"
@@ -6,10 +6,7 @@ description="Container with everything needed to build Nerves Systems"
 USER root
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV ERLANG_OTP_VERSION=23.0.3-1
 ENV FWUP_VERSION=1.8.0
-ENV ERLANG_PKG='erlang-solutions_1.0_all.deb'
-ENV ERLANG_URL="https://packages.erlang-solutions.com/${ERLANG_PKG}"
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
@@ -74,11 +71,6 @@ RUN dpkg --add-architecture i386 \
     jq \
     pkg-config \
     vim-tiny \
-  && curl -o "/tmp/${ERLANG_PKG}" ${ERLANG_URL} \
-  && dpkg -i "/tmp/${ERLANG_PKG}" \
-  && apt-get update \
-  && apt-get -y install \
-    "esl-erlang=1:${ERLANG_OTP_VERSION}" \
   && rm -rf /var/lib/apt/lists/* \
   && mkdir -p /root/.ssh \
   && ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts \
