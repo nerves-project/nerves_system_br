@@ -6,7 +6,7 @@ description="Container with everything needed to build Nerves Systems"
 USER root
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV FWUP_VERSION=1.8.0
+ENV FWUP_VERSION=1.8.1
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
