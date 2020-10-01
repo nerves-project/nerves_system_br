@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.13.1
+
+* Package updates
+  * [Erlang/OTP 23.1](https://erlang.org/download/OTP-23.1.README)
+
+* New features
+  * Support `*_FOR_BUILD` environment variables. For example `Makefile`s used in
+    Elixir projects can reference `CC_FOR_BUILD` to use the host's C compiler
+    rather than the crosscompiler. This makes it possible to make build tools
+    without hardcoding references to `gcc`, etc. These are the same names as
+    those used by autotools.
+
 ## v1.13.0
 
 This is a major update to Buildroot 2020.08. Please review the Buildroot change
