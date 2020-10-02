@@ -105,11 +105,20 @@ workflows:
       jobs:
         - build:
             context: org-global
+            filters:
+              tags:
+                only: /.*/
         - push:
             context: org-global
             requires:
               - build
+            filters:
+              tags:
+                only: /.*/
         - test:
             context: org-global
             requires:
               - push
+            filters:
+              tags:
+                only: /.*/
