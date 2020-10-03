@@ -1,4 +1,4 @@
-FROM hexpm/erlang:23.1-ubuntu-bionic-20200630
+FROM hexpm/erlang:23.1.1-ubuntu-bionic-20200630
 LABEL maintainer="Nerves Project developers <nerves@nerves-project.org>" \
       vendor="NervesProject" \
 description="Container with everything needed to build Nerves Systems"
