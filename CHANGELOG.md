@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.13.2
+
+* Package updates
+  * [Erlang/OTP 23.1.1](https://erlang.org/download/OTP-23.1.1.README)
+  * [erlinit 1.8.0](https://github.com/nerves-project/erlinit/releases/tag/v1.8.0)
+
 ## v1.13.1
 
 * Package updates
