@@ -18,6 +18,7 @@ supported hardware systems:
 * [Raspberry Pi 3 Model B and B+](https://github.com/nerves-project/nerves_system_rpi3)
 * [Raspberry Pi 3 Model A+](https://github.com/nerves-project/nerves_system_rpi3a)
 * [Raspberry Pi 4 Model B](https://github.com/nerves-project/nerves_system_rpi4)
+* [OSD32MP1](https://github.com/nerves-project/nerves_system_osd32mp1)
 * [Generic x86_64](https://github.com/nerves-project/nerves_system_x86_64)
 
 We only officially support easily obtained hardware, but that doesn't mean that
