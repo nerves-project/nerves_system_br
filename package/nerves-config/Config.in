@@ -1,4 +1,4 @@
-menuconfig BR2_PACKAGE_NERVES_CONFIG
+config BR2_PACKAGE_NERVES_CONFIG
 	bool "nerves-config"
 	select BR2_PACKAGE_ERLANG   # Erlang is required for all Nerves systems
 	select BR2_PACKAGE_ERLINIT  # Always use erlinit to boot
