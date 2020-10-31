@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.13.3
+
+This release contains a patch update to Buildroot. If you haven't updated to
+v1.13.0 yet, please see the `BR2_TOOLCHAIN_EXTERNAL_GCC_9` note before updating
+to this release.
+
+The Raspberry Pi support has been updated. This contains an important change to
+the `rpi-firmware` package to allow systems to set it appropriately based on
+what Linux kernel is in use. Our guidance is to use an `rpi-firmware` version
+with the same tag name as the Linux kernel that you're using or to pick a tag
+that's close in time. The reason for this is that the `rpi-firmware` package
+contains files that seem to be kernel version dependent and subtle things fail
+when they're out of sync. See [commit 1da5838
+](https://github.com/nerves-project/nerves_system_br/commit/1da5838df34e963c29f1d1d262a490bbb083806e).
+
+* Package updates
+  * [Buildroot 2020.08.1](http://lists.busybox.net/pipermail/buildroot/2020-October/294407.html)
+  * Raspberry Pi firmware and userland
+
 ## v1.13.2
 
 * Package updates
