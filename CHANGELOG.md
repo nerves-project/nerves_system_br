@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.13.4
+
+This updates Erlang/OTP to the latest upstream patch release. The `boardid`
+update brings in support for ATECCx08A improvements.
+
+* Package updates
+  * [Erlang/OTP 23.1.4](https://erlang.org/download/OTP-23.1.4.README)
+  * [boardid 1.10.0](https://github.com/nerves-project/boardid/releases/tag/v1.10.0)
+
 ## v1.13.3
 
 This release contains a patch update to Buildroot. If you haven't updated to
