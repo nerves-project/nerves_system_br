@@ -1,0 +1,80 @@
+From 9d7e9b7fff572ffd97eccbca6717b66a929843f2 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Sun, 29 Nov 2020 21:08:22 -0500
+Subject: [PATCH] package/rpi-userland: support aarch64
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ package/rpi-userland/Config.in       | 16 ++++++++++------
+ package/rpi-userland/rpi-userland.mk | 10 ++++++++++
+ 2 files changed, 20 insertions(+), 6 deletions(-)
+
+diff --git a/package/rpi-userland/Config.in b/package/rpi-userland/Config.in
+index 342faf26e3..b9e80eb7c7 100644
+--- a/package/rpi-userland/Config.in
++++ b/package/rpi-userland/Config.in
+@@ -1,13 +1,13 @@
+ config BR2_PACKAGE_RPI_USERLAND
+ 	bool "rpi-userland"
+-	depends on BR2_arm
++	depends on BR2_arm || BR2_aarch64
+ 	depends on BR2_INSTALL_LIBSTDCPP
+ 	depends on BR2_TOOLCHAIN_HAS_THREADS
+ 	depends on !BR2_STATIC_LIBS
+-	select BR2_PACKAGE_HAS_LIBEGL
+-	select BR2_PACKAGE_HAS_LIBGLES
+-	select BR2_PACKAGE_HAS_LIBOPENVG
+-	select BR2_PACKAGE_HAS_LIBOPENMAX
++	select BR2_PACKAGE_HAS_LIBEGL if BR2_arm
++	select BR2_PACKAGE_HAS_LIBGLES if BR2_arm
++	select BR2_PACKAGE_HAS_LIBOPENVG if BR2_arm
++	select BR2_PACKAGE_HAS_LIBOPENMAX if BR2_arm
+ 	help
+ 	  Raspberry Pi Userland contains the necessary library to use
+ 	  the VideoCore driver.
+@@ -20,6 +20,8 @@ config BR2_PACKAGE_RPI_USERLAND
+ 
+ if BR2_PACKAGE_RPI_USERLAND
+ 
++if BR2_arm
++
+ config BR2_PACKAGE_PROVIDES_LIBEGL
+ 	default "rpi-userland"
+ 
+@@ -39,7 +41,9 @@ config BR2_PACKAGE_RPI_USERLAND_HELLO
+ 
+ endif
+ 
++endif
++
+ comment "rpi-userland needs a toolchain w/ C++, threads, dynamic library"
+-	depends on BR2_arm
++	depends on BR2_arm || BR2_aarch64
+ 	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS || \
+ 		BR2_STATIC_LIBS
+diff --git a/package/rpi-userland/rpi-userland.mk b/package/rpi-userland/rpi-userland.mk
+index 4cfd5cb832..dfb1add85d 100644
+--- a/package/rpi-userland/rpi-userland.mk
++++ b/package/rpi-userland/rpi-userland.mk
+@@ -11,8 +11,18 @@ RPI_USERLAND_LICENSE_FILES = LICENCE
+ RPI_USERLAND_INSTALL_STAGING = YES
+ RPI_USERLAND_CONF_OPTS = -DVMCS_INSTALL_PREFIX=/usr
+ 
++ifeq ($(BR2_arm),y)
++
+ RPI_USERLAND_PROVIDES = libegl libgles libopenmax libopenvg
+ 
++endif
++
++ifeq ($(BR2_aarch64),y)
++
++RPI_USERLAND_CONF_OPTS += -DARM64=ON
++
++endif
++
+ ifeq ($(BR2_PACKAGE_RPI_USERLAND_HELLO),y)
+ 
+ RPI_USERLAND_CONF_OPTS += -DALL_APPS=ON
+-- 
+2.25.1
+
