@@ -1,0 +1,9 @@
+config BR2_PACKAGE_RPI_DISTRO_FIRMWARE_NONFREE
+	bool "rpi-firmware"
+	depends on BR2_arm || BR2_aarch64
+	help
+	  RaspberryPi OS Firmware
+
+	  Firmware binaries that ship with the Raspberry Pi OS
+
+	  https://github.com/raspberrypi/firmware
