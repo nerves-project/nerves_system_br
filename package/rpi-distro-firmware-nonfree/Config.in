@@ -1,0 +1,14 @@
+config BR2_PACKAGE_RPI_DISTRO_FIRMWARE_NONFREE
+	bool "rpi-distro-firmware-nonfree"
+	depends on BR2_arm || BR2_aarch64
+	depends on !BR2_PACKAGE_LINUX_FIRMWARE_BRCM_BCM43XXX
+	depends on !BR2_PACKAGE_RPI_WIFI_FIRMWARE
+	help
+	  RaspberryPi OS Firmware
+
+	  Firmware binaries that ship with the Raspberry Pi OS
+
+	  https://github.com/raspberrypi/firmware
+
+comment "rpi-distro-firmware-nonfree conflicts with linux-firmware Broadcom BRCM bcm43xx and rpi-wifi-firmware"
+	depends on BR2_PACKAGE_LINUX_FIRMWARE_BRCM_BCM43XXX || BR2_PACKAGE_RPI_WIFI_FIRMWARE
