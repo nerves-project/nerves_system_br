@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.13.5
+
+* Bug fixes
+  * rpi-userland is now available for Raspberry Pi's in 64-bit mode. This fixes
+    pullup/pulldown support in `circuits_gpio` on the RPi4.
+  * The Raspberry Pi WiFi firmware is now sourced from the Raspberry Pi OS. This
+    fixes a 5 GHz issue that was seen in Japan. It is likely this fixes other
+    issues since the Raspberry Pi OS firmware was years newer than the previous
+    one.
+
+* New features
+  * `erlinit` has an experimental feature for using an overlay filesystem for
+    making the root filesystem writable. This makes some hot code update
+    experiments possible. See `erlinit` for details.
+
+* Package updates
+  * [erlinit 1.9.0](https://github.com/nerves-project/erlinit/releases/tag/v1.9.0)
+  * [Buildroot 2020.08.2](http://lists.busybox.net/pipermail/buildroot/2020-November/296830.html)
+
 ## v1.13.4
 
 This updates Erlang/OTP to the latest upstream patch release. The `boardid`
