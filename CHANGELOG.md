@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.13.6
+
+This is a patch release to bump Erlang and fwup to their latest patch releases.
+
+* Package updates
+  * [Erlang/OTP 23.1.5](https://erlang.org/download/OTP-23.1.5.README)
+  * [fwup 1.8.3](https://github.com/fhunleth/fwup/releases/tag/v1.8.3)
+
 ## v1.13.5
 
 * Bug fixes
