@@ -84,16 +84,23 @@ symlink_file() {
 }
 
 directory_file() {
-    pathname=$(get_path "$6")
+    perm="$1"
+    owner="$2"
+    shift 5
+    pathname="$(get_path "$@")"
     # mksquashfs doesn't support setting permissions and ownership
     # on the root directory
-    if [[ ! -z $pathname ]]; then
-        echo "$pathname m $(perm_to_num "$1") $(owner_to_uid_gid "$2")"
+    if [[ ! -z "$pathname" ]]; then
+        echo "$pathname m $(perm_to_num "$perm") $(owner_to_uid_gid "$owner")"
     fi
 }
 
 regular_file() {
-    echo "$(get_path "$6") m $(perm_to_num "$1") $(owner_to_uid_gid "$2")"
+    perm="$1"
+    owner="$2"
+    shift 5
+    pathname="$(get_path "$@")"
+    echo "$pathname m $(perm_to_num "$perm") $(owner_to_uid_gid "$owner")"
 }
 
 unsquash_to_pseudofile() {
