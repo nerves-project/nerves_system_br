@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.13.7
+
+* Bug fixes
+  * Fix issue where files from Buildroot with spaces in them were not being
+    included in SquashFS images. These were reported in the build output, but
+    ignored.
+
 ## v1.13.6
 
 This is a patch release to bump Erlang and fwup to their latest patch releases.
