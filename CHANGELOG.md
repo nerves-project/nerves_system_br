@@ -1,5 +1,26 @@
 # Changelog
 
+## v1.14.0
+
+This is a major update to Buildroot 2020.11. Please review the Buildroot changes
+in the release announcement below. Due to a change in how Buildroot handles
+U-Boot environment options, all Nerves systems will need to update their
+`nerves_defconfig` as follows:
+
+```
+-BR2_TARGET_UBOOT_ENVIMAGE=y
+-BR2_TARGET_UBOOT_ENVIMAGE_SOURCE="${NERVES_DEFCONFIG_DIR}/uboot/uboot.env"
+-BR2_TARGET_UBOOT_ENVIMAGE_SIZE="131072"
+BR2_PACKAGE_HOST_UBOOT_TOOLS=y
++BR2_PACKAGE_HOST_UBOOT_TOOLS_ENVIMAGE=y
++BR2_PACKAGE_HOST_UBOOT_TOOLS_ENVIMAGE_SOURCE="${NERVES_DEFCONFIG_DIR}/uboot/uboot.env"
++BR2_PACKAGE_HOST_UBOOT_TOOLS_ENVIMAGE_SIZE="131072"
+```
+
+* Package updates
+  * [Buildroot 2020.11](http://lists.busybox.net/pipermail/buildroot/2020-December/297705.html)
+  * [Erlang/OTP 23.2.1](https://erlang.org/download/OTP-23.2.1.README)
+
 ## v1.13.7
 
 * Bug fixes
