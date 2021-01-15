@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.14.1
+
+This is a security fix release that pulls in fixes from Buildroot 2020.11.1 and
+Erlang/OTP 23.2.2.
+
+* Package updates
+  * [Buildroot 2020.11.1](http://lists.busybox.net/pipermail/buildroot/2020-December/299452.html)
+  * [Erlang/OTP 23.2.2](https://erlang.org/download/OTP-23.2.2.README)
+
 ## v1.14.0
 
 This is a major update to Buildroot 2020.11. Please review the Buildroot changes
