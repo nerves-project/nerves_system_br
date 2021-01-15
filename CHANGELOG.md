@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.13.8
+
+This is a patch release that bumps Buildroot to the final patch release of
+Buildroot 2020.08.x and updates Erlang/OTP to 23.2.2. Both updates address
+security issues. This will likely be the final update to the `nerves_system_br`
+v1.13.x series.
+
+* Package updates
+  * [Erlang/OTP 23.2.2](https://erlang.org/download/OTP-23.2.2.README)
+  * [Buildroot 2020.08.](http://lists.busybox.net/pipermail/buildroot/2020-December/299456.html)
+
 ## v1.13.7
 
 * Bug fixes
