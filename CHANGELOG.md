@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.14.2
+
+* Package updates
+  * [Erlang/OTP 23.2.3](https://erlang.org/download/OTP-23.2.3.README)
+
 ## v1.14.1
 
 This is a security fix release that pulls in fixes from Buildroot 2020.11.1 and
