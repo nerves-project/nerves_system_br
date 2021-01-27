@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.14.3
+
+* Package updates
+  * [nerves_initramfs 0.5.0](https://github.com/nerves-project/nerves_initramfs/releases/tag/v0.5.0)
+
 ## v1.14.2
 
 * Package updates
