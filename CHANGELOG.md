@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.14.4
+
+This release is primarily a security fix release for Buildroot and Erlang/OTP.
+
+* Package updates
+  * [Buildroot 2020.11.2](http://lists.busybox.net/pipermail/buildroot/2021-January/302574.html)
+  * [Erlang/OTP 23.2.4](https://erlang.org/download/OTP-23.2.4.README)
+  * [boardid 1.11.0](https://github.com/nerves-project/boardid/releases/tag/v1.11.0)
+
 ## v1.14.3
 
 * Package updates
