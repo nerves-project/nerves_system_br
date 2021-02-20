@@ -54,6 +54,7 @@ sdk_sysroot = Path.join(system_path, "staging")
     System.put_env("PKG_CONFIG", Path.join(toolchain_path, "usr/bin/pkg-config"))
     System.put_env("PKG_CONFIG_SYSROOT_DIR", sdk_sysroot)
     System.put_env("PKG_CONFIG_LIBDIR", Path.join(sdk_sysroot, "usr/lib/pkgconfig"))
+    System.put_env("PKG_CONFIG_PATH", "")
     System.put_env("PERLLIB", Path.join(toolchain_path, "usr/lib/perl"))
 
     Path.join(toolchain_path, "usr/bin")
