@@ -1,4 +1,3 @@
-
 defmodule System.Env do
   @path "PATH"
   @ld_library_path "LD_LIBRARY_PATH"
@@ -25,10 +24,11 @@ defmodule Utils do
     gcc =
       gcc_path
       |> Path.join("*gcc")
-      |> Path.wildcard
-      |> List.first
+      |> Path.wildcard()
+      |> List.first()
 
-    gcc || Mix.raise("""
+    gcc ||
+      Mix.raise("""
       gcc should have been found in \"#{gcc_path}\", but wasn't.
       \"#{system_path}\" is partial or corrupt and may need to be deleted.
       """)
@@ -37,8 +37,9 @@ defmodule Utils do
   end
 end
 
-system_path = System.get_env("NERVES_SYSTEM") ||
-  Mix.raise("You must set NERVES_SYSTEM to the system directory prior to requiring this file")
+system_path =
+  System.get_env("NERVES_SYSTEM") ||
+    Mix.raise("You must set NERVES_SYSTEM to the system directory prior to requiring this file")
 
 sdk_sysroot = Path.join(system_path, "staging")
 
@@ -56,22 +57,25 @@ sdk_sysroot = Path.join(system_path, "staging")
     System.put_env("PERLLIB", Path.join(toolchain_path, "usr/lib/perl"))
 
     Path.join(toolchain_path, "usr/bin")
-    |> System.Env.path_add
+    |> System.Env.path_add()
 
     Path.join(toolchain_path, "usr/sbin")
-    |> System.Env.path_add
+    |> System.Env.path_add()
 
     Path.join(toolchain_path, "bin")
-    |> System.Env.path_add
+    |> System.Env.path_add()
 
     Path.join(toolchain_path, "usr/lib")
-    |> System.Env.ld_library_path_add
+    |> System.Env.ld_library_path_add()
 
     {toolchain_path, crosscompile}
   else
     # Not a BR Local Provider build
-    toolchain_path = System.get_env("NERVES_TOOLCHAIN") ||
-      Mix.raise("You must set NERVES_TOOLCHAIN to the toolchain directory prior to requiring this file")
+    toolchain_path =
+      System.get_env("NERVES_TOOLCHAIN") ||
+        Mix.raise(
+          "You must set NERVES_TOOLCHAIN to the toolchain directory prior to requiring this file"
+        )
 
     gcc_path = Path.join(toolchain_path, "bin")
 
@@ -80,7 +84,7 @@ sdk_sysroot = Path.join(system_path, "staging")
 
     # Add toolchain bin to path
     Path.join(toolchain_path, "bin")
-    |> System.Env.path_add
+    |> System.Env.path_add()
 
     {toolchain_path, crosscompile}
   end
@@ -100,23 +104,23 @@ System.put_env("CROSSCOMPILE", crosscompile)
 
 erts_dir =
   Path.join(sdk_sysroot, "usr/lib/erlang/erts-*")
-  |> Path.wildcard
-  |> List.first
+  |> Path.wildcard()
+  |> List.first()
+
 System.put_env("ERTS_DIR", erts_dir)
 
 erl_interface_dir =
   Path.join(sdk_sysroot, "/usr/lib/erlang/lib/erl_interface-*")
-  |> Path.wildcard
-  |> List.first
+  |> Path.wildcard()
+  |> List.first()
+
 System.put_env("ERL_INTERFACE_DIR", erl_interface_dir)
 
-erl_lib_dir =
-  Path.join(sdk_sysroot, "/usr/lib/erlang")
+erl_lib_dir = Path.join(sdk_sysroot, "/usr/lib/erlang")
 System.put_env("REBAR_PLT_DIR", erl_lib_dir)
 System.put_env("ERL_LIB_DIR", erl_lib_dir)
 
-erl_system_lib_dir =
-  Path.join(erl_lib_dir, "/lib")
+erl_system_lib_dir = Path.join(erl_lib_dir, "/lib")
 System.put_env("ERL_SYSTEM_LIB_DIR", erl_system_lib_dir)
 
 # Override Make implicit variables with their crosscompile versions
@@ -129,9 +133,25 @@ System.put_env("LD", "#{crosscompile}-ld")
 System.put_env("STRIP", "#{crosscompile}-strip")
 
 # Set defaults for compiler flags
-System.put_env("CFLAGS", "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -O2 -I#{system_include_path}")
-System.put_env("CPPFLAGS", "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -I#{system_include_path}")
-System.put_env("CXXFLAGS", "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -O2 -I#{system_include_path}")
+System.put_env(
+  "CFLAGS",
+  "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -O2 -I#{
+    system_include_path
+  }"
+)
+
+System.put_env(
+  "CPPFLAGS",
+  "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -I#{system_include_path}"
+)
+
+System.put_env(
+  "CXXFLAGS",
+  "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -O2 -I#{
+    system_include_path
+  }"
+)
+
 System.put_env("LDFLAGS", "--sysroot=#{sdk_sysroot}")
 System.put_env("ERL_CFLAGS", "-I#{erts_dir}/include -I#{erl_interface_dir}/include")
 System.put_env("ERL_LDFLAGS", "-L#{erts_dir}/lib -L#{erl_interface_dir}/lib -lerts -lei")
@@ -141,8 +161,8 @@ System.put_env("PKG_CONFIG_SYSROOT_DIR", sdk_sysroot)
 System.put_env("PKG_CONFIG_LIBDIR", "#{sdk_sysroot}/usr/lib/pkgconfig")
 
 # Qt/Qmake support
-qmakespec_dir =
-  Path.join(system_path, "staging/mkspecs/devices/linux-buildroot-g++")
+qmakespec_dir = Path.join(system_path, "staging/mkspecs/devices/linux-buildroot-g++")
+
 if File.dir?(qmakespec_dir) do
   System.put_env("QMAKESPEC", qmakespec_dir)
 end
@@ -170,18 +190,19 @@ System.put_env("CXXFLAGS_FOR_BUILD", "")
 System.put_env("LDFLAGS_FOR_BUILD", "")
 
 host_erl_major_ver = :erlang.system_info(:otp_release) |> to_string
+
 [target_erl_major_version | _] =
   sdk_sysroot
   |> Path.join("/usr/lib/erlang/releases/*/OTP_VERSION")
-  |> Path.wildcard
-  |> List.first
-  |> File.read!
-  |> String.trim
+  |> Path.wildcard()
+  |> List.first()
+  |> File.read!()
+  |> String.trim()
   |> String.split(".")
 
 # Check to see if the system major version of ERL and the target major version match
 if host_erl_major_ver != target_erl_major_version do
-  Mix.raise """
+  Mix.raise("""
   Major version mismatch between host and target Erlang/OTP versions
     Host version: #{host_erl_major_ver}
     Target version: #{target_erl_major_version}
@@ -206,5 +227,5 @@ if host_erl_major_ver != target_erl_major_version do
   from the official systems. The other option is to build a custom Nerves
   system. See the Nerves documentation for building a custom system and then
   run 'make menuconfig' and look for the Erlang options.
-  """
+  """)
 end
