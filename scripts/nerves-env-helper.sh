@@ -123,6 +123,7 @@ export ERL_LDFLAGS="-L$ERTS_DIR/lib -L$ERL_INTERFACE_DIR/lib -lerts -lei"
 # pkg-config
 export PKG_CONFIG_SYSROOT_DIR="$NERVES_SDK_SYSROOT"
 export PKG_CONFIG_LIBDIR="$NERVES_SDK_SYSROOT/usr/lib/pkgconfig"
+export PKG_CONFIG_PATH=
 
 # Qt/QMake
 if [ -e "$NERVES_SDK_SYSROOT/mkspecs/devices/linux-buildroot-g++" ]; then
