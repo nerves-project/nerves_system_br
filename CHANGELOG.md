@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.14.5
+
+This release is a security and bug fix release for Buildroot and Erlang/OTP.
+
+* Improvements
+  * Add `CPPFLAGS` for projects that only use the C preprocessor
+  * Clear out `PKG_CONFIG_PATH` to avoid confusion with host settings
+
+* Package updates
+  * [Buildroot 2020.11.3](http://lists.busybox.net/pipermail/buildroot/2021-February/304041.html)
+  * [Erlang/OTP 23.2.5](https://erlang.org/download/OTP-23.2.5.README)
+
 ## v1.14.4
 
 This release is primarily a security fix release for Buildroot and Erlang/OTP.
