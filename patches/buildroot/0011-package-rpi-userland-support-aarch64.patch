@@ -1,4 +1,4 @@
-From 9d7e9b7fff572ffd97eccbca6717b66a929843f2 Mon Sep 17 00:00:00 2001
+From 6098efb93f8a960c98602e4089de096f374d96f9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 29 Nov 2020 21:08:22 -0500
 Subject: [PATCH] package/rpi-userland: support aarch64
@@ -53,7 +53,7 @@ index 342faf26e3..b9e80eb7c7 100644
  	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS || \
  		BR2_STATIC_LIBS
 diff --git a/package/rpi-userland/rpi-userland.mk b/package/rpi-userland/rpi-userland.mk
-index 4cfd5cb832..dfb1add85d 100644
+index 0118da5652..17111e6da5 100644
 --- a/package/rpi-userland/rpi-userland.mk
 +++ b/package/rpi-userland/rpi-userland.mk
 @@ -11,8 +11,18 @@ RPI_USERLAND_LICENSE_FILES = LICENCE
