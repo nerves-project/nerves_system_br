@@ -105,7 +105,14 @@ get_expected_executable_type()
     rm "$tmpfile"
 }
 
-EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
+# searches for a file named `.noscrub`. If found
+# filter that folder out of the `EXECUTABLES` list
+NOSCRUBS=$(find "$RELEASE_DIR" -name .noscrub)
+for NOSCRUB in $NOSCRUBS; do
+    EXCLUSIONS="$EXCLUSIONS -path \"${NOSCRUB/.noscrub/\*}\""
+done
+
+EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100 \( $EXCLUSIONS \) )
 EXPECTED_TYPE=$(get_expected_executable_type)
 
 for EXECUTABLE in $EXECUTABLES; do
@@ -143,6 +150,10 @@ for EXECUTABLE in $EXECUTABLES; do
             echo
             echo "4. Are you building outside of Nerves' mix integration? If so,"
             echo "   make sure that you've sourced 'nerves-env.sh'."
+            echo
+            echo "If you are very sure you know what you are doing, you may place an empty"
+            echo "file in the same directory as the offending file(s) called `.noscrub`. "
+            echo "This will explicitly disable scrubbing for that directory."
             echo
             echo "If you're still having trouble, please file an issue on Github"
             echo "at https://github.com/nerves-project/nerves_system_br/issues."
