@@ -22,56 +22,52 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8 C.UTF-8/' /etc/locale.gen
     locale-gen
 
 # The container has no package lists, so need to update first
-RUN dpkg --add-architecture i386 \
-  && apt-get update -y -qq \
-  && apt-get install -y -qq \
-    gosu \
-    bzr \
-    ca-certificates \
-    cvs \
-    file \
-    g++-multilib \
-    mercurial \
-    python-flake8 \
-    python-nose2 \
-    python-pexpect \
-    python3-distutils \
-    rsync \
-    subversion \
-    unzip \
-    g++ \
-    libssl-dev \
-    libncurses5-dev \
-    bc \
-    m4 \
-    make \
-    cmake \
+RUN dpkg --add-architecture i386 && \
+    apt-get update -y -qq
+# Install Buildroot packages (see <Buildroot>/support/docker/DockerFile
+RUN apt-get install -y --no-install-recommends \
+        bc \
+        build-essential \
+        bzr \
+        ca-certificates \
+        cmake \
+        cpio \
+        cvs \
+        file \
+        g++-multilib \
+        git \
+        libc6-i386 \
+        libncurses5-dev \
+        locales \
+        mercurial \
+        python3 \
+        python3-flake8 \
+        python3-nose2 \
+        python3-pexpect \
+        rsync \
+        subversion \
+        unzip \
+        wget
+# Install additional packages for Nerves
+RUN apt-get install -y --no-install-recommends \
     bzip2 \
-    bison \
-    flex \
-    wget \
-    python \
-    cpio \
-    libc6:i386 \
+    curl \
+    gawk \
+    gcc-multilib \
+    gnupg \
+    gosu \
+    jq \
+    libmnl-dev \
     libncurses5:i386 \
     libstdc++6:i386 \
     libz-dev \
-    xz-utils \
-    gcc-multilib \
-    curl \
-    git \
-    openssh-client \
-    build-essential \
     libssl-dev \
-    bc \
-    squashfs-tools \
-    gnupg \
-    libmnl-dev \
-    gawk \
-    jq \
+    openssh-client \
     pkg-config \
+    squashfs-tools \
     vim-tiny \
-  && rm -rf /var/lib/apt/lists/* \
+    xz-utils
+RUN rm -rf /var/lib/apt/lists/* \
   && mkdir -p /root/.ssh \
   && ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts \
   && chmod 700 /root/.ssh \
