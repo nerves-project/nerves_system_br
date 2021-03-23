@@ -152,7 +152,7 @@ for EXECUTABLE in $EXECUTABLES; do
             echo "   make sure that you've sourced 'nerves-env.sh'."
             echo
             echo "If you are very sure you know what you are doing, you may place an empty"
-            echo "file in the same directory as the offending file(s) called `.noscrub`. "
+            echo "file in the same directory as the offending file(s) called '.noscrub'."
             echo "This will explicitly disable scrubbing for that directory."
             echo
             echo "If you're still having trouble, please file an issue on Github"
