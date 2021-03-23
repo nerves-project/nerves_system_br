@@ -1,0 +1,31 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+  cat <<USAGE >&2
+Usage: $(basename "$0") [options] [.exs file] [data]
+
+The following options are exclusive to IEx:
+
+  --dot-iex "PATH"    Overrides default .iex.exs file and uses path instead;
+                      path can be empty, then no file will be loaded
+  --remsh NAME        Connects to a node using a remote shell
+
+It accepts all other options listed by "elixir --help".
+USAGE
+  exit 1
+fi
+
+readlink_f () {
+  cd "$(dirname "$1")" > /dev/null
+  filename="$(basename "$1")"
+  if [ -h "$filename" ]; then
+    readlink_f "$(readlink "$filename")"
+  else
+    echo "$(pwd -P)/$filename"
+  fi
+}
+
+SELF=$(readlink_f "$0")
+SCRIPT_PATH=$(dirname "$SELF")
+exec "$SCRIPT_PATH"/elixir --no-halt --erl "-noshell -user Elixir.IEx.CLI" +iex "$@"
