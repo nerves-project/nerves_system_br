@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Remove or minimize files in an Erlang/OTP release directory
 # in preparation for use packaging in a Nerves firmware image.
@@ -108,11 +108,15 @@ get_expected_executable_type()
 # searches for a file named `.noscrub`. If found
 # filter that folder out of the `EXECUTABLES` list
 NOSCRUBS=$(find "$RELEASE_DIR" -name .noscrub)
-for NOSCRUB in $NOSCRUBS; do
-    EXCLUSIONS="$EXCLUSIONS -path \"${NOSCRUB/.noscrub/\*}\""
-done
+if [ -n "$NOSCRUBS" ]; then
+    for NOSCRUB in $NOSCRUBS; do
+        EXCLUSIONS+=( -not -path "${NOSCRUB/.noscrub/\*}" )
+    done
+    EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
+else
+    EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
+fi
 
-EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100 \( $EXCLUSIONS \) )
 EXPECTED_TYPE=$(get_expected_executable_type)
 
 for EXECUTABLE in $EXECUTABLES; do
