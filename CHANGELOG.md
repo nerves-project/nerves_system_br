@@ -1,5 +1,45 @@
 # Changelog
 
+## v1.15.0
+
+This is a major update to Buildroot 2021.02. Please review the Buildroot release
+notification below in addition to the following. The following changes affect
+all systems:
+
+1. The `rngd` daemon's jitter entropy option changed defaults. This daemon feeds
+   values from a hardware random number generator to the Linux kernel's entropy
+   pool. Without it, you can experience long boot delays as programs wait for
+   enough entropy to get good random numbers. Jitter entropy is a way of
+   gathering entropy from the CPU without any special random number generation
+   hardware. It's not necessary with most hardware with Nerves and it adds a
+   boot-time delay as the CPU is measured. Previously it defaulted to off. Now
+   you need to add the following to your `nerves_defconfig`:
+
+   ```
+   # BR2_PACKAGE_RNG_TOOLS_JITTERENTROPY_LIBRARY is not set
+   ```
+
+2. Buildroot changed how it computes hashes over projects downloaded from
+   version control systems. If you have made a custom system and added your own
+   packages, you may need to update the `.hash` files to `-br1` versions. The
+   files are different so the existing checksums will not match. See [buildroot
+   5b95a5d](https://git.busybox.net/buildroot/commit/?id=5b95a5dc27c0d8002c00bda1c867ddea9218087e)
+   for more info.
+
+3. The `nervesproject/nerves_system_br` Docker image that corresponds to this
+   release has been updated from Ubunto 18.04 LTS to Ubuntu 20.04 LTS. This
+   fixed an internal compiler error that was seen, but resulted in some package
+   changes (no more Python 2, for example) that might affect scripts using it.
+
+* Improvements
+  * It's not possible to include executable files for other CPU architectures in
+    the root filesystem without have the scrubber find them and report an error.
+    To use this feature, add the file `.noscrub` to the directory with the files.
+
+* Package updates
+  * [Buildroot 2021.02](http://lists.busybox.net/pipermail/buildroot/2021-March/305168.html)
+  * [Erlang/OTP 23.2.7](https://erlang.org/download/OTP-23.2.7.README)
+
 ## v1.14.5
 
 This release is a security and bug fix release for Buildroot and Erlang/OTP.
