@@ -32,7 +32,7 @@ all systems:
    changes (no more Python 2, for example) that might affect scripts using it.
 
 * Improvements
-  * It's not possible to include executable files for other CPU architectures in
+  * It's now possible to include executable files for other CPU architectures in
     the root filesystem without have the scrubber find them and report an error.
     To use this feature, add the file `.noscrub` to the directory with the files.
 
