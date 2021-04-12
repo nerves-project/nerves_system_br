@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.15.1
+
+This is a security/bugfix release for Buildroot and Erlang.
+
+* Package updates
+  * [Buildroot 2021.02.1](http://lists.busybox.net/pipermail/buildroot/2021-April/307970.html)
+  * [Erlang/OTP 23.3.1](https://erlang.org/download/OTP-23.3.1.README)
+
 ## v1.15.0
 
 This is a major update to Buildroot 2021.02. Please review the Buildroot release
