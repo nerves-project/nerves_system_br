@@ -8,7 +8,7 @@ TEST_DIR="$PWD"
 run_test() {
     TEST=$1
     echo "Running $TEST"
-    rm -fr "$TEST_OUTPUT/$TEST"
+    rm -fr "${TEST_OUTPUT:?}/$TEST"
     ../create-build.sh "$TEST_DIR/$TEST/nerves_defconfig" "$TEST_OUTPUT/$TEST"
     make -C "$TEST_OUTPUT/$TEST"
     echo "$TEST succeeded"
