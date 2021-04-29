@@ -1,0 +1,26 @@
+From 18daa9e666939138e8c9145df8674e6271023b21 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Thu, 29 Apr 2021 13:45:33 -0400
+Subject: [PATCH] erlang: add RISC-V to the supported architectures
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ package/erlang/Config.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package/erlang/Config.in b/package/erlang/Config.in
+index 17b97bed3d..3ed663039e 100644
+--- a/package/erlang/Config.in
++++ b/package/erlang/Config.in
+@@ -8,7 +8,7 @@ config BR2_PACKAGE_ERLANG_ARCH_SUPPORTS
+ 	# see HOWTO/INSTALL.md for Erlang's supported platforms
+ 	# when using its native atomic ops implementation
+ 	default y if BR2_i386 || BR2_x86_64 || BR2_powerpc || \
+-		BR2_sparc_v9 || BR2_arm || BR2_aarch64 || BR2_mipsel
++		BR2_sparc_v9 || BR2_arm || BR2_aarch64 || BR2_mipsel || BR2_riscv
+ 	# erlang needs host-erlang
+ 	depends on BR2_PACKAGE_HOST_ERLANG_ARCH_SUPPORTS
+ 
+-- 
+2.25.1
+
