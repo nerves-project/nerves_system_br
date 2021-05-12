@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.15.2
+
+This is a security/bugfix release for Buildroot and Erlang.
+
+* Package updates
+  * [Buildroot 2021.02.2](http://lists.busybox.net/pipermail/buildroot/2021-May/310003.html)
+  * [Erlang/OTP 23.3.4](https://erlang.org/download/OTP-23.3.4.README)
+
+* Improvements
+  * Various shellcheck warning fixes that make paths with spaces work in more
+    places. Thanks to @pojiro for this.
+
 ## v1.15.1
 
 This is a security/bugfix release for Buildroot and Erlang.
