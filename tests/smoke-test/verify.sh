@@ -24,3 +24,8 @@ if file "$TARGET_DIR/srv/erlang/lib/test-0.1.0/priv/same_arch/boardid" | grep "n
     echo "Expecting the scrubber to strip boardid, but it didn't?"
     exit 1
 fi
+
+if ! readelf -n "$TARGET_DIR/srv/erlang/lib/test-0.1.0/priv/same_arch/boardid" | grep "NT_GNU_BUILD_ID"; then
+    echo "NT_GNU_BUILD_ID section of elf not found"
+    exit 1
+fi

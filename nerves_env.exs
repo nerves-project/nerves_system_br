@@ -152,8 +152,7 @@ System.put_env(
     system_include_path
   }"
 )
-
-System.put_env("LDFLAGS", "--sysroot=#{sdk_sysroot}")
+System.put_env("LDFLAGS", "--sysroot=#{sdk_sysroot} -Wl,--build-id")
 System.put_env("ERL_CFLAGS", "-I#{erts_dir}/include -I#{erl_interface_dir}/include")
 System.put_env("ERL_LDFLAGS", "-L#{erts_dir}/lib -L#{erl_interface_dir}/lib -lerts -lei")
 
