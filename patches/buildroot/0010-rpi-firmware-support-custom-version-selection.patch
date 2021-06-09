@@ -1,4 +1,4 @@
-From 9652349c6d6d479435b69eddcfb4b9d2ea950966 Mon Sep 17 00:00:00 2001
+From d0a0474742c9e807f3bc746ff2b59235cbf13362 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 8 Jul 2019 10:44:12 -0400
 Subject: [PATCH] rpi-firmware: support custom version selection
@@ -32,14 +32,14 @@ index f5a25c5680..550acda3ad 100644
  	bool "Firmware to boot"
  	default BR2_PACKAGE_RPI_FIRMWARE_DEFAULT
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index f3d28ef825..235b13b905 100644
+index f3bda830be..235b13b905 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
 @@ -4,7 +4,19 @@
  #
  ################################################################################
  
--RPI_FIRMWARE_VERSION = d016a6eb01c8c7326a89cb42809fed2a21525de5
+-RPI_FIRMWARE_VERSION = 1a46874494146f470d7a61b0b6f4f15a07dd8b35
 +ifeq ($(call qstrip,$(BR2_PACKAGE_RPI_FIRMWARE_CUSTOM_VERSION)),)
 +ifeq ($(BR2_PACKAGE_RPI_FIRMWARE),y)
 +$(error The Raspberry Pi firmware version is no longer derived automatically.\

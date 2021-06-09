@@ -1,4 +1,4 @@
-From b1fe40f03f674867a0e8d71ebc1d5bb355b6afb1 Mon Sep 17 00:00:00 2001
+From b667c7a7fdc72b7ac96130e0d92049c6d8f72429 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 11:54:25 -0400
 Subject: [PATCH] erlang: switch to Github
@@ -10,7 +10,7 @@ ones.
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index e2cd02f68d..6e6030a012 100644
+index 4bb89c4385..802c156c87 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -6,8 +6,8 @@
