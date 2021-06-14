@@ -1,5 +1,28 @@
 # Changelog
 
+## v1.16.0
+
+This is a major update to Buildroot 2021.05. Please review the Buildroot release
+notification below in addition to the following.
+
+1. The `wpa_supplicant` options in Buildroot changed. If you're using
+   `vintage_net_wifi`, you'll need to make sure that the control interface is
+   enabled now.  Add the following to your `nerves_defconfig`:
+
+   ```
+   BR2_PACKAGE_WPA_SUPPLICANT_CTRL_IFACE=y
+   ```
+
+* Package updates
+  * [Buildroot 2021.05](http://lists.busybox.net/pipermail/buildroot/2021-June/311946.html)
+  * [Erlang/OTP 24.0.2](https://erlang.org/download/OTP-24.0.2.README)
+  * Broadcom WiFi firmware for Raspberry Pis 1:20190114-1+rpt11. Despite the
+    version number, this is the latest from Raspberry Pi OS.
+
+* Improvements
+  * Build Nerves on RISC-V platforms. RISC-V is not officially supported, but
+    experiments are ongoing as low cost hardware becomes available.
+
 ## v1.15.2
 
 This is a security/bugfix release for Buildroot and Erlang.
