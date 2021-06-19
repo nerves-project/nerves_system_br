@@ -4,7 +4,7 @@
 #
 #############################################################
 
-BBORG_OVERLAYS_VERSION = e94880efb124a2755059f47da491551e2fe639de
+BBORG_OVERLAYS_VERSION = 12aa4c04d69f5bbfb1bb7e4ad1aef9cd3d269c44
 BBORG_OVERLAYS_SITE = $(call github,beagleboard,bb.org-overlays,$(BBORG_OVERLAYS_VERSION))
 BBORG_OVERLAYS_LICENSE = GPLv2
 BBORG_OVERLAYS_DEPENDENCIES = host-dtc
@@ -19,6 +19,7 @@ define BBORG_OVERLAYS_BUILD_CMDS
 endef
 
 define BBORG_OVERLAYS_INSTALL_TARGET_CMDS
+	mkdir -p $(TARGET_DIR)/lib/firmware
 	cp $(@D)/src/arm/*.dtbo $(TARGET_DIR)/lib/firmware
 endef
 
