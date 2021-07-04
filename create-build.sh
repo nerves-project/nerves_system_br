@@ -121,7 +121,7 @@ create_buildroot_dir() {
     # Apply Nerves-specific patches
     "$NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh" "$NERVES_SYSTEM/buildroot" "$NERVES_SYSTEM/patches/buildroot"
 
-     if test -d "$NERVES_DEFCONFIG_DIR/patches/buildroot"; then
+     if [[ -d "$NERVES_DEFCONFIG_DIR/patches/buildroot" ]]; then
     "$NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh" "$NERVES_SYSTEM/buildroot" "$NERVES_DEFCONFIG_DIR/patches/buildroot"
      fi
 
@@ -166,4 +166,3 @@ echo
 echo "For additional options, run 'make help' in the build directory."
 echo
 echo "IMPORTANT: If you update nerves_system_br, you should rerun this script."
-
