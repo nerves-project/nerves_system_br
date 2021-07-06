@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.16.1
+
+* Package updates
+  * [Erlang/OTP 24.0.3](https://erlang.org/download/OTP-24.0.3.README)
+  * [erlinit 1.10.0](https://github.com/nerves-project/erlinit/releases/tag/v1.10.0)
+  * [boardid 1.11.1](https://github.com/nerves-project/boardid/releases/tag/v1.11.1)
+  * bborg-overlays: bump to latest SHA (device tree updates for BBB)
+
 ## v1.16.0
 
 This is a major update to Buildroot 2021.05. Please review the Buildroot release
