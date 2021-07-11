@@ -62,7 +62,7 @@ if [[ $HOST_OS != "Linux" ]]; then
     exit 1
 fi
 
-if [[ $HOST_ARCH != "x86_64" ]]; then
+if [[ $HOST_ARCH != "x86_64" ]] && [[ $HOST_ARCH != "aarch64" ]]; then
     echo "ERROR: 64-bit Linux required for running cross-compilers built by nerves-toolchain"
     exit 1
 fi
