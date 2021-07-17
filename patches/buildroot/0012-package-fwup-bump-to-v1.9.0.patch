@@ -1,7 +1,7 @@
-From 5c572ddf7c5b6710346165666c604baa468d5429 Mon Sep 17 00:00:00 2001
+From d522f1c96c863a1c184107610efa11e6709b1f20 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 10 Dec 2020 18:49:16 -0500
-Subject: [PATCH] package/fwup: bump to v1.8.3
+Subject: [PATCH] package/fwup: bump to v1.9.0
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
@@ -10,16 +10,16 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/package/fwup/fwup.hash b/package/fwup/fwup.hash
-index 87263192e4..a090020cc1 100644
+index 87263192e4..2e5b2b1f6c 100644
 --- a/package/fwup/fwup.hash
 +++ b/package/fwup/fwup.hash
 @@ -1,3 +1,3 @@
  # Locally calculated
 -sha256  9890f0328796f4315e6c1188df5c103855c530fbc14fbc8c12f4b24066c975f1  fwup-1.8.0.tar.gz
-+sha256  494907d6bc72a1e3d0b15d5c3276fee942951da858eeadb78868edd5fdc422fc  fwup-1.8.3.tar.gz
++sha256  18ae6753145cef2fd5f5fc83e29c2d883e570668d8aa064ee6c94d4c5e44d73d  fwup-1.9.0.tar.gz
  sha256  cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  LICENSE
 diff --git a/package/fwup/fwup.mk b/package/fwup/fwup.mk
-index 77eaa528f3..fe4e51b008 100644
+index 77eaa528f3..0dc49c494a 100644
 --- a/package/fwup/fwup.mk
 +++ b/package/fwup/fwup.mk
 @@ -4,7 +4,7 @@
@@ -27,7 +27,7 @@ index 77eaa528f3..fe4e51b008 100644
  ################################################################################
  
 -FWUP_VERSION = 1.8.0
-+FWUP_VERSION = 1.8.3
++FWUP_VERSION = 1.9.0
  FWUP_SITE = $(call github,fhunleth,fwup,v$(FWUP_VERSION))
  FWUP_LICENSE = Apache-2.0
  FWUP_LICENSE_FILES = LICENSE
