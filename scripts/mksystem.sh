@@ -78,6 +78,18 @@ cp "$BASE_DIR/.config" "$WORK_DIR/$ARCHIVE_NAME"
 cp -R "$BASE_DIR/images" "$WORK_DIR/$ARCHIVE_NAME"
 cp -HR "$BASE_DIR/staging" "$WORK_DIR/$ARCHIVE_NAME"
 
+# Copy SBOM information if generated
+if [[ -e "$BASE_DIR/pkg-stats.json" ]]; then
+    cp "$BASE_DIR/pkg-stats.json" "$WORK_DIR/$ARCHIVE_NAME"
+    cp "$BASE_DIR/pkg-stats.html" "$WORK_DIR/$ARCHIVE_NAME"
+fi
+if [[ -d "$BASE_DIR/legal-info" ]]; then
+    # The legal-info is very large since it contains all source tarballs.
+    # Don't include the source tarballs for now.
+    cp -R "$BASE_DIR/legal-info" "$WORK_DIR/$ARCHIVE_NAME"
+    rm -rf "$WORK_DIR/$ARCHIVE_NAME/legal-info/sources" "$WORK_DIR/$ARCHIVE_NAME/legal-info/host-sources"
+fi
+
 # Clean up extra files that were copied over and aren't needed
 rm -f "$WORK_DIR/$ARCHIVE_NAME/images"/*.fw
 rm -f "$WORK_DIR/$ARCHIVE_NAME/images/$ARCHIVE_NAME.img"
