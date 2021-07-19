@@ -1,4 +1,4 @@
-From 4613c6c7f9073cae31bdde27ab214956fc9178c6 Mon Sep 17 00:00:00 2001
+From aba50a713cf5dd18283263129d789035ab11f569 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 20 - 24
@@ -30,8 +30,8 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  ...-update-df-call-to-work-with-Busybox.patch | 28 ++++++++
  package/erlang/Config.in                      | 32 +++++++++
  package/erlang/erlang.hash                    |  9 ++-
- package/erlang/erlang.mk                      | 33 ++++++++-
- 24 files changed, 938 insertions(+), 121 deletions(-)
+ package/erlang/erlang.mk                      | 37 +++++++++-
+ 24 files changed, 942 insertions(+), 121 deletions(-)
  delete mode 100644 package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  delete mode 100644 package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/20.3.8.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
@@ -1224,7 +1224,7 @@ index 3c2f039496..b538334304 100644
 +sha256 897dd8b66c901bfbce09ed64e0245256aca9e6e9bdf78c36954b9b7117192519  OTP-20.3.8.9.tar.gz
  sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 08589c3f60..d6ea3a966e 100644
+index 08589c3f60..f915030e0f 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,24 @@
@@ -1253,7 +1253,7 @@ index 08589c3f60..d6ea3a966e 100644
  ERLANG_SITE = https://github.com/erlang/otp/archive
  ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
  
-@@ -33,7 +50,19 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
+@@ -33,7 +50,23 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
  
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk
@@ -1267,7 +1267,11 @@ index 08589c3f60..d6ea3a966e 100644
 +ifeq ($(BR2_PACKAGE_ERLANG_22),y)
 +ERLANG_EI_VSN = 3.13.2
 +else
++ifeq ($(BR2_PACKAGE_ERLANG_23),y)
 +ERLANG_EI_VSN = 4.0.3
++else
++ERLANG_EI_VSN = 5.0.1
++endif
 +endif
 +endif
 +endif
