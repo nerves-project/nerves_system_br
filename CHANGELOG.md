@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.16.2
+
+* Package updates
+  * [fwup 1.9.0](https://github.com/fhunleth/fwup/releases/tag/v1.9.0)
+
+* Improvements
+  * Software Bill of Materials (SBOM) information from Buildroot can now be
+    packaged with Nerves systems. The system needs to add `pkg-stats` and/or
+    `legal-info` to the make targets to use. This is an experimental update and
+    will likely be changed and improved. Note that SBOM info has always been
+    available, but it just hasn't been convenient. We're trying to make it more
+    accessible.
+  * It's now possible to build on aarch64 Linux machines.
+
 ## v1.16.1
 
 * Package updates
