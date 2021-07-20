@@ -41,10 +41,13 @@ RUN apt-get install -y --no-install-recommends \
         locales \
         mercurial \
         python3 \
+        python3-aiohttp \
         python3-flake8 \
+        python3-ijson \
         python3-nose2 \
         python3-pexpect \
         python3-pip \
+        python3-requests \
         rsync \
         subversion \
         unzip \
