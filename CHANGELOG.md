@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.16.3
+
+* Package updates
+  * [Erlang/OTP 24.0.4](https://erlang.org/download/OTP-24.0.4.README)
+
+* Improvements
+  * Adds a default `/etc/sysctl.conf` file to support setting kernel parameters
+    on initialization. This requires a `nerves_runtime` `v0.11.5` or later. The
+    current default only enables non-root use of ICMP. This simplifies use of
+    ICMP in Erlang and Elixir.
+
+* Bug fixes
+  * Fixes an issue on MacOS where if you had `/home` in your `$PATH`, `mix
+    firmware` could go from taking 10 seconds to many minutes to run due to the
+    `merge-squashfs` script. Thanks to Jonathan Palley for some serious
+    detective work to narrow this issue down.
+  * Fixes an issue on MacOS with exclusing files from the scrubber.
+
 ## v1.16.2
 
 * Package updates
