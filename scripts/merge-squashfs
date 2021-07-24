@@ -11,6 +11,10 @@ LC_ALL=C
 LANG=C
 export LC_ALL LANG
 
+# Cache the location of sed due to very slow path searches on OSX if anything
+# under /home is in the path.
+SED="$(command -v sed)"
+
 # Account for Mac differences
 if [[ "$(uname)" = "Darwin" ]]; then
     # Use gstat on the Mac, but make sure that it exists first.
@@ -23,7 +27,7 @@ if [[ "$(uname)" = "Darwin" ]]; then
         exit 1
     fi
 else
-    STAT=stat
+    STAT="$(command -v stat)"
 fi
 
 # This implementation might be slow
@@ -52,12 +56,12 @@ perm_to_num() {
 }
 
 owner_to_uid_gid() {
-    echo "$1" | sed -e "s/\// /g"
+    echo "$1" | "$SED" -e "s/\// /g"
 }
 
 get_path() {
     # trim the squashfs-root and escape any spaces
-    echo "$*" | sed -e 's/squashfs-root//' -e 's/ /\\ /g'
+    echo "$*" | "$SED" -e 's/squashfs-root//' -e 's/ /\\ /g'
 }
 
 device_file() {
@@ -68,10 +72,10 @@ device_file() {
     # major,minor or major, minor. Remove the comma and account
     # for the optional space.
     if [[ $3 =~ ,.+ ]]; then
-        major_minor=$(echo "$3" | sed -e 's/,/ /')
+        major_minor=$(echo "$3" | "$SED" -e 's/,/ /')
         filename=$6
     else
-        major_minor="$(echo "$3" | sed -e 's/,/ /') $4"
+        major_minor="$(echo "$3" | "$SED" -e 's/,/ /') $4"
         filename=$7
     fi
 
@@ -132,11 +136,11 @@ unsquash_to_pseudofile() {
 find_to_pseudofile() {
     inputdir=$1
     while read -r mode path; do
-        path=$(echo "$path" | sed -e "s^$inputdir^^" -e "s/ /\\\\ /g")
+        path=$(echo "$path" | "$SED" -e "s^$inputdir^^" -e "s/ /\\\\ /g")
         if [[ ! -z $path ]]; then
             echo "$path m $mode 0 0"
         fi
-    done < <(find "$inputdir" -exec $STAT -c "%a %n" "{}" ";")
+    done < <(find "$inputdir" -exec "$STAT" -c "%a %n" "{}" ";")
 }
 
 
