@@ -112,7 +112,16 @@ if [ -n "$NOSCRUBS" ]; then
     for NOSCRUB in $NOSCRUBS; do
         EXCLUSIONS+=( -not -path "${NOSCRUB/.noscrub/\*}" )
     done
-    EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
+
+    # For whatever reason, the `find` command below doesn't expand the
+    # exclusions on MacOS and so if you are attempting to skip scrubbing files,
+    # the task will fail. To get the proper variable expanded, we need to
+    # eval the call.
+    if [[ $(uname -s) == "Darwin" ]]; then
+        EXECUTABLES=$(eval find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
+    else
+        EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
+    fi
 else
     EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
 fi
