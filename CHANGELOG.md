@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.16.4
+
+This is primarily a bug fix release for Buildroot and Erlang/OTP. The Erlinit
+update brings in beta support for including a
+[`runtime.exs`](https://hexdocs.pm/mix/1.12.2/Mix.Tasks.Release.html#module-runtime-configuration)
+in your project. This support is new and may lead to reboot loops if you have
+not configured your system to revert to previous firmware loads on failures.
+
+* Package updates
+  * [Buildroot 2021.05.1](http://lists.busybox.net/pipermail/buildroot/2021-August/620721.html)
+  * [Erlang/OTP 24.0.5](https://erlang.org/download/OTP-24.0.5.README)
+  * [erlinit 1.11.0](https://github.com/nerves-project/erlinit/releases/tag/v1.11.0)
+
 ## v1.16.3
 
 * Package updates
