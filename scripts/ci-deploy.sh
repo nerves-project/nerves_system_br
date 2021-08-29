@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Collect the build artifacts and put them in a directory
 # for Travis-CI to publish
