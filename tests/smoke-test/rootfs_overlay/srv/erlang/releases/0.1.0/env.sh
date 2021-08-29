@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Sets and enables heart (recommended only in daemon mode)
 # case $RELEASE_COMMAND in

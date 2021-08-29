@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 SELF=$(readlink "$0" || true)
 if [ -z "$SELF" ]; then SELF="$0"; fi
 BINDIR="$(cd "$(dirname "$SELF")" && pwd -P)"
