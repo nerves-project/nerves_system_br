@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.16.5
+
+* Improvements
+  * Make shell script shebang lines consistently call `/usr/bin/env` to find
+    `bash`. This fixes an issue with NixOS and possibly other setups. Thanks to
+    @mayl for this change.
+  * Resync Busybox configuration. This removes the `mim` and `base32` applets
+    that were turned on by default on a update.
+
 ## v1.16.4
 
 This is primarily a bug fix release for Buildroot and Erlang/OTP. The Erlinit
