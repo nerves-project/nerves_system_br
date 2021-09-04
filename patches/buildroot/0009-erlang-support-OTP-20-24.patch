@@ -1,4 +1,4 @@
-From 82fa289e55e48a6530652ba28462e00ede0c9fdd Mon Sep 17 00:00:00 2001
+From e35f72bc09b2b85473f229e99edb48818a24ef15 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 20 - 24
@@ -1166,10 +1166,10 @@ index 0000000000..beb1957d46
 +2.25.1
 +
 diff --git a/package/erlang/Config.in b/package/erlang/Config.in
-index ab87eab6ff..c174dd3a74 100644
+index 15931b5896..3c3ed297c5 100644
 --- a/package/erlang/Config.in
 +++ b/package/erlang/Config.in
-@@ -36,6 +36,38 @@ config BR2_PACKAGE_ERLANG
+@@ -38,6 +38,38 @@ config BR2_PACKAGE_ERLANG
  
  if BR2_PACKAGE_ERLANG
  
