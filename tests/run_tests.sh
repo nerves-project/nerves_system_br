@@ -10,7 +10,7 @@ run_test() {
     echo "Running $TEST"
     rm -fr "${TEST_OUTPUT:?}/$TEST"
     ../create-build.sh "$TEST_DIR/$TEST/nerves_defconfig" "$TEST_OUTPUT/$TEST"
-    make -C "$TEST_OUTPUT/$TEST" source all pkg-stats legal-info
+    make -C "$TEST_OUTPUT/$TEST" source all legal-info
     echo "$TEST succeeded"
 }
 
