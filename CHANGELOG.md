@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.17.0
+
+This is a major update to Buildroot 2021.08. Please review the Buildroot release
+notification below in addition to the following.
+
+1. Buildroot's default version of GCC changed, so add the following to your
+   `nerves_defconfig`:
+
+   ```
+   BR2_TOOLCHAIN_EXTERNAL_GCC_10=y
+   ```
+
+* Package updates
+  * [Buildroot 2021.08](http://lists.busybox.net/pipermail/buildroot/2021-September/622072.html)
+  * [Erlang/OTP 24.1](https://erlang.org/download/OTP-24.1.README)
+
 ## v1.16.5
 
 * Improvements
