@@ -1,5 +1,17 @@
 # Changelog
 
+This project does NOT follow semantic versioning. The version increases as
+follows:
+
+1. Major version updates are breaking updates to the build infrastructure.
+   These should be very rare.
+2. Minor version updates are made for every major Buildroot release. Buildroot
+   makes four releases a year. Major Erlang/OTP updates are held off until the
+   next Buildroot release.
+3. Patch version updates are made for Buildroot minor releases and Erlang/OTP
+   minor and patch releases. They're also made to fix bugs and add features to
+   the build infrastructure.
+
 ## v1.17.0
 
 This is a major update to Buildroot 2021.08. Please review the Buildroot release
