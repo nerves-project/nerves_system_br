@@ -25,8 +25,8 @@ defmodule Nerves.System.BR.Mixfile do
 
   defp package do
     [
-      maintainers: ["Frank Hunleth", "Justin Schneck"],
       files: [
+        "CHANGELOG.md",
         "board",
         "package",
         "patches",
