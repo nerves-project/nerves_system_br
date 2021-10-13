@@ -12,6 +12,12 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.17.1
+
+* Package updates
+  * [Buildroot 2021.08.1](http://lists.busybox.net/pipermail/buildroot/2021-October/625642.html)
+  * [Erlang/OTP 24.1.2](https://erlang.org/download/OTP-24.1.2.README)
+
 ## v1.17.0
 
 This is a major update to Buildroot 2021.08. Please review the Buildroot release
