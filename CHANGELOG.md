@@ -12,6 +12,11 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.17.2
+
+* Package updates
+  * [nerves_heart 1.0.0](https://github.com/nerves-project/nerves_heart/releases/tag/v1.0.0)
+
 ## v1.17.1
 
 * Package updates
