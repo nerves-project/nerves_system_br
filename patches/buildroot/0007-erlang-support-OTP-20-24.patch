@@ -1,4 +1,4 @@
-From 187001ad9291ccc960d38f16982bfa60299bb3a8 Mon Sep 17 00:00:00 2001
+From 19b7f57345126412aa3a63148aac31653fbdc3c4 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 20 - 24
@@ -1225,7 +1225,7 @@ index 338545a0ba..a5227555af 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 2d5e713df5..fa04cf86af 100644
+index a76bda4437..c7c4d73a2e 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,24 @@
@@ -1253,7 +1253,7 @@ index 2d5e713df5..fa04cf86af 100644
  ERLANG_SITE = \
  	https://github.com/erlang/otp/releases/download/OTP-$(ERLANG_VERSION)
  ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
-@@ -37,7 +54,23 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
+@@ -38,7 +55,23 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
  
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk
@@ -1278,5 +1278,5 @@ index 2d5e713df5..fa04cf86af 100644
  # The configure checks for these functions fail incorrectly
  ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes \
 -- 
-2.32.0 (Apple Git-132)
+2.25.1
 
