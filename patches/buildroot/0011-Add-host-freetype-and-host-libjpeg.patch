@@ -1,4 +1,4 @@
-From 99d467a496994d4605bb8596b08ab0e09a291651 Mon Sep 17 00:00:00 2001
+From f0db12ebebe38c02227563e3dca5cf92b4e3b829 Mon Sep 17 00:00:00 2001
 From: wzin <wojtek@gamecodehq.com>
 Date: Fri, 17 Dec 2021 11:26:20 +0100
 Subject: [PATCH] Add host freetype and host libjpeg
