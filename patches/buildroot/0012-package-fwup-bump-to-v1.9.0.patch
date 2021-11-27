@@ -1,4 +1,4 @@
-From d522f1c96c863a1c184107610efa11e6709b1f20 Mon Sep 17 00:00:00 2001
+From c2ad80343e67bf2ce5f4986b603450301c4c884f Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 10 Dec 2020 18:49:16 -0500
 Subject: [PATCH] package/fwup: bump to v1.9.0
@@ -6,8 +6,8 @@ Subject: [PATCH] package/fwup: bump to v1.9.0
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
  package/fwup/fwup.hash | 2 +-
- package/fwup/fwup.mk   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ package/fwup/fwup.mk   | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/package/fwup/fwup.hash b/package/fwup/fwup.hash
 index 87263192e4..2e5b2b1f6c 100644
@@ -19,18 +19,20 @@ index 87263192e4..2e5b2b1f6c 100644
 +sha256  18ae6753145cef2fd5f5fc83e29c2d883e570668d8aa064ee6c94d4c5e44d73d  fwup-1.9.0.tar.gz
  sha256  cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  LICENSE
 diff --git a/package/fwup/fwup.mk b/package/fwup/fwup.mk
-index 77eaa528f3..0dc49c494a 100644
+index 77eaa528f3..62016d94e3 100644
 --- a/package/fwup/fwup.mk
 +++ b/package/fwup/fwup.mk
-@@ -4,7 +4,7 @@
+@@ -4,8 +4,8 @@
  #
  ################################################################################
  
 -FWUP_VERSION = 1.8.0
+-FWUP_SITE = $(call github,fhunleth,fwup,v$(FWUP_VERSION))
 +FWUP_VERSION = 1.9.0
- FWUP_SITE = $(call github,fhunleth,fwup,v$(FWUP_VERSION))
++FWUP_SITE = $(call github,fwup-home,fwup,v$(FWUP_VERSION))
  FWUP_LICENSE = Apache-2.0
  FWUP_LICENSE_FILES = LICENSE
+ FWUP_DEPENDENCIES = host-pkgconf libconfuse libarchive
 -- 
-2.25.1
+2.33.1
 
