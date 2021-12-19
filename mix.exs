@@ -43,7 +43,7 @@ defmodule Nerves.System.BR.Mixfile do
         "README.md",
         "VERSION"
       ],
-      licenses: ["Apache 2.0", "GPLv2"],
+      licenses: ["Apache-2.0", "GPL-2.0-or-later"],
       links: %{"Github" => "https://github.com/nerves-project/nerves_system_br"}
     ]
   end
