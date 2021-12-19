@@ -12,6 +12,40 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.18.0
+
+This is a major update that pulls in Buildroot 2021.11. Please review the
+Buildroot release notes in addition to the following:
+
+1. Add `BR2_LINUX_KERNEL_NEEDS_HOST_OPENSSL=y` to the `nerves_defconfig`. Even
+   if the kernel required host openssl, it was sometimes possible to build
+   successfully without the option. This changed, so now the option is required.
+2. For Raspberry Pi systems, the firmware options changed. Here's what you need
+   to do:
+   * Remove `BR2_PACKAGE_RPI_FIRMWARE_X=y`
+   * Add `BR2_PACKAGE_RPI_FIRMWARE_BOOTCODE_BIN=y`
+   * Add `BR2_PACKAGE_RPI_FIRMWARE_VARIANT_PI=y` for the default firmware OR
+   * Add `BR2_PACKAGE_RPI_FIRMWARE_VARIANT_PI_X=y` for the extended firmware.
+     This is what the official Nerves systems use. If you do this, you must
+     change the `fwup.conf`.
+   * Update the firmware filenames in the `fwup.conf`. You only need to do this
+     if you're using the extended firmware. In the `on-resource` blocks, change
+     the `start.elf` resource to load from `start_x.elf` and the `fixup.dat`
+     resource to load from `fixup_x.dat. You'll get an error building the
+     firmware about not being able to find `start.elf` if you don't do this.
+
+If in doubt, check out the differences that we made to the official systems on
+GitHub or on Hex.pm.
+
+* Package updates
+  * [Buildroot 2021.11](http://lists.busybox.net/pipermail/buildroot/2021-December/629911.html)
+  * [Erlang/OTP 24.2](https://erlang.org/download/OTP-24.2.README)
+
+* Fixes
+  * The S3 bucket that was being used as an backup download site is no
+    longer available to us. The new backup site is
+    https://dl.nerves-project.org/
+
 ## v1.17.4
 
 * Package updates
