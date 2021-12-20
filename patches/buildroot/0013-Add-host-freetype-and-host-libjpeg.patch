@@ -1,0 +1,25 @@
+From 41df9b1e9cc106ebc08540f7c7759545ee0e88ac Mon Sep 17 00:00:00 2001
+From: wzin <wojtek@gamecodehq.com>
+Date: Fri, 17 Dec 2021 11:26:20 +0100
+Subject: [PATCH] Add host freetype and host libjpeg
+
+---
+ package/qt5/qt5webengine/qt5webengine.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package/qt5/qt5webengine/qt5webengine.mk b/package/qt5/qt5webengine/qt5webengine.mk
+index 64c9c96cc2..21e920a465 100644
+--- a/package/qt5/qt5webengine/qt5webengine.mk
++++ b/package/qt5/qt5webengine/qt5webengine.mk
+@@ -27,7 +27,7 @@ QT5WEBENGINE_DEPENDENCIES += xlib_libXScrnSaver xlib_libXcomposite \
+ 	xlib_libXcursor xlib_libXi xlib_libXrandr xlib_libXtst
+ endif
+ 
+-QT5WEBENGINE_DEPENDENCIES += host-libpng host-libnss libnss
++QT5WEBENGINE_DEPENDENCIES += host-libpng host-libnss libnss host-freetype host-libjpeg
+ 
+ QT5WEBENGINE_CONF_OPTS += WEBENGINE_CONFIG+=use_system_ffmpeg
+ 
+-- 
+2.25.1
+
