@@ -12,6 +12,12 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.18.2
+
+* Fixes
+  * Fix issue creating SBOM information (`make legal-info`) for the RPi WiFi
+    firmware.
+
 ## v1.18.1
 
 This is a minor update to v1.18.0.
