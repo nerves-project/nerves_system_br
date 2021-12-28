@@ -8,7 +8,7 @@ config BR2_PACKAGE_RPI_DISTRO_FIRMWARE_NONFREE
 
 	  Firmware binaries that ship with the Raspberry Pi OS
 
-	  https://github.com/raspberrypi/firmware
+	  https://github.com/RPi-Distro/firmware-nonfree
 
 comment "rpi-distro-firmware-nonfree conflicts with linux-firmware Broadcom BRCM bcm43xx and rpi-wifi-firmware"
 	depends on BR2_PACKAGE_LINUX_FIRMWARE_BRCM_BCM43XXX || BR2_PACKAGE_RPI_WIFI_FIRMWARE
