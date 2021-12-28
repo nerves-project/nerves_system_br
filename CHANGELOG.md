@@ -12,6 +12,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.18.1
+
+This is a minor update to v1.18.0.
+
+* Changes
+  * Include host freetype and host libjpeg to fix compilation errors with
+    qt5webengine. Thanks to @wzin for tracking this down and working with the
+    Buildroot devs. The patch will be here until an upstream fix is released.
+  * Update WiFi firmware for all Raspberry Pi platforms. This brings in a number
+    of fixes that were released over the past year. See
+    [changelog](https://github.com/RPi-Distro/firmware-nonfree/blob/bullseye/debian/changelog).
+
 ## v1.18.0
 
 This is a major update that pulls in Buildroot 2021.11. Please review the
