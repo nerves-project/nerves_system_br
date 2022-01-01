@@ -46,14 +46,18 @@ Buildroot release notes in addition to the following:
    * Add `BR2_PACKAGE_RPI_FIRMWARE_VARIANT_PI_X=y` for the extended firmware.
      This is what the official Nerves systems use. If you do this, you must
      change the `fwup.conf`.
-   * Update the firmware filenames in the `fwup.conf`. You only need to do this
-     if you're using the extended firmware. In the `on-resource` blocks, change
-     the `start.elf` resource to load from `start_x.elf` and the `fixup.dat`
-     resource to load from `fixup_x.dat. You'll get an error building the
+   * If you've copied and customized `fwup.conf` (usually in `config/fwup.conf`)
+     then you need to update the firmware filenames. You only need to do this if
+     you're using the extended firmware. In the `on-resource` blocks, change the
+     `start.elf` resource to load from `start_x.elf` and the `fixup.dat`
+     resource to load from `fixup_x.dat`. You'll get an error building the
      firmware about not being able to find `start.elf` if you don't do this.
 
 If in doubt, check out the differences that we made to the official systems on
-GitHub or on Hex.pm.
+GitHub or on Hex.pm (e.g. the [full nerves_system_rpi4
+change](https://diff.hex.pm/diff/nerves_system_rpi4/1.17.3..1.18.0) and [partial
+nerves_system_rpi4
+change](https://github.com/nerves-project/nerves_system_rpi4/commit/59b8a65a54222dfedf08e1767977156fafb88ca8)).
 
 * Package updates
   * [Buildroot 2021.11](http://lists.busybox.net/pipermail/buildroot/2021-December/629911.html)
