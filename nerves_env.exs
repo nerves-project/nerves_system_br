@@ -47,26 +47,20 @@ sdk_sysroot = Path.join(system_path, "staging")
   if File.dir?(Path.join(system_path, "host")) do
     # Grab the toolchain from a Buildroot output directory
     toolchain_path = Path.join(system_path, "host")
-    gcc_path = Path.join(toolchain_path, "usr/bin")
+    gcc_path = Path.join(toolchain_path, "bin")
 
     crosscompile = Utils.crosscompile(gcc_path, system_path)
 
-    System.put_env("PKG_CONFIG", Path.join(toolchain_path, "usr/bin/pkg-config"))
+    System.put_env("PKG_CONFIG", Path.join(toolchain_path, "bin/pkg-config"))
     System.put_env("PKG_CONFIG_SYSROOT_DIR", sdk_sysroot)
-    System.put_env("PKG_CONFIG_LIBDIR", Path.join(sdk_sysroot, "usr/lib/pkgconfig"))
+    System.put_env("PKG_CONFIG_LIBDIR", Path.join(sdk_sysroot, "lib/pkgconfig"))
     System.put_env("PKG_CONFIG_PATH", "")
-    System.put_env("PERLLIB", Path.join(toolchain_path, "usr/lib/perl"))
-
-    Path.join(toolchain_path, "usr/bin")
-    |> System.Env.path_add()
-
-    Path.join(toolchain_path, "usr/sbin")
-    |> System.Env.path_add()
+    System.put_env("PERLLIB", Path.join(toolchain_path, "lib/perl"))
 
     Path.join(toolchain_path, "bin")
     |> System.Env.path_add()
 
-    Path.join(toolchain_path, "usr/lib")
+    Path.join(toolchain_path, "lib")
     |> System.Env.ld_library_path_add()
 
     {toolchain_path, crosscompile}
