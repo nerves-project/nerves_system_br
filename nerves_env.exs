@@ -3,11 +3,11 @@ defmodule System.Env do
   @ld_library_path "LD_LIBRARY_PATH"
 
   def path_add(p) do
-    System.put_env(@path, "#{path()}:#{p}")
+    System.put_env(@path, "#{p}:#{path()}")
   end
 
   def ld_library_path_add(p) do
-    System.put_env(@ld_library_path, "#{ld_library_path()}:#{p}")
+    System.put_env(@ld_library_path, "#{p}:#{ld_library_path()}")
   end
 
   def path do
