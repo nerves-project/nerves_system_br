@@ -30,24 +30,22 @@ if [[ -e "$NERVES_SYSTEM/host" ]]; then
     # This is a Linux Buildroot build, so use tools as
     # provided by Buildroot
     NERVES_TOOLCHAIN=$NERVES_SYSTEM/host
-    ALL_CROSSCOMPILE=$(find "$NERVES_TOOLCHAIN"/usr/bin/ -maxdepth 1 -name "*gcc" | sed -e s/-gcc//)
+    ALL_CROSSCOMPILE=$(find "$NERVES_TOOLCHAIN"/bin/ -maxdepth 1 -name "*gcc" | sed -e s/-gcc//)
 
     # For Buildroot builds, use the Buildroot provided versions of pkg-config
     # and perl.
-    export PKG_CONFIG=$NERVES_TOOLCHAIN/usr/bin/pkg-config
-    export PERLLIB=$NERVES_TOOLCHAIN/usr/lib/perl
+    export PKG_CONFIG=$NERVES_TOOLCHAIN/bin/pkg-config
+    export PERLLIB=$NERVES_TOOLCHAIN/lib/perl
 
-    pathadd "$NERVES_TOOLCHAIN/usr/bin"
-    pathadd "$NERVES_TOOLCHAIN/usr/sbin"
     pathadd "$NERVES_TOOLCHAIN/bin"
-    ldlibrarypathadd "$NERVES_TOOLCHAIN/usr/lib"
+    ldlibrarypathadd "$NERVES_TOOLCHAIN/lib"
 else
     # The user is using a prebuilt toolchain and system. Usually NERVES_TOOLCHAIN will be defined,
     # but guess it just in case it isn't.
     if [[ -z "$NERVES_TOOLCHAIN" ]]; then
         NERVES_TOOLCHAIN=$NERVES_SYSTEM/../nerves-toolchain
     fi
-    ALL_CROSSCOMPILE=$(find "$NERVES_TOOLCHAIN"/usr/bin/ -maxdepth 1 -name "*gcc" | sed -e s/-gcc//)
+    ALL_CROSSCOMPILE=$(find "$NERVES_TOOLCHAIN"/bin/ -maxdepth 1 -name "*gcc" | sed -e s/-gcc//)
 
     pathadd "$NERVES_TOOLCHAIN/bin"
 fi
