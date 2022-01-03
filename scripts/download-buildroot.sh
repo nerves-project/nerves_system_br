@@ -46,7 +46,7 @@ if [[ ! -e "$CACHED_TARBALL_PATH" ]]; then
     fi
 
     # If the above URLs fail, we host a backup.
-    ALTERNATIVE_URL=https://dl.nerves-project.org/$TARBALL_NAME
+    ALTERNATIVE_URL=http://dl.nerves-project.org/$TARBALL_NAME
 
     pushd "$DL"
     if ! wget "$DOWNLOAD_URL"; then
