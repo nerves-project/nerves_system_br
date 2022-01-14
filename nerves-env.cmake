@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 2.9 FATAL_ERROR)
-
 set(CMAKE_SYSTEM "Linux")
 set(CMAKE_SYSTEM_NAME "Linux")
 
