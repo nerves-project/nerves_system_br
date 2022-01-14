@@ -39,6 +39,7 @@ defmodule Nerves.System.BR.Mixfile do
         "mix.exs",
         "nerves_env.exs",
         "nerves-env.sh",
+        "nerves-env.cmake",
         "nerves.mk",
         "README.md",
         "VERSION"
