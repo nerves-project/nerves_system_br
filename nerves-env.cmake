@@ -2,7 +2,7 @@ set(CMAKE_SYSTEM "Linux")
 set(CMAKE_SYSTEM_NAME "Linux")
 
 # set nerves sysroot
-set(CMAKE_FIND_ROOT_PATH "$ENV{NERVES_SDK_SYSROOT}")
+set(CMAKE_FIND_ROOT_PATH "$ENV{NERVES_SDK_ROOTFS}")
 
 # adjust the default behavior of the find commands:
 # search headers and libraries in the target environment

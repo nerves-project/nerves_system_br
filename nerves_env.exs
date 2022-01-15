@@ -86,7 +86,30 @@ sdk_sysroot = Path.join(system_path, "staging")
     {toolchain_path, crosscompile}
   end
 
-System.put_env("NERVES_SDK_IMAGES", Path.join(system_path, "images"))
+nerves_images = Path.join(system_path, "images")
+nerves_rootfs = Path.join([nerves_images, "rootfs"])
+nerves_rootfs_squashfs = Path.join([nerves_images, "rootfs.squashfs"])
+
+with {:has_rootfs, false} <- {:has_rootfs, File.dir?(rootfs)},
+     {:has_unsquashfs, true} <-
+       {:has_unsquashfs, not is_nil(System.find_executable("unsquashfs"))},
+     {:unsquashfs, {_, 0}} <-
+       {:unsquashfs, System.cmd("unsquashfs", ["-f", "-d", rootfs, rootfs_squashfs])} do
+  nil
+else
+  {:has_rootfs, true} ->
+    nil
+
+  {:has_unsquashfs, false} ->
+    Mix.raise("ERROR: Please install unsquashfs first")
+
+  {:unsquashfs, error} ->
+    IO.inspect(error)
+    Mix.raise("ERROR: unsquashfs failed")
+end
+
+System.put_env("NERVES_SDK_ROOTFS", nerves_rootfs)
+System.put_env("NERVES_SDK_IMAGES", nerves_images)
 System.put_env("NERVES_SDK_SYSROOT", sdk_sysroot)
 
 system_include_path =
