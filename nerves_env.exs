@@ -81,6 +81,8 @@ sdk_sysroot = Path.join(system_path, "staging")
     Path.join(toolchain_path, "bin")
     |> System.Env.path_add()
 
+    System.put_env("CMAKE_TOOLCHAIN_FILE", Path.expand(Path.join(__DIR__, "nerves-env.cmake")))
+
     {toolchain_path, crosscompile}
   end
 
