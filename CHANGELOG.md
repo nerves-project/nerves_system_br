@@ -12,6 +12,19 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.18.3
+
+* Changes
+  * Add `cmake` support via the `CMAKE_TOOLCHAIN_FILE` environment variable.
+    Pass `-D CMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}` when configuring
+    a CMake project to use. Thanks to @cocoa-xu for this.
+
+* Fixes
+  * Prepend host tools to `PATH` rather than append them. Since
+    `LD_LIBRARY_PATH` is set, there was a possibility of using a system-supplied
+    program with a Nerves-supplied shared library. This makes this less
+    possible. Thanks to @ejc123 for tracking this down.
+
 ## v1.18.2
 
 * Fixes
