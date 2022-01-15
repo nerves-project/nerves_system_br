@@ -130,6 +130,9 @@ if [ -e "$NERVES_SDK_SYSROOT/mkspecs/devices/linux-buildroot-g++" ]; then
     export QMAKESPEC=$NERVES_SDK_SYSROOT/mkspecs/devices/linux-buildroot-g++
 fi
 
+# cmake
+export CMAKE_TOOLCHAIN_FILE="$NERVES_SYSTEM/nerves-env.cmake"
+
 # Rebar naming
 export ERL_EI_LIBDIR="$ERL_INTERFACE_DIR/lib"
 export ERL_EI_INCLUDE_DIR="$ERL_INTERFACE_DIR/include"

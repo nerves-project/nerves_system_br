@@ -29,6 +29,7 @@ cp -f "$FWUP_CONFIG" "$BINARIES_DIR"
 # Symlink the nerves scripts to the output directory so that it
 # is self-contained.
 cp -f "$BR2_EXTERNAL_NERVES_PATH/nerves-env.sh" "$BASE_DIR"    # Can't symlink due to readlink -f code
+ln -sf "$BR2_EXTERNAL_NERVES_PATH/nerves-env.cmake" "$BASE_DIR"
 ln -sf "$BR2_EXTERNAL_NERVES_PATH/nerves.mk" "$BASE_DIR"
 ln -sf "$BR2_EXTERNAL_NERVES_PATH/scripts" "$BASE_DIR"
 
