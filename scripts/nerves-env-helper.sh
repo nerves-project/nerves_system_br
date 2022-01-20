@@ -152,6 +152,12 @@ export CFLAGS_FOR_BUILD=
 export CXXFLAGS_FOR_BUILD=
 export LDFLAGS_FOR_BUILD=
 
+# Unset pieces from Erlang that might affect the build
+unset BINDIR
+unset PROGNAME
+unset MIX_HOME
+unset ROOTDIR
+
 # Since it is so important that the host and target Erlang installs
 # match, check it here.
 
