@@ -1,4 +1,4 @@
-From 1c86ee9b0c50c46e8d5046c8bc5fab1a8a4cc6bd Mon Sep 17 00:00:00 2001
+From 1549db064af599ea282029ff570966a193dd2d8a Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 20 - 24
@@ -29,9 +29,9 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  ...3-erlang-enable-deterministic-builds.patch | 28 ++++++++
  ...-update-df-call-to-work-with-Busybox.patch | 28 ++++++++
  package/erlang/Config.in                      | 32 +++++++++
- package/erlang/erlang.hash                    | 17 ++++-
- package/erlang/erlang.mk                      | 37 +++++++++-
- 24 files changed, 950 insertions(+), 121 deletions(-)
+ package/erlang/erlang.hash                    |  6 ++
+ package/erlang/erlang.mk                      | 33 +++++++++
+ 24 files changed, 940 insertions(+), 116 deletions(-)
  delete mode 100644 package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  delete mode 100644 package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/20.3.8.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
@@ -1209,48 +1209,40 @@ index 15931b5896..3c3ed297c5 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 3c2f039496..1047d9bcfa 100644
+index 338545a0ba..564b6a423c 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
-@@ -1,4 +1,15 @@
--# md5 from http://www.erlang.org/download/MD5, sha256 locally computed
--md5 b2b48dad6e69c1e882843edbf2abcfd3  otp_src_22.2.tar.gz
--sha256 89c2480cdac566065577c82704a48e10f89cf2e6ca5ab99e1cf80027784c678f  otp_src_22.2.tar.gz
-+# sha256 locally computed
-+sha256 0b9c9ba7d8b40f6c77d529e07561b10f0914d2bfe9023294d7eda85b62936792  OTP-24.2.tar.gz
-+sha256 a1dd1a238f1f3e79784b902f3cd00e06f35a630191eaf73324a07a26a2c93af3  OTP-24.1.7.tar.gz
-+sha256 3ca6768147653bca1b429a767377dee3351004b719099d34004633833dbfbc23  OTP-24.1.5.tar.gz
-+sha256 aa31ba689740dc446dfa5bb256474df5fb5e5459b981b4d2155afa91010ca66a  OTP-24.1.4.tar.gz
-+sha256 7ccfa8372995fc7895baeb3729f679aff87781d1b7c734acd22740bc41ee2eed  OTP-24.1.3.tar.gz
-+sha256 c141a046bb7184a7bb5c3d6da2ed013e465d1fbe4ff5cd16e0fbb7a0e786a152  OTP-24.1.2.tar.gz
-+sha256 96a9ffd0ce529dda8bb98eb3e607994fe9f67c1abb3fc1cca545826ad088358d  OTP-24.1.1.tar.gz
-+sha256 63da2a7786bf49cf672f5008309ffc55d8827b9927a91a88d95328c445dd9d04  OTP-24.1.tar.gz
-+sha256 a60a7d776a4573e2018d6fad6df957e3911ecbce5f11497a8ec537f613aca0a1  OTP-24.0.6.tar.gz
-+sha256 adc937319227774d53f941f25fa31990f5f89a530f6cb5511d5ea609f9f18ebe  OTP-23.3.4.tar.gz
-+sha256 12d628c2d0bdc0cf1f1ec56bd3c4da697510b25ab744d45872f63fefdd1a7680  OTP-22.3.4.1.tar.gz
-+sha256 a5d558cb189e026cd45114ffa9bb52752945e7e450c6e7e396b2e626e5fffcc8  OTP-21.3.8.4.tar.gz
-+sha256 897dd8b66c901bfbce09ed64e0245256aca9e6e9bdf78c36954b9b7117192519  OTP-20.3.8.9.tar.gz
- sha256 809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
+@@ -1,5 +1,11 @@
++# From https://github.com/erlang/otp/releases/download/OTP-24.2/SHA256.txt
++sha256  af0f1928dcd16cd5746feeca8325811865578bf1a110a443d353ea3e509e6d41  otp_src_24.2.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-23.3.4.11/SHA256.txt
++sha256  194bcc256c187a56a2891c9bdc36f2112bd6035e40a35f877b2f52524a0888ce  otp_src_23.3.4.11.tar.gz
+ # From https://github.com/erlang/otp/releases/download/OTP-22.3.4.22/SHA256.txt
+ sha256  e7f0793e62f8da4f7551dc9c1c0de76c40f19773ba516121fc56315c840f60cc  otp_src_22.3.4.22.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-21.3.8.23/SHA256.txt
++sha256  fe8230c8efb7a942b8a39281cbb718bd0ca0ed56b57f7fed42cbe10781526ec2  otp_src_21.3.8.23.tar.gz
+ 
+ # Hash for license file
+ sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index c0c9d327c3..c574f71ab9 100644
+index 2d5e713df5..30a9788333 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,24 @@
  ################################################################################
  
  # See note below when updating Erlang
--ERLANG_VERSION = 22.2
 +ifeq ($(BR2_PACKAGE_ERLANG_20),y)
 +ERLANG_VERSION = 20.3.8.9
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_21),y)
-+ERLANG_VERSION = 21.3.8.4
++ERLANG_VERSION = 21.3.8.23
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_22),y)
-+ERLANG_VERSION = 22.3.4.1
+ ERLANG_VERSION = 22.3.4.22
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_23),y)
-+ERLANG_VERSION = 23.3.4
++ERLANG_VERSION = 23.3.4.11
 +else
 +ERLANG_VERSION = 24.2
 +endif
@@ -1258,14 +1250,13 @@ index c0c9d327c3..c574f71ab9 100644
 +endif
 +endif
 +
- ERLANG_SITE = https://github.com/erlang/otp/archive
- ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
- ERLANG_DEPENDENCIES = host-erlang
+ ERLANG_SITE = \
+ 	https://github.com/erlang/otp/releases/download/OTP-$(ERLANG_VERSION)
+ ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
 @@ -37,7 +54,23 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
  
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk
--ERLANG_EI_VSN = 3.13.1
 +ifeq ($(BR2_PACKAGE_ERLANG_20),y)
 +ERLANG_EI_VSN = 3.10.2.1
 +else
@@ -1273,7 +1264,7 @@ index c0c9d327c3..c574f71ab9 100644
 +ERLANG_EI_VSN = 3.11.3
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_22),y)
-+ERLANG_EI_VSN = 3.13.2
+ ERLANG_EI_VSN = 3.13.2.2
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_23),y)
 +ERLANG_EI_VSN = 4.0.3

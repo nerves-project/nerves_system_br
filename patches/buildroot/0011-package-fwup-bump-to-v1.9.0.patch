@@ -1,4 +1,4 @@
-From c2ad80343e67bf2ce5f4986b603450301c4c884f Mon Sep 17 00:00:00 2001
+From 301a2657dad6605bd155cd1c5ed0a923404f3bc1 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 10 Dec 2020 18:49:16 -0500
 Subject: [PATCH] package/fwup: bump to v1.9.0
@@ -34,5 +34,5 @@ index 77eaa528f3..62016d94e3 100644
  FWUP_LICENSE_FILES = LICENSE
  FWUP_DEPENDENCIES = host-pkgconf libconfuse libarchive
 -- 
-2.33.1
+2.25.1
 

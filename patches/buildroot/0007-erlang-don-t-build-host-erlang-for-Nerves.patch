@@ -1,4 +1,4 @@
-From cb9ddb6766f203dd069d269367476471249e97f6 Mon Sep 17 00:00:00 2001
+From 9fa82427db65a6f5b0342f5daecc7a91626d56cf Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 6 Feb 2019 12:15:09 -0500
 Subject: [PATCH] erlang: don't build host-erlang for Nerves
@@ -10,13 +10,13 @@ compilation of Erlang packages is done using mix later on.
  1 file changed, 1 deletion(-)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 802c156c87..08589c3f60 100644
+index a76bda4437..2d5e713df5 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -8,7 +8,6 @@
- ERLANG_VERSION = 22.2
- ERLANG_SITE = https://github.com/erlang/otp/archive
- ERLANG_SOURCE = OTP-$(ERLANG_VERSION).tar.gz
+@@ -9,7 +9,6 @@ ERLANG_VERSION = 22.3.4.22
+ ERLANG_SITE = \
+ 	https://github.com/erlang/otp/releases/download/OTP-$(ERLANG_VERSION)
+ ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
 -ERLANG_DEPENDENCIES = host-erlang
  
  ERLANG_LICENSE = Apache-2.0
