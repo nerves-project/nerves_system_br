@@ -18,4 +18,10 @@ NERVES_CONFIG_DEPENDENCIES = erlinit erlang host-fwup fwup ncurses nerves_heart 
 # but this isn't possible on non-Linux platforms (i.e. no fakeroot).
 ROOTFS_SQUASHFS_ARGS += -e srv
 
+define NERVES_CONFIG_INSTALL_TARGET_CMDS
+	cp -f $(BR2_EXTERNAL)/package/nerves-config/echo-gcc-args $(HOST_DIR)/opt/ext-toolchain/bin/echo-gcc-args
+	ln -sf toolchain-wrapper $(HOST_DIR)/bin/echo-gcc-args
+	$(HOST_DIR)/bin/echo-gcc-args > $(BINARIES_DIR)/buildroot-gcc-args
+endef
+
 $(eval $(generic-package))
