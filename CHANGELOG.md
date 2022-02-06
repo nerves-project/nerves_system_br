@@ -12,6 +12,22 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.18.4
+
+This is a Buildroot and Erlang bug fix release. It should be safe to upgrade to
+from `v1.18.3`.
+
+* Changes
+  * Buildroot's gcc argument settings are now recorded to Nerves systems in the
+    `buildroot-gcc-args` file. This includes flags that enable CPU features that
+    may not be enabled by default in the toolchain. This file can be used for
+    the new `TARGET_GCC_FLAGS` variable that can be set in the Nerves System's
+    `mix.exs` package definition.
+
+* Package updates
+  * [Buildroot 2021.11.1](http://lists.busybox.net/pipermail/buildroot/2022-January/635208.html)
+  * [Erlang/OTP 24.2.1](https://erlang.org/download/OTP-24.2.1.README)
+
 ## v1.18.3
 
 * Changes
