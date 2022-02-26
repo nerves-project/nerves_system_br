@@ -5,3 +5,13 @@ config BR2_PACKAGE_BBORG_OVERLAYS
 	  Device Tree Overlays for bb.org boards
 
 	  https://github.com/beagleboard/bb.org-overlays
+
+if BR2_PACKAGE_BBORG_OVERLAYS
+
+config BR2_PACKAGE_BBORG_INSTALL_PATH
+	string "Installation path"
+	default "/lib/firmware"
+	help
+	  Path on target for device tree overlay files
+
+endif # BR2_PACKAGE_BBORG_OVERLAYS

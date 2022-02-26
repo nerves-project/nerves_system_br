@@ -19,8 +19,8 @@ define BBORG_OVERLAYS_BUILD_CMDS
 endef
 
 define BBORG_OVERLAYS_INSTALL_TARGET_CMDS
-	mkdir -p $(TARGET_DIR)/lib/firmware
-	cp $(@D)/src/arm/*.dtbo $(TARGET_DIR)/lib/firmware
+	mkdir -p $(TARGET_DIR)$(BR2_PACKAGE_BBORG_INSTALL_PATH)
+	cp $(@D)/src/arm/*.dtbo $(TARGET_DIR)$(BR2_PACKAGE_BBORG_INSTALL_PATH)
 endef
 
 $(eval $(generic-package))
