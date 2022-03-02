@@ -12,6 +12,21 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.18.5
+
+This is mostly a Buildroot and Erlang bug fix release. It should be safe to
+upgrade to from `v1.18.4`.
+
+* Changes
+  * boardid: Support reading serial numbers from the GRiSP2 EEPROM
+  * bborg-overlays: Support changing the directory where Beaglebone device tree
+    overlays get installed. Default remains the same (/lib/firmware).
+
+* Package updates
+  * [Buildroot 2021.11.2](https://lists.buildroot.org/pipermail/buildroot/2022-February/637876.html)
+  * [Erlang/OTP 24.2.2](https://erlang.org/download/OTP-24.2.2.README)
+  * [boardid 1.12.0](https://github.com/nerves-project/boardid/releases/tag/v1.12.0)
+
 ## v1.18.4
 
 This is a Buildroot and Erlang bug fix release. It should be safe to upgrade to
