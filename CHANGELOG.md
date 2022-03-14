@@ -12,6 +12,14 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.18.6
+
+* Package updates
+  * [Erlang/OTP 24.3.2](https://erlang.org/download/OTP-24.3.2.README). See
+    [Erlang/OTP 24.3.1](https://erlang.org/download/OTP-24.3.1.README) and
+    [Erlang/OTP 24.3](https://erlang.org/download/OTP-24.3.README) for other
+    changes.
+
 ## v1.18.5
 
 This is mostly a Buildroot and Erlang bug fix release. It should be safe to
