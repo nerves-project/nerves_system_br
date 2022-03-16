@@ -1,4 +1,4 @@
-From 2429154397bbd328698e3c6ebda0330d05cfecbb Mon Sep 17 00:00:00 2001
+From 187001ad9291ccc960d38f16982bfa60299bb3a8 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 20 - 24
@@ -49,10 +49,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/23.3.4/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/23.3.4/0003-erlang-enable-deterministic-builds.patch
  create mode 100644 package/erlang/23.3.4/0004-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/24.3.1/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
- create mode 100644 package/erlang/24.3.1/0002-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/24.3.1/0003-erlang-enable-deterministic-builds.patch
- create mode 100644 package/erlang/24.3.1/0004-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/24.3.2/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ create mode 100644 package/erlang/24.3.2/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ create mode 100644 package/erlang/24.3.2/0003-erlang-enable-deterministic-builds.patch
+ create mode 100644 package/erlang/24.3.2/0004-disksup-update-df-call-to-work-with-Busybox.patch
 
 diff --git a/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 deleted file mode 100644
@@ -965,11 +965,11 @@ index 0000000000..9f98c4ad82
 +-- 
 +2.20.1
 +
-diff --git a/package/erlang/24.3.1/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/24.3.1/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+diff --git a/package/erlang/24.3.2/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/24.3.2/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
 index 0000000000..c5d83b2b36
 --- /dev/null
-+++ b/package/erlang/24.3.1/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
++++ b/package/erlang/24.3.2/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 @@ -0,0 +1,71 @@
 +From 2400947f3af66fbf39be86719ed03b1867d1423e Mon Sep 17 00:00:00 2001
 +From: "Yann E. MORIN" <yann.morin.1998@free.fr>
@@ -1042,11 +1042,11 @@ index 0000000000..c5d83b2b36
 +-- 
 +2.25.1
 +
-diff --git a/package/erlang/24.3.1/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/24.3.1/0002-erts-emulator-reorder-inclued-headers-paths.patch
+diff --git a/package/erlang/24.3.2/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/24.3.2/0002-erts-emulator-reorder-inclued-headers-paths.patch
 new file mode 100644
 index 0000000000..e7106f71ee
 --- /dev/null
-+++ b/package/erlang/24.3.1/0002-erts-emulator-reorder-inclued-headers-paths.patch
++++ b/package/erlang/24.3.2/0002-erts-emulator-reorder-inclued-headers-paths.patch
 @@ -0,0 +1,49 @@
 +From 4c86188d052cd6150d171dec003523a85fdfef91 Mon Sep 17 00:00:00 2001
 +From: Romain Naour <romain.naour@openwide.fr>
@@ -1097,11 +1097,11 @@ index 0000000000..e7106f71ee
 +-- 
 +2.25.1
 +
-diff --git a/package/erlang/24.3.1/0003-erlang-enable-deterministic-builds.patch b/package/erlang/24.3.1/0003-erlang-enable-deterministic-builds.patch
+diff --git a/package/erlang/24.3.2/0003-erlang-enable-deterministic-builds.patch b/package/erlang/24.3.2/0003-erlang-enable-deterministic-builds.patch
 new file mode 100644
 index 0000000000..0cfc5894dc
 --- /dev/null
-+++ b/package/erlang/24.3.1/0003-erlang-enable-deterministic-builds.patch
++++ b/package/erlang/24.3.2/0003-erlang-enable-deterministic-builds.patch
 @@ -0,0 +1,28 @@
 +From 70a045ba5286716bf1d4078d9a5adb061649d6ec Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1131,11 +1131,11 @@ index 0000000000..0cfc5894dc
 +-- 
 +2.25.1
 +
-diff --git a/package/erlang/24.3.1/0004-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/24.3.1/0004-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/24.3.2/0004-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/24.3.2/0004-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..beb1957d46
 --- /dev/null
-+++ b/package/erlang/24.3.1/0004-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/24.3.2/0004-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,28 @@
 +From c7d4172745f7a0fdafeaafc2166f0db74e99a870 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1209,12 +1209,12 @@ index 15931b5896..3c3ed297c5 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 338545a0ba..b17d514f76 100644
+index 338545a0ba..a5227555af 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,11 @@
-+# From https://github.com/erlang/otp/releases/download/OTP-24.3.1/SHA256.txt
-+sha256  925d0b767c913ac1b3a28bef53500b897a4e13a42fcd530a6d1bce837c97f685  otp_src_24.3.1.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-24.3.2/SHA256.txt
++sha256  fb39eecf5a5710200871c85c11251e27afce7c2a11f569bd6394c6d48240ec8d  otp_src_24.3.2.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-23.3.4.11/SHA256.txt
 +sha256  194bcc256c187a56a2891c9bdc36f2112bd6035e40a35f877b2f52524a0888ce  otp_src_23.3.4.11.tar.gz
  # From https://github.com/erlang/otp/releases/download/OTP-22.3.4.22/SHA256.txt
@@ -1225,7 +1225,7 @@ index 338545a0ba..b17d514f76 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 2d5e713df5..98d538f52b 100644
+index 2d5e713df5..fa04cf86af 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -5,7 +5,24 @@
@@ -1244,7 +1244,7 @@ index 2d5e713df5..98d538f52b 100644
 +ifeq ($(BR2_PACKAGE_ERLANG_23),y)
 +ERLANG_VERSION = 23.3.4.11
 +else
-+ERLANG_VERSION = 24.3.1
++ERLANG_VERSION = 24.3.2
 +endif
 +endif
 +endif
@@ -1269,7 +1269,7 @@ index 2d5e713df5..98d538f52b 100644
 +ifeq ($(BR2_PACKAGE_ERLANG_23),y)
 +ERLANG_EI_VSN = 4.0.3
 +else
-+ERLANG_EI_VSN = 5.2
++ERLANG_EI_VSN = 5.2.1
 +endif
 +endif
 +endif
@@ -1278,5 +1278,5 @@ index 2d5e713df5..98d538f52b 100644
  # The configure checks for these functions fail incorrectly
  ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes \
 -- 
-2.25.1
+2.32.0 (Apple Git-132)
 
