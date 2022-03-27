@@ -49,8 +49,6 @@ find "$RELEASE_DIR/releases" \( -name "*.sh" \
                                  -o -name "*.bat" \
                                  -o -name "*.ps1" \
                                  -o -name "*gz" \
-                                 -o -name "start.boot" \
-                                 -o -name "start_clean.boot" \
                                  -o -name "*.script" \
                                  \) -delete
 
