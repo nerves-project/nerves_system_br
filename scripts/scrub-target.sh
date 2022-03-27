@@ -16,14 +16,6 @@ if [ ! -d "$TARGET_DIR" ]; then
     exit 1
 fi
 
-# All of the Erlang libraries get included from the release (/srv/erlang) and
-# we only support starting releases. The following lines trim out the default
-# libs and the ability to start release-less.
-rm -fr "$TARGET_DIR"/usr/lib/erlang/lib
-rm -fr "$TARGET_DIR"/usr/lib/erlang/releases
-rm -fr "$TARGET_DIR"/usr/lib/erlang/bin/start*
-rm -fr "$TARGET_DIR"/usr/lib/erlang/bin/*.boot
-
 # Remove all shell scripts. We're trying hard not to ever have to run
 # one, so this keeps us honest in the base image.
 # COMMENT OUT THE NEXT LINE TO SUPPORT config-pin ON THE BBB. WE DIDN'T START
@@ -51,16 +43,6 @@ rm -f "$TARGET_DIR/etc/wpa_supplicant.conf"
 # partitions. Erlang/Elixir applications need to handle
 # anything complicated.
 rm -f "$TARGET_DIR/etc/fstab"
-
-# Remove Erlang binaries that don't make sense on the target
-find "$TARGET_DIR" -name ct_run -exec rm "{}" ";"
-find "$TARGET_DIR" -name dialyzer -exec rm "{}" ";"
-find "$TARGET_DIR" -name erlc -exec rm "{}" ";"
-find "$TARGET_DIR" -name escript -exec rm "{}" ";"
-find "$TARGET_DIR" -name typer -exec rm "{}" ";"
-
-# Remove soft links that aren't used
-rm -f "$TARGET_DIR/usr/bin/erl" "$TARGET_DIR/usr/bin/epmd"
 
 # Remove libatomic_ops readme files
 rm -fr "$TARGET_DIR/usr/share/libatomic_ops"
