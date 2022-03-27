@@ -36,7 +36,6 @@ fi
 # Clean up the Erlang release of all the files that we don't need.
 # The user should create their releases without source code
 # unless they want really big images..
-rm -fr "${RELEASE_DIR:?}/bin" "$RELEASE_DIR"/erts-*
 
 # Delete empty directories
 find "$RELEASE_DIR" -type d -empty -delete
