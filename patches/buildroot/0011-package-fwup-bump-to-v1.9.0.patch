@@ -1,4 +1,4 @@
-From 38cb8219e72752bf853248ed69228fb727c212f6 Mon Sep 17 00:00:00 2001
+From f1e3b8ad743cab4dc8614a36f33c9daea4f0df30 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 10 Dec 2020 18:49:16 -0500
 Subject: [PATCH] package/fwup: bump to v1.9.0

@@ -1,4 +1,4 @@
-From 46b3da96869f03e9bf166397c8d81bb8ad5a4346 Mon Sep 17 00:00:00 2001
+From cee9776044a8ec231ed44fd5a291f2dbedbf2abd Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 29 Nov 2020 21:08:22 -0500
 Subject: [PATCH] package/rpi-userland: support aarch64

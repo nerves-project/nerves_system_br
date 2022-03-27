@@ -1,4 +1,4 @@
-From b56044d70b71637d4ff35c8d4d51157878e1ec9b Mon Sep 17 00:00:00 2001
+From b0e3a521ab38c6917e8c22c69afe60148ff5c59c Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 8 Jul 2019 10:44:12 -0400
 Subject: [PATCH] rpi-firmware: support custom version selection
