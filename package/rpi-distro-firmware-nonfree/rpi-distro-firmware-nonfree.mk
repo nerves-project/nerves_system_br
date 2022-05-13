@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-RPI_DISTRO_FIRMWARE_NONFREE_VERSION = 99d5c588e95ec9c9b86d7e88d3cf85b4f729d2bc # 20210315-3+rpt4 release
+RPI_DISTRO_FIRMWARE_NONFREE_VERSION = 4db8c5d80daf2220d7824cfa6052f0bb108612ea # 20210315-3+rpt5 + RPI Zero 2W update
 RPI_DISTRO_FIRMWARE_NONFREE_SITE = $(call github,RPi-Distro,firmware-nonfree,$(RPI_DISTRO_FIRMWARE_NONFREE_VERSION))
-RPI_DISTRO_FIRMWARE_NONFREE_LICENSE_FILES = debian/config/brcm80211/LICENSE
+RPI_DISTRO_FIRMWARE_NONFREE_LICENSE_FILES = debian/config/brcm80211/copyright
 
 define RPI_DISTRO_FIRMWARE_NONFREE_INSTALL_TARGET_CMDS
 	$(INSTALL) -d $(TARGET_DIR)/lib/firmware/brcm
