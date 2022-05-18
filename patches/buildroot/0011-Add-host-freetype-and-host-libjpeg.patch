@@ -1,4 +1,4 @@
-From 18a4cf85370fdf95db33cda8b06a653a7050bd1c Mon Sep 17 00:00:00 2001
+From 70281306a866bf67db23a9e7d6435dadaf38457c Mon Sep 17 00:00:00 2001
 From: wzin <wojtek@gamecodehq.com>
 Date: Fri, 17 Dec 2021 11:26:20 +0100
 Subject: [PATCH] Add host freetype and host libjpeg
@@ -8,10 +8,10 @@ Subject: [PATCH] Add host freetype and host libjpeg
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/package/qt5/qt5webengine/qt5webengine.mk b/package/qt5/qt5webengine/qt5webengine.mk
-index 64c9c96cc2..21e920a465 100644
+index cebd6d0fe2..a6f77f6c7b 100644
 --- a/package/qt5/qt5webengine/qt5webengine.mk
 +++ b/package/qt5/qt5webengine/qt5webengine.mk
-@@ -27,7 +27,7 @@ QT5WEBENGINE_DEPENDENCIES += xlib_libXScrnSaver xlib_libXcomposite \
+@@ -28,7 +28,7 @@ QT5WEBENGINE_DEPENDENCIES += xlib_libXScrnSaver xlib_libXcomposite \
  	xlib_libXcursor xlib_libXi xlib_libXrandr xlib_libXtst
  endif
  

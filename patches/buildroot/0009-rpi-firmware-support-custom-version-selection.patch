@@ -1,4 +1,4 @@
-From b0e3a521ab38c6917e8c22c69afe60148ff5c59c Mon Sep 17 00:00:00 2001
+From ed4c9d8f08ada3336fcd29f6ea0013fc575c4a39 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 8 Jul 2019 10:44:12 -0400
 Subject: [PATCH] rpi-firmware: support custom version selection
@@ -16,7 +16,7 @@ example, if you're using the Raspberry Pi Linux kernel tagged
  2 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
-index f9fc0b0e5e..987f9d93f2 100644
+index 8070dc3019..8a727d7cd2 100644
 --- a/package/rpi-firmware/Config.in
 +++ b/package/rpi-firmware/Config.in
 @@ -11,6 +11,11 @@ config BR2_PACKAGE_RPI_FIRMWARE
@@ -32,14 +32,14 @@ index f9fc0b0e5e..987f9d93f2 100644
  	bool "rpi 0/1/2/3 bootcode.bin"
  	help
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index 3a4741a0ff..fcbaa6c137 100644
+index d4d1d07b3f..d32a1612a1 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
 @@ -4,7 +4,19 @@
  #
  ################################################################################
  
--RPI_FIRMWARE_VERSION = 2ef3800b1b71c0e30c2a61ecad6e007ae96ea342
+-RPI_FIRMWARE_VERSION = 3f20b832b27cd730deb6419b570f31a98167eef6
 +ifeq ($(call qstrip,$(BR2_PACKAGE_RPI_FIRMWARE_CUSTOM_VERSION)),)
 +ifeq ($(BR2_PACKAGE_RPI_FIRMWARE),y)
 +$(error The Raspberry Pi firmware version is no longer derived automatically.\

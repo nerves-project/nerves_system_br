@@ -1,4 +1,4 @@
-From cee9776044a8ec231ed44fd5a291f2dbedbf2abd Mon Sep 17 00:00:00 2001
+From 2bae3e7154676e123b86cbb594bf9c8beb9d6580 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 29 Nov 2020 21:08:22 -0500
 Subject: [PATCH] package/rpi-userland: support aarch64
@@ -53,7 +53,7 @@ index 342faf26e3..b9e80eb7c7 100644
  	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS || \
  		BR2_STATIC_LIBS
 diff --git a/package/rpi-userland/rpi-userland.mk b/package/rpi-userland/rpi-userland.mk
-index a670a4a02d..5075821991 100644
+index 3564ec0703..e162d70bca 100644
 --- a/package/rpi-userland/rpi-userland.mk
 +++ b/package/rpi-userland/rpi-userland.mk
 @@ -11,8 +11,18 @@ RPI_USERLAND_LICENSE_FILES = LICENCE
@@ -72,9 +72,9 @@ index a670a4a02d..5075821991 100644
 +
 +endif
 +
- ifeq ($(BR2_PACKAGE_RPI_USERLAND_HELLO),y)
- 
- RPI_USERLAND_CONF_OPTS += -DALL_APPS=ON
+ ifeq ($(BR2_PACKAGE_LIBEXECINFO),y)
+ RPI_USERLAND_DEPENDENCIES += libexecinfo
+ RPI_USERLAND_CONF_OPTS += -DCMAKE_EXE_LINKER_FLAGS=-lexecinfo
 -- 
 2.25.1
 
