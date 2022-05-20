@@ -12,6 +12,28 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.19.0
+
+This is a major update that pulls in Buildroot 2022.02.1 and Erlang/OTP 25.
+
+* Package updates
+  * [Buildroot 2022.02.1](http://lists.busybox.net/pipermail/buildroot/2022-April/640712.html).
+    Also see [Buildroot 2022.02](http://lists.busybox.net/pipermail/buildroot/2022-March/638160.html)
+  * [Erlang/OTP 25.0](https://erlang.org/download/OTP-25.0.README)
+  * [erlinit 1.12.0](https://github.com/nerves-project/erlinit/releases/tag/v1.12.0)
+
+* Updates
+  * No longer install ERTS to the release. This means that the Mix release
+    generator needs to install ERTS, but it had been doing this and it had been
+    ignored. No changes to your project are needed. ERTS will be under `/srv`
+    now on the device rather than `/usr`.
+  * It's now possible to use the `start.boot` boot script. It's no longer
+    scrubbed from the release.
+  * Build a host version of Erlang so that the host and target Erlang definitely
+    match. This had been removed to speed up builds in the past. However, it did
+    not work when compiling the new JIT. This is the "safe" option since
+    mismatched host and target Erlang versions could cause problems.
+
 ## v1.18.6
 
 * Package updates
