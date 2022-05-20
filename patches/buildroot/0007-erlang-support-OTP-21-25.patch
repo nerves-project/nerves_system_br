@@ -1,4 +1,4 @@
-From 3db481fbe3fa5d273f836dbbadfb67aa0924b46d Mon Sep 17 00:00:00 2001
+From bceb6216fb71ea8fc233116f33164154cf9f550e Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 25
@@ -9,9 +9,6 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
  ...truct-libatomic_ops-we-do-require-CA.patch | 70 ------------------
  ...ulator-reorder-inclued-headers-paths.patch | 46 ------------
- ...truct-libatomic_ops-we-do-require-CA.patch | 70 ++++++++++++++++++
- ...ulator-reorder-inclued-headers-paths.patch | 43 +++++++++++
- ...-with-LDLIBS-instead-of-LIBS-for-DED.patch | 42 +++++++++++
  ...truct-libatomic_ops-we-do-require-CA.patch | 70 ++++++++++++++++++
  ...ulator-reorder-inclued-headers-paths.patch | 46 ++++++++++++
  ...-with-LDLIBS-instead-of-LIBS-for-DED.patch | 42 +++++++++++
@@ -32,26 +29,23 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  ...2-erlang-enable-deterministic-builds.patch | 28 ++++++++
  ...-update-df-call-to-work-with-Busybox.patch | 28 ++++++++
  package/erlang/Config.in                      | 37 ++++++++++
- package/erlang/erlang.hash                    |  8 +++
- package/erlang/erlang.mk                      | 37 ++++++++++
- 27 files changed, 1056 insertions(+), 116 deletions(-)
+ package/erlang/erlang.hash                    | 12 +++-
+ package/erlang/erlang.mk                      | 40 ++++++++++-
+ 24 files changed, 905 insertions(+), 119 deletions(-)
  delete mode 100644 package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  delete mode 100644 package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/20.3.8.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
- create mode 100644 package/erlang/20.3.8.9/0002-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/20.3.8.9/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
- create mode 100644 package/erlang/21.3.8.4/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
- create mode 100644 package/erlang/21.3.8.4/0002-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/21.3.8.4/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
- create mode 100644 package/erlang/21.3.8.4/0004-erlang-enable-deterministic-builds.patch
- create mode 100644 package/erlang/22.3.4.1/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
- create mode 100644 package/erlang/22.3.4.1/0002-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/22.3.4.1/0003-erlang-enable-deterministic-builds.patch
- create mode 100644 package/erlang/22.3.4.1/0004-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/23.3.4/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
- create mode 100644 package/erlang/23.3.4/0002-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/23.3.4/0003-erlang-enable-deterministic-builds.patch
- create mode 100644 package/erlang/23.3.4/0004-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ create mode 100644 package/erlang/21.3.8.24/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ create mode 100644 package/erlang/21.3.8.24/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+ create mode 100644 package/erlang/21.3.8.24/0004-erlang-enable-deterministic-builds.patch
+ create mode 100644 package/erlang/22.3.4.26/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ create mode 100644 package/erlang/22.3.4.26/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ create mode 100644 package/erlang/22.3.4.26/0003-erlang-enable-deterministic-builds.patch
+ create mode 100644 package/erlang/22.3.4.26/0004-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/23.3.4.14/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+ create mode 100644 package/erlang/23.3.4.14/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ create mode 100644 package/erlang/23.3.4.14/0003-erlang-enable-deterministic-builds.patch
+ create mode 100644 package/erlang/23.3.4.14/0004-disksup-update-df-call-to-work-with-Busybox.patch
  create mode 100644 package/erlang/24.3.2/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  create mode 100644 package/erlang/24.3.2/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/24.3.2/0003-erlang-enable-deterministic-builds.patch
@@ -188,11 +182,11 @@ index 7a6e469dff..0000000000
 - 
 - $(OBJDIR)/%.o: $(TARGET)/%.c
 - 	$(V_CC) $(CFLAGS) $(INCLUDES) -Idrivers/common -c $< -o $@
-diff --git a/package/erlang/20.3.8.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/20.3.8.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+diff --git a/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
 index 0000000000..8e401430fe
 --- /dev/null
-+++ b/package/erlang/20.3.8.9/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
++++ b/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 @@ -0,0 +1,70 @@
 +From 439fa2eae78a8900bda120072335be19d626498c Mon Sep 17 00:00:00 2001
 +From: "Yann E. MORIN" <yann.morin.1998@free.fr>
@@ -264,184 +258,11 @@ index 0000000000..8e401430fe
 +-- 
 +1.9.1
 +
-diff --git a/package/erlang/20.3.8.9/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/20.3.8.9/0002-erts-emulator-reorder-inclued-headers-paths.patch
-new file mode 100644
-index 0000000000..c17eefc2a1
---- /dev/null
-+++ b/package/erlang/20.3.8.9/0002-erts-emulator-reorder-inclued-headers-paths.patch
-@@ -0,0 +1,43 @@
-+From 85a3e5b4f65e5284e59dcdd90e92ea7d50ef6907 Mon Sep 17 00:00:00 2001
-+From: Romain Naour <romain.naour@openwide.fr>
-+Date: Sun, 8 Feb 2015 17:23:13 +0100
-+Subject: [PATCH] erts/emulator: reorder inclued headers paths
-+
-+If the Perl Compatible Regular Expressions is installed on the
-+host and the path to the headers is added to the CFLAGS, the
-+pcre.h from the host is used instead of the one provided by
-+erlang.
-+
-+Erlang use an old version of this file which is incompatible
-+with the upstream one.
-+
-+Move INCLUDES before CFLAGS to use pcre.h from erlang.
-+
-+http://autobuild.buildroot.net/results/cbd/cbd8b54eef535f19d7d400fd269af1b3571d6143/build-end.log
-+
-+Signed-off-by: Romain Naour <romain.naour@openwide.fr>
-+---
-+ erts/emulator/Makefile.in | 4 ++--
-+ 1 file changed, 2 insertions(+), 2 deletions(-)
-+
-+diff --git a/erts/emulator/Makefile.in b/erts/emulator/Makefile.in
-+index 7145824..d079487 100644
-+--- a/erts/emulator/Makefile.in
-++++ b/erts/emulator/Makefile.in
-+@@ -678,11 +678,11 @@ else
-+ # Usually the same as the default rule, but certain platforms (e.g. win32) mix
-+ # different compilers
-+ $(OBJDIR)/beam_emu.o: beam/beam_emu.c
-+-	$(V_EMU_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
-++	$(V_EMU_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
-+ endif
-+ 
-+ $(OBJDIR)/%.o: beam/%.c
-+-	$(V_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
-++	$(V_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
-+ 
-+ $(OBJDIR)/%.o: $(TARGET)/%.c
-+ 	$(V_CC) $(CFLAGS) $(INCLUDES) -Idrivers/common -c $< -o $@
-+-- 
-+1.9.3
-+
-diff --git a/package/erlang/20.3.8.9/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/20.3.8.9/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
-new file mode 100644
-index 0000000000..ad0bb6b453
---- /dev/null
-+++ b/package/erlang/20.3.8.9/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
-@@ -0,0 +1,42 @@
-+From 011752ec7b31e3dde376270fc65c7ee70644f6e7 Mon Sep 17 00:00:00 2001
-+From: Johan Oudinet <johan.oudinet@gmail.com>
-+Date: Wed, 6 Dec 2017 15:01:17 +0100
-+Subject: [PATCH] Link with LDLIBS instead of LIBS for DED
-+
-+Fix ERL-529 by avoiding to link with libz for no reason.
-+
-+Signed-off-by: Johan Oudinet <johan.oudinet@gmail.com>
-+---
-+ lib/asn1/c_src/Makefile             | 2 +-
-+ lib/runtime_tools/c_src/Makefile.in | 2 +-
-+ 2 files changed, 2 insertions(+), 2 deletions(-)
-+
-+diff --git a/lib/asn1/c_src/Makefile b/lib/asn1/c_src/Makefile
-+index 1f714df357..f7c6b8b9bc 100644
-+--- a/lib/asn1/c_src/Makefile
-++++ b/lib/asn1/c_src/Makefile
-+@@ -126,7 +126,7 @@ $(NIF_LIB_FILE): $(NIF_STATIC_OBJ_FILES)
-+ 	$(V_RANLIB) $@
-+ 
-+ $(NIF_SHARED_OBJ_FILE): $(NIF_OBJ_FILES)
-+-	$(V_LD) $(LDFLAGS) -o $(NIF_SHARED_OBJ_FILE) $(NIF_OBJ_FILES) $(CLIB_FLAGS) $(LIBS)
-++	$(V_LD) $(LDFLAGS) -o $(NIF_SHARED_OBJ_FILE) $(NIF_OBJ_FILES) $(CLIB_FLAGS) $(LDLIBS)
-+ 
-+ # ----------------------------------------------------
-+ # Release Target
-+diff --git a/lib/runtime_tools/c_src/Makefile.in b/lib/runtime_tools/c_src/Makefile.in
-+index 4530a83aee..4e13e0d789 100644
-+--- a/lib/runtime_tools/c_src/Makefile.in
-++++ b/lib/runtime_tools/c_src/Makefile.in
-+@@ -95,7 +95,7 @@ $(OBJDIR)/%$(TYPEMARKER).o: %.c dyntrace_lttng.h
-+ 	$(V_CC) -c -o $@ $(ALL_CFLAGS) $<
-+ 
-+ $(LIBDIR)/%$(TYPEMARKER).@DED_EXT@: $(OBJDIR)/%$(TYPEMARKER).o
-+-	$(V_LD) $(LDFLAGS) -o $@ $^ $(LIBS)
-++	$(V_LD) $(LDFLAGS) -o $@ $^ $(LDLIBS)
-+ 
-+ clean:
-+ 	rm -f $(TRACE_LIBS)
-+-- 
-+2.14.1
-+
-diff --git a/package/erlang/21.3.8.4/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.3.8.4/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
-new file mode 100644
-index 0000000000..8e401430fe
---- /dev/null
-+++ b/package/erlang/21.3.8.4/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
-@@ -0,0 +1,70 @@
-+From 439fa2eae78a8900bda120072335be19d626498c Mon Sep 17 00:00:00 2001
-+From: "Yann E. MORIN" <yann.morin.1998@free.fr>
-+Date: Sun, 28 Dec 2014 23:39:40 +0100
-+Subject: [PATCH] erts/ethread: instruct libatomic_ops we do require CAS
-+
-+We do require compare-and-swap (CAS), so we must instruct libatomic_ops
-+to provide it, even if the architecture does not have instructions for
-+it.
-+
-+For example, on ARM, LDREX is required for fast CAS. But LDREX is only
-+available on ARMv6, so by default libatomic_ops will not have CAS for
-+anything below, like ARMv5. But ARMv5 is always UP, so using an
-+emulated CAS (that is signal-asyn-safe) is still possible (albeit much
-+slower).
-+
-+Tell libatomic_ops to provide CAS, even if the hardware is not capable
-+of it, by using emulated CAS, as per libatomic_ops dosc:
-+    https://github.com/ivmai/libatomic_ops/blob/master/doc/README.txt#L28
-+
-+    If this is included after defining AO_REQUIRE_CAS, then the package
-+    will make an attempt to emulate compare-and-swap in a way that (at
-+    least on Linux) should still be async-signal-safe.
-+
-+Thanks go to Thomas for all this insight! :-)
-+Thanks go to Frank for reporting the issue! :-)
-+
-+Signed-off-by: "Yann E. MORIN" <yann.morin.1998@free.fr>
-+Cc: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
-+Cc: Frank Hunleth <fhunleth@troodon-software.com>
-+---
-+ erts/include/internal/libatomic_ops/ethread.h | 1 +
-+ 1 file changed, 1 insertion(+)
-+
-+diff --git a/erts/include/internal/libatomic_ops/ethread.h b/erts/include/internal/libatomic_ops/ethread.h
-+index d65ee19..71d3598 100644
-+--- a/erts/include/internal/libatomic_ops/ethread.h
-++++ b/erts/include/internal/libatomic_ops/ethread.h
-+@@ -35,6 +35,7 @@
-+ 
-+ #define ETHR_NATIVE_IMPL__ "libatomic_ops"
-+ 
-++#define AO_REQUIRE_CAS
-+ #include "atomic_ops.h"
-+ #include "ethr_membar.h"
-+ #include "ethr_atomic.h"
-+diff --git a/erts/aclocal.m4 b/erts/aclocal.m4
-+index d65ee19..71d3598 100644
-+--- a/erts/aclocal.m4
-++++ b/erts/aclocal.m4
-+@@ -1414,7 +1414,8 @@
-+ 	    	    fi;;
-+ 	    esac
-+ 	    ethr_have_libatomic_ops=no
-+-	    AC_TRY_LINK([#include "atomic_ops.h"],
-++	    AC_TRY_LINK([#define AO_REQUIRE_CAS
-++                    #include "atomic_ops.h"],
-+ 	    	        [
-+ 	    	    	    volatile AO_t x;
-+ 	    	    	    AO_t y;
-+@@ -1455,6 +1455,7 @@
-+ 	        AC_CHECK_SIZEOF(AO_t, ,
-+ 	    	    	        [
-+ 	    	    	    	    #include <stdio.h>
-++	    	    	    	    #define AO_REQUIRE_CAS
-+ 	    	    	    	    #include "atomic_ops.h"
-+ 	    	    	        ])
-+ 	        AC_DEFINE_UNQUOTED(ETHR_SIZEOF_AO_T, $ac_cv_sizeof_AO_t, [Define to the size of AO_t if libatomic_ops is used])
-+-- 
-+1.9.1
-+
-diff --git a/package/erlang/21.3.8.4/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/21.3.8.4/0002-erts-emulator-reorder-inclued-headers-paths.patch
+diff --git a/package/erlang/21.3.8.24/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/21.3.8.24/0002-erts-emulator-reorder-inclued-headers-paths.patch
 new file mode 100644
 index 0000000000..7a6e469dff
 --- /dev/null
-+++ b/package/erlang/21.3.8.4/0002-erts-emulator-reorder-inclued-headers-paths.patch
++++ b/package/erlang/21.3.8.24/0002-erts-emulator-reorder-inclued-headers-paths.patch
 @@ -0,0 +1,46 @@
 +From 85a3e5b4f65e5284e59dcdd90e92ea7d50ef6907 Mon Sep 17 00:00:00 2001
 +From: Romain Naour <romain.naour@openwide.fr>
@@ -489,11 +310,11 @@ index 0000000000..7a6e469dff
 + 
 + $(OBJDIR)/%.o: $(TARGET)/%.c
 + 	$(V_CC) $(CFLAGS) $(INCLUDES) -Idrivers/common -c $< -o $@
-diff --git a/package/erlang/21.3.8.4/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/21.3.8.4/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
+diff --git a/package/erlang/21.3.8.24/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch b/package/erlang/21.3.8.24/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 new file mode 100644
 index 0000000000..ad0bb6b453
 --- /dev/null
-+++ b/package/erlang/21.3.8.4/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
++++ b/package/erlang/21.3.8.24/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
 @@ -0,0 +1,42 @@
 +From 011752ec7b31e3dde376270fc65c7ee70644f6e7 Mon Sep 17 00:00:00 2001
 +From: Johan Oudinet <johan.oudinet@gmail.com>
@@ -537,11 +358,11 @@ index 0000000000..ad0bb6b453
 +-- 
 +2.14.1
 +
-diff --git a/package/erlang/21.3.8.4/0004-erlang-enable-deterministic-builds.patch b/package/erlang/21.3.8.4/0004-erlang-enable-deterministic-builds.patch
+diff --git a/package/erlang/21.3.8.24/0004-erlang-enable-deterministic-builds.patch b/package/erlang/21.3.8.24/0004-erlang-enable-deterministic-builds.patch
 new file mode 100644
 index 0000000000..1a7e66eca5
 --- /dev/null
-+++ b/package/erlang/21.3.8.4/0004-erlang-enable-deterministic-builds.patch
++++ b/package/erlang/21.3.8.24/0004-erlang-enable-deterministic-builds.patch
 @@ -0,0 +1,28 @@
 +From 3e357a561042db278d77a6da04623af5e238cecc Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -571,11 +392,11 @@ index 0000000000..1a7e66eca5
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/22.3.4.1/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/22.3.4.1/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+diff --git a/package/erlang/22.3.4.26/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/22.3.4.26/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
 index 0000000000..4d3dd75ce2
 --- /dev/null
-+++ b/package/erlang/22.3.4.1/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
++++ b/package/erlang/22.3.4.26/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 @@ -0,0 +1,71 @@
 +From 7040c252fb45e5423512094a1c9ca4a0a8fc77f0 Mon Sep 17 00:00:00 2001
 +From: "Yann E. MORIN" <yann.morin.1998@free.fr>
@@ -648,11 +469,11 @@ index 0000000000..4d3dd75ce2
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/22.3.4.1/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/22.3.4.1/0002-erts-emulator-reorder-inclued-headers-paths.patch
+diff --git a/package/erlang/22.3.4.26/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/22.3.4.26/0002-erts-emulator-reorder-inclued-headers-paths.patch
 new file mode 100644
 index 0000000000..7f2585870a
 --- /dev/null
-+++ b/package/erlang/22.3.4.1/0002-erts-emulator-reorder-inclued-headers-paths.patch
++++ b/package/erlang/22.3.4.26/0002-erts-emulator-reorder-inclued-headers-paths.patch
 @@ -0,0 +1,49 @@
 +From 2142338c7a82360087a21dc71cfdad777d43e6a8 Mon Sep 17 00:00:00 2001
 +From: Romain Naour <romain.naour@openwide.fr>
@@ -703,11 +524,11 @@ index 0000000000..7f2585870a
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/22.3.4.1/0003-erlang-enable-deterministic-builds.patch b/package/erlang/22.3.4.1/0003-erlang-enable-deterministic-builds.patch
+diff --git a/package/erlang/22.3.4.26/0003-erlang-enable-deterministic-builds.patch b/package/erlang/22.3.4.26/0003-erlang-enable-deterministic-builds.patch
 new file mode 100644
 index 0000000000..043c6f48c6
 --- /dev/null
-+++ b/package/erlang/22.3.4.1/0003-erlang-enable-deterministic-builds.patch
++++ b/package/erlang/22.3.4.26/0003-erlang-enable-deterministic-builds.patch
 @@ -0,0 +1,28 @@
 +From fed869414aa22aeea1c6e971a0600df3d5d0077e Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -737,11 +558,11 @@ index 0000000000..043c6f48c6
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/22.3.4.1/0004-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/22.3.4.1/0004-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/22.3.4.26/0004-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/22.3.4.26/0004-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..9f98c4ad82
 --- /dev/null
-+++ b/package/erlang/22.3.4.1/0004-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/22.3.4.26/0004-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,28 @@
 +From 46b36f8b73b65b2697ec0fb499dd4af610e9ddd9 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -771,11 +592,11 @@ index 0000000000..9f98c4ad82
 +-- 
 +2.20.1
 +
-diff --git a/package/erlang/23.3.4/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/23.3.4/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
+diff --git a/package/erlang/23.3.4.14/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/23.3.4.14/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
 index 0000000000..4d3dd75ce2
 --- /dev/null
-+++ b/package/erlang/23.3.4/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
++++ b/package/erlang/23.3.4.14/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 @@ -0,0 +1,71 @@
 +From 7040c252fb45e5423512094a1c9ca4a0a8fc77f0 Mon Sep 17 00:00:00 2001
 +From: "Yann E. MORIN" <yann.morin.1998@free.fr>
@@ -848,11 +669,11 @@ index 0000000000..4d3dd75ce2
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/23.3.4/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/23.3.4/0002-erts-emulator-reorder-inclued-headers-paths.patch
+diff --git a/package/erlang/23.3.4.14/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/23.3.4.14/0002-erts-emulator-reorder-inclued-headers-paths.patch
 new file mode 100644
 index 0000000000..7f2585870a
 --- /dev/null
-+++ b/package/erlang/23.3.4/0002-erts-emulator-reorder-inclued-headers-paths.patch
++++ b/package/erlang/23.3.4.14/0002-erts-emulator-reorder-inclued-headers-paths.patch
 @@ -0,0 +1,49 @@
 +From 2142338c7a82360087a21dc71cfdad777d43e6a8 Mon Sep 17 00:00:00 2001
 +From: Romain Naour <romain.naour@openwide.fr>
@@ -903,11 +724,11 @@ index 0000000000..7f2585870a
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/23.3.4/0003-erlang-enable-deterministic-builds.patch b/package/erlang/23.3.4/0003-erlang-enable-deterministic-builds.patch
+diff --git a/package/erlang/23.3.4.14/0003-erlang-enable-deterministic-builds.patch b/package/erlang/23.3.4.14/0003-erlang-enable-deterministic-builds.patch
 new file mode 100644
 index 0000000000..043c6f48c6
 --- /dev/null
-+++ b/package/erlang/23.3.4/0003-erlang-enable-deterministic-builds.patch
++++ b/package/erlang/23.3.4.14/0003-erlang-enable-deterministic-builds.patch
 @@ -0,0 +1,28 @@
 +From fed869414aa22aeea1c6e971a0600df3d5d0077e Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -937,11 +758,11 @@ index 0000000000..043c6f48c6
 +-- 
 +2.17.1
 +
-diff --git a/package/erlang/23.3.4/0004-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/23.3.4/0004-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/23.3.4.14/0004-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/23.3.4.14/0004-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..9f98c4ad82
 --- /dev/null
-+++ b/package/erlang/23.3.4/0004-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/23.3.4.14/0004-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,28 @@
 +From 46b36f8b73b65b2697ec0fb499dd4af610e9ddd9 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1343,48 +1164,52 @@ index 15931b5896..1ad7f4868a 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 338545a0ba..f6386ae628 100644
+index 338545a0ba..b615ace9ca 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,13 @@
+-# From https://github.com/erlang/otp/releases/download/OTP-22.3.4.22/SHA256.txt
+-sha256  e7f0793e62f8da4f7551dc9c1c0de76c40f19773ba516121fc56315c840f60cc  otp_src_22.3.4.22.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-25.0-rc2/SHA256.txt
 +sha256  2d7678c9bc6fcf3a1242c4d1c3864855d85e73ade792cd80adb8a9f379996711  otp_src_25.0.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-24.3.2/SHA256.txt
 +sha256  fb39eecf5a5710200871c85c11251e27afce7c2a11f569bd6394c6d48240ec8d  otp_src_24.3.2.tar.gz
-+# From https://github.com/erlang/otp/releases/download/OTP-23.3.4.11/SHA256.txt
-+sha256  194bcc256c187a56a2891c9bdc36f2112bd6035e40a35f877b2f52524a0888ce  otp_src_23.3.4.11.tar.gz
- # From https://github.com/erlang/otp/releases/download/OTP-22.3.4.22/SHA256.txt
- sha256  e7f0793e62f8da4f7551dc9c1c0de76c40f19773ba516121fc56315c840f60cc  otp_src_22.3.4.22.tar.gz
-+# From https://github.com/erlang/otp/releases/download/OTP-21.3.8.23/SHA256.txt
-+sha256  fe8230c8efb7a942b8a39281cbb718bd0ca0ed56b57f7fed42cbe10781526ec2  otp_src_21.3.8.23.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-23.3.4.14/SHA256.txt
++sha256  35123f366ded534775a05db8ad6c06c20519ae228af1b5952132b10845621f21  otp_src_23.3.4.14.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-22.3.4.26/SHA256.txt
++sha256  ee281e4638c8d671dd99459a11381345ee9d70f1f8338f5db31fc082349a370e  otp_src_22.3.4.26.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-21.3.8.24/SHA256.txt
++sha256  a82de871d7ba40fd256558b23a3b4c1539e6c7ece7507d6eb2b00330c6135012  otp_src_21.3.8.24.tar.gz
  
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index a76bda4437..e22bedb038 100644
+index a76bda4437..83a9e80374 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -5,7 +5,28 @@
+@@ -5,7 +5,29 @@
  ################################################################################
  
  # See note below when updating Erlang
-+ifeq ($(BR2_PACKAGE_ERLANG_20),y)
-+ERLANG_VERSION = 20.3.8.9
-+else
+-ERLANG_VERSION = 22.3.4.22
 +ifeq ($(BR2_PACKAGE_ERLANG_21),y)
-+ERLANG_VERSION = 21.3.8.23
++ERLANG_VERSION = 21.3.8.24
++ERLANG_ERTS_VSN = 10.3.5.19
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_22),y)
- ERLANG_VERSION = 22.3.4.22
++ERLANG_VERSION = 22.3.4.26
++ERLANG_ERTS_VSN = 10.7.2.18
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_23),y)
-+ERLANG_VERSION = 23.3.4.11
++ERLANG_VERSION = 23.3.4.14
++ERLANG_ERTS_VSN = 11.2.2.13
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_24),y)
 +ERLANG_VERSION = 24.3.2
++ERLANG_ERTS_VSN = 12.3
 +else
 +ERLANG_VERSION = 25.0
-+endif
++ERLANG_ERTS_VSN = 13.0
 +endif
 +endif
 +endif
@@ -1393,7 +1218,7 @@ index a76bda4437..e22bedb038 100644
  ERLANG_SITE = \
  	https://github.com/erlang/otp/releases/download/OTP-$(ERLANG_VERSION)
  ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
-@@ -38,7 +59,23 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
+@@ -38,7 +60,23 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
  
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk
