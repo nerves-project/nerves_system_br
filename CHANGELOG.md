@@ -12,6 +12,14 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.19.1
+
+This is a bug fix release for v1.19.0.
+
+* Package updates
+  * [erlinit 1.12.1](https://github.com/nerves-project/erlinit/releases/tag/v1.12.1)
+  * Raspberry Pi WiFi firmware - 20210315-3+rpt5 + Zero 2W fix
+
 ## v1.19.0
 
 This is a major update that pulls in Buildroot 2022.02.1 and Erlang/OTP 25.
