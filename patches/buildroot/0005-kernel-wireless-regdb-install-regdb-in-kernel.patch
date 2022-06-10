@@ -1,4 +1,4 @@
-From a0250db5305e4c7f6800ea4775626efc13d2333c Mon Sep 17 00:00:00 2001
+From acc69697936fcfaede4fe906f392f6e67fe8c185 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 9 May 2016 13:21:56 -0400
 Subject: [PATCH] kernel-wireless-regdb: install regdb in kernel
@@ -20,10 +20,10 @@ net/wireless/db.txt.
  create mode 100644 package/kernel-wireless-regdb/kernel-wireless-regdb.mk
 
 diff --git a/linux/Config.ext.in b/linux/Config.ext.in
-index 256fe23148..cb2c4916d9 100644
+index f432d4700b..39a9b4100a 100644
 --- a/linux/Config.ext.in
 +++ b/linux/Config.ext.in
-@@ -154,4 +154,12 @@ config BR2_LINUX_KERNEL_EXT_AUFS_VERSION
+@@ -157,4 +157,12 @@ config BR2_LINUX_KERNEL_EXT_AUFS_VERSION
  
  endif # aufs
  
@@ -55,10 +55,10 @@ index 0000000000..3cec0cd9d8
 +	cp -pf $(KERNEL_WIRELESS_REGDB_DIR)/db.txt $(LINUX_DIR)/net/wireless/db.txt
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index 3eb375b818..39daaa2c8b 100644
+index cd428c0168..2dc897ea24 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -2243,6 +2243,7 @@ endif
+@@ -2249,6 +2249,7 @@ endif
  	source "package/iwd/Config.in"
  	source "package/janus-gateway/Config.in"
  	source "package/keepalived/Config.in"
