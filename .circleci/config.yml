@@ -11,7 +11,7 @@ run_tests: &run_tests
 
 remote_docker: &remote_docker
   setup_remote_docker:
-    version: 17.09.0-ce
+    version: 20.10.11
 
 docker_env: &docker_env
   run:
