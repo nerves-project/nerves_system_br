@@ -12,6 +12,15 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.20.1
+
+* Fixes
+  * Fixes an issue where the Raspberry Pi Zero 2W's WiFi module's firmware
+    wouldn't load with Linux 5.15
+
+* Package updates
+  * [boardid 1.13.0](https://github.com/nerves-project/boardid/releases/tag/v1.13.0)
+
 ## v1.20.0
 
 This is a major update that pulls in Buildroot 2022.05. Most projects shouldn't
