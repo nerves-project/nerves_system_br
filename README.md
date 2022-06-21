@@ -20,6 +20,7 @@ supported hardware systems:
 * [Raspberry Pi 4 Model B](https://github.com/nerves-project/nerves_system_rpi4)
 * [OSD32MP1](https://github.com/nerves-project/nerves_system_osd32mp1)
 * [Generic x86_64](https://github.com/nerves-project/nerves_system_x86_64)
+* [GRiSP 2](https://github.com/nerves-project/nerves_system_grisp2)
 
 We only officially support easily obtained hardware, but that doesn't mean that
 Nerves only works on these boards. If it's possible to use Buildroot to create a
