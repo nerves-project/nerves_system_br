@@ -12,6 +12,15 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.20.2
+
+* Fixes
+  * Set `CMAKE_SYSTEM_PROCESSOR` for cmake builds. This fixes a build issue with
+    `xnnpack` and possibly other libraries. Thanks to @cocoa-xu for this fix.
+
+* Package updates
+  * [Erlang/OTP 25.0.2](https://erlang.org/download/OTP-25.0.2.README)
+
 ## v1.20.1
 
 * Fixes
