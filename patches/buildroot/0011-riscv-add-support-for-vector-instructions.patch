@@ -1,0 +1,51 @@
+From 9c5e7a8c04392d125a2b8a0f0f5cf2656593f398 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Sat, 25 Jun 2022 12:37:27 -0400
+Subject: [PATCH] riscv: add support for vector instructions
+
+---
+ arch/Config.in.riscv | 7 +++++++
+ arch/arch.mk.riscv   | 3 +++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/arch/Config.in.riscv b/arch/Config.in.riscv
+index 288ed833eb..e4dc936cf8 100644
+--- a/arch/Config.in.riscv
++++ b/arch/Config.in.riscv
+@@ -18,6 +18,9 @@ config BR2_RISCV_ISA_RVD
+ config BR2_RISCV_ISA_RVC
+ 	bool
+ 
++config BR2_RISCV_ISA_RVV
++	bool
++
+ choice
+ 	prompt "Target Architecture Variant"
+ 	default BR2_riscv_g
+@@ -63,6 +66,10 @@ config BR2_RISCV_ISA_CUSTOM_RVD
+ config BR2_RISCV_ISA_CUSTOM_RVC
+ 	bool "Compressed Instructions (C)"
+ 	select BR2_RISCV_ISA_RVC
++
++config BR2_RISCV_ISA_CUSTOM_RVV
++	bool "Vector Instructions (V)"
++	select BR2_RISCV_ISA_RVV
+ endif
+ 
+ choice
+diff --git a/arch/arch.mk.riscv b/arch/arch.mk.riscv
+index f3bf2b3467..cea5b0f263 100644
+--- a/arch/arch.mk.riscv
++++ b/arch/arch.mk.riscv
+@@ -26,5 +26,8 @@ endif
+ ifeq ($(BR2_RISCV_ISA_RVC),y)
+ GCC_TARGET_ARCH := $(GCC_TARGET_ARCH)c
+ endif
++ifeq ($(BR2_RISCV_ISA_RVV),y)
++GCC_TARGET_ARCH := $(GCC_TARGET_ARCH)v
++endif
+ 
+ endif
+-- 
+2.25.1
+
