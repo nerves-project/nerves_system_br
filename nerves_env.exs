@@ -89,10 +89,6 @@ sdk_sysroot = Path.join(system_path, "staging")
 System.put_env("NERVES_SDK_IMAGES", Path.join(system_path, "images"))
 System.put_env("NERVES_SDK_SYSROOT", sdk_sysroot)
 
-system_include_path =
-  system_path
-  |> Path.join("staging/usr/include")
-
 unless File.dir?(Path.join(system_path, "staging")) do
   Mix.raise("ERROR: It looks like the system hasn't been built!")
 end
@@ -132,17 +128,17 @@ System.put_env("STRIP", "#{crosscompile}-strip")
 # Set defaults for compiler flags
 System.put_env(
   "CFLAGS",
-  "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -O2 -I#{system_include_path}"
+  "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -O2 --sysroot #{sdk_sysroot}"
 )
 
 System.put_env(
   "CPPFLAGS",
-  "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -I#{system_include_path}"
+  "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 --sysroot #{sdk_sysroot}"
 )
 
 System.put_env(
   "CXXFLAGS",
-  "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -O2 -I#{system_include_path}"
+  "-D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -pipe -O2 --sysroot #{sdk_sysroot}"
 )
 
 System.put_env("LDFLAGS", "--sysroot=#{sdk_sysroot}")
