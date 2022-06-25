@@ -12,6 +12,16 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.20.3
+
+* Fixes
+  * Fix sysroot setting when building C/C++ code in Elixir and Erlang libraries.
+    This fixes an issue found with RISC-V, Musl C, and aggressive warnings as
+    error settings.
+
+* Updates
+  * Support enabling the vector instruction extension on RISC-V processors.
+
 ## v1.20.2
 
 * Fixes
