@@ -33,7 +33,8 @@ docker_build: &docker_build
   run:
     name: Build docker images
     command: |
-      docker build -t $DOCKER_REPO:$DOCKER_TAG $DOCKER_PATH
+      docker buildx create --use
+      docker buildx build --platform linux/arm64,linux/amd64 $DOCKER_REPO:$DOCKER_TAG $DOCKER_PATH
 
 docker_save: &docker_save
   run:
