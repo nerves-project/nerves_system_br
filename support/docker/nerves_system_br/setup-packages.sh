@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -e
-if [[ $BUILD_ARCH =~ "aarch64" ]] ; then
+if [[ $TARGETPLATFORM =~ "linux/arm64" ]] ; then
     dpkg --add-architecture 'i386'
     sed 's/^deb http/deb [arch=arm64] http/' -i '/etc/apt/sources.list'
 
