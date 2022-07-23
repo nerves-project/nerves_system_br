@@ -46,7 +46,7 @@ This is a major update that pulls in Buildroot 2022.05. Most projects shouldn't
 need any changes with this update, but please review the release notes.
 
 * Package updates
-  * [Buildroot 2022.05]((http://lists.busybox.net/pipermail/buildroot/2022-June/644349.html)
+  * [Buildroot 2022.05](http://lists.busybox.net/pipermail/buildroot/2022-June/644349.html)
   * [Erlang/OTP 25.0.1](https://erlang.org/download/OTP-25.0.1.README)
   * [nerves_heart 1.1.0](https://github.com/nerves-project/nerves_heart/releases/tag/v1.1.0)
 
