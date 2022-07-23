@@ -12,6 +12,14 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.20.4
+
+* Updates
+  * Support aarch64 builds with Docker (Thanks to @doawoo)
+
+* Package updates
+  * [Erlang/OTP 25.0.3](https://erlang.org/download/OTP-25.0.3.README)
+
 ## v1.20.3
 
 * Fixes
