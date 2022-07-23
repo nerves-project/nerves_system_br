@@ -33,8 +33,10 @@ docker_build: &docker_build
   run:
     name: Build docker images
     command: |
-      docker buildx create --use
-      docker buildx build --platform linux/arm64,linux/amd64 $DOCKER_REPO:$DOCKER_TAG $DOCKER_PATH
+      apk add --no-cache docker-cli-buildx
+      docker context create my_context
+      docker buildx create --use my_context
+      docker buildx build --platform linux/arm64,linux/amd64 $DOCKER_PATH
 
 docker_save: &docker_save
   run:
