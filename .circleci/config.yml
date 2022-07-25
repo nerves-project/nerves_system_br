@@ -1,6 +1,6 @@
 defaults: &defaults
   docker:
-    - image: nerveshub/docker-build:alpine-3.15.3
+    - image: cimg/base:stable
   working_directory: ~/repo
 
 run_tests: &run_tests
@@ -33,26 +33,18 @@ docker_build: &docker_build
   run:
     name: Build docker images
     command: |
-       apk add --no-cache docker-cli-buildx
+       mkdir -p /tmp/docker
        docker context create my_context
        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
        docker buildx create --name multiarch --driver docker-container --use my_context
-       docker buildx build --platform linux/arm64,linux/amd64 $DOCKER_PATH
-
-docker_save: &docker_save
-  run:
-    name: Save docker images
-    command: |
-      mkdir -p /docker
-      docker save $DOCKER_REPO:$DOCKER_TAG \
-        -o /docker/$DOCKER_TAG.tar
+       docker buildx build --platform linux/arm64,linux/amd64 $DOCKER_PATH --tag $DOCKER_REPO:$DOCKER_TAG --output="type=docker,name=$DOCKER_REPO:DOCKER_TAG,dest=/tmp/docker/$DOCKER_TAG.tar"
 
 docker_import: &docker_import
   run:
     name: Import docker images
     command: |
       docker load \
-        -i /docker/$DOCKER_TAG.tar
+        -i /tmp/docker/$DOCKER_TAG.tar
 
 docker_push: &docker_push
   run:
@@ -78,7 +70,6 @@ jobs:
       - <<: *remote_docker
       - <<: *docker_env
       - <<: *docker_build
-      - <<: *docker_save
       - save_cache:
           key: docker-{{ .Branch }}-{{ .Revision }}
           paths: "/docker"
