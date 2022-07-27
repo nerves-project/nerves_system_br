@@ -93,13 +93,21 @@ jobs:
           key: docker-{{ .Branch }}-{{ .Revision }}
           paths: "/docker"
 
-  test:
+  test_amd64:
     docker:
-      - image: nervesproject/nerves_system_br:dev
+      - image: nervesproject/nerves_system_br:dev_amd64
     working_directory: ~/repo
     steps:
       - checkout
       - <<: *run_tests
+
+  # test_arm64:
+  #   docker:
+  #     - image: nervesproject/nerves_system_br:dev_arm64
+  #   working_directory: ~/repo
+  #   steps:
+  #     - checkout
+  #     - <<: *run_tests
 
   push:
     <<: *defaults
@@ -129,10 +137,17 @@ workflows:
             filters:
               tags:
                 only: /.*/
-        - test:
+        - test_amd64:
             context: org-global
             requires:
               - push
             filters:
               tags:
                 only: /.*/
+        # - test_arm64:
+        #     context: org-global
+        #     requires:
+        #       - push
+        #     filters:
+        #       tags:
+        #         only: /.*/
