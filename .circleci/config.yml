@@ -25,6 +25,7 @@ docker_env: &docker_env
         TAG=$(cat VERSION)
       fi
 
+      echo "export DOCKER_CLI_EXPERIMENTAL=enabled" >> $BASH_ENV
       echo "export DOCKER_REPO=$REPO" >> $BASH_ENV
       echo "export DOCKER_TAG=$TAG" >> $BASH_ENV
       echo "export DOCKER_PATH=support/docker/nerves_system_br" >> $BASH_ENV
@@ -33,23 +34,23 @@ docker_build: &docker_build
   run:
     name: Build docker images
     command: |
-      docker buildx create --use
-      docker buildx build --platform linux/arm64,linux/amd64 $DOCKER_REPO:$DOCKER_TAG $DOCKER_PATH
-
-docker_save: &docker_save
-  run:
-    name: Save docker images
-    command: |
-      mkdir -p /docker
-      docker save $DOCKER_REPO:$DOCKER_TAG \
-        -o /docker/$DOCKER_TAG.tar
+       mkdir -p /docker
+       apk add --no-cache docker-cli-buildx
+       docker context create my_context
+       docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+       docker buildx create --name multiarch --driver docker-container --use my_context
+       docker buildx build --platform linux/amd64 $DOCKER_PATH --tag $DOCKER_REPO:$DOCKER_TAG"_amd64" --load --progress=plain
+       docker buildx build --platform linux/arm64 $DOCKER_PATH --tag $DOCKER_REPO:$DOCKER_TAG"_arm64" --load --progress=plain
+       
+       docker save $DOCKER_REPO:$DOCKER_TAG"_amd64" -o /docker/$DOCKER_TAG"_amd64.tar"
+       docker save $DOCKER_REPO:$DOCKER_TAG"_arm64" -o /docker/$DOCKER_TAG"_arm64.tar"
 
 docker_import: &docker_import
   run:
     name: Import docker images
     command: |
-      docker load \
-        -i /docker/$DOCKER_TAG.tar
+      docker load -i /docker/$DOCKER_TAG"_amd64".tar
+      docker load -i /docker/$DOCKER_TAG"_arm64".tar
 
 docker_push: &docker_push
   run:
@@ -57,13 +58,27 @@ docker_push: &docker_push
     command: |
       docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
 
-      docker image tag $DOCKER_REPO:$DOCKER_TAG $DOCKER_REPO:dev
-      docker push $DOCKER_REPO:dev
+      docker image tag $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:dev_amd64
+      docker push $DOCKER_REPO:dev_amd64
+
+      docker image tag $DOCKER_REPO:$DOCKER_TAG"_arm64" $DOCKER_REPO:dev_arm64
+      docker push $DOCKER_REPO:dev_arm64
 
       if [ -n "$CIRCLE_TAG" ]; then
-        docker image tag $DOCKER_REPO:$DOCKER_TAG $DOCKER_REPO:latest
-        docker push $DOCKER_REPO:$DOCKER_TAG
-        docker push $DOCKER_REPO:latest
+        docker image tag $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:latest_amd64
+        docker image tag $DOCKER_REPO:$DOCKER_TAG"_arm64" $DOCKER_REPO:latest_arm64
+
+        docker push $DOCKER_REPO:$DOCKER_TAG"_amd64"
+        docker push $DOCKER_REPO:$DOCKER_TAG"_arm64"
+
+        docker push $DOCKER_REPO:latest_amd64
+        docker push $DOCKER_REPO:latest_arm64
+
+        docker manifest create $DOCKER_REPO:latest $DOCKER_REPO:latest_amd64 $DOCKER_REPO:latest_arm64
+        docker manifest create $DOCKER_REPO:$DOCKER_TAG $DOCKER_REPO:latest_amd64 $DOCKER_REPO:latest_arm64
+
+        docker manifest push $DOCKER_REPO:$DOCKER_TAG
+        docker manifest push $DOCKER_REPO:latest
       fi
 
 version: 2
@@ -75,18 +90,25 @@ jobs:
       - <<: *remote_docker
       - <<: *docker_env
       - <<: *docker_build
-      - <<: *docker_save
       - save_cache:
           key: docker-{{ .Branch }}-{{ .Revision }}
           paths: "/docker"
 
-  test:
+  test_amd64:
     docker:
-      - image: nervesproject/nerves_system_br:dev
+      - image: nervesproject/nerves_system_br:dev_amd64
     working_directory: ~/repo
     steps:
       - checkout
       - <<: *run_tests
+
+  # test_arm64:
+  #   docker:
+  #     - image: nervesproject/nerves_system_br:dev_arm64
+  #   working_directory: ~/repo
+  #   steps:
+  #     - checkout
+  #     - <<: *run_tests
 
   push:
     <<: *defaults
@@ -116,10 +138,17 @@ workflows:
             filters:
               tags:
                 only: /.*/
-        - test:
+        - test_amd64:
             context: org-global
             requires:
               - push
             filters:
               tags:
                 only: /.*/
+        # - test_arm64:
+        #     context: org-global
+        #     requires:
+        #       - push
+        #     filters:
+        #       tags:
+        #         only: /.*/
