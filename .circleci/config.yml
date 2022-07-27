@@ -75,9 +75,10 @@ docker_push: &docker_push
         docker push $DOCKER_REPO:latest_arm64
 
         docker manifest create $DOCKER_REPO:latest $DOCKER_REPO:latest_amd64 $DOCKER_REPO:latest_arm64
-        docker manifest create $DOCKER_REPO:$DOCKER_TAG $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:$DOCKER_TAG"_arm64"
+        docker manifest create $DOCKER_REPO:$DOCKER_TAG $DOCKER_REPO:latest_amd64 $DOCKER_REPO:latest_arm64
 
         docker manifest push $DOCKER_REPO:$DOCKER_TAG
+        docker manifest push $DOCKER_REPO:latest
       fi
 
 version: 2
