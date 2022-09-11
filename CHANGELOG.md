@@ -12,6 +12,12 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.20.6
+
+This release reverts an update to `libp11` in `v1.20.5` that currently breaks
+the OpenSSL engine integration with ATECC cryptographic chips (like NervesKeys).
+It has no other changes.
+
 ## v1.20.5
 
 This is a security/bug fix release for v1.20.4.
