@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-BASE_DIR=$(pwd)
-PROJECT_DIR=$(basename "$BASE_DIR")
+PWD=${PWD:-$(pwd)}
+BUILD_DIR=${MIX_BUILD_PATH:-$(pwd)/_build}
+PROJECT_DIR=$(basename "$PWD")
 
 SCRIPT_NAME=$0
 
@@ -10,7 +11,7 @@ SCRIPT_NAME=$0
 [[ -z "$NERVES_SYSTEM" ]] && { echo "$SCRIPT_NAME: Source nerves-env.sh and try again."; exit 1; }
 
 # Initialize this script's temporary directory
-TMP_DIR=$BASE_DIR/_build/_nerves-tmp
+TMP_DIR=$BUILD_DIR/_nerves-tmp
 rm -fr "$TMP_DIR"
 mkdir -p "$TMP_DIR"
 function cleanup {
