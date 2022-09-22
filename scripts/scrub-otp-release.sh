@@ -115,6 +115,7 @@ if [ -n "$NOSCRUBS" ]; then
     # the task will fail. To get the proper variable expanded, we need to
     # eval the call.
     if [[ $(uname -s) == "Darwin" ]]; then
+        # shellcheck disable=SC2294
         EXECUTABLES=$(eval find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
     else
         EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
