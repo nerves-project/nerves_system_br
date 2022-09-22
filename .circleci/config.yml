@@ -87,6 +87,12 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run:
+          name: shellcheck
+          working_directory: ~/repo
+          command: |
+            apk add --no-cache shellcheck
+            ./scripts/shellchecks.sh
       - <<: *remote_docker
       - <<: *docker_env
       - <<: *docker_build
