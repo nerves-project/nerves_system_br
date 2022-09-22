@@ -161,7 +161,7 @@ echo "Building $FW_FILENAME..."
 ROOTFS="$TMP_DIR/combined.squashfs" $FWUP -c -f "$FWUP_CONFIG" \
 	-o "$FW_FILENAME"
 
-if [[ ! -z "$IMG_FILENAME" ]]; then
+if [[ -n "$IMG_FILENAME" ]]; then
     # Create the output directory - just in case
     mkdir -p "$(dirname "$IMG_FILENAME")"
 
