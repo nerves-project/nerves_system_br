@@ -1,9 +1,10 @@
-From dbe26c43613806f214f7b65cb80355bf994e82bc Mon Sep 17 00:00:00 2001
+From 72617c354884163fcfa8297e80c5eba79295a10a Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 25
 
-This also adds the deterministic compile flag patch for OTP 21-25.
+This also adds the deterministic compile flag patch for OTP 21-24. On
+OTP 25.1, it enables the configuration option for deterministic builds.
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
@@ -26,12 +27,11 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  ...3-erlang-enable-deterministic-builds.patch | 28 ++++++++
  ...-update-df-call-to-work-with-Busybox.patch | 28 ++++++++
  ...ulator-reorder-inclued-headers-paths.patch | 49 +++++++++++++
- ...2-erlang-enable-deterministic-builds.patch | 28 ++++++++
  ...-update-df-call-to-work-with-Busybox.patch | 28 ++++++++
  package/erlang/Config.in                      | 37 ++++++++++
  package/erlang/erlang.hash                    | 12 +++-
- package/erlang/erlang.mk                      | 43 ++++++++++-
- 24 files changed, 907 insertions(+), 120 deletions(-)
+ package/erlang/erlang.mk                      | 47 +++++++++++-
+ 23 files changed, 883 insertions(+), 120 deletions(-)
  delete mode 100644 package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  delete mode 100644 package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
@@ -51,7 +51,6 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/24.3.2/0003-erlang-enable-deterministic-builds.patch
  create mode 100644 package/erlang/24.3.2/0004-disksup-update-df-call-to-work-with-Busybox.patch
  create mode 100644 package/erlang/25.1/0001-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/25.1/0002-erlang-enable-deterministic-builds.patch
  create mode 100644 package/erlang/25.1/0003-disksup-update-df-call-to-work-with-Busybox.patch
 
 diff --git a/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
@@ -1047,40 +1046,6 @@ index 0000000000..069d69784e
 +-- 
 +2.25.1
 +
-diff --git a/package/erlang/25.1/0002-erlang-enable-deterministic-builds.patch b/package/erlang/25.1/0002-erlang-enable-deterministic-builds.patch
-new file mode 100644
-index 0000000000..6a3345e6d6
---- /dev/null
-+++ b/package/erlang/25.1/0002-erlang-enable-deterministic-builds.patch
-@@ -0,0 +1,28 @@
-+From 6f015234f5a82d50fff05f944b3adc2d226174fc Mon Sep 17 00:00:00 2001
-+From: Frank Hunleth <fhunleth@troodon-software.com>
-+Date: Thu, 21 Mar 2019 20:49:54 -0400
-+Subject: [PATCH] erlang: enable deterministic builds
-+
-+This adds the `+deterministic` compiler flag to the `erlc` calls to
-+strip out absolute paths in compiled `.beam` files.
-+
-+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
-+---
-+ make/otp.mk.in | 1 +
-+ 1 file changed, 1 insertion(+)
-+
-+diff --git a/make/otp.mk.in b/make/otp.mk.in
-+index 4efffc0e25..f3ff11a011 100644
-+--- a/make/otp.mk.in
-++++ b/make/otp.mk.in
-+@@ -110,6 +110,7 @@ ifeq ($(USE_ESOCK),yes)
-+ ERL_COMPILE_FLAGS += -DUSE_ESOCK=true
-+ endif
-+ 
-++ERL_COMPILE_FLAGS += +deterministic
-+ ERLC_WFLAGS = -W
-+ ERLC = erlc $(ERLC_WFLAGS) $(ERLC_FLAGS)
-+ ERL = erl -boot start_clean
-+-- 
-+2.25.1
-+
 diff --git a/package/erlang/25.1/0003-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/25.1/0003-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..97f410b18c
@@ -1184,7 +1149,7 @@ index 338545a0ba..3f6693ffca 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index a76bda4437..710b26b0e5 100644
+index a76bda4437..8a26482429 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -4,8 +4,31 @@
@@ -1245,6 +1210,17 @@ index a76bda4437..710b26b0e5 100644
  
  # The configure checks for these functions fail incorrectly
  ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes \
+@@ -55,6 +94,10 @@ ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
+ 
+ ERLANG_CONF_OPTS = --without-javac
+ 
++ifeq ($(BR2_REPRODUCIBLE),y)
++ERLANG_CONF_OPTS += --enable-deterministic-build
++endif
++
+ # Force ERL_TOP to the downloaded source directory. This prevents
+ # Erlang's configure script from inadvertantly using files from
+ # a version of Erlang installed on the host.
 -- 
-2.37.0 (Apple Git-136)
+2.34.1
 
