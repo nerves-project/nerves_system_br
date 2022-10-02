@@ -12,6 +12,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.21.0
+
+This is a major update that pulls in Buildroot 2022.08. Most projects that work
+with nerves_system_br v1.20 shouldn't need any changes with this update, but
+please review the release notes.
+
+* Updates
+  * Use OTP 25.1's new deterministic builds flag
+  * Many shellcheck fixes to nerves_system_br shell scripts
+
+* Package updates
+  * [Buildroot 2022.08](http://lists.busybox.net/pipermail/buildroot/2022-September/650852.html):
+  * [Erlang/OTP 25.1](https://erlang.org/download/OTP-25.1.README)
+
 ## v1.20.6
 
 This release reverts an update to `libp11` in `v1.20.5` that currently breaks
