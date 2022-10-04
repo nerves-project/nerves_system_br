@@ -38,7 +38,7 @@ fi
 # Detect if this script has been run directly rather than sourced, since
 # that won't work.
 if [[ "$SHELL" = "/bin/bash" ]]; then
-    if [[ "$1" != "bash" && "$1" != "-bash" && "$1" != "/bin/bash" ]]; then
+    if [[ "$0" != "bash" && "$0" != "-bash" && "$0" != "/bin/bash" ]]; then
         echo ERROR: This scripted should be sourced from bash:
         echo
         echo source "${BASH_SOURCE[@]}"
