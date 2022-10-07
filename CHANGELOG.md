@@ -12,6 +12,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.21.1
+
+This is a security/bug fix release for v1.21.0.
+
+* Updates
+  * Fix nerves-env.sh use with Bash
+
+* Package updates
+  * [Buildroot 2022.08.1](http://lists.busybox.net/pipermail/buildroot/2022-October/652816.html)
+  * [Erlang/OTP 25.1.1](https://erlang.org/download/OTP-25.1.1.README)
+
 ## v1.21.0
 
 This is a major update that pulls in Buildroot 2022.08. Most projects that work
