@@ -12,6 +12,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.21.2
+
+This is a security/bug fix release for v1.21.1.
+
+* Updates
+  * Use `MIX_BUILD_PATH` if specified for build products
+
+* Package updates
+  * [Erlang/OTP 25.1.2](https://erlang.org/download/OTP-25.1.2.README)
+  * [boardid 1.13.1](https://github.com/nerves-project/boardid/releases/tag/v1.13.1)
+
 ## v1.21.1
 
 This is a security/bug fix release for v1.21.0.
