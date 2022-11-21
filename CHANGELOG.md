@@ -12,6 +12,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.21.3
+
+This release updates Nerves Heart to 2.0.1. This is technically a backwards
+incompatible version, but only if you use Nerves Heart statistics reports in
+your code. Nerves Heart 2.0 has several improvements to address rare issues and
+provide better information. The `nerves_runtime` library has updates to use
+these new features.
+
+* Package updates
+  * [nerves_heart 2.0.1](https://github.com/nerves-project/nerves_heart/releases/tag/v2.0.1)
+  * [erlinit 1.12.2](https://github.com/nerves-project/erlinit/releases/tag/v1.12.2)
+
 ## v1.21.2
 
 This is a security/bug fix release for v1.21.1.
