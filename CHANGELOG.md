@@ -12,6 +12,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.21.4
+
+This is a security/bug fix release for v1.21.3.
+
+* Fixes
+  * Fixes guarded poweroff via Nerves Heart to poweroff install of halt
+
+* Package updates
+  * [Buildroot 2022.08.2](http://lists.busybox.net/pipermail/buildroot/2022-November/656121.html)
+  * [nerves_heart 2.0.2](https://github.com/nerves-project/nerves_heart/releases/tag/v2.0.2)
+
 ## v1.21.3
 
 This release updates Nerves Heart to 2.0.1. This is technically a backwards
