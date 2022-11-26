@@ -17,7 +17,7 @@ follows:
 This is a security/bug fix release for v1.21.3.
 
 * Fixes
-  * Fixes guarded poweroff via Nerves Heart to poweroff install of halt
+  * Fixes guarded poweroff via Nerves Heart to poweroff instead of halt
 
 * Package updates
   * [Buildroot 2022.08.2](http://lists.busybox.net/pipermail/buildroot/2022-November/656121.html)
