@@ -1,4 +1,4 @@
-From 12b1ffeaf7f5dee600784b82ac959eb894324798 Mon Sep 17 00:00:00 2001
+From e0a258028d2136b0cda286c517af98456296b704 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 12 Feb 2014 23:20:28 -0500
 Subject: [PATCH] erlang: clean up target installation
@@ -64,5 +64,5 @@ index ac2c204a49..1b4c3cdb02 100644
  
  ERLANG_POST_INSTALL_STAGING_HOOKS += ERLANG_REMOVE_STAGING_UNUSED
 -- 
-2.25.1
+2.34.1
 

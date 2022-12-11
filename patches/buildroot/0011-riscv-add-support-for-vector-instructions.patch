@@ -1,4 +1,4 @@
-From 7a7a6f657e2b398575e14dbf89112d25ddf791a1 Mon Sep 17 00:00:00 2001
+From 63efa191b2a96967a8c0b8ae33d0a3f3c617ccd2 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sat, 25 Jun 2022 12:37:27 -0400
 Subject: [PATCH] riscv: add support for vector instructions
