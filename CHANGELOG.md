@@ -12,6 +12,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.21.5
+
+This is a security/bug fix release for v1.21.4.
+
+* Fixes
+  * Pull in RTL8723DS driver updates so that it compiles on Linux 6.1. This
+    fixes an issue building the latest Allwinner D1 (RISC-V) kernel updates.
+
+* Package updates
+  * [Buildroot 2022.08.3](https://lore.kernel.org/buildroot/87r0x7z5cw.fsf@dell.be.48ers.dk/T/#u)
+
 ## v1.21.4
 
 This is a security/bug fix release for v1.21.3.
