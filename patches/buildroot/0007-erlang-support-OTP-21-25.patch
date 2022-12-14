@@ -1,4 +1,4 @@
-From 9f0c32188f6f4ba973322b4199d3ab6368493cdf Mon Sep 17 00:00:00 2001
+From 8acadb6e93a15cddd40786140d343956b3fdd73a Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 25
@@ -50,8 +50,8 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/24.3.2/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/24.3.2/0003-erlang-enable-deterministic-builds.patch
  create mode 100644 package/erlang/24.3.2/0004-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/25.1.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/25.1.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/25.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
+ create mode 100644 package/erlang/25.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
 
 diff --git a/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 deleted file mode 100644
@@ -991,11 +991,11 @@ index 0000000000..beb1957d46
 +-- 
 +2.25.1
 +
-diff --git a/package/erlang/25.1.2/0001-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/25.1.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
+diff --git a/package/erlang/25.2/0001-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/25.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
 new file mode 100644
 index 0000000000..069d69784e
 --- /dev/null
-+++ b/package/erlang/25.1.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
++++ b/package/erlang/25.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
 @@ -0,0 +1,49 @@
 +From fe9a45130bcf1fc80a15628fbf14bf5619d84c1a Mon Sep 17 00:00:00 2001
 +From: Romain Naour <romain.naour@openwide.fr>
@@ -1046,11 +1046,11 @@ index 0000000000..069d69784e
 +-- 
 +2.25.1
 +
-diff --git a/package/erlang/25.1.2/0003-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/25.1.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/25.2/0003-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/25.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..97f410b18c
 --- /dev/null
-+++ b/package/erlang/25.1.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/25.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,28 @@
 +From 2275a2743b85c8915ff64d487cfe0fd1367424e8 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1129,14 +1129,14 @@ index 15931b5896..1ad7f4868a 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 338545a0ba..2a13a6c329 100644
+index 338545a0ba..f482a9048d 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,13 @@
 -# From https://github.com/erlang/otp/releases/download/OTP-22.3.4.22/SHA256.txt
 -sha256  e7f0793e62f8da4f7551dc9c1c0de76c40f19773ba516121fc56315c840f60cc  otp_src_22.3.4.22.tar.gz
-+# From https://github.com/erlang/otp/releases/download/OTP-25.1.2/SHA256.txt
-+sha256  5442dea694e7555d479d80bc81f1428020639c258f8e40b2052732d1cc95cca5  otp_src_25.1.2.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-25.2/SHA256.txt
++sha256  aee1ef294ee048c976d6a126a430367076354f484f557eacaf08bf086cb1314d  otp_src_25.2.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-24.3.2/SHA256.txt
 +sha256  fb39eecf5a5710200871c85c11251e27afce7c2a11f569bd6394c6d48240ec8d  otp_src_24.3.2.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-23.3.4.14/SHA256.txt
@@ -1149,7 +1149,7 @@ index 338545a0ba..2a13a6c329 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index a76bda4437..0f2f23b945 100644
+index a76bda4437..ec8f8f4793 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -4,8 +4,31 @@
@@ -1176,8 +1176,8 @@ index a76bda4437..0f2f23b945 100644
 +ERLANG_VERSION = 24.3.2
 +ERLANG_ERTS_VSN = 12.3
 +else
-+ERLANG_VERSION = 25.1.2
-+ERLANG_ERTS_VSN = 13.1.2
++ERLANG_VERSION = 25.2
++ERLANG_ERTS_VSN = 13.1.3
 +endif
 +endif
 +endif
