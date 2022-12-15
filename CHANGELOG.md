@@ -12,6 +12,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.21.6
+
+* Fixes
+  * Revert RTL8723DS driver update due to an incompatibility with the Allwinner
+    D1 Linux 5.19 branch. It works with Linux 6.1 and these patches are included
+    in Buildroot 2022.11, so upgrading Allwinner D1 systems will eventually be
+    required.
+
+* Package updates
+  * [Erlang/OTP 25.2](https://erlang.org/download/OTP-25.2.README)
+
 ## v1.21.5
 
 This is a security/bug fix release for v1.21.4.
