@@ -1,0 +1,75 @@
+From 6ce0969928f6b1a79679d5e8ed3a940738a08640 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Mon, 12 Dec 2022 08:07:05 -0500
+Subject: [PATCH] toolchain-external: refine support library search to lib
+ directory
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This fixes an issue where gcc support libraries like libstdc++.so and
+libatomic.so were not copied to the target for a Crosstool-NG RISC-V
+glibc toolchain.
+
+The Crosstool-NG's toolchain's sysroot looks like this (trimmed):
+
+sysroot
+├── lib
+│   ├── ld-linux-riscv64-lp64d.so.1
+│   ├── libatomic.a
+│   ├── libatomic.so -> libatomic.so.1.2.0
+│   ├── libatomic.so.1 -> libatomic.so.1.2.0
+│   ├── libatomic.so.1.2.0
+│   ├── libgcc_s.so
+│   ├── libgcc_s.so.1
+│   ├── libstdc++.a
+│   ├── libstdc++.so -> libstdc++.so.6.0.29
+│   ├── libstdc++.so.6 -> libstdc++.so.6.0.29
+│   ├── libstdc++.so.6.0.29
+│   └── libsupc++.a
+├── lib64
+│   └── lp64d
+│       ├── libanl.so.1
+│       ├── libc.so.6
+│       ├── libdl.so.2
+│       ├── libm.so.6
+│       ├── libnsl.so.1
+│       ├── libpthread.so.0
+│       ├── libresolv.so.2
+│       ├── librt.so.1
+│       ├── libthread_db.so.1
+│       └── libutil.so.1
+
+Without this patch, only the files in `lib64/lp64d` are copied to the
+target since this is the $ARCH_LIB_DIR. $SUPPORT_LIB_DIR is empty since
+libstdc++.a is in the sysroot. It's just not under $ARCH_LIB_DIR.
+
+Based on the comments, it looks like $SUPPORT_LIB_DIR was intended for
+the case when the support libraries were somewhere completely outside of
+the sysroot. Anywhere outside of $ARCH_LIB_DIR would seem to have the
+same effect of being missed by the copy, though.
+
+See the following link for the RISC-V Crosstool-NG configuration:
+https://github.com/crosstool-ng/crosstool-ng/blob/7f80447c5f66f588e57eb3da087b27eb2b0c8eec/samples/riscv64-unknown-linux-gnu/crosstool.config
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ toolchain/toolchain-external/pkg-toolchain-external.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/toolchain/toolchain-external/pkg-toolchain-external.mk b/toolchain/toolchain-external/pkg-toolchain-external.mk
+index 299b6008aa..4070cfdc1f 100644
+--- a/toolchain/toolchain-external/pkg-toolchain-external.mk
++++ b/toolchain/toolchain-external/pkg-toolchain-external.mk
+@@ -435,7 +435,7 @@ define TOOLCHAIN_EXTERNAL_INSTALL_SYSROOT_LIBS
+ 	ARCH_SYSROOT_DIR="$(call toolchain_find_sysroot,$(TOOLCHAIN_EXTERNAL_CC) $(TOOLCHAIN_EXTERNAL_CFLAGS))" ; \
+ 	ARCH_LIB_DIR="$(call toolchain_find_libdir,$(TOOLCHAIN_EXTERNAL_CC) $(TOOLCHAIN_EXTERNAL_CFLAGS))" ; \
+ 	SUPPORT_LIB_DIR="" ; \
+-	if test `find $${ARCH_SYSROOT_DIR} -name 'libstdc++.a' | wc -l` -eq 0 ; then \
++	if test `find $${ARCH_LIB_DIR} -name 'libstdc++.a' | wc -l` -eq 0 ; then \
+ 		LIBSTDCPP_A_LOCATION=$$(LANG=C $(TOOLCHAIN_EXTERNAL_CC) $(TOOLCHAIN_EXTERNAL_CFLAGS) -print-file-name=libstdc++.a) ; \
+ 		if [ -e "$${LIBSTDCPP_A_LOCATION}" ]; then \
+ 			SUPPORT_LIB_DIR=`readlink -f $${LIBSTDCPP_A_LOCATION} | sed -r -e 's:libstdc\+\+\.a::'` ; \
+-- 
+2.34.1
+
