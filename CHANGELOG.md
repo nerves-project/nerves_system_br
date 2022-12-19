@@ -12,6 +12,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.22.0
+
+This update pulls in Buildroot 2022.11. Most projects that work with
+nerves_system_br v1.21.x shouldn't need any changes with this update, but please
+review the Buildroot release notes.
+
+* Updates
+  * Support Crosstool-NG-built RISC-V glibc toolchains
+
+* Package updates
+  * [Buildroot 2022.11](http://lists.busybox.net/pipermail/buildroot/2022-December/656980.html)
+
 ## v1.21.6
 
 * Fixes
