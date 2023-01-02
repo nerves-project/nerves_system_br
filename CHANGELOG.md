@@ -12,6 +12,14 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.22.1
+
+This is a trivial update to v1.22.0 that allows better debug output control of
+Nerves Heart. No other changes were made.
+
+* Package updates
+  * [nerves_heart 2.1.0](https://github.com/nerves-project/nerves_heart/releases/tag/v2.1.0)
+
 ## v1.22.0
 
 This update pulls in Buildroot 2022.11. Most projects that work with
