@@ -12,6 +12,15 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.22.2
+
+This is a security/bug fix release for v1.22.1.
+
+* Package updates
+  * [Buildroot 2022.11.1]((https://lore.kernel.org/buildroot/87ilh4dvax.fsf@dell.be.48ers.dk/T/#u)
+  * [Erlang/OTP 25.2.2](https://erlang.org/download/OTP-25.2.2.README). Also see
+    [Erlang/OTP 25.2.1](https://erlang.org/download/OTP-25.2.1.README).
+
 ## v1.22.1
 
 This is a trivial update to v1.22.0 that allows better debug output control of
