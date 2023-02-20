@@ -12,7 +12,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
-## v1.22.2
+## v1.22.3
+
+This is a security/bug fix release for v1.22.3.
+
+* Fixes
+  * Emit warnings rather than error out when stripping executables fails on the
+    firmware image packing step. These can happen when using precompiled Rust
+    executables. They still work. The more important architecture checks are
+    not impacted by this change.
+
+* Package updates
+  * [Erlang/OTP 25.2.3](https://erlang.org/download/OTP-25.2.3.README)
+
+ ## v1.22.2
 
 This is a security/bug fix release for v1.22.1.
 
