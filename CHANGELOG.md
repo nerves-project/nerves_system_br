@@ -14,7 +14,7 @@ follows:
 
 ## v1.22.3
 
-This is a security/bug fix release for v1.22.3.
+This is a security/bug fix release for v1.22.2.
 
 * Fixes
   * Emit warnings rather than error out when stripping executables fails on the
