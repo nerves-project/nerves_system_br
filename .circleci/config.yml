@@ -17,7 +17,7 @@ docker_env: &docker_env
   run:
     name: Set docker env
     command: |
-      REPO=nervesproject/nerves_system_br
+      REPO=nerves-project/nerves_system_br
 
       if [ -z "$CIRCLE_TAG" ]; then
         TAG=$CIRCLE_SHA1
@@ -26,7 +26,7 @@ docker_env: &docker_env
       fi
 
       echo "export DOCKER_CLI_EXPERIMENTAL=enabled" >> $BASH_ENV
-      echo "export DOCKER_REPO=$REPO" >> $BASH_ENV
+      echo "export DOCKER_REPO=ghcr.io/$REPO" >> $BASH_ENV
       echo "export DOCKER_TAG=$TAG" >> $BASH_ENV
       echo "export DOCKER_PATH=support/docker/nerves_system_br" >> $BASH_ENV
 
@@ -56,7 +56,7 @@ docker_push: &docker_push
   run:
     name: Push docker images to dockerhub
     command: |
-      docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
+      echo $GITHUB_TOKEN | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
 
       docker image tag $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:dev_amd64
       docker push $DOCKER_REPO:dev_amd64
@@ -158,3 +158,5 @@ workflows:
         #     filters:
         #       tags:
         #         only: /.*/
+
+# VS Code Extension Version: 1.4.0
