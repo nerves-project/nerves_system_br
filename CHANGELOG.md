@@ -18,8 +18,9 @@ This is a security/bug fix release for v1.22.4.
 
 We switched from Docker Hub to the GitHub Container Registry for new official
 system images. Existing Docker Hub images are not going away. However, new ones
-will be at `ghcr.io/nerves-project/nerves_system_br`. This change should not
-affect anyone unless you manually fetch the images.
+will be at
+[ghcr.io/nerves-project/nerves_system_br](https://github.com/nerves-project/nerves_system_br/pkgs/container/nerves_system_br).
+This change should not affect anyone unless you manually fetch the images.
 
 * Package updates
   * [Buildroot 2022.11.3](https://lore.kernel.org/buildroot/878rfuxbxx.fsf@dell.be.48ers.dk/T/)
