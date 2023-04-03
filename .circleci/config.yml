@@ -41,7 +41,7 @@ docker_build: &docker_build
        docker buildx create --name multiarch --driver docker-container --use my_context
        docker buildx build --platform linux/amd64 $DOCKER_PATH --tag $DOCKER_REPO:$DOCKER_TAG"_amd64" --load --progress=plain
        docker buildx build --platform linux/arm64 $DOCKER_PATH --tag $DOCKER_REPO:$DOCKER_TAG"_arm64" --load --progress=plain
-       
+
        docker save $DOCKER_REPO:$DOCKER_TAG"_amd64" -o /docker/$DOCKER_TAG"_amd64.tar"
        docker save $DOCKER_REPO:$DOCKER_TAG"_arm64" -o /docker/$DOCKER_TAG"_arm64.tar"
 
@@ -159,4 +159,3 @@ workflows:
         #       tags:
         #         only: /.*/
 
-# VS Code Extension Version: 1.4.0
