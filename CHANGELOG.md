@@ -12,6 +12,19 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.22.5
+
+This is a security/bug fix release for v1.22.4.
+
+We switched from Docker Hub to the GitHub Container Registry for new official
+system images. Existing Docker Hub images are not going away. However, new ones
+will be at `ghcr.io/nerves-project/nerves_system_br`. This change should not
+affect anyone unless you manually fetch the images.
+
+* Package updates
+  * [Buildroot 2022.11.3](https://lore.kernel.org/buildroot/878rfuxbxx.fsf@dell.be.48ers.dk/T/)
+  * [Fwup 1.10.0](https://github.com/fwup-home/fwup/releases/tag/v1.10.0)
+
 ## v1.22.4
 
 This is a security/bug fix release for v1.22.3.
