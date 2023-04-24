@@ -12,6 +12,15 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.22.6
+
+This update contains an update to Nerves Heart to support "snoozing" of hardware
+watchdog and heart-related reboots to assist debugging heart issues. No other
+updates were made.
+
+* Package updates
+  * [nerves_heart 2.2.0](https://github.com/nerves-project/nerves_heart/releases/tag/v2.2.0)
+
 ## v1.22.5
 
 This is a security/bug fix release for v1.22.4.
