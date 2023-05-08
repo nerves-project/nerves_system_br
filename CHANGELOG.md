@@ -12,6 +12,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.22.7
+
+This is a security/bug fix release for v1.22.6.
+
+* Fixes
+  * Remove hardcoded OPTEE filename for use with U-Boot. This is needed for
+    BeaglePlay/TI AM625 support.
+
+* Package updates
+  * [Erlang/OTP 25.3.2](https://erlang.org/download/OTP-25.3.2.README)
+
 ## v1.22.6
 
 This update contains an update to Nerves Heart to support "snoozing" of hardware
