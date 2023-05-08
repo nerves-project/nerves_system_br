@@ -1,0 +1,50 @@
+From d24912a71c819f513ae85c46046e442ef6c0c7e3 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Sun, 7 May 2023 20:26:57 -0400
+Subject: [PATCH] uboot: support alternative TEE filenames
+
+The Beagleplay, for example, uses tee-pageable_v2.bin, so this change
+makes it possible to specify that file while still depending on OPTEE
+being built first.
+
+Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
+---
+ boot/uboot/Config.in | 8 ++++++++
+ boot/uboot/uboot.mk  | 2 +-
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/boot/uboot/Config.in b/boot/uboot/Config.in
+index 7b7cad53f1..37fd26303a 100644
+--- a/boot/uboot/Config.in
++++ b/boot/uboot/Config.in
+@@ -232,6 +232,14 @@ config BR2_TARGET_UBOOT_NEEDS_OPTEE_TEE
+ 	  U-Boot, and that the TEE variable pointing to OPTEE's
+ 	  tee.elf, is passed during the Buildroot build.
+ 
++if BR2_TARGET_UBOOT_NEEDS_OPTEE_TEE
++config BR2_TARGET_UBOOT_OPTEE_TEE_NAME
++	string "OPTEE TEE filename"
++	default "tee.elf"
++	help
++	  Name of the OPTEE TEE file.
++endif
++
+ config BR2_TARGET_UBOOT_NEEDS_OPENSBI
+ 	bool "U-Boot needs OpenSBI"
+ 	depends on BR2_TARGET_OPENSBI
+diff --git a/boot/uboot/uboot.mk b/boot/uboot/uboot.mk
+index 9e073daa38..053b170517 100644
+--- a/boot/uboot/uboot.mk
++++ b/boot/uboot/uboot.mk
+@@ -177,7 +177,7 @@ endif
+ 
+ ifeq ($(BR2_TARGET_UBOOT_NEEDS_OPTEE_TEE),y)
+ UBOOT_DEPENDENCIES += optee-os
+-UBOOT_MAKE_OPTS += TEE=$(BINARIES_DIR)/tee.elf
++UBOOT_MAKE_OPTS += TEE=$(BINARIES_DIR)/$(BR2_TARGET_UBOOT_OPTEE_TEE_NAME)
+ endif
+ 
+ ifeq ($(BR2_TARGET_UBOOT_NEEDS_OPENSBI),y)
+-- 
+2.34.1
+
