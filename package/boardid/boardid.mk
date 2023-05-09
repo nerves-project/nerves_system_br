@@ -4,10 +4,10 @@
 #
 #############################################################
 
-BOARDID_VERSION = v1.13.1
+BOARDID_VERSION = v1.14.0
 BOARDID_SITE = $(call github,nerves-project,boardid,$(BOARDID_VERSION))
 BOARDID_LICENSE = Apache-2.0
-BOARDID_LICENSE_FILES = LICENSE
+BOARDID_LICENSE_FILES = LICENSES/Apache-2.0.txt
 
 define BOARDID_BUILD_CMDS
 	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)
