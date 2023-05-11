@@ -12,6 +12,11 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.22.8
+
+* Package updates
+  * [boardid 1.14.0](https://github.com/nerves-project/boardid/releases/tag/v1.14.0)
+
 ## v1.22.7
 
 This is a security/bug fix release for v1.22.6.
