@@ -1,4 +1,4 @@
-From d24912a71c819f513ae85c46046e442ef6c0c7e3 Mon Sep 17 00:00:00 2001
+From 5f14178dcaedc5a6ae50f4bf80a983926f3bf205 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 7 May 2023 20:26:57 -0400
 Subject: [PATCH] uboot: support alternative TEE filenames
@@ -14,10 +14,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  2 files changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/boot/uboot/Config.in b/boot/uboot/Config.in
-index 7b7cad53f1..37fd26303a 100644
+index f5c20f5168..438a8ae381 100644
 --- a/boot/uboot/Config.in
 +++ b/boot/uboot/Config.in
-@@ -232,6 +232,14 @@ config BR2_TARGET_UBOOT_NEEDS_OPTEE_TEE
+@@ -240,6 +240,14 @@ config BR2_TARGET_UBOOT_NEEDS_OPTEE_TEE
  	  U-Boot, and that the TEE variable pointing to OPTEE's
  	  tee.elf, is passed during the Buildroot build.
  
@@ -33,10 +33,10 @@ index 7b7cad53f1..37fd26303a 100644
  	bool "U-Boot needs OpenSBI"
  	depends on BR2_TARGET_OPENSBI
 diff --git a/boot/uboot/uboot.mk b/boot/uboot/uboot.mk
-index 9e073daa38..053b170517 100644
+index 4eae8e95c3..5710b18eec 100644
 --- a/boot/uboot/uboot.mk
 +++ b/boot/uboot/uboot.mk
-@@ -177,7 +177,7 @@ endif
+@@ -181,7 +181,7 @@ endif
  
  ifeq ($(BR2_TARGET_UBOOT_NEEDS_OPTEE_TEE),y)
  UBOOT_DEPENDENCIES += optee-os
