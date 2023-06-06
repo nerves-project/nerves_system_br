@@ -12,6 +12,26 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.23.0
+
+This update pulls in Erlang/OTP 26.0 and Buildroot 2023.02.1. For the Buildroot
+portion, most projects that work with `nerves_system_br` v1.22.x shouldn't need
+any changes with this update, but please review the Buildroot release notes.
+
+* Upgrade notes
+  * The default TERM setting changed from vt100 to xterm-256color. In the past,
+    this didn't really matter. With OTP 26, the TERM setting starts being used
+    so applications that use the terminal may change how they render.
+  * OTP 26.0 comes with a multiline editor. At the time of this release
+    multiline editing didn't work with ssh so it's currently disabled.
+
+* Package updates
+  * [Erlang/OTP 26.0](https://erlang.org/download/OTP-26.0.README)
+  * [Buildroot 2023.02.1](https://lore.kernel.org/buildroot/87mt2c5t7t.fsf@dell.be.48ers.dk/T/).
+    See the release notes for [Buildroot 2023.02](https://lore.kernel.org/buildroot/87pm9dy9kb.fsf@dell.be.48ers.dk/T/)
+    as well.
+  * [erlinit 1.12.3](https://github.com/nerves-project/erlinit/releases/tag/v1.12.3)
+
 ## v1.22.8
 
 * Package updates
