@@ -1,18 +1,18 @@
-From 18468e69e463b69117ce1423ff9c90aad4e60eeb Mon Sep 17 00:00:00 2001
+From a1775b23b9ea59f5a99ae0c8a2baf0127c6adea6 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 5 Jun 2023 14:51:35 -0400
 Subject: [PATCH] erlang: revert multiline editing for OTP 26.0
 
 ---
- .../26.0/0003-Revert-multiline-editing.patch  | 2185 +++++++++++++++++
+ .../0003-Revert-multiline-editing.patch       | 2185 +++++++++++++++++
  1 file changed, 2185 insertions(+)
- create mode 100644 package/erlang/26.0/0003-Revert-multiline-editing.patch
+ create mode 100644 package/erlang/26.0.1/0003-Revert-multiline-editing.patch
 
-diff --git a/package/erlang/26.0/0003-Revert-multiline-editing.patch b/package/erlang/26.0/0003-Revert-multiline-editing.patch
+diff --git a/package/erlang/26.0.1/0003-Revert-multiline-editing.patch b/package/erlang/26.0.1/0003-Revert-multiline-editing.patch
 new file mode 100644
 index 0000000000..4fc0415fa6
 --- /dev/null
-+++ b/package/erlang/26.0/0003-Revert-multiline-editing.patch
++++ b/package/erlang/26.0.1/0003-Revert-multiline-editing.patch
 @@ -0,0 +1,2185 @@
 +From 19fe6e1ba9b679c0903fb6815800ffa9787050aa Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
