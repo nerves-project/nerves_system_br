@@ -12,6 +12,21 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.23.1
+
+This is a security/bug fix release for v1.23.0. The patch in 1.23.0 to remove
+the multiline editor code in OTP 26 has been removed since the issue with ssh
+has been fixed in OTP 26.0.2.
+
+* Updates
+  * Allow error messages from merge-squashfs to be propogated to help debug
+    squashfs packaging issues.
+
+* Package updates
+  * [Buildroot 2023.02.2](https://lore.kernel.org/buildroot/87wn03ifbl.fsf@48ers.dk/T/)
+  * [Erlang/OTP 26.0.2](https://erlang.org/download/OTP-26.0.2.README). Also see
+    [Erlang/OTP 26.0.1](https://erlang.org/download/OTP-26.0.1.README).
+
 ## v1.23.0
 
 This update pulls in Erlang/OTP 26.0 and Buildroot 2023.02.1. For the Buildroot
