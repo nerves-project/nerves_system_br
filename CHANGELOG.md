@@ -12,6 +12,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.23.2
+
+This is a security/bug fix update for v1.23.1.
+
+* Fixes
+  * Patch Erlang to make CTRL-R work over ssh. See
+    [OTP PR 7499](https://github.com/erlang/otp/pull/7499)
+
+* Package updates
+  * [Buildroot 2023.02.3](https://lore.kernel.org/buildroot/87y1je6wva.fsf@48ers.dk/T/)
+  * [Fwup 1.10.1](https://github.com/fwup-home/fwup/releases/tag/v1.10.1)
+
 ## v1.23.1
 
 This is a security/bug fix release for v1.23.0. The patch in 1.23.0 to remove
