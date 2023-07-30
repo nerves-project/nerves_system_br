@@ -137,8 +137,15 @@ elif ! diff "$NERVES_BR_STATE_FILE" "$NERVES_BR_EXPECTED_STATE_FILE" >/dev/null;
     echo "It is highly recommended to rebuild clean."
     echo "To do this, go to $BUILD_DIR, and run 'make clean'."
     echo
-    echo "Press return to acknowledge or CTRL-C to stop"
-    read -r
+
+    if [ -t 0 ]; then
+        echo "Press return to acknowledge or CTRL-C to stop"
+        read -r
+    else
+	echo "WARNING: Detected non-interactive terminal. Blindly continuing..."
+	sleep 5
+    fi
+
     create_buildroot_dir
 fi
 
