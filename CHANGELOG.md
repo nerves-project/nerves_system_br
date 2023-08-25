@@ -12,6 +12,16 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.23.3
+
+* Fixes
+  * Include upstream Erlang aarch64 div/rem JIT patch to fix a math error on
+    aarch64 devices that affects the `atecc508a` library. This library is used
+    to authenticate connections to NervesHub and other cloud services. See
+    https://github.com/erlang/otp/pull/7567 for details.
+  * Remove acknowledgement when a clean build might be needed when called from
+    non-interactive terminals
+
 ## v1.23.2
 
 This is a security/bug fix update for v1.23.1.
