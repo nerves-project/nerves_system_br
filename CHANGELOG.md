@@ -12,6 +12,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.24.0
+
+This update pulls in Erlang/OTP 26.1 and Buildroot 2023.05.2. For the Buildroot
+portion, most projects that work with `nerves_system_br` v1.23.x shouldn't need
+any changes with this update, but please review the Buildroot release notes.
+
+* Package updates
+  * [Erlang/OTP 26.1](https://erlang.org/download/OTP-26.1.README)
+  * [Buildroot 2023.05.2](https://lore.kernel.org/buildroot/87ledrkrpp.fsf@48ers.dk/T/)
+    See the release notes for [Buildroot 2023.05](https://lore.kernel.org/buildroot/87r0qn2c77.fsf@48ers.dk/T/)
+    and [Buildroot 2023.05.1](https://lore.kernel.org/buildroot/87351m8qm4.fsf@48ers.dk/T/).
+
 ## v1.23.3
 
 * Fixes
