@@ -1,4 +1,4 @@
-From 0924ebcc1c137655bba32518d523fa6476e1a436 Mon Sep 17 00:00:00 2001
+From 12b72ef550a67ed79d97865ab2e67678e350978a Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 26
@@ -9,8 +9,6 @@ builds.
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
 ---
- ...truct-libatomic_ops-we-do-require-CA.patch | 70 -----------------
- ...ulator-reorder-inclued-headers-paths.patch | 46 -----------
  ...truct-libatomic_ops-we-do-require-CA.patch | 70 +++++++++++++++++
  ...ulator-reorder-inclued-headers-paths.patch | 46 +++++++++++
  ...-with-LDLIBS-instead-of-LIBS-for-DED.patch | 42 ++++++++++
@@ -29,15 +27,12 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  ...-update-df-call-to-work-with-Busybox.patch | 28 +++++++
  ...ulator-reorder-inclued-headers-paths.patch | 49 ++++++++++++
  ...-update-df-call-to-work-with-Busybox.patch | 28 +++++++
- ...ulator-reorder-inclued-headers-paths.patch | 49 ++++++++++++
  ...-update-df-call-to-work-with-Busybox.patch | 77 +++++++++++++++++++
  ...Fix-SSH-recursive-search-with-CTRL-R.patch | 36 +++++++++
  package/erlang/Config.in                      | 42 ++++++++++
  package/erlang/erlang.hash                    | 14 +++-
- package/erlang/erlang.mk                      | 58 +++++++++++++-
- 26 files changed, 1062 insertions(+), 121 deletions(-)
- delete mode 100644 package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
- delete mode 100644 package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
+ package/erlang/erlang.mk                      | 56 +++++++++++++-
+ 23 files changed, 1012 insertions(+), 4 deletions(-)
  create mode 100644 package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  create mode 100644 package/erlang/21.3.8.24/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/21.3.8.24/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
@@ -56,138 +51,9 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/24.3.2/0004-disksup-update-df-call-to-work-with-Busybox.patch
  create mode 100644 package/erlang/25.3.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/25.3.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/26.1.1/0001-erts-emulator-reorder-inclued-headers-paths.patch
- create mode 100644 package/erlang/26.1.1/0002-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/26.1.1/0003-Fix-SSH-recursive-search-with-CTRL-R.patch
+ create mode 100644 package/erlang/26.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/26.1.1/0002-Fix-SSH-recursive-search-with-CTRL-R.patch
 
-diff --git a/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
-deleted file mode 100644
-index 8e401430fe..0000000000
---- a/package/erlang/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
-+++ /dev/null
-@@ -1,70 +0,0 @@
--From 439fa2eae78a8900bda120072335be19d626498c Mon Sep 17 00:00:00 2001
--From: "Yann E. MORIN" <yann.morin.1998@free.fr>
--Date: Sun, 28 Dec 2014 23:39:40 +0100
--Subject: [PATCH] erts/ethread: instruct libatomic_ops we do require CAS
--
--We do require compare-and-swap (CAS), so we must instruct libatomic_ops
--to provide it, even if the architecture does not have instructions for
--it.
--
--For example, on ARM, LDREX is required for fast CAS. But LDREX is only
--available on ARMv6, so by default libatomic_ops will not have CAS for
--anything below, like ARMv5. But ARMv5 is always UP, so using an
--emulated CAS (that is signal-asyn-safe) is still possible (albeit much
--slower).
--
--Tell libatomic_ops to provide CAS, even if the hardware is not capable
--of it, by using emulated CAS, as per libatomic_ops dosc:
--    https://github.com/ivmai/libatomic_ops/blob/master/doc/README.txt#L28
--
--    If this is included after defining AO_REQUIRE_CAS, then the package
--    will make an attempt to emulate compare-and-swap in a way that (at
--    least on Linux) should still be async-signal-safe.
--
--Thanks go to Thomas for all this insight! :-)
--Thanks go to Frank for reporting the issue! :-)
--
--Signed-off-by: "Yann E. MORIN" <yann.morin.1998@free.fr>
--Cc: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
--Cc: Frank Hunleth <fhunleth@troodon-software.com>
-----
-- erts/include/internal/libatomic_ops/ethread.h | 1 +
-- 1 file changed, 1 insertion(+)
--
--diff --git a/erts/include/internal/libatomic_ops/ethread.h b/erts/include/internal/libatomic_ops/ethread.h
--index d65ee19..71d3598 100644
----- a/erts/include/internal/libatomic_ops/ethread.h
--+++ b/erts/include/internal/libatomic_ops/ethread.h
--@@ -35,6 +35,7 @@
-- 
-- #define ETHR_NATIVE_IMPL__ "libatomic_ops"
-- 
--+#define AO_REQUIRE_CAS
-- #include "atomic_ops.h"
-- #include "ethr_membar.h"
-- #include "ethr_atomic.h"
--diff --git a/erts/aclocal.m4 b/erts/aclocal.m4
--index d65ee19..71d3598 100644
----- a/erts/aclocal.m4
--+++ b/erts/aclocal.m4
--@@ -1414,7 +1414,8 @@
-- 	    	    fi;;
-- 	    esac
-- 	    ethr_have_libatomic_ops=no
---	    AC_TRY_LINK([#include "atomic_ops.h"],
--+	    AC_TRY_LINK([#define AO_REQUIRE_CAS
--+                    #include "atomic_ops.h"],
-- 	    	        [
-- 	    	    	    volatile AO_t x;
-- 	    	    	    AO_t y;
--@@ -1455,6 +1455,7 @@
-- 	        AC_CHECK_SIZEOF(AO_t, ,
-- 	    	    	        [
-- 	    	    	    	    #include <stdio.h>
--+	    	    	    	    #define AO_REQUIRE_CAS
-- 	    	    	    	    #include "atomic_ops.h"
-- 	    	    	        ])
-- 	        AC_DEFINE_UNQUOTED(ETHR_SIZEOF_AO_T, $ac_cv_sizeof_AO_t, [Define to the size of AO_t if libatomic_ops is used])
---- 
--1.9.1
--
-diff --git a/package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
-deleted file mode 100644
-index 7a6e469dff..0000000000
---- a/package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch
-+++ /dev/null
-@@ -1,46 +0,0 @@
--From 85a3e5b4f65e5284e59dcdd90e92ea7d50ef6907 Mon Sep 17 00:00:00 2001
--From: Romain Naour <romain.naour@openwide.fr>
--Date: Sun, 8 Feb 2015 17:23:13 +0100
--Subject: [PATCH] erts/emulator: reorder inclued headers paths
--
--If the Perl Compatible Regular Expressions is installed on the
--host and the path to the headers is added to the CFLAGS, the
--pcre.h from the host is used instead of the one provided by
--erlang.
--
--Erlang use an old version of this file which is incompatible
--with the upstream one.
--
--Move INCLUDES before CFLAGS to use pcre.h from erlang.
--
--http://autobuild.buildroot.net/results/cbd/cbd8b54eef535f19d7d400fd269af1b3571d6143/build-end.log
--
--Signed-off-by: Romain Naour <romain.naour@openwide.fr>
--[Bernd: rebased for erlang-21.0]
--Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
-----
-- erts/emulator/Makefile.in | 4 ++--
-- 1 file changed, 2 insertions(+), 2 deletions(-)
--
--diff --git a/erts/emulator/Makefile.in b/erts/emulator/Makefile.in
--index 7145824..d079487 100644
----- a/erts/emulator/Makefile.in
--+++ b/erts/emulator/Makefile.in
--@@ -712,7 +712,7 @@
-- # Usually the same as the default rule, but certain platforms (e.g. win32) mix
-- # different compilers
-- $(OBJDIR)/beam_emu.o: beam/beam_emu.c
---	$(V_EMU_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
--+	$(V_EMU_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
-- 
-- $(OBJDIR)/beam_emu.S: beam/beam_emu.c
-- 	$(V_EMU_CC) -S -fverbose-asm $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
--@@ -765,7 +765,7 @@
-- # General targets
-- #
-- $(OBJDIR)/%.o: beam/%.c
---	$(V_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
--+	$(V_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
-- 
-- $(OBJDIR)/%.o: $(TARGET)/%.c
-- 	$(V_CC) $(CFLAGS) $(INCLUDES) -Idrivers/common -c $< -o $@
 diff --git a/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
 index 0000000000..8e401430fe
@@ -1087,68 +953,13 @@ index 0000000000..97f410b18c
 +-- 
 +2.25.1
 +
-diff --git a/package/erlang/26.1.1/0001-erts-emulator-reorder-inclued-headers-paths.patch b/package/erlang/26.1.1/0001-erts-emulator-reorder-inclued-headers-paths.patch
+diff --git a/package/erlang/26.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/26.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
-index 0000000000..660af9d852
+index 0000000000..9cccce73ac
 --- /dev/null
-+++ b/package/erlang/26.1.1/0001-erts-emulator-reorder-inclued-headers-paths.patch
-@@ -0,0 +1,49 @@
-+From c57e0592766507ac747badeee40fdb64d0d3a1e9 Mon Sep 17 00:00:00 2001
-+From: Romain Naour <romain.naour@openwide.fr>
-+Date: Sun, 8 Feb 2015 17:23:13 +0100
-+Subject: [PATCH] erts/emulator: reorder inclued headers paths
-+
-+If the Perl Compatible Regular Expressions is installed on the
-+host and the path to the headers is added to the CFLAGS, the
-+pcre.h from the host is used instead of the one provided by
-+erlang.
-+
-+Erlang use an old version of this file which is incompatible
-+with the upstream one.
-+
-+Move INCLUDES before CFLAGS to use pcre.h from erlang.
-+
-+http://autobuild.buildroot.net/results/cbd/cbd8b54eef535f19d7d400fd269af1b3571d6143/build-end.log
-+
-+Signed-off-by: Romain Naour <romain.naour@openwide.fr>
-+[Bernd: rebased for erlang-21.0]
-+Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
-+---
-+ erts/emulator/Makefile.in | 4 ++--
-+ 1 file changed, 2 insertions(+), 2 deletions(-)
-+
-+diff --git a/erts/emulator/Makefile.in b/erts/emulator/Makefile.in
-+index 5451bdf804..eb79ad516a 100644
-+--- a/erts/emulator/Makefile.in
-++++ b/erts/emulator/Makefile.in
-+@@ -823,7 +823,7 @@ endif
-+ # Usually the same as the default rule, but certain platforms (e.g. win32) mix
-+ # different compilers
-+ $(OBJDIR)/beam_emu.o: beam/emu/beam_emu.c
-+-	$(V_EMU_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
-++	$(V_EMU_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
-+ 
-+ $(OBJDIR)/beam_emu.S: beam/emu/beam_emu.c
-+ 	$(V_EMU_CC) -S -fverbose-asm $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
-+@@ -886,7 +886,7 @@ endif
-+ # General targets
-+ #
-+ $(OBJDIR)/%.o: beam/%.c
-+-	$(V_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
-++	$(V_CC) $(INCLUDES) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) -c $< -o $@
-+ 
-+ $(OBJDIR)/%.o: beam/emu/%.c
-+ 	$(V_CC) $(subst -O2, $(GEN_OPT_FLGS), $(CFLAGS)) $(INCLUDES) -c $< -o $@
-+-- 
-+2.34.1
-+
-diff --git a/package/erlang/26.1.1/0002-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/26.1.1/0002-disksup-update-df-call-to-work-with-Busybox.patch
-new file mode 100644
-index 0000000000..0173bf029b
---- /dev/null
-+++ b/package/erlang/26.1.1/0002-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/26.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,77 @@
-+From da4aecc8a7bd2caae09576d6058bb26022ae297c Mon Sep 17 00:00:00 2001
++From 59f0d61699350a6df661c838a502a566b1c02768 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
 +Date: Tue, 5 May 2020 21:19:01 -0400
 +Subject: [PATCH] disksup: update df call to work with Busybox
@@ -1225,13 +1036,13 @@ index 0000000000..0173bf029b
 +-- 
 +2.34.1
 +
-diff --git a/package/erlang/26.1.1/0003-Fix-SSH-recursive-search-with-CTRL-R.patch b/package/erlang/26.1.1/0003-Fix-SSH-recursive-search-with-CTRL-R.patch
+diff --git a/package/erlang/26.1.1/0002-Fix-SSH-recursive-search-with-CTRL-R.patch b/package/erlang/26.1.1/0002-Fix-SSH-recursive-search-with-CTRL-R.patch
 new file mode 100644
-index 0000000000..0977888f3e
+index 0000000000..b6dd704252
 --- /dev/null
-+++ b/package/erlang/26.1.1/0003-Fix-SSH-recursive-search-with-CTRL-R.patch
++++ b/package/erlang/26.1.1/0002-Fix-SSH-recursive-search-with-CTRL-R.patch
 @@ -0,0 +1,36 @@
-+From 1e1843640549387a4926697314ec683bc83d7bb2 Mon Sep 17 00:00:00 2001
++From 055f129dd0d6f3d975adcb35a495ad3c8c521346 Mon Sep 17 00:00:00 2001
 +From: Jon Carstens <jjcarstens@me.com>
 +Date: Sat, 15 Jul 2023 09:34:36 -0600
 +Subject: [PATCH] Fix SSH recursive search with CTRL+R
@@ -1268,10 +1079,10 @@ index 0000000000..0977888f3e
 +2.34.1
 +
 diff --git a/package/erlang/Config.in b/package/erlang/Config.in
-index 15931b5896..a5ee79ba42 100644
+index d3fe0dbec1..de5b1bea40 100644
 --- a/package/erlang/Config.in
 +++ b/package/erlang/Config.in
-@@ -38,6 +38,48 @@ config BR2_PACKAGE_ERLANG
+@@ -41,6 +41,48 @@ config BR2_PACKAGE_ERLANG
  
  if BR2_PACKAGE_ERLANG
  
@@ -1321,12 +1132,12 @@ index 15931b5896..a5ee79ba42 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 338545a0ba..59b86e7dc1 100644
+index 9fc5a6eabf..59b86e7dc1 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,15 @@
--# From https://github.com/erlang/otp/releases/download/OTP-22.3.4.22/SHA256.txt
--sha256  e7f0793e62f8da4f7551dc9c1c0de76c40f19773ba516121fc56315c840f60cc  otp_src_22.3.4.22.tar.gz
+-# From https://github.com/erlang/otp/releases/download/OTP-26.0.2/SHA256.txt
+-sha256  47853ea9230643a0a31004433f07a71c1b92d6e0094534f629e3b75dbc62f193  otp_src_26.0.2.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-26.1.1/SHA256.txt
 +sha256  30de56e687cef15c73ef2e2e5bc8a94d28f959656e716e0a65092af7d360af57  otp_src_26.1.1.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-25.3.2/SHA256.txt
@@ -1343,7 +1154,7 @@ index 338545a0ba..59b86e7dc1 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index a76bda4437..79c86b48d3 100644
+index b57ed6f0d7..30c2f41147 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -4,8 +4,36 @@
@@ -1351,7 +1162,7 @@ index a76bda4437..79c86b48d3 100644
  ################################################################################
  
 -# See note below when updating Erlang
--ERLANG_VERSION = 22.3.4.22
+-ERLANG_VERSION = 26.0.2
 +# When updating Erlang, the ERLANG_ERTS_VSN is found in erts/vsn.mk. Also see note
 +# later on.
 +ifeq ($(BR2_PACKAGE_ERLANG_21),y)
@@ -1385,16 +1196,7 @@ index a76bda4437..79c86b48d3 100644
  ERLANG_SITE = \
  	https://github.com/erlang/otp/releases/download/OTP-$(ERLANG_VERSION)
  ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
-@@ -29,7 +57,7 @@ ERLANG_POST_PATCH_HOOKS += ERLANG_REMOVE_SSL_DEPS
- 
- # Patched erts/aclocal.m4
- define ERLANG_RUN_AUTOCONF
--	cd $(@D) && PATH=$(BR_PATH) ./otp_build autoconf
-+	cd $(@D) && PATH=$(BR_PATH) ./otp_build update_configure --no-commit
- endef
- ERLANG_DEPENDENCIES += host-autoconf
- ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
-@@ -38,7 +66,27 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
+@@ -28,7 +56,27 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
  
  # Whenever updating Erlang, this value should be updated as well, to the
  # value of EI_VSN in the file lib/erl_interface/vsn.mk
@@ -1402,7 +1204,7 @@ index a76bda4437..79c86b48d3 100644
 +ERLANG_EI_VSN = 3.11.3
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_22),y)
- ERLANG_EI_VSN = 3.13.2.2
++ERLANG_EI_VSN = 3.13.2.2
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_23),y)
 +ERLANG_EI_VSN = 4.0.3
@@ -1413,7 +1215,7 @@ index a76bda4437..79c86b48d3 100644
 +ifeq ($(BR2_PACKAGE_ERLANG_25),y)
 +ERLANG_EI_VSN = 5.3
 +else
-+ERLANG_EI_VSN = 5.4
+ ERLANG_EI_VSN = 5.4
 +endif
 +endif
 +endif
@@ -1422,7 +1224,7 @@ index a76bda4437..79c86b48d3 100644
  
  # The configure checks for these functions fail incorrectly
  ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes \
-@@ -55,6 +103,10 @@ ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
+@@ -45,6 +93,10 @@ ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
  
  ERLANG_CONF_OPTS = --without-javac
  

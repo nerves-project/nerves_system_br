@@ -1,4 +1,4 @@
-From 684262bcbf7b28557abb180bfd1d0dc1d5bb57d3 Mon Sep 17 00:00:00 2001
+From d984408be14185b902b2468aa08821c0549ba635 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 27 Mar 2022 08:40:06 -0400
 Subject: [PATCH] erlang: don't install to target
@@ -12,7 +12,7 @@ already on the target.
  1 file changed, 1 insertion(+)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 50082b1e83..30e026e744 100644
+index 30c2f41147..9e37d44386 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -44,6 +44,7 @@ ERLANG_LICENSE_FILES = LICENSE.txt
@@ -21,8 +21,8 @@ index 50082b1e83..30e026e744 100644
  ERLANG_INSTALL_STAGING = YES
 +ERLANG_INSTALL_TARGET = NO
  
- # windows specific issue: https://nvd.nist.gov/vuln/detail/CVE-2021-29221
- ERLANG_IGNORE_CVES += CVE-2021-29221
+ # Patched erts/aclocal.m4
+ define ERLANG_RUN_AUTOCONF
 -- 
 2.34.1
 

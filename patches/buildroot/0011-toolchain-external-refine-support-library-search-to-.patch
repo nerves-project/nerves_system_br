@@ -1,4 +1,4 @@
-From a5eaf23d02f7a3cca860da3ee93876ce72f4f172 Mon Sep 17 00:00:00 2001
+From 6f80de3bfd423b98777caa9722f480e4efa1fafa Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 12 Dec 2022 08:07:05 -0500
 Subject: [PATCH] toolchain-external: refine support library search to lib
@@ -58,7 +58,7 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/toolchain/toolchain-external/pkg-toolchain-external.mk b/toolchain/toolchain-external/pkg-toolchain-external.mk
-index c37f3500d9..ed4f62e601 100644
+index ddf1d70ab4..6fba077f35 100644
 --- a/toolchain/toolchain-external/pkg-toolchain-external.mk
 +++ b/toolchain/toolchain-external/pkg-toolchain-external.mk
 @@ -435,7 +435,7 @@ define TOOLCHAIN_EXTERNAL_INSTALL_SYSROOT_LIBS
