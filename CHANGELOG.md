@@ -12,6 +12,31 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.25.0
+
+This update pulls in Buildroot 2023.08.2. This is a major Buildroot update from
+v1.24.1 with possibly the biggest change for Nerves users being the update from
+OpenSSL 1.1.1 to OpenSSL 3.
+
+Nerves systems need the following updates:
+
+1. Buildroot 2023.08 updated the default GCC version to GCC 13. Since Nerves
+   systems and toolchains are mostly on GCC 12 which was the default, the
+   `nerves_defconfig` will need to be updated to select GCC 12. Add
+   `BR2_TOOLCHAIN_EXTERNAL_GCC_12=y` to `nerves_defconfig`.
+2. Buildroot's toolchain feature detection is better. OpenMP and Fortan support
+   are autodetect and checked against toolchain features specified in
+   `nerves_defconfig`. To fix the warnings, add
+   `BR2_TOOLCHAIN_EXTERNAL_FORTRAN=y` and `BR2_TOOLCHAIN_EXTERNAL_OPENMP=y` to
+   `nerves_defconfig`.
+3. If using a RISC-V processor, you may need to enable the atomic instructions
+   in the target selection. If you get build errors with Erlang concerning
+   atomics, this is likely the issue.
+
+* Package updates
+  * [Buildroot 2023.08.2](https://lore.kernel.org/buildroot/87h6ngup34.fsf@48ers.dk/T/)
+  * [Erlang/OTP 26.1.2](https://erlang.org/download/OTP-26.1.2.README)
+
 ## v1.24.1
 
 This is a security/bug fix update for v1.24.0.
