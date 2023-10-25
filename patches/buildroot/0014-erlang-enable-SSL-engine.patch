@@ -1,4 +1,4 @@
-From 18812ad26af49fff0d5f517eb97a3c583b49efde Mon Sep 17 00:00:00 2001
+From 71984f4052b9334ba7c7b5bca0296011b22305a0 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 22 Oct 2023 20:56:09 -0400
 Subject: [PATCH] erlang: enable SSL engine
@@ -7,14 +7,14 @@ Subject: [PATCH] erlang: enable SSL engine
  ...d-removal-of-deprecated-warning-for-.patch | 35 +++++++++++++++++++
  ...ard-coded-disable-of-ENGINE-in-3.0.x.patch | 27 ++++++++++++++
  2 files changed, 62 insertions(+)
- create mode 100644 package/erlang/26.1.1/0003-crypto-Hard-coded-removal-of-deprecated-warning-for-.patch
- create mode 100644 package/erlang/26.1.1/0004-crypto-Remove-hard-coded-disable-of-ENGINE-in-3.0.x.patch
+ create mode 100644 package/erlang/26.1.2/0003-crypto-Hard-coded-removal-of-deprecated-warning-for-.patch
+ create mode 100644 package/erlang/26.1.2/0004-crypto-Remove-hard-coded-disable-of-ENGINE-in-3.0.x.patch
 
-diff --git a/package/erlang/26.1.1/0003-crypto-Hard-coded-removal-of-deprecated-warning-for-.patch b/package/erlang/26.1.1/0003-crypto-Hard-coded-removal-of-deprecated-warning-for-.patch
+diff --git a/package/erlang/26.1.2/0003-crypto-Hard-coded-removal-of-deprecated-warning-for-.patch b/package/erlang/26.1.2/0003-crypto-Hard-coded-removal-of-deprecated-warning-for-.patch
 new file mode 100644
 index 0000000000..2ad1c69789
 --- /dev/null
-+++ b/package/erlang/26.1.1/0003-crypto-Hard-coded-removal-of-deprecated-warning-for-.patch
++++ b/package/erlang/26.1.2/0003-crypto-Hard-coded-removal-of-deprecated-warning-for-.patch
 @@ -0,0 +1,35 @@
 +From a5fea43ef5642ac55d2dad2ec2df6c42428f81ba Mon Sep 17 00:00:00 2001
 +From: Hans Nilsson <hans@erlang.org>
@@ -51,11 +51,11 @@ index 0000000000..2ad1c69789
 +-- 
 +2.34.1
 +
-diff --git a/package/erlang/26.1.1/0004-crypto-Remove-hard-coded-disable-of-ENGINE-in-3.0.x.patch b/package/erlang/26.1.1/0004-crypto-Remove-hard-coded-disable-of-ENGINE-in-3.0.x.patch
+diff --git a/package/erlang/26.1.2/0004-crypto-Remove-hard-coded-disable-of-ENGINE-in-3.0.x.patch b/package/erlang/26.1.2/0004-crypto-Remove-hard-coded-disable-of-ENGINE-in-3.0.x.patch
 new file mode 100644
 index 0000000000..4491f13eac
 --- /dev/null
-+++ b/package/erlang/26.1.1/0004-crypto-Remove-hard-coded-disable-of-ENGINE-in-3.0.x.patch
++++ b/package/erlang/26.1.2/0004-crypto-Remove-hard-coded-disable-of-ENGINE-in-3.0.x.patch
 @@ -0,0 +1,27 @@
 +From cd6826e7ea078d424c366504d2ed897bf4f89f3c Mon Sep 17 00:00:00 2001
 +From: Hans Nilsson <hans@erlang.org>

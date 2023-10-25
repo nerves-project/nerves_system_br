@@ -1,4 +1,4 @@
-From 12b72ef550a67ed79d97865ab2e67678e350978a Mon Sep 17 00:00:00 2001
+From a40d80320453cdedd30161627f224f097bb5bdcc Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 26
@@ -51,8 +51,8 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/24.3.2/0004-disksup-update-df-call-to-work-with-Busybox.patch
  create mode 100644 package/erlang/25.3.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/25.3.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/26.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/26.1.1/0002-Fix-SSH-recursive-search-with-CTRL-R.patch
+ create mode 100644 package/erlang/26.1.2/0001-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/26.1.2/0002-Fix-SSH-recursive-search-with-CTRL-R.patch
 
 diff --git a/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
@@ -953,11 +953,11 @@ index 0000000000..97f410b18c
 +-- 
 +2.25.1
 +
-diff --git a/package/erlang/26.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/26.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/26.1.2/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/26.1.2/0001-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..9cccce73ac
 --- /dev/null
-+++ b/package/erlang/26.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/26.1.2/0001-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,77 @@
 +From 59f0d61699350a6df661c838a502a566b1c02768 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1036,11 +1036,11 @@ index 0000000000..9cccce73ac
 +-- 
 +2.34.1
 +
-diff --git a/package/erlang/26.1.1/0002-Fix-SSH-recursive-search-with-CTRL-R.patch b/package/erlang/26.1.1/0002-Fix-SSH-recursive-search-with-CTRL-R.patch
+diff --git a/package/erlang/26.1.2/0002-Fix-SSH-recursive-search-with-CTRL-R.patch b/package/erlang/26.1.2/0002-Fix-SSH-recursive-search-with-CTRL-R.patch
 new file mode 100644
 index 0000000000..b6dd704252
 --- /dev/null
-+++ b/package/erlang/26.1.1/0002-Fix-SSH-recursive-search-with-CTRL-R.patch
++++ b/package/erlang/26.1.2/0002-Fix-SSH-recursive-search-with-CTRL-R.patch
 @@ -0,0 +1,36 @@
 +From 055f129dd0d6f3d975adcb35a495ad3c8c521346 Mon Sep 17 00:00:00 2001
 +From: Jon Carstens <jjcarstens@me.com>
@@ -1132,14 +1132,14 @@ index d3fe0dbec1..de5b1bea40 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 9fc5a6eabf..59b86e7dc1 100644
+index 9fc5a6eabf..a5c0032c9a 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,15 @@
 -# From https://github.com/erlang/otp/releases/download/OTP-26.0.2/SHA256.txt
 -sha256  47853ea9230643a0a31004433f07a71c1b92d6e0094534f629e3b75dbc62f193  otp_src_26.0.2.tar.gz
-+# From https://github.com/erlang/otp/releases/download/OTP-26.1.1/SHA256.txt
-+sha256  30de56e687cef15c73ef2e2e5bc8a94d28f959656e716e0a65092af7d360af57  otp_src_26.1.1.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-26.1.2/SHA256.txt
++sha256  f1074cf3a54f1f87e66027d5abebab2fa76a0243453fa58bc5f30d0ce0313921  otp_src_26.1.2.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-25.3.2/SHA256.txt
 +sha256  aed4e4726cdc587ab820c8379d63e511e46a1b1cc0c59d6a720b51ae625b2510  otp_src_25.3.2.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-24.3.2/SHA256.txt
@@ -1154,7 +1154,7 @@ index 9fc5a6eabf..59b86e7dc1 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index b57ed6f0d7..30c2f41147 100644
+index b57ed6f0d7..5d048ed737 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -4,8 +4,36 @@
@@ -1185,8 +1185,8 @@ index b57ed6f0d7..30c2f41147 100644
 +ERLANG_VERSION = 25.3.2
 +ERLANG_ERTS_VSN = 13.2.2
 +else
-+ERLANG_VERSION = 26.1.1
-+ERLANG_ERTS_VSN = 14.1
++ERLANG_VERSION = 26.1.2
++ERLANG_ERTS_VSN = 14.1.1
 +endif
 +endif
 +endif
