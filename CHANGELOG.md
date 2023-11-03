@@ -34,7 +34,7 @@ Nerves systems need the following updates:
    atomics, this is likely the issue.
 
 * Package updates
-  * [Buildroot 2023.08.2](https://lore.kernel.org/buildroot/87h6ngup34.fsf@48ers.dk/T/)
+  * [Buildroot 2023.08.2](https://lore.kernel.org/buildroot/87edhvuioc.fsf@48ers.dk/)
   * [Erlang/OTP 26.1.2](https://erlang.org/download/OTP-26.1.2.README)
 
 ## v1.24.1
