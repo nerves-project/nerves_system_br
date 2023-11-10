@@ -12,6 +12,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.25.1
+
+This is a patch update to v1.25.0.
+
+The `erlinit` update will start saving and restoring random number seeds to
+`/root/seedrng`. Failures are logged, but ignored.
+
+* Package updates
+  * [erlinit 1.13.0](https://github.com/nerves-project/erlinit/releases/tag/v1.13.0)
+  * pppd 2.5.0 - fixes a build issue with pppd 2.4.9 and GCC 13
+
 ## v1.25.0
 
 This update pulls in Buildroot 2023.08.2. This is a major Buildroot update from
