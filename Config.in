@@ -34,6 +34,7 @@ source "$BR2_EXTERNAL_NERVES_PATH/package/nbtty/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/nerves-config/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/nerves_heart/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/nerves_initramfs/Config.in"
+source "$BR2_EXTERNAL_NERVES_PATH/package/rpi-distro-bluez-firmware/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/rpi-distro-firmware-nonfree/Config.in"
 
 # Load user options

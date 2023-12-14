@@ -1,0 +1,9 @@
+config BR2_PACKAGE_RPI_DISTRO_BLUEZ_FIRMWARE
+	bool "rpi-distro-bluez-firmware"
+	depends on BR2_arm || BR2_aarch64
+	help
+	  RaspberryPi Bluetooth Firmware
+
+	  Firmware binaries that ship with the Raspberry Pi OS
+
+	  https://github.com/RPi-Distro/bluez-firmware
