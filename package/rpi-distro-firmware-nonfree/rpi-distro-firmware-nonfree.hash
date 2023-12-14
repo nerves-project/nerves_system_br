@@ -1,3 +1,3 @@
 # Locally computed
 sha256  bb3d8fed40546e03e29d9e635745433f8083391e62d6ff151c895b892776964a  rpi-distro-firmware-nonfree-88aa085bfa1a4650e1ccd88896f8343c22a24055.tar.gz
-sha256  363fb52cb7a74719cc7eda2cf9ebe2984791b6aed70552900a08e8b3ba18833d  debian/config/brcm80211/copyright
+sha256  8eac53f5b6f873de238ba57c46edffdd62c9a283d5995140f96fdd51d3145dc6  debian/copyright
