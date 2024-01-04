@@ -12,6 +12,14 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.25.3
+
+This is a security/bug fix update for 1.25.2.
+
+* Package updates
+  * [Erlang/OTP 26.2.1](https://erlang.org/download/OTP-26.2.1.README)
+  * [nerves_heart 2.3.0](https://github.com/nerves-project/nerves_heart/releases/tag/v2.3.0)
+
 ## v1.25.2
 
 This is a security/bug fix update for v1.25.1 that also adds support for the
