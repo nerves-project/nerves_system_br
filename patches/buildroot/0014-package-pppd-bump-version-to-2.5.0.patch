@@ -1,7 +1,7 @@
-From ccf2e5557dd8cc542bef4f84a2e9538fd0afa86b Mon Sep 17 00:00:00 2001
+From 54b39138b1e54b6973538545ebe75aa0165a6f7a Mon Sep 17 00:00:00 2001
 From: Bernd Kuhls <bernd@kuhls.net>
 Date: Sun, 24 Sep 2023 20:34:08 +0200
-Subject: [PATCH] package/pppd: bump version to 2.5.0
+Subject: [PATCH 14/15] package/pppd: bump version to 2.5.0
 
 Removed all patches, they are now included in this release.
 Added other patches fixing errors.
