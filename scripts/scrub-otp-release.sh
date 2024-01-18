@@ -114,12 +114,9 @@ if [ -n "$NOSCRUBS" ]; then
     # exclusions on MacOS and so if you are attempting to skip scrubbing files,
     # the task will fail. To get the proper variable expanded, we need to
     # eval the call.
-    if [[ $(uname -s) == "Darwin" ]]; then
-        # shellcheck disable=SC2294
-        EXECUTABLES=$(eval find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
-    else
-        EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
-    fi
+    # With MacOS Sonoma `find` performs the same as on linux so we attempt that first
+    # and then fallback to `eval` method.
+    EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}" || eval find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
 else
     EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
 fi
