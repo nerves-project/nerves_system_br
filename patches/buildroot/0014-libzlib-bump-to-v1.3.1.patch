@@ -1,0 +1,31 @@
+From: Marc Lainez <marc@spin42.com>
+Date: Fri, 26 Jan 2024 12:52:48 +0100
+Subject: [PATCH] libzlib: bump to v1.3.1
+
+---
+ package/libzlib/libzlib.hash | 2 +-
+ package/libzlib/libzlib.mk   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+--- libzlib.hash	2024-01-26 11:08:28.829184597 +0100
++++ buildroot/package/libzlib/libzlib.hash	2024-01-26 11:12:40.694444943 +0100
+@@ -1,4 +1,4 @@
+ # From http://www.zlib.net/
+-sha256  8a9ba2898e1d0d774eca6ba5b4627a11e5588ba85c8851336eb38de4683050a7  zlib-1.3.tar.xz
++sha256  38ef96b8dfe510d42707d9c781877914792541133e1870841463bfa73f883e32  zlib-1.3.1.tar.xz
+ # License files, locally calculated
+ sha256  845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243  LICENSE
+--- libzlib.mk	2024-01-26 11:06:49.759829098 +0100
++++ buildroot/package/libzlib/libzlib.mk	2024-01-26 11:06:57.187630982 +0100
+@@ -4,7 +4,7 @@
+ #
+ ################################################################################
+
+-LIBZLIB_VERSION = 1.3
++LIBZLIB_VERSION = 1.3.1
+ LIBZLIB_SOURCE = zlib-$(LIBZLIB_VERSION).tar.xz
+ LIBZLIB_SITE = https://www.zlib.net
+ LIBZLIB_LICENSE = Zlib
+--
+2.34.1
+
