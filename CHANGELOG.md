@@ -12,6 +12,26 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.26.0
+
+This update pulls in Buildroot 2023.11.1. This is a major Buildroot update from
+v1.25.3.
+
+Nerves systems need the following updates:
+
+1. For Raspberry Pi systems using libcamera, change
+   `BR2_PACKAGE_LIBCAMERA_PIPELINE_RASPBERRYPI=y` to
+   `BR2_PACKAGE_LIBCAMERA_PIPELINE_RPI_VC4=y`
+3. If using a RISC-V processor, the ISA options changed. This involves changing
+   `BR2_RISCV_ISA_CUSTOM_RVM=y` to `BR2_RISCV_ISA_RVM=y`, etc.
+
+* Fixes
+  * Fix change to `find` on recent MacOS versions that caused the release
+    scrubber to fail.
+
+* Package updates
+  * [Buildroot 2023.11.1](https://lore.kernel.org/buildroot/87cyu2k2gu.fsf@48ers.dk/T/)
+
 ## v1.25.3
 
 This is a security/bug fix update for 1.25.2.
