@@ -1,7 +1,7 @@
-From 06d7ba52e01e34d2c6497aea475ce6b42f6881af Mon Sep 17 00:00:00 2001
+From a79d6d6995725592272fc806279bb9009e5af457 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
-Subject: [PATCH 07/15] erlang: support OTP 21 - 26
+Subject: [PATCH] erlang: support OTP 21 - 26
 
 This also adds the deterministic compile flag patch for OTP 21-24. On
 OTP 26, it enables the configuration option for deterministic
@@ -31,8 +31,8 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  ...ludes-so-that-Erlang-s-md5.h-is-used.patch | 205 ++++++++++++++++++
  package/erlang/Config.in                      |  42 ++++
  package/erlang/erlang.hash                    |  14 +-
- package/erlang/erlang.mk                      |  58 ++++-
- 23 files changed, 1182 insertions(+), 5 deletions(-)
+ package/erlang/erlang.mk                      |  33 ++-
+ 23 files changed, 1159 insertions(+), 3 deletions(-)
  create mode 100644 package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  create mode 100644 package/erlang/21.3.8.24/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/21.3.8.24/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
@@ -1323,17 +1323,15 @@ index 9fc5a6eabf..8f6ff47f0b 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index b57ed6f0d7..407c105280 100644
+index 5585f76ed2..21d39954fb 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -4,8 +4,36 @@
+@@ -4,7 +4,34 @@
  #
  ################################################################################
  
--# See note below when updating Erlang
 -ERLANG_VERSION = 26.0.2
-+# When updating Erlang, the ERLANG_ERTS_VSN is found in erts/vsn.mk. Also see note
-+# later on.
++# When updating Erlang, the ERLANG_ERTS_VSN is found in erts/vsn.mk.
 +ifeq ($(BR2_PACKAGE_ERLANG_21),y)
 +ERLANG_VERSION = 21.3.8.24
 +ERLANG_ERTS_VSN = 10.3.5.19
@@ -1361,40 +1359,10 @@ index b57ed6f0d7..407c105280 100644
 +endif
 +endif
 +endif
-+
+ ERLANG_RELEASE = $(firstword $(subst ., ,$(ERLANG_VERSION)))
  ERLANG_SITE = \
  	https://github.com/erlang/otp/releases/download/OTP-$(ERLANG_VERSION)
- ERLANG_SOURCE = otp_src_$(ERLANG_VERSION).tar.gz
-@@ -28,7 +56,27 @@ HOST_ERLANG_PRE_CONFIGURE_HOOKS += ERLANG_RUN_AUTOCONF
- 
- # Whenever updating Erlang, this value should be updated as well, to the
- # value of EI_VSN in the file lib/erl_interface/vsn.mk
--ERLANG_EI_VSN = 5.4
-+ifeq ($(BR2_PACKAGE_ERLANG_21),y)
-+ERLANG_EI_VSN = 3.11.3
-+else
-+ifeq ($(BR2_PACKAGE_ERLANG_22),y)
-+ERLANG_EI_VSN = 3.13.2.2
-+else
-+ifeq ($(BR2_PACKAGE_ERLANG_23),y)
-+ERLANG_EI_VSN = 4.0.3
-+else
-+ifeq ($(BR2_PACKAGE_ERLANG_24),y)
-+ERLANG_EI_VSN = 5.2.1
-+else
-+ifeq ($(BR2_PACKAGE_ERLANG_25),y)
-+ERLANG_EI_VSN = 5.3
-+else
-+ERLANG_EI_VSN = 5.5
-+endif
-+endif
-+endif
-+endif
-+endif
- 
- # The configure checks for these functions fail incorrectly
- ERLANG_CONF_ENV = ac_cv_func_isnan=yes ac_cv_func_isinf=yes \
-@@ -45,6 +93,10 @@ ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
+@@ -45,6 +72,10 @@ ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
  
  ERLANG_CONF_OPTS = --without-javac
  
