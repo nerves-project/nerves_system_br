@@ -103,34 +103,39 @@ get_expected_executable_type()
 }
 
 # searches for a file named `.noscrub`. If found
-# filter that folder out of the `EXECUTABLES` list
-NOSCRUBS=$(find "$RELEASE_DIR" -name .noscrub)
-if [ -n "$NOSCRUBS" ]; then
-    for NOSCRUB in $NOSCRUBS; do
-        EXCLUSIONS+=( -not -path "${NOSCRUB/.noscrub/\*}" )
+# filter that folder out of the `EXECUTABLES` list later
+NOSCRUBS=$(find "$RELEASE_DIR" -name ".noscrub" -exec dirname {} \;)
+
+noscrub()
+{
+    # Using `find` across various MacOS systems differs which may
+    # cause errors. So we manually cycling throught the noscrub
+    # list until finding a match which may be less performant
+    # than `find`, but reduces errors. The noscrub list should
+    # generally be small and is only called at the last moment
+    # after we've determined the file type is different
+    for noscrub in $NOSCRUBS; do
+        if [[ "$1" == "$noscrub"* ]]; then
+            return 0
+        fi
     done
 
-    # For whatever reason, the `find` command below doesn't expand the
-    # exclusions on MacOS and so if you are attempting to skip scrubbing files,
-    # the task will fail. To get the proper variable expanded, we need to
-    # eval the call.
-    if [[ $(uname -s) == "Darwin" ]]; then
-        # shellcheck disable=SC2294
-        EXECUTABLES=$(eval find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
-    else
-        EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100 "${EXCLUSIONS[@]}")
-    fi
-else
-    EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
-fi
+    return 1
+}
 
+EXECUTABLES=$(find "$RELEASE_DIR" -type f -perm -100)
 EXPECTED_TYPE=$(get_expected_executable_type)
 
 for EXECUTABLE in $EXECUTABLES; do
     TYPE=$(executable_type "$EXECUTABLE")
+
     if [ "$TYPE" != "portable" ]; then
         # Verify that the executable was compiled for the target
         if [ "$TYPE" != "$EXPECTED_TYPE" ]; then
+            if noscrub "$EXECUTABLE"; then
+                # Skip any errors or attempts to strip
+                continue
+            fi
             echo "$SCRIPT_NAME: ERROR: Unexpected executable format for '$EXECUTABLE'"
             echo
             echo "Got:"
