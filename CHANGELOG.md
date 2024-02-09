@@ -12,6 +12,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.26.1
+
+This is a security/bug fix update for 1.26.0.
+
+* Fixes
+  * Update calls to mktemp to honor $TMPDIR so that it can be redirected to a
+    case sensitive filesystem on MacOS.
+
+* Package updates
+  * [Erlang/OTP 26.2.2](https://erlang.org/download/OTP-26.2.2.README)
+
 ## v1.26.0
 
 This update pulls in Buildroot 2023.11.1. This is a major Buildroot update from
