@@ -175,8 +175,13 @@ if [[ ! -d $overlay_dir ]]; then
     exit 1
 fi
 
-# force mktemp to honor $TMPDIR
-workdir=$(mktemp -d -p '' 2>/dev/null || mktemp -d -p '' -t 'merge-squashfs-tmp')
+# Use $TMPDIR if it's set
+if [[ -e "$TMPDIR" ]]; then
+    workdir=$(mktemp -d "$TMPDIR/merge-squashfs-tmp.XXXXXXXXXX")
+else
+    workdir=$(mktemp -d)
+fi
+
 pushd "$workdir" >/dev/null
 
 unsquash_to_pseudofile "$input_squashfs" >pseudofile.in
