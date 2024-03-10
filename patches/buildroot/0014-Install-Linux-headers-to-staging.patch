@@ -1,0 +1,42 @@
+From 2691fdeaf199d3874270ab5113516ad709193e8f Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Thu, 30 May 2019 08:49:48 -0400
+Subject: [PATCH] Install Linux headers to staging
+
+This makes it possible to support features in the Linux kernel being
+used that may not be available in the prebuilt toolchain.
+---
+ linux/linux.mk | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/linux/linux.mk b/linux/linux.mk
+index 53e2ad6d48..c54e4eb86d 100644
+--- a/linux/linux.mk
++++ b/linux/linux.mk
+@@ -549,12 +549,22 @@ ifeq ($(BR2_STRIP_strip),y)
+ LINUX_MAKE_FLAGS += INSTALL_MOD_STRIP=1
+ endif
+ 
++# Install Linux headers so that packages can get custom headers that may not be
++# in the toolchain.
++LINUX_INSTALL_STAGING = YES
++define LINUX_INSTALL_STAGING_CMDS
++	$(LINUX_MAKE_ENV)  $(MAKE1) $(LINUX_MAKE_FLAGS) -C $(@D) headers_install INSTALL_HDR_PATH=$(STAGING_DIR)/usr
++	@if grep -q "CONFIG_MODULES=y" $(@D)/.config; then \
++		$(LINUX_MAKE_ENV) $(BR2_MAKE1) $(LINUX_MAKE_FLAGS) -C $(@D) headers_install; \
++	fi
++endef
++
+ define LINUX_INSTALL_TARGET_CMDS
+ 	$(LINUX_INSTALL_KERNEL_IMAGE_TO_TARGET)
+ 	# Install modules and remove symbolic links pointing to build
+ 	# directories, not relevant on the target
+ 	@if grep -q "CONFIG_MODULES=y" $(@D)/.config; then \
+-		$(LINUX_MAKE_ENV) $(BR2_MAKE1) $(LINUX_MAKE_FLAGS) -C $(@D) modules_install; \
++		$(LINUX_MAKE_ENV) $(BR2_MAKE1) $(LINUX_MAKE_FLAGS) -C $(@D) modules_install headers_install; \
+ 		rm -f $(TARGET_DIR)/lib/modules/$(LINUX_VERSION_PROBED)/build ; \
+ 		rm -f $(TARGET_DIR)/lib/modules/$(LINUX_VERSION_PROBED)/source ; \
+ 	fi
+-- 
+2.34.1
+
