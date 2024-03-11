@@ -36,6 +36,7 @@ source "$BR2_EXTERNAL_NERVES_PATH/package/nerves_heart/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/nerves_initramfs/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/rpi-distro-bluez-firmware/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/rpi-distro-firmware-nonfree/Config.in"
+source "$BR2_EXTERNAL_NERVES_PATH/package/rpi-libcamera/Config.in"
 
 # Load user options
 menu "User-provided options"
