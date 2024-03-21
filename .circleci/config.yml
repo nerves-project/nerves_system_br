@@ -9,10 +9,6 @@ run_tests: &run_tests
     command: |
       cd tests && ./run_tests.sh
 
-remote_docker: &remote_docker
-  setup_remote_docker:
-    version: 20.10.11
-
 docker_env: &docker_env
   run:
     name: Set docker env
@@ -93,7 +89,7 @@ jobs:
           command: |
             apk add --no-cache shellcheck
             ./scripts/shellchecks.sh
-      - <<: *remote_docker
+      - setup_remote_docker
       - <<: *docker_env
       - <<: *docker_build
       - save_cache:
@@ -120,7 +116,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - <<: *remote_docker
+      - setup_remote_docker
       - <<: *docker_env
       - restore_cache:
           keys:
