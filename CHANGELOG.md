@@ -12,6 +12,27 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.27.0
+
+This update pulls in Buildroot 2024.02. This is a major Buildroot update.
+
+Nerves systems need the following updates:
+
+1. For Raspberry Pi systems using libcamera, the version that comes with Raspberry
+   Pi OS has diverged from upstream libcamera. To use it, replace
+   `BR2_PACKAGE_LIBCAMERA_*=y` with `BR2_PACKAGE_RPI_LIBCAMERA_*=y`.
+2. The Raspberry Pi applications for libcamera also changed. Replace
+   `BR2_PACKAGE_LIBCAMERA_APPS=y` with `BR2_PACKAGE_RPICAM_APPS=y`. The upstream
+   package is called `rpicam_apps`. `libcamera_apps` was the old name.
+
+* Fixes
+  * Add explicit check for `$TMPDIR` to fix a regression on MacOS 13 with
+    v1.26.1. Thanks to @schrockwell.
+
+* Package updates
+  * [Buildroot 2024.02](https://lore.kernel.org/buildroot/87msrczp4z.fsf@48ers.dk/)
+  * [Erlang/OTP 26.2.3](https://erlang.org/download/OTP-26.2.3.README)
+
 ## v1.26.1
 
 This is a security/bug fix update for 1.26.0.
