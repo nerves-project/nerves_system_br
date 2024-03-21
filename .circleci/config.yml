@@ -50,7 +50,7 @@ docker_import: &docker_import
 
 docker_push: &docker_push
   run:
-    name: Push docker images to dockerhub
+    name: Push docker images to ghcr.io
     command: |
       echo $GITHUB_TOKEN | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
 
