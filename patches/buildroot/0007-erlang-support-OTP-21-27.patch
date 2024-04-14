@@ -1,10 +1,10 @@
-From e2fbb080bb57137a6c627e863470238d3e84f86b Mon Sep 17 00:00:00 2001
+From 149d3f8e835a20cf3d4be60d6546ccf20d6e0ba3 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
-Subject: [PATCH] erlang: support OTP 21 - 26
+Subject: [PATCH] erlang: support OTP 21 - 27
 
 This also adds the deterministic compile flag patch for OTP 21-24. On
-OTP 26, it enables the configuration option for deterministic
+OTP 26+, it enables the configuration option for deterministic
 builds.
 
 Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
@@ -28,10 +28,12 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  ...ulator-reorder-inclued-headers-paths.patch | 49 ++++++++++++
  ...-update-df-call-to-work-with-Busybox.patch | 28 +++++++
  ...-update-df-call-to-work-with-Busybox.patch | 77 +++++++++++++++++++
- package/erlang/Config.in                      | 42 ++++++++++
- package/erlang/erlang.hash                    | 14 +++-
- package/erlang/erlang.mk                      | 33 +++++++-
- 22 files changed, 954 insertions(+), 3 deletions(-)
+ .../0002-erlang-libei-arch-compile.patch      | 31 ++++++++
+ ...-update-df-call-to-work-with-Busybox.patch | 77 +++++++++++++++++++
+ package/erlang/Config.in                      | 47 +++++++++++
+ package/erlang/erlang.hash                    | 16 +++-
+ package/erlang/erlang.mk                      | 38 ++++++++-
+ 24 files changed, 1074 insertions(+), 3 deletions(-)
  create mode 100644 package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  create mode 100644 package/erlang/21.3.8.24/0002-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/21.3.8.24/0003-Link-with-LDLIBS-instead-of-LIBS-for-DED.patch
@@ -51,6 +53,8 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/25.3.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/25.3.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
  create mode 100644 package/erlang/26.2.5/0001-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/26.2.5/0002-erlang-libei-arch-compile.patch
+ create mode 100644 package/erlang/27.0/0001-disksup-update-df-call-to-work-with-Busybox.patch
 
 diff --git a/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
@@ -1034,17 +1038,137 @@ index 0000000000..9cccce73ac
 +-- 
 +2.34.1
 +
+diff --git a/package/erlang/26.2.5/0002-erlang-libei-arch-compile.patch b/package/erlang/26.2.5/0002-erlang-libei-arch-compile.patch
+new file mode 100644
+index 0000000000..5a3c729289
+--- /dev/null
++++ b/package/erlang/26.2.5/0002-erlang-libei-arch-compile.patch
+@@ -0,0 +1,31 @@
++From 442b23d9dd8d5d66fe70ceef31be7531ac75fa56 Mon Sep 17 00:00:00 2001
++From: Ray Chang <ray@rclabs.org>
++Date: Fri, 19 Apr 2024 00:47:58 +1000
++Subject: [PATCH] Fix for compilation errors due to libei naming conflicts.
++
++Signed-off-by: Ray Chang <ray@rclabs.org>
++---
++ lib/odbc/c_src/Makefile.in | 6 +++---
++ 1 file changed, 3 insertions(+), 3 deletions(-)
++
++diff --git a/lib/odbc/c_src/Makefile.in b/lib/odbc/c_src/Makefile.in
++index d1b26743a6..03ed314f6a 100644
++--- a/lib/odbc/c_src/Makefile.in
+++++ b/lib/odbc/c_src/Makefile.in
++@@ -80,10 +80,10 @@ ODBC_INCLUDE = @ODBC_INCLUDE@
++ # ----------------------------------------------------
++ CC =  @CC@
++ CFLAGS = $(TYPEFLAGS) @CFLAGS@ @THR_DEFS@ @DEFS@
++-EI_LDFLAGS = -L$(EI_ROOT)/obj$(TYPEMARKER)/$(TARGET)
+++EI_LDFLAGS = -L$(EI_ROOT)/obj$(TYPEMARKER)/$(TARGET) $(EI_LIB)
++ LD = @LD@
++-LDFLAGS =  $(ODBC_LIB) $(EI_LDFLAGS)
++-LIBS = @LIBS@ @THR_LIBS@ $(EI_LIB)
+++LDFLAGS =  $(EI_LDFLAGS) $(ODBC_LIB)
+++LIBS = @LIBS@ @THR_LIBS@
++ INCLUDES = -I. $(ODBC_INCLUDE) $(EI_INCLUDE)
++ TARGET_FLAGS =  @TARGET_FLAGS@
++
++--
++2.44.0
++
+diff --git a/package/erlang/27.0/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/27.0/0001-disksup-update-df-call-to-work-with-Busybox.patch
+new file mode 100644
+index 0000000000..b621381b4c
+--- /dev/null
++++ b/package/erlang/27.0/0001-disksup-update-df-call-to-work-with-Busybox.patch
+@@ -0,0 +1,77 @@
++From e85fabb333c9c03bf8b69c6edf49413a57fd5e86 Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Tue, 5 May 2020 21:19:01 -0400
++Subject: [PATCH] disksup: update df call to work with Busybox
++
++Busybox's df doesn't support `-x` and `-l` and this removes those
++options. Plus SquashFS filesystems are nice to view on Nerves so we
++don't want to exclude them anyway.
++---
++ lib/os_mon/src/disksup.erl | 16 ++++++++--------
++ 1 file changed, 8 insertions(+), 8 deletions(-)
++
++diff --git a/lib/os_mon/src/disksup.erl b/lib/os_mon/src/disksup.erl
++index 471b01d1b7..201bfd1289 100644
++--- a/lib/os_mon/src/disksup.erl
+++++ b/lib/os_mon/src/disksup.erl
++@@ -1,8 +1,8 @@
++ %%
++ %% %CopyrightBegin%
++-%% 
+++%%
++ %% Copyright Ericsson AB 1996-2024. All Rights Reserved.
++-%% 
+++%%
++ %% Licensed under the Apache License, Version 2.0 (the "License");
++ %% you may not use this file except in compliance with the License.
++ %% You may obtain a copy of the License at
++@@ -14,7 +14,7 @@
++ %% WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ %% See the License for the specific language governing permissions and
++ %% limitations under the License.
++-%% 
+++%%
++ %% %CopyrightEnd%
++ %%
++ -module(disksup).
++@@ -260,7 +260,7 @@ param_default(disksup_posix_only) -> false.
++ %%----------------------------------------------------------------------
++ 
++ -doc false.
++-init([]) ->  
+++init([]) ->
++     process_flag(trap_exit, true),
++     process_flag(priority, low),
++ 
++@@ -390,7 +390,7 @@ get_os(PosixOnly) ->
++ 
++ %%--Port handling functions---------------------------------------------
++ 
++-start_portprogram() -> 
+++start_portprogram() ->
++     open_port({spawn, "sh -s disksup 2>&1"}, [stream]).
++ 
++ my_cmd(Cmd0, Port) ->
++@@ -401,8 +401,8 @@ my_cmd(Cmd0, Port) ->
++     get_reply(Port, []).
++ 
++ get_reply(Port, O) ->
++-    receive 
++-        {Port, {data, N}} -> 
+++    receive
+++        {Port, {data, N}} ->
++             case newline(N, O) of
++                 {ok, Str} -> Str;
++                 {more, Acc} -> get_reply(Port, Acc)
++@@ -438,7 +438,7 @@ run_df(Path, {unix, irix}, Port) ->
++     my_cmd("/usr/sbin/df -lk " ++ Path, Port);
++ run_df(Path, {unix, linux}, Port) ->
++     Df = find_cmd("df", "/bin"),
++-    my_cmd(Df ++ " -lk -x squashfs " ++ Path, Port);
+++    my_cmd(Df ++ " -k" ++ Path, Port);
++ run_df(Path, {unix, posix}, Port) ->
++     my_cmd("df -k -P " ++ Path, Port);
++ run_df(Path, {unix, dragonfly}, Port) ->
++-- 
++2.34.1
++
 diff --git a/package/erlang/Config.in b/package/erlang/Config.in
-index 724f91123b..94cea606d3 100644
+index 724f91123b..1f98a54eea 100644
 --- a/package/erlang/Config.in
 +++ b/package/erlang/Config.in
-@@ -42,6 +42,48 @@ config BR2_PACKAGE_ERLANG
+@@ -42,6 +42,53 @@ config BR2_PACKAGE_ERLANG
  
  if BR2_PACKAGE_ERLANG
  
 +choice
 +	bool "Erlang/OTP version"
-+	default BR2_PACKAGE_ERLANG_26
++	default BR2_PACKAGE_ERLANG_27
 +	help
 +	  Select the Erlang/OTP version
 +
@@ -1081,19 +1205,26 @@ index 724f91123b..94cea606d3 100644
 +config BR2_PACKAGE_ERLANG_26
 +	bool "Erlang/OTP 26"
 +	help
-+	  Use the latest Erlang/OTP 26 release
++	  Use Erlang/OTP 26 (release may not include latest patches)
++
++config BR2_PACKAGE_ERLANG_27
++	bool "Erlang/OTP 27"
++	help
++	  Use the latest Erlang/OTP 27 release
 +endchoice
 +
  config BR2_PACKAGE_ERLANG_MEGACO
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 9fc5a6eabf..a343ab11fd 100644
+index 9fc5a6eabf..38ece055ef 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
-@@ -1,5 +1,15 @@
+@@ -1,5 +1,17 @@
 -# From https://github.com/erlang/otp/releases/download/OTP-26.0.2/SHA256.txt
 -sha256  47853ea9230643a0a31004433f07a71c1b92d6e0094534f629e3b75dbc62f193  otp_src_26.0.2.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-27.0/SHA256.txt
++sha256  56412677466b756740fb2dbf4a8019e7c7cc38f01bd30c4cac5210214cafeef6  otp_src_27.0.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-26.2.5/SHA256.txt
 +sha256  de155c4ad9baab2b9e6c96dbd03bf955575a04dd6feee9c08758beb28484c9f6  otp_src_26.2.5.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-25.3.2/SHA256.txt
@@ -1110,10 +1241,10 @@ index 9fc5a6eabf..a343ab11fd 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 0889155177..f7e52eacf8 100644
+index 0889155177..f03222d448 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -4,7 +4,34 @@
+@@ -4,7 +4,39 @@
  #
  ################################################################################
  
@@ -1139,8 +1270,13 @@ index 0889155177..f7e52eacf8 100644
 +ERLANG_VERSION = 25.3.2
 +ERLANG_ERTS_VSN = 13.2.2
 +else
++ifeq ($(BR2_PACKAGE_ERLANG_26),y)
 +ERLANG_VERSION = 26.2.5
 +ERLANG_ERTS_VSN = 14.2.5
++else
++ERLANG_VERSION = 27.0
++ERLANG_ERTS_VSN = 15.0
++endif
 +endif
 +endif
 +endif
@@ -1149,7 +1285,7 @@ index 0889155177..f7e52eacf8 100644
  ERLANG_RELEASE = $(firstword $(subst ., ,$(ERLANG_VERSION)))
  ERLANG_SITE = \
  	https://github.com/erlang/otp/releases/download/OTP-$(ERLANG_VERSION)
-@@ -53,6 +80,10 @@ ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
+@@ -53,6 +85,10 @@ ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
  
  ERLANG_CONF_OPTS = --without-javac
  
