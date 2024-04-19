@@ -12,6 +12,14 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.27.1
+
+This is a security/bug fix update for 1.27.0.
+
+* Package updates
+  * [Buildroot 2024.02.1](https://lore.kernel.org/buildroot/87jzlp9u5e.fsf@48ers.dk/T/)
+  * [Erlang/OTP 26.2.4](https://erlang.org/download/OTP-26.2.4.README)
+
 ## v1.27.0
 
 This update pulls in Buildroot 2024.02. This is a major Buildroot update.
