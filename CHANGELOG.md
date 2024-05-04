@@ -12,6 +12,11 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.27.2
+
+* Package updates
+  * [Erlang/OTP 26.2.5](https://erlang.org/download/OTP-26.2.5.README)
+
 ## v1.27.1
 
 This is a security/bug fix update for 1.27.0.
