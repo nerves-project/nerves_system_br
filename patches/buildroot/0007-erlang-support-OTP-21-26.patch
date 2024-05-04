@@ -1,4 +1,4 @@
-From 9686fe7e968d29eac0abcdf4c8e0a02bbd5f7a5d Mon Sep 17 00:00:00 2001
+From e2fbb080bb57137a6c627e863470238d3e84f86b Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 26
@@ -50,7 +50,7 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/24.3.2/0004-disksup-update-df-call-to-work-with-Busybox.patch
  create mode 100644 package/erlang/25.3.2/0001-erts-emulator-reorder-inclued-headers-paths.patch
  create mode 100644 package/erlang/25.3.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/26.2.4/0001-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/26.2.5/0001-disksup-update-df-call-to-work-with-Busybox.patch
 
 diff --git a/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
@@ -951,11 +951,11 @@ index 0000000000..97f410b18c
 +-- 
 +2.25.1
 +
-diff --git a/package/erlang/26.2.4/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/26.2.4/0001-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/26.2.5/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/26.2.5/0001-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..9cccce73ac
 --- /dev/null
-+++ b/package/erlang/26.2.4/0001-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/26.2.5/0001-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,77 @@
 +From 59f0d61699350a6df661c838a502a566b1c02768 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1088,14 +1088,14 @@ index 724f91123b..94cea606d3 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 9fc5a6eabf..6ecc6341e9 100644
+index 9fc5a6eabf..a343ab11fd 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,15 @@
 -# From https://github.com/erlang/otp/releases/download/OTP-26.0.2/SHA256.txt
 -sha256  47853ea9230643a0a31004433f07a71c1b92d6e0094534f629e3b75dbc62f193  otp_src_26.0.2.tar.gz
-+# Calculated manually
-+sha256  b51ad69f57e2956dff4c893bcb09ad68fee23a7f8f6bba7d58449516b696de95  otp_src_26.2.4.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-26.2.5/SHA256.txt
++sha256  de155c4ad9baab2b9e6c96dbd03bf955575a04dd6feee9c08758beb28484c9f6  otp_src_26.2.5.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-25.3.2/SHA256.txt
 +sha256  aed4e4726cdc587ab820c8379d63e511e46a1b1cc0c59d6a720b51ae625b2510  otp_src_25.3.2.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-24.3.2/SHA256.txt
@@ -1110,7 +1110,7 @@ index 9fc5a6eabf..6ecc6341e9 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 0889155177..cf385d2891 100644
+index 0889155177..f7e52eacf8 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -4,7 +4,34 @@
@@ -1139,8 +1139,8 @@ index 0889155177..cf385d2891 100644
 +ERLANG_VERSION = 25.3.2
 +ERLANG_ERTS_VSN = 13.2.2
 +else
-+ERLANG_VERSION = 26.2.4
-+ERLANG_ERTS_VSN = 14.2.4
++ERLANG_VERSION = 26.2.5
++ERLANG_ERTS_VSN = 14.2.5
 +endif
 +endif
 +endif

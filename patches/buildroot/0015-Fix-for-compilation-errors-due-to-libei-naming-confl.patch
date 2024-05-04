@@ -1,4 +1,4 @@
-From 553561172a43e9a54b25e6dc728660536d1bdd1c Mon Sep 17 00:00:00 2001
+From 183861a7211e1bf073e15f453ada5d985ebeabdf Mon Sep 17 00:00:00 2001
 From: Ray Chang <ray@rclabs.org>
 Date: Fri, 19 Apr 2024 00:54:05 +1000
 Subject: [PATCH] Fix for compilation errors due to libei naming conflicts
@@ -7,13 +7,13 @@ Signed-off-by: Ray Chang <ray@rclabs.org>
 ---
  .../0002-erlang-libei-arch-compile.patch      | 31 +++++++++++++++++++
  1 file changed, 31 insertions(+)
- create mode 100644 package/erlang/26.2.4/0002-erlang-libei-arch-compile.patch
+ create mode 100644 package/erlang/26.2.5/0002-erlang-libei-arch-compile.patch
 
-diff --git a/package/erlang/26.2.4/0002-erlang-libei-arch-compile.patch b/package/erlang/26.2.4/0002-erlang-libei-arch-compile.patch
+diff --git a/package/erlang/26.2.5/0002-erlang-libei-arch-compile.patch b/package/erlang/26.2.5/0002-erlang-libei-arch-compile.patch
 new file mode 100644
 index 0000000000..5a3c729289
 --- /dev/null
-+++ b/package/erlang/26.2.4/0002-erlang-libei-arch-compile.patch
++++ b/package/erlang/26.2.5/0002-erlang-libei-arch-compile.patch
 @@ -0,0 +1,31 @@
 +From 442b23d9dd8d5d66fe70ceef31be7531ac75fa56 Mon Sep 17 00:00:00 2001
 +From: Ray Chang <ray@rclabs.org>
