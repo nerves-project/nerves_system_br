@@ -7,7 +7,8 @@ if [[ -n "$UID" ]] && [[ "$UID" != "0" ]] && [[ -n "$GID" ]] && [[ "$GID" != "0"
   echo "GID: $GID"
 
   groupadd -o -g "$GID" nerves
-  useradd -o -g "$GID" -u "$UID" -m nerves
+  useradd -o -g "$GID" -u "$UID" -M nerves
+  cp -pr /etc/skel/. ~nerves
 
   echo "Switching user"
 
