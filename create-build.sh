@@ -67,6 +67,16 @@ if [[ $HOST_ARCH != "x86_64" ]] && [[ $HOST_ARCH != "aarch64" ]]; then
     exit 1
 fi
 
+# Check that NERVES_BUILD_DIR is on a case-sensitive filesystem
+touch case.sensitive
+touch CASE.sensitive
+if [[ "$(ls -1 $NERVES_BUILD_DIR/*.sensitive | wc -l | tr -d '[:space:]')" != "2" ]]; then
+    echo "ERROR: Build directory '$NERVES_BUILD_DIR' must be on a case-sensitive filesystem"
+    rm $NERVES_BUILD_DIR/*.sensitive
+    exit 1
+fi
+rm $NERVES_BUILD_DIR/*.sensitive
+
 # Determine the NERVES_SYSTEM source directory
 NERVES_SYSTEM=$(dirname "$(readlink_f "${BASH_SOURCE[0]}")")
 if [[ ! -e $NERVES_SYSTEM ]]; then
