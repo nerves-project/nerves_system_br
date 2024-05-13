@@ -68,14 +68,33 @@ if [[ $HOST_ARCH != "x86_64" ]] && [[ $HOST_ARCH != "aarch64" ]]; then
 fi
 
 # Check that NERVES_BUILD_DIR is on a case-sensitive filesystem
-touch case.sensitive
-touch CASE.sensitive
-if [[ "$(ls -1 $NERVES_BUILD_DIR/*.sensitive | wc -l | tr -d '[:space:]')" != "2" ]]; then
-    echo "ERROR: Build directory '$NERVES_BUILD_DIR' must be on a case-sensitive filesystem"
-    rm $NERVES_BUILD_DIR/*.sensitive
-    exit 1
+touch "$NERVES_BUILD_DIR"/case.sensitive
+touch "$NERVES_BUILD_DIR"/CASE.sensitive
+if [[ "$(find "$NERVES_BUILD_DIR" -name "*.sensitive" | wc -l | tr -d '[:space:]')" != "2" ]]; then
+    rm "$NERVES_BUILD_DIR"/*.sensitive
+    echo -e "\033[33m►
+        \r► Case-insensitive file system detected!
+        \r►
+        \r►  \033[0m$NERVES_BUILD_DIR"
+
+    if [[ -z "$NERVES_IGNORE_CASE_SENSITIVITY" ]]; then
+        echo -e "\033[31m►
+            \r► Many packages rely on case-sensitivity and builds may potentially break in
+            \r► unexpected ways when case is ignored on the building system. This also
+            \r► commonly affects netfilter kernel modules.
+            \r►
+            \r► Set \033[0mNERVES_IGNORE_CASE_SENSITIVITY\033[31m to ignore this check and accept risks
+            \r► of building on case-insensitive file system\033[0m
+            "
+        exit 1
+    else
+        echo -e "\033[33m►
+            \r► \033[0mNERVES_IGNORE_CASE_SENSITIVITY\033[33m set. Build continuing...
+            \r► Unset to enforce case-sensitivity.\033[0m
+            "
+    fi
 fi
-rm $NERVES_BUILD_DIR/*.sensitive
+rm "$NERVES_BUILD_DIR"/*.sensitive
 
 # Determine the NERVES_SYSTEM source directory
 NERVES_SYSTEM=$(dirname "$(readlink_f "${BASH_SOURCE[0]}")")
@@ -179,4 +198,3 @@ echo
 echo "For additional options, run 'make help' in the build directory."
 echo
 echo "IMPORTANT: If you update nerves_system_br, you should rerun this script."
-
