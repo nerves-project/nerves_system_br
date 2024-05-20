@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RPI_DISTRO_BLUEZ_FIRMWARE_VERSION = d9d4741caba7314d6500f588b1eaa5ab387a4ff5 # 1.2-9+rpt2
+RPI_DISTRO_BLUEZ_FIRMWARE_VERSION = 78d6a07730e2d20c035899521ab67726dc028e1c # 1.2-9+rpt3
 RPI_DISTRO_BLUEZ_FIRMWARE_SITE = $(call github,RPi-Distro,bluez-firmware,$(RPI_DISTRO_BLUEZ_FIRMWARE_VERSION))
 RPI_DISTRO_BLUEZ_FIRMWARE_LICENSE_FILES = debian/copyright
 
