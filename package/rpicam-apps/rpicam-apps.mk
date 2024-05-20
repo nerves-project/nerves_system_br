@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RPICAM_APPS_VERSION = 1.4.3
+RPICAM_APPS_VERSION = 1.5.0
 RPICAM_APPS_SITE = $(call github,raspberrypi,rpicam-apps,v$(RPICAM_APPS_VERSION))
 RPICAM_APPS_LICENSE = BSD-2-Clause
 RPICAM_APPS_LICENSE_FILES = license.txt
@@ -18,21 +18,21 @@ RPICAM_APPS_DEPENDENCIES = \
 	tiff
 
 RPICAM_APPS_CONF_OPTS = \
-	-Denable_opencv=false \
-	-Denable_tflite=false
+	-Denable_opencv=disabled \
+	-Denable_tflite=disabled
 
 ifeq ($(BR2_PACKAGE_LIBDRM),y)
 RPICAM_APPS_DEPENDENCIES += libdrm
-RPICAM_APPS_CONF_OPTS += -Denable_drm=true
+RPICAM_APPS_CONF_OPTS += -Denable_drm=enabled
 else
-RPICAM_APPS_CONF_OPTS += -Denable_drm=false
+RPICAM_APPS_CONF_OPTS += -Denable_drm=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_FFMPEG)$(BR2_PACKAGE_LIBDRM),yy)
 RPICAM_APPS_DEPENDENCIES += ffmpeg libdrm
-RPICAM_APPS_CONF_OPTS += -Denable_libav=true
+RPICAM_APPS_CONF_OPTS += -Denable_libav=enabled
 else
-RPICAM_APPS_CONF_OPTS += -Denable_libav=false
+RPICAM_APPS_CONF_OPTS += -Denable_libav=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_XORG7),y)
@@ -43,9 +43,9 @@ endif
 
 ifeq ($(BR2_PACKAGE_QT5),y)
 RPICAM_APPS_DEPENDENCIES += qt5base
-RPICAM_APPS_CONF_OPTS += -Denable_qt=true
+RPICAM_APPS_CONF_OPTS += -Denable_qt=enabled
 else
-RPICAM_APPS_CONF_OPTS += -Denable_qt=false
+RPICAM_APPS_CONF_OPTS += -Denable_qt=disabled
 endif
 
 ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
