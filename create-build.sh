@@ -94,7 +94,7 @@ if [[ "$(find "$NERVES_BUILD_DIR" -name "*.sensitive" | wc -l | tr -d '[:space:]
             "
     fi
 fi
-rm "$NERVES_BUILD_DIR"/*.sensitive
+rm -f "$NERVES_BUILD_DIR"/*.sensitive
 
 # Determine the NERVES_SYSTEM source directory
 NERVES_SYSTEM=$(dirname "$(readlink_f "${BASH_SOURCE[0]}")")
