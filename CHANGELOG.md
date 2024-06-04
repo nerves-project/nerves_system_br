@@ -12,7 +12,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.27.3
+
+This is a security/bug fix update for 1.27.2.
+
+* Fixes
+  * Address MacOS build issues. See #791, #792, and #797 for details.
+
+* Package updates
+  * [Buildroot 2024.02.2](https://lore.kernel.org/buildroot/874jbaxb7g.fsf@dell.be.48ers.dk/T/)
+  * [nerves_heart 2.4.0](https://github.com/nerves-project/nerves_heart/releases/tag/v2.4.0)
+
 ## v1.27.2
+
+This is a security/bug fix update for 1.27.1.
 
 * Package updates
   * [Erlang/OTP 26.2.5](https://erlang.org/download/OTP-26.2.5.README)
