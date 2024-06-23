@@ -98,7 +98,7 @@ jobs:
 
   test_amd64:
     docker:
-      - image: nervesproject/nerves_system_br:dev_amd64
+      - image: ghcr.io/nerves-project/nerves_system_br:dev_amd64
     working_directory: ~/repo
     steps:
       - checkout
@@ -106,7 +106,7 @@ jobs:
 
   # test_arm64:
   #   docker:
-  #     - image: nervesproject/nerves_system_br:dev_arm64
+  #     - image: ghcr.io/nerves-project/nerves_system_br:dev_arm64
   #   working_directory: ~/repo
   #   steps:
   #     - checkout
@@ -154,4 +154,3 @@ workflows:
         #     filters:
         #       tags:
         #         only: /.*/
-
