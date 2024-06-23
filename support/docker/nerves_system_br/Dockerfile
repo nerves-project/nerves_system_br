@@ -3,8 +3,6 @@ LABEL maintainer="Nerves Project developers <nerves@nerves-project.org>" \
       vendor="NervesProject" \
 description="Container with everything needed to build Nerves Systems"
 
-USER root
-
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
@@ -13,10 +11,7 @@ ENV FWUP_VERSION=1.10.0
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-COPY docker-entrypoint.sh /nerves/docker-entrypoint.sh
 COPY setup-packages.sh /nerves/setup-packages.sh
-
-RUN chmod +x /nerves/docker-entrypoint.sh
 RUN chmod +x /nerves/setup-packages.sh
 
 # Set time
@@ -103,4 +98,8 @@ RUN rm -rf /var/lib/apt/lists/* \
 RUN git clone https://github.com/fwup-home/fwup -b v${FWUP_VERSION} && cd fwup && ./autogen.sh && ./configure && make && make install
 RUN rm -rf fwup
 
-ENTRYPOINT [ "/nerves/docker-entrypoint.sh" ]
+# Switch to a non-root user
+RUN useradd -ms /bin/bash nerves
+USER nerves
+RUN whoami
+WORKDIR /home/nerves
