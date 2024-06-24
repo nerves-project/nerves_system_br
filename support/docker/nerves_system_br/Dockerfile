@@ -33,36 +33,34 @@ RUN apt-get install -y \
         g++-multilib \
         libstdc++6:i386
 
-# Install Buildroot packages (see <Buildroot>/support/docker/DockerFile
 RUN apt-get install -y --no-install-recommends \
-        bc \
-        build-essential \
-        bzr \
-        ca-certificates \
-        cmake \
-        cpio \
-        cvs \
-        file \
-        g++ \
-        git \
-        libncurses5-dev \
-        locales \
-        mercurial-common \
-        python3 \
-        python3-aiohttp \
-        python3-flake8 \
-        python3-ijson \
-        python3-nose2 \
-        python3-pexpect \
-        python3-pip \
-        python3-requests \
-        rsync \
-        subversion \
-        unzip \
-        wget
-
-# Install additional packages for Nerves and fwup
-RUN apt-get install -y --no-install-recommends \
+    # Install Buildroot packages (see <Buildroot>/support/docker/DockerFile
+    bc \
+    build-essential \
+    bzr \
+    ca-certificates \
+    cmake \
+    cpio \
+    cvs \
+    file \
+    g++ \
+    git \
+    libncurses5-dev \
+    locales \
+    mercurial-common \
+    python3 \
+    python3-aiohttp \
+    python3-flake8 \
+    python3-ijson \
+    python3-nose2 \
+    python3-pexpect \
+    python3-pip \
+    python3-requests \
+    rsync \
+    subversion \
+    unzip \
+    wget \
+    # Install additional packages for Nerves and fwup
     bzip2 \
     curl \
     gawk \
@@ -76,13 +74,15 @@ RUN apt-get install -y --no-install-recommends \
     openssh-client \
     pkg-config \
     squashfs-tools \
-    vim-tiny \
     xz-utils \
     autoconf \
     automake \
     libtool \
     libarchive-dev \
-    libconfuse-dev
+    libconfuse-dev \
+    # Install packages to make image easier to use
+    sudo \
+    vim-tiny
 
 RUN rm -rf /var/lib/apt/lists/* \
   && mkdir -p /root/.ssh \
