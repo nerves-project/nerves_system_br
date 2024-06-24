@@ -129,23 +129,14 @@ workflows:
       jobs:
         - build:
             context: org-global
-            filters:
-              tags:
-                only: /.*/
         - push:
             context: org-global
             requires:
               - build
-            filters:
-              tags:
-                only: /.*/
         - test_amd64:
             context: org-global
             requires:
               - push
-            filters:
-              tags:
-                only: /.*/
         # - test_arm64:
         #     context: org-global
         #     requires:
