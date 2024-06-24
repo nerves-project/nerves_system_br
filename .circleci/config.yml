@@ -1,3 +1,5 @@
+version: 2.1
+
 defaults: &defaults
   docker:
     - image: cimg/base:2024.06
@@ -76,7 +78,6 @@ docker_push: &docker_push
         docker manifest push $DOCKER_REPO:latest
       fi
 
-version: 2
 jobs:
   build:
     <<: *defaults
@@ -124,7 +125,6 @@ jobs:
       - <<: *docker_push
 
 workflows:
-  version: 2
   pipeline:
       jobs:
         - build:
