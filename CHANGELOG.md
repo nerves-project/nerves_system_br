@@ -12,6 +12,33 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.28.0
+
+This update pulls in Buildroot 2024.05 and Erlang/OTP 27.0. This is a major
+Buildroot and Erlang update.
+
+Nerves systems need the following updates:
+
+1. Add `BR2_TOOLCHAIN_EXTERNAL_GCC_13=y` to the `nerves_defconfig` to tell
+   Buildroot that the toolchain being used is GCC 13. The default is no longer
+   GCC 13, so it has to be set.
+2. Update to Elixir 1.17 or later. None of the earlier versions of Elixir
+   support Erlang/OTP 27. If you can't update, specify an earlier version OTP
+   version by adding `BR2_PACKAGE_ERLANG_26` (or similar) to the
+   `nerves_defconfig`.
+
+* Changes
+  * `nerves_system_br` Docker image no longer runs as the root user to avoid
+    build errors from programs that don't want to be built as root (tar 1.35)
+
+* Package updates
+  * [Buildroot 2024.05](https://lore.kernel.org/buildroot/87bk46tjk2.fsf@dell.be.48ers.dk/T/)
+  * [Erlang/OTP 27.0](https://erlang.org/download/OTP-27.0.README)
+  * rpicam-apps 1.5.0
+  * rpi-libcamera v0.2.0+rpt20240418
+  * rpi-distro-firmware-nonfree 20230625-2+rpi2
+  * rpi-distro-bluez-firmware 78d6a07 (latest for now)
+
 ## v1.27.3
 
 This is a security/bug fix update for 1.27.2.
