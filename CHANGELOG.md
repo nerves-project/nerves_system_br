@@ -19,10 +19,12 @@ Buildroot and Erlang update.
 
 Nerves systems need the following updates:
 
-1. Add `BR2_TOOLCHAIN_EXTERNAL_GCC_13=y` to the `nerves_defconfig` to tell
+1. If using CircleCI, update the `build-tools` to 0.3.0 or later. E.g.,
+   `build-tools: nerves-project/build-tools@0.3.0`
+2. Add `BR2_TOOLCHAIN_EXTERNAL_GCC_13=y` to the `nerves_defconfig` to tell
    Buildroot that the toolchain being used is GCC 13. The default is no longer
    GCC 13, so it has to be set.
-2. Update to Elixir 1.17 or later. None of the earlier versions of Elixir
+3. Update to Elixir 1.17 or later. None of the earlier versions of Elixir
    support Erlang/OTP 27. If you can't update, specify an earlier version OTP
    version by adding `BR2_PACKAGE_ERLANG_26` (or similar) to the
    `nerves_defconfig`.
