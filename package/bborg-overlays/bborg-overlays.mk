@@ -4,7 +4,7 @@
 #
 #############################################################
 
-BBORG_OVERLAYS_VERSION = 12aa4c04d69f5bbfb1bb7e4ad1aef9cd3d269c44
+BBORG_OVERLAYS_VERSION = e851bfae934f300cf10cca695d29e16655cfa089
 BBORG_OVERLAYS_SITE = $(call github,beagleboard,bb.org-overlays,$(BBORG_OVERLAYS_VERSION))
 BBORG_OVERLAYS_LICENSE = GPLv2
 BBORG_OVERLAYS_DEPENDENCIES = host-dtc
