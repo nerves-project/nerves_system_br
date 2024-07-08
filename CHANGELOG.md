@@ -12,6 +12,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.28.1
+
+This updates `erlinit` to support abbreviating serial numbers for easier-to-type
+hostnames without forcing `boardid` to produce short serial numbers. If your
+Nerves system is still reporting short serial numbers, remove the `-n 4` from
+your `rootfs_overlay/etc/boardid.config`. If you still like short serials for
+hostnames, edit ``erlinit.config` to specify `-n nerves-%-.4s`
+
+* Package updates
+  * [erlinit 1.14.0](https://github.com/nerves-project/erlinit/releases/tag/v1.14.0)
+  * bb.org-overlays (bump to latest)
+
 ## v1.28.0
 
 This update pulls in Buildroot 2024.05 and Erlang/OTP 27.0. This is a major
