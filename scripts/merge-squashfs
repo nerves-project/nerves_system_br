@@ -190,7 +190,7 @@ find_to_pseudofile "$overlay_dir" >>pseudofile.in
 # remove repeated entries to avoid warnings from mksquashfs
 awk '!x[$1]++' pseudofile.in > pseudofile
 
-unsquashfs "$input_squashfs" >/dev/null
+unsquashfs -f "$input_squashfs" >/dev/null
 cp -Rf "$overlay_dir/." "$workdir/squashfs-root"
 mksquashfs squashfs-root "$output_squashfs" -pf pseudofile -sort "$squashfs_priorities" -noappend -no-recovery -no-progress $NERVES_MKSQUASHFS_FLAGS
 
