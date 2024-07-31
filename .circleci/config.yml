@@ -1,6 +1,8 @@
+version: 2.1
+
 defaults: &defaults
   docker:
-    - image: nerveshub/docker-build:alpine-3.15.3
+    - image: cimg/base:2024.06
   working_directory: ~/repo
 
 run_tests: &run_tests
@@ -31,7 +33,6 @@ docker_build: &docker_build
     name: Build docker images
     command: |
        mkdir -p /docker
-       apk add --no-cache docker-cli-buildx
        docker context create my_context
        docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
        docker buildx create --name multiarch --driver docker-container --use my_context
@@ -77,7 +78,6 @@ docker_push: &docker_push
         docker manifest push $DOCKER_REPO:latest
       fi
 
-version: 2
 jobs:
   build:
     <<: *defaults
@@ -87,7 +87,7 @@ jobs:
           name: shellcheck
           working_directory: ~/repo
           command: |
-            apk add --no-cache shellcheck
+            apt install -y shellcheck
             ./scripts/shellchecks.sh
       - setup_remote_docker
       - <<: *docker_env
@@ -125,28 +125,18 @@ jobs:
       - <<: *docker_push
 
 workflows:
-  version: 2
   pipeline:
       jobs:
         - build:
             context: org-global
-            filters:
-              tags:
-                only: /.*/
         - push:
             context: org-global
             requires:
               - build
-            filters:
-              tags:
-                only: /.*/
         - test_amd64:
             context: org-global
             requires:
               - push
-            filters:
-              tags:
-                only: /.*/
         # - test_arm64:
         #     context: org-global
         #     requires:
