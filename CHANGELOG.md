@@ -12,6 +12,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.28.2
+
+This is a security/bug fix update for 1.28.1
+
+* Changes
+  * Warn, but don't fail on MacOS when building on a case insensitive filesystem
+    and files overlap. The iptables package particularly problematic. This is a
+    temporary workaround to help get past issues created by files that aren't
+    actually used at runtime.
+
+* Package updates
+  * [Buildroot 2024.05.1](https://lore.kernel.org/buildroot/87ed7xfq78.fsf@dell.be.48ers.dk/T/)
+  * [Erlang/OTP 27.0.1](https://erlang.org/download/OTP-27.0.1.README)
+
 ## v1.28.1
 
 This updates `erlinit` to support abbreviating serial numbers for easier-to-type
