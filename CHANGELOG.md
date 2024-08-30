@@ -12,6 +12,13 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.28.3
+
+This is a security/bug fix update for 1.28.2
+
+* Package updates
+  * [Buildroot 2024.05.2](https://lore.kernel.org/buildroot/87zfpfh147.fsf@dell.be.48ers.dk/T/)
+
 ## v1.28.2
 
 This is a security/bug fix update for 1.28.1
