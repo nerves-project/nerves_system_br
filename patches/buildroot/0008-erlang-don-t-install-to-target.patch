@@ -1,4 +1,4 @@
-From 655d36b1daeea6d8bae5c27dc6c3a0f8c956aa62 Mon Sep 17 00:00:00 2001
+From 2dd850ea74e0ecfaa76dc2dc06d1f8b2a3cee2f7 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 27 Mar 2022 08:40:06 -0400
 Subject: [PATCH] erlang: don't install to target
@@ -12,17 +12,17 @@ already on the target.
  1 file changed, 1 insertion(+)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 8f18bc87b0..8131144b9b 100644
+index 4dd2dbf64a..bafd0e5762 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -45,6 +45,7 @@ ERLANG_LICENSE_FILES = LICENSE.txt
+@@ -48,6 +48,7 @@ ERLANG_LICENSE_FILES = LICENSE.txt
  ERLANG_CPE_ID_VENDOR = erlang
  ERLANG_CPE_ID_PRODUCT = erlang\/otp
  ERLANG_INSTALL_STAGING = YES
 +ERLANG_INSTALL_TARGET = NO
  
- # Patched erts/aclocal.m4
- define ERLANG_RUN_AUTOCONF
+ define ERLANG_FIX_AUTOCONF_VERSION
+ 	$(SED) "s/USE_AUTOCONF_VERSION=.*/USE_AUTOCONF_VERSION=$(AUTOCONF_VERSION)/" $(@D)/otp_build
 -- 
 2.34.1
 
