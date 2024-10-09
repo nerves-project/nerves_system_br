@@ -175,6 +175,7 @@ for EXECUTABLE in $EXECUTABLES; do
 
         # Strip debug information from ELF binaries
         # Symbols are still available to the user in the release directory.
+        chmod +w "$EXECUTABLE"
         if ! $STRIP "$EXECUTABLE"; then
             echo "WARNING: Can't remove debug symbols from $EXECUTABLE. This is expected for precompiled Rust."
         fi
