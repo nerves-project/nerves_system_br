@@ -12,6 +12,24 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.29.0
+
+This update pulls in Buildroot 2024.08 and Erlang/OTP 27.1.1. This is a major
+Buildroot and Erlang update.
+
+If you're updating from Nerves systems earlier than 1.28.0, please see the
+1.28.0 update instructions below.
+
+* Changes
+  * Add patch for `wpa_supplicant` to optionally enable PKCS11 support. This
+    allows hardware security modules to supply 802.1x or WiFi credentials.
+  * Strip write-only executables files included in releases. This is needed for
+    the XLA shared library.
+
+* Package updates
+  * [Buildroot 2024.08](https://lore.kernel.org/buildroot/87frqcj3nw.fsf@dell.be.48ers.dk/T/)
+  * [Erlang/OTP 27.1.1](https://erlang.org/download/OTP-27.1.1.README)
+
 ## v1.28.3
 
 This is a security/bug fix update for 1.28.2
