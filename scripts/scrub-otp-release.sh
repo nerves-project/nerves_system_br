@@ -150,7 +150,7 @@ for EXECUTABLE in $EXECUTABLES; do
             echo "Check the following:"
             echo
             echo "1. If this file comes from a library, that library may be compiling to"
-            echo "   its source directory under `deps`. Manually clean up the source"
+            echo "   its source directory under \`deps\`. Manually clean up the source"
             echo "   directory and try building again."
             echo
             echo "2. Are you using a path dependency in your mix deps? If so, run"
