@@ -38,6 +38,7 @@ source "$BR2_EXTERNAL_NERVES_PATH/package/rpicam-apps/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/rpi-distro-bluez-firmware/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/rpi-distro-firmware-nonfree/Config.in"
 source "$BR2_EXTERNAL_NERVES_PATH/package/rpi-libcamera/Config.in"
+source "$BR2_EXTERNAL_NERVES_PATH/package/tpm2-tss-engine/Config.in"
 
 # Load user options
 menu "User-provided options"

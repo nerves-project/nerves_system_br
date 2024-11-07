@@ -1,0 +1,10 @@
+config BR2_PACKAGE_TPM2_TSS_ENGINE
+	bool "tpm2-tss-engine"
+	select BR2_PACKAGE_TPM2_TSS
+	help
+	  The tpm2-tss-engine project implements a cryptographic engine for
+	  OpenSSL for Trusted Platform Module (TPM 2.0) using the tpm2-tss
+	  software stack that follows the Trusted Computing Groups (TCG)
+	  TPM Software Stack (TSS 2.0). It uses the Enhanced System API (ESAPI)
+	  interface of the TSS 2.0 for downwards communication. It supports
+	  RSA decryption and signatures as well as ECDSA signatures.
