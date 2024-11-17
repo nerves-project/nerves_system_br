@@ -1,4 +1,4 @@
-From 761c2bdfc03724c6270715fea0ea53486a1270b0 Mon Sep 17 00:00:00 2001
+From 3e1e71458a2d0e4711d260245733aa475cba6c6d Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 27
@@ -1241,7 +1241,7 @@ index 9fc5a6eabf..0731a0b937 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 0889155177..b0824276da 100644
+index c05c51fff4..894d1d4320 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -4,7 +4,39 @@
@@ -1294,7 +1294,7 @@ index 0889155177..b0824276da 100644
 +endif
 +
  # Force ERL_TOP to the downloaded source directory. This prevents
- # Erlang's configure script from inadvertantly using files from
+ # Erlang's configure script from inadvertently using files from
  # a version of Erlang installed on the host.
 -- 
 2.34.1
