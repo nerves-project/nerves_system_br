@@ -12,6 +12,15 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.29.1
+
+This is a security/bug fix update for 1.29.0.
+
+* Package updates
+  * [Buildroot 2024.08.2](https://lore.kernel.org/buildroot/871pzex7gn.fsf@dell.be.48ers.dk/T/)
+  * [Erlang/OTP 27.1.2](https://erlang.org/download/OTP-27.1.2.README.md)
+  * [erlinit 1.14.2](https://github.com/nerves-project/erlinit/releases/tag/v1.14.2)
+
 ## v1.29.0
 
 This update pulls in Buildroot 2024.08 and Erlang/OTP 27.1.1. This is a major
