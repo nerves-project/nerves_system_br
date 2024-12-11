@@ -12,6 +12,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.29.2
+
+This is a security/bug fix update for 1.29.1.
+
+* Package updates
+  * [Erlang/OTP 27.1.3](https://erlang.org/download/OTP-27.1.3.README.md)
+
+* Changes
+  * Added `tpm2-tss-engine` and updated `tpm2-tss` to enable TPM use with
+    Nerves. Patches are here until included with Buildroot. Thanks to @abelino
+    and @amclain.
+
 ## v1.29.1
 
 This is a security/bug fix update for 1.29.0.
