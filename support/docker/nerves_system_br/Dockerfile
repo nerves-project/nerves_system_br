@@ -1,4 +1,4 @@
-FROM hexpm/erlang:27.1.3-ubuntu-jammy-20240808
+FROM hexpm/erlang:27.2-ubuntu-jammy-20240808
 LABEL maintainer="Nerves Project developers <nerves@nerves-project.org>" \
       vendor="NervesProject" \
       description="Container with everything needed to build Nerves Systems"
