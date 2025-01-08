@@ -28,6 +28,7 @@ usage() {
     echo "  -f <firmware output file>  Default is $PROJECT_DIR.fw"
     echo "  -o <image output file>     Default is $PROJECT_DIR.img"
     echo "  -p <file priorities>       The ordering of files in the rootfs (may be specified more than once)"
+    echo "  -s <script path>           Post-processing script for rootfs (optional)"
     echo
     echo "Barring errors, the firmware file is always created. The raw image is only"
     echo "created if specified."
@@ -48,7 +49,7 @@ sbin/init 32764
 etc/erlinit.config 32763
 END
 
-while getopts "a:c:f:o:p:" opt; do
+while getopts "a:c:f:o:p:s:" opt; do
     case $opt in
         a)
             ROOTFS_OVERLAYS="$ROOTFS_OVERLAYS $OPTARG"
@@ -65,6 +66,9 @@ while getopts "a:c:f:o:p:" opt; do
         p)
             # Append priorities to the master list
             cat "$OPTARG" >> "$SQUASHFS_PRIORITIES"
+            ;;
+        s)
+            POST_PROCESSING_SCRIPT="$OPTARG"
             ;;
         \?)
             echo "$SCRIPT_NAME: ERROR: Invalid option: -$OPTARG"
@@ -156,6 +160,12 @@ fi
 
 # Merge the Erlang/OTP release onto the base image
 "$NERVES_SYSTEM/scripts/merge-squashfs" "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs" "$TMP_DIR/rootfs_overlay" "$SQUASHFS_PRIORITIES"
+
+# If a post processing script for the final rootfs was specified, run it
+if [ ! -z "${POST_PROCESSING_SCRIPT}" ]; then
+    echo "Running post-processing script: ${POST_PROCESSING_SCRIPT}"
+    ${POST_PROCESSING_SCRIPT} "$TMP_DIR/combined.squashfs";
+fi
 
 # Build the firmware image
 echo "Building $FW_FILENAME..."
