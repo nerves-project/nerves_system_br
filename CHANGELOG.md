@@ -12,6 +12,19 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.29.3
+
+This is mostly a security/bug fix update for 1.29.2.
+
+* Package updates
+  * [Erlang/OTP 27.2](https://erlang.org/download/OTP-27.2.README.md)
+  * [Buildroot 2024.08.3](https://lore.kernel.org/buildroot/874j3e17ek.fsf@dell.be.48ers.dk/T/)
+  * [fwup 1.12.0](https://github.com/fwup-home/fwup/releases/tag/v1.12.0)
+
+* Changes
+  * Add option to rel2fw.sh to support post-processing
+    firmware with dm-verity.
+
 ## v1.29.2
 
 This is a security/bug fix update for 1.29.1.
