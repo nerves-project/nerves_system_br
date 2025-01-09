@@ -6,7 +6,7 @@ LABEL maintainer="Nerves Project developers <nerves@nerves-project.org>" \
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
-ENV FWUP_VERSION=1.11.0
+ENV FWUP_VERSION=1.12.0
 
 # See https://github.com/CircleCI-Public/cimg-base/blob/main/Dockerfile.template for generic setup
 
