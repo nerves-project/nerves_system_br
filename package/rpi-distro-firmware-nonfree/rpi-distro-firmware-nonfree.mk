@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RPI_DISTRO_FIRMWARE_NONFREE_VERSION = 223ccf3a3ddb11b3ea829749fbbba4d65b380897 # 1:20230625-2+rpt2
+RPI_DISTRO_FIRMWARE_NONFREE_VERSION = a6ed59a078d52ad72f0f2b99e68f324e7411afa1 # 1:20230625-2+rpt3 + CM5/500 symlinks
 RPI_DISTRO_FIRMWARE_NONFREE_SITE = $(call github,RPi-Distro,firmware-nonfree,$(RPI_DISTRO_FIRMWARE_NONFREE_VERSION))
 RPI_DISTRO_FIRMWARE_NONFREE_LICENSE_FILES = debian/copyright
 
