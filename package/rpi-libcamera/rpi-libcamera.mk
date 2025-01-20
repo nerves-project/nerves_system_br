@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RPI_LIBCAMERA_VERSION = v0.2.0+rpt20240418
+RPI_LIBCAMERA_VERSION = v0.3.2+rpt20241119
 RPI_LIBCAMERA_SITE = $(call github,raspberrypi,libcamera,$(RPI_LIBCAMERA_VERSION))
 RPI_LIBCAMERA_DEPENDENCIES = \
 	host-openssl \
