@@ -1,7 +1,7 @@
-From ae07d302856d15fcd3b56619601adff495cef04d Mon Sep 17 00:00:00 2001
+From 3193c9bf66e3e9966e565e08a0677fbcf54c0e01 Mon Sep 17 00:00:00 2001
 From: Lars Wikman <lars@underjord.io>
 Date: Fri, 30 Aug 2024 10:49:29 +0200
-Subject: [PATCH v3] package/wpa_supplicant: add Smart card option
+Subject: [PATCH] package/wpa_supplicant: add Smart card option
 
 CONFIG_SMARTCARD was unconditionally disabled which has meant that
 even if OpenSSL is compiled with engine support and the supplicant
@@ -17,14 +17,6 @@ It is still disabled by default in case there was an original reason.
 Enabling the option will allow delegating private key access to TPM2,
 ARM TrustZone and other specialized secure hardware for establishing
 a network connection.
-
-Signed-off-by: Lars Wikman <lars@underjord.io>
-
----
-Changes v1 -> v2:
-  - Change option name to focus on smartcard  (suggested by Sergey)
-Changes v2 -> v3:
-  - Change setting disabled to match convention (suggested by Baruch)
 
 Signed-off-by: Lars Wikman <lars@underjord.io>
 ---
@@ -48,7 +40,7 @@ index 92953f69f0..2aee108fc1 100644
 +
  endif
 diff --git a/package/wpa_supplicant/wpa_supplicant.mk b/package/wpa_supplicant/wpa_supplicant.mk
-index 984959f679..6199e584d0 100644
+index aef8731341..191604b41b 100644
 --- a/package/wpa_supplicant/wpa_supplicant.mk
 +++ b/package/wpa_supplicant/wpa_supplicant.mk
 @@ -24,9 +24,6 @@ WPA_SUPPLICANT_CONFIG_ENABLE = \
@@ -61,7 +53,7 @@ index 984959f679..6199e584d0 100644
  # libnl-3 needs -lm (for rint) and -lpthread if linking statically
  # And library order matters hence stick -lnl-3 first since it's appended
  # in the wpa_supplicant Makefiles as in LIBS+=-lnl-3 ... thus failing
-@@ -180,6 +177,12 @@ WPA_SUPPLICANT_DEPENDENCIES += readline
+@@ -191,6 +188,12 @@ WPA_SUPPLICANT_DEPENDENCIES += readline
  WPA_SUPPLICANT_CONFIG_ENABLE += CONFIG_READLINE
  endif
  
@@ -75,5 +67,5 @@ index 984959f679..6199e584d0 100644
  define WPA_SUPPLICANT_ENABLE_CTRL_IFACE
  	sed -i '/ctrl_interface/s/^#//g' $(TARGET_DIR)/etc/wpa_supplicant.conf
 -- 
-2.34.1
+2.43.0
 
