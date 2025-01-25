@@ -1,0 +1,62 @@
+From 8715bbdf78dcc5b6064b9c031ca14324cebd8b36 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Fri, 24 Jan 2025 20:33:28 -0500
+Subject: [PATCH] Fix compiler errors
+
+---
+ debug.c    | 2 +-
+ firmware.c | 4 ++--
+ pageset.c  | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/debug.c b/debug.c
+index 44081af..b041e81 100644
+--- a/debug.c
++++ b/debug.c
+@@ -105,7 +105,7 @@ void morse_init_log_levels(u8 lvl)
+ 		log_mask[id] = lvl;
+ }
+ 
+-bool morse_log_is_enabled(enum morse_feature_id id, u8 level)
++bool morse_log_is_enabled(u32 id, u8 level)
+ {
+ 	return (bool)(log_mask[id] >= level);
+ }
+diff --git a/firmware.c b/firmware.c
+index b044a85..71a48e9 100644
+--- a/firmware.c
++++ b/firmware.c
+@@ -866,7 +866,7 @@ static uint32_t binary_crc(const struct firmware *fw)
+ 	return ~crc32_le(~0, (unsigned char const *)fw->data, fw->size) & 0xffffffff;
+ }
+ 
+-int morse_firmware_init(struct morse *mors, enum morse_config_test_mode test_mode)
++int morse_firmware_init(struct morse *mors, uint tm)
+ {
+ 	int n;
+ 	int ret = 0;
+@@ -879,7 +879,7 @@ int morse_firmware_init(struct morse *mors, enum morse_config_test_mode test_mod
+ 	int board_id = 0;
+ 	char *p;
+ 	bool use_full_path = true;
+-
++        enum morse_config_test_mode test_mode = tm;
+ #ifdef CONFIG_ANDROID
+ 	/* Use filenames only - Android sets the path */
+ 	use_full_path = false;
+diff --git a/pageset.c b/pageset.c
+index 21877d6..65fa293 100644
+--- a/pageset.c
++++ b/pageset.c
+@@ -645,7 +645,7 @@ static int morse_pageset_num_pages(struct morse_pageset *pageset, struct sk_buff
+ static void morse_pageset_tx(struct morse_pageset *pageset, struct morse_skbq *mq)
+ {
+ 	int ret = 0;
+-	int num_pages;
++	int num_pages = 0;
+ 	int num_items = 0;
+ 	struct sk_buff *skb;
+ 	struct sk_buff_head skbq_to_send;
+-- 
+2.43.0
+

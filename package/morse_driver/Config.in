@@ -1,0 +1,5 @@
+config BR2_PACKAGE_MORSE_DRIVER
+	bool "morse_driver"
+	help
+	  Morse Micro WiFi HaLow Driver for Linux
+
