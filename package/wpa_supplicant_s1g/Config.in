@@ -1,0 +1,127 @@
+menuconfig BR2_PACKAGE_WPA_SUPPLICANT_S1G
+	bool "wpa_supplicant_s1g"
+	depends on BR2_USE_MMU # fork()
+	depends on BR2_TOOLCHAIN_HAS_THREADS # nl80211 support
+	select BR2_PACKAGE_LIBOPENSSL_ENABLE_DES if BR2_PACKAGE_LIBOPENSSL
+	select BR2_PACKAGE_LIBOPENSSL_ENABLE_MD4 if BR2_PACKAGE_LIBOPENSSL
+	help
+	  Morse Micro WPA supplicant for secure wireless networks
+
+	  https://github.com/MorseMicro/hostap
+
+if BR2_PACKAGE_WPA_SUPPLICANT_S1G
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_IBSS_RSN
+	bool "Enable IBSS RSN"
+	depends on BR2_PACKAGE_WPA_SUPPLICANT_S1G_NL80211
+	help
+	  Enable support for RSN/WPA2 in Ad-Hoc mode.
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_AP_SUPPORT
+	bool "Enable AP mode"
+	depends on BR2_PACKAGE_WPA_SUPPLICANT_S1G_NL80211
+	help
+	  With this option enabled, wpa_supplicant can act as an
+	  access point much like hostapd does with a limited feature
+	  set.  This links in parts of hostapd functionality into
+	  wpa_supplicant, making it bigger but dispensing the need for
+	  a separate hostapd binary in some applications hence being
+	  smaller overall.  It also enables support for Wi-Fi Direct.
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_WIFI_DISPLAY
+	bool "Enable Wi-Fi Display"
+	depends on BR2_PACKAGE_WPA_SUPPLICANT_S1G_AP_SUPPORT
+	help
+	  Enable support for Wi-Fi Display
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_MESH_NETWORKING
+	bool "Enable mesh networking"
+	depends on BR2_PACKAGE_WPA_SUPPLICANT_S1G_AP_SUPPORT
+	select BR2_PACKAGE_OPENSSL
+	select BR2_PACKAGE_OPENSSL_FORCE_LIBOPENSSL
+	help
+	  Enable support for open and secured mesh networking
+	  (IEEE 802.11s)
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_OVERRIDES
+	bool "Enable HT/VHT/HE overrides"
+	help
+	  Enable wpa_supplicant overrides for HT, VHT and HE (disable
+	  HT/HT40, mask MCS rates, etc.) in wpa_supplicant
+	  configuration file.
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_AUTOSCAN
+	bool "Enable autoscan"
+	help
+	  Enable support for the autoscan feature (allow periodic scan)
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_EAP
+	bool "Enable EAP"
+	help
+	  Enable support for EAP, 802.1x/WPA-Enterprise and FILS.
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_HOTSPOT
+	bool "Enable HS20"
+	select BR2_PACKAGE_WPA_SUPPLICANT_S1G_EAP
+	help
+	  Enable Hotspot 2.0 and IEEE 802.11u interworking
+	  functionality.
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_DEBUG_SYSLOG
+	bool "Enable syslog support"
+	help
+	  Enable support for sending debug messages to syslog.
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_WPS
+	bool "Enable WPS"
+	help
+	  Enable support for Wi-Fi Protected Setup (WPS).
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_CLI
+	bool "Install wpa_cli binary"
+	select BR2_PACKAGE_WPA_SUPPLICANT_S1G_CTRL_IFACE
+	help
+	  Install wpa_cli command line utility
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_WPA_CLIENT_SO
+	bool "Install wpa_client shared library"
+	depends on !BR2_STATIC_LIBS
+	help
+	  Install libwpa_client.so.
+
+comment "wpa_client library needs a toolchain w/ dynamic library"
+	depends on BR2_STATIC_LIBS
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_PASSPHRASE
+	bool "Install wpa_passphrase binary"
+	help
+	  Install wpa_passphrase command line utility.
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_CTRL_IFACE
+	bool "Enable the Unix-socket control interface"
+	help
+	  Enable support for the Unix-socket-based API.
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_DBUS
+	bool "Enable support for the DBus control interface"
+	depends on BR2_TOOLCHAIN_HAS_THREADS # dbus
+	select BR2_PACKAGE_DBUS
+	help
+	  Enable support for the DBus control interface.
+
+comment "dbus support needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_DBUS_INTROSPECTION
+	bool "Introspection support"
+	depends on BR2_PACKAGE_WPA_SUPPLICANT_S1G_DBUS
+	help
+	  Add introspection support for the DBus control interface.
+
+config BR2_PACKAGE_WPA_SUPPLICANT_S1G_SMARTCARD
+	bool "Smartcard support"
+	help
+	  Enable the smart card support. Required for OpenSSL engines
+	  to work using PKCS11 and 802.1x
+
+endif
