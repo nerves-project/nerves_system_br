@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2016 Frank Hunleth
+# SPDX-FileCopyrightText: 2021 Justin Schneck
+# SPDX-FileCopyrightText: 2024 Jon Carstens
+# SPDX-FileCopyrightText: 2024 Jon Ringle
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
 
 #
 # Create and initialize a directory for building nerves_system_br.

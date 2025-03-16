@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2016 Frank Hunleth
+# SPDX-FileCopyrightText: 2016 Justin Schneck
+# SPDX-FileCopyrightText: 2019 Matt Ludwigs
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 #
 # Download and extract a specified version of buildroot. If the buildroot

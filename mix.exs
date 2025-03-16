@@ -35,17 +35,22 @@ defmodule Nerves.System.BR.Mixfile do
         "create-build.sh",
         "external.mk",
         "external.desc",
-        "LICENSE",
+        "LICENSES/*",
         "mix.exs",
         "nerves_env.exs",
         "nerves-env.sh",
         "nerves-env.cmake",
         "nerves.mk",
         "README.md",
+        "REUSE.
         "VERSION"
       ],
       licenses: ["Apache-2.0", "GPL-2.0-or-later"],
-      links: %{"Github" => "https://github.com/nerves-project/nerves_system_br"}
+      links: %{
+        "GitHub" => "https://github.com/nerves-project/nerves_system_br",
+        "REUSE Compliance" =>
+          "https://api.reuse.software/info/github.com/nerves-project/nerves_system_br"
+      }
     ]
   end
 end

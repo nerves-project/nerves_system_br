@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2015 Frank Hunleth
+# SPDX-FileCopyrightText: 2016 Justin Schneck
+# SPDX-FileCopyrightText: 2019 Matt Ludwigs
+# SPDX-FileCopyrightText: 2021 mayl
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 # Collect the build artifacts and put them in a directory
 # for Travis-CI to publish

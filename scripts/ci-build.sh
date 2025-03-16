@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2015 Frank Hunleth
+# SPDX-FileCopyrightText: 2019 Matt Ludwigs
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 # Not using "set -e" due to watchdog clean code below (FIXME)
 

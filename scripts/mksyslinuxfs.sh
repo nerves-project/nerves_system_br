@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2014 Frank Hunleth
+# SPDX-FileCopyrightText: 2019 Matt Ludwigs
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 # This helper script creates a FAT file system with the syslinux special
 # files. It should be passed the filename of the image, the size in

@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2022 Digit
+# SPDX-FileCopyrightText: 2022 Jon Carstens
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 set -e
 if [[ $TARGETPLATFORM =~ "linux/arm64" ]] ; then
     dpkg --add-architecture 'i386'

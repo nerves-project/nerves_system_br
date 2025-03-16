@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2013 Frank Hunleth
+# SPDX-FileCopyrightText: 2015 Will Penington
+# SPDX-FileCopyrightText: 2022 Jon Carstens
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 # Source this script to setup your environment to cross-compile
 # and build Erlang apps for this Nerves build.

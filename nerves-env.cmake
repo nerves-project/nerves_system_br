@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2022 Cocoa Xu
+#
+# SPDX-License-Identifier:  BSD-3-Clause
+#
 set(CMAKE_SYSTEM "Linux")
 set(CMAKE_SYSTEM_NAME "Linux")
 

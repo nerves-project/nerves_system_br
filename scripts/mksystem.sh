@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2015 Frank Hunleth
+# SPDX-FileCopyrightText: 2016 Greg Mefford
+# SPDX-FileCopyrightText: 2016 JP Hastings-Spital
+# SPDX-FileCopyrightText: 2019 Matt Ludwigs
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 #
 # This script creates a tarball with everything needed to build

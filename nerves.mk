@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2014 Frank Hunleth
+# SPDX-FileCopyrightText: 2016 Justin Schneck
+# SPDX-FileCopyrightText: 2016 Mark Sebald
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 #
 # Include this Makefile in your project to pull in the Nerves versions
 # of all of the build tools.

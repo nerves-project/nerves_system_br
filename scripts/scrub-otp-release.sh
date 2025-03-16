@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2016 Arjan Scherpenisse
+# SPDX-FileCopyrightText: 2016 Frank Hunleth
+# SPDX-FileCopyrightText: 2017 Justin Schneck
+# SPDX-FileCopyrightText: 2021 Connor Rigby
+# SPDX-FileCopyrightText: 2021 mayl
+# SPDX-FileCopyrightText: 2024 Jon Carstens
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 # Remove or minimize files in an Erlang/OTP release directory
 # in preparation for use packaging in a Nerves firmware image.

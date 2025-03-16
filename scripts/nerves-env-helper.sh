@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2014 Frank Hunleth
+# SPDX-FileCopyrightText: 2016 Justin Schneck
+# SPDX-FileCopyrightText: 2016 Mark Sebald
+# SPDX-FileCopyrightText: 2018 Paulo Daniel Gonzalez
+# SPDX-FileCopyrightText: 2019 Matt Ludwigs
+# SPDX-FileCopyrightText: 2022 Jon Carstens
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 # Helper script to setup the Nerves environment. This shouldn't be called
 # directly. See $NERVES_SYSTEM/nerves-env.sh.

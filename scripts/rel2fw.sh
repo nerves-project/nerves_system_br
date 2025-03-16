@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2013 Frank Hunleth
+# SPDX-FileCopyrightText: 2017 Justin Schneck
+# SPDX-FileCopyrightText: 2018 Connor Rigby
+# SPDX-FileCopyrightText: 2019 Matt Ludwigs
+# SPDX-FileCopyrightText: 2022 Jon Carstens
+# SPDX-FileCopyrightText: 2025 Lars Wikman
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 set -e
 
 PWD=${PWD:-$(pwd)}

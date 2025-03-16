@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2015 Frank Hunleth
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 #
 # Include this in your project's Makefile as a quick way of
 # building a Nerves project

@@ -1,3 +1,10 @@
+# SPDX-FileCopyrightText: 2016 Justin Schneck
+# SPDX-FileCopyrightText: 2016 Mark Sebald
+# SPDX-FileCopyrightText: 2017 Frank Hunleth
+# SPDX-FileCopyrightText: 2022 Cocoa Xu
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 defmodule System.Env do
   @path "PATH"
   @ld_library_path "LD_LIBRARY_PATH"

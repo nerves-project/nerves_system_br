@@ -1,3 +1,5 @@
+version: 2.1
+
 defaults: &defaults
   docker:
     - image: nerveshub/docker-build:alpine-3.15.3
@@ -77,8 +79,14 @@ docker_push: &docker_push
         docker manifest push $DOCKER_REPO:latest
       fi
 
-version: 2
 jobs:
+  check-license:
+    docker:
+      - image: fsfe/reuse:latest
+    steps:
+      - checkout
+      - run: reuse lint
+
   build:
     <<: *defaults
     steps:
@@ -125,32 +133,35 @@ jobs:
       - <<: *docker_push
 
 workflows:
-  version: 2
   pipeline:
-      jobs:
-        - build:
-            context: org-global
-            filters:
-              tags:
-                only: /.*/
-        - push:
-            context: org-global
-            requires:
-              - build
-            filters:
-              tags:
-                only: /.*/
-        - test_amd64:
-            context: org-global
-            requires:
-              - push
-            filters:
-              tags:
-                only: /.*/
-        # - test_arm64:
-        #     context: org-global
-        #     requires:
-        #       - push
-        #     filters:
-        #       tags:
-        #         only: /.*/
+    jobs:
+      - check-license:
+          filters:
+            tags:
+              only: /.*/
+      - build:
+          context: org-global
+          filters:
+            tags:
+              only: /.*/
+      - push:
+          context: org-global
+          requires:
+            - build
+          filters:
+            tags:
+              only: /.*/
+      - test_amd64:
+          context: org-global
+          requires:
+            - push
+          filters:
+            tags:
+              only: /.*/
+      # - test_arm64:
+      #     context: org-global
+      #     requires:
+      #       - push
+      #     filters:
+      #       tags:
+      #         only: /.*/

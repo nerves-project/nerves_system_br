@@ -1,0 +1,69 @@
+version = 1
+
+[[annotations]]
+path = [
+ ".circleci/config.yml",
+ ".formatter.exs",
+ ".gitignore",
+ ".tool-versions",
+ "CHANGELOG.md",
+ "NOTICE",
+ "RELEASE.md",
+ "REUSE.toml",
+ "mix.exs",
+ "VERSION"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = [
+ "README.md",
+ "configs/README.md"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2013 Frank Hunleth"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Buildroot derived or related files
+[[annotations]]
+path = [
+ "Config.in",
+ "external.desc",
+ "external.mk",
+ "package/**",
+ "patches/**",
+ "board/nerves-common/post-build.sh",
+ "board/nerves-common/post-createfs.sh"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The Buildroot developers <buildroot@buildroot.org>"
+SPDX-License-Identifier = "GPL-2.0-or-later"
+
+# Various config files
+[[annotations]]
+path = [
+ "board/nerves-common/busybox-1.22.config",
+ "board/nerves-common/skeleton/**",
+ "board/nerves-common/busybox.config",
+ "board/nerves-common/rootfs_overlay/etc/erl_inetrc",
+ "board/nerves-common/rootfs_overlay/etc/mke2fs.conf",
+ "board/nerves-common/rootfs_overlay/etc/sysctl.conf",
+ "board/nerves-common/device_table.txt",
+ "scripts/project-skel/elixir/rel/vm.args",
+ "scripts/project-skel/elixir/rel/relx.config",
+ "support/docker/nerves_system_br/Dockerfile"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+# Regression tests
+[[annotations]]
+path = [
+ "tests/smoke-test/**"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"

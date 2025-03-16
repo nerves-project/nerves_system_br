@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2016 Frank Hunleth
+# SPDX-FileCopyrightText: 2017 Justin Schneck
+# SPDX-FileCopyrightText: 2017 rradu
+# SPDX-FileCopyrightText: 2024 Ben Youngblood
+# SPDX-FileCopyrightText: 2024 Rockwell Schrock
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
 # Merge an overlay directory into a squashfs
 #
