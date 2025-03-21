@@ -42,7 +42,7 @@ defmodule Nerves.System.BR.Mixfile do
         "nerves-env.cmake",
         "nerves.mk",
         "README.md",
-        "REUSE.
+        "REUSE.toml",
         "VERSION"
       ],
       licenses: ["Apache-2.0", "GPL-2.0-or-later"],
