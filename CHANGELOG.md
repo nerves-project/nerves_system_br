@@ -12,6 +12,26 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.30.0
+
+This update pulls in Buildroot 2024.11.2 and Erlang/OTP 27.3. This is a major
+Buildroot update.
+
+* Changes
+  * Pull in upstream Raspberry Pi updates for various things. This includes WiFI
+    WPA3 support on some RPis and better CM5 and Pi 500 support
+  * Add REUSE compliance to help improve OSS copyright and licensing accuracy
+
+* Package updates
+  * [Erlang/OTP 27.3](https://erlang.org/download/OTP-27.3.README.md)
+  * Buildroot 2024.11.2. See the following:
+    [Buildroot 2024.11](https://lore.kernel.org/buildroot/871pyi2uye.fsf@dell.be.48ers.dk/T/)
+    [Buildroot 2024.11.1](https://lore.kernel.org/buildroot/87y0zkhumg.fsf@dell.be.48ers.dk/T/)
+    [Buildroot 2024.11.2](https://lore.kernel.org/buildroot/87v7t3nyls.fsf@dell.be.48ers.dk/T/)
+  * rpicam-apps 1.5.3
+  * rpi-libcamera v0.3.2+rpt20241119
+  * rpi-distro-firmware-nonfree 1:20230625-2+rpt3
+
 ## v1.29.3
 
 This is mostly a security/bug fix update for 1.29.2.
