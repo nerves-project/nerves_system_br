@@ -1,4 +1,4 @@
-From 6f80de3bfd423b98777caa9722f480e4efa1fafa Mon Sep 17 00:00:00 2001
+From 79aef1e5f68b0c2b34fec5cf3a30ade9dc0ba187 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 12 Dec 2022 08:07:05 -0500
 Subject: [PATCH] toolchain-external: refine support library search to lib
@@ -58,10 +58,10 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/toolchain/toolchain-external/pkg-toolchain-external.mk b/toolchain/toolchain-external/pkg-toolchain-external.mk
-index ddf1d70ab4..6fba077f35 100644
+index c08bf0a653..b7b0fec461 100644
 --- a/toolchain/toolchain-external/pkg-toolchain-external.mk
 +++ b/toolchain/toolchain-external/pkg-toolchain-external.mk
-@@ -435,7 +435,7 @@ define TOOLCHAIN_EXTERNAL_INSTALL_SYSROOT_LIBS
+@@ -451,7 +451,7 @@ define TOOLCHAIN_EXTERNAL_INSTALL_SYSROOT_LIBS
  	ARCH_SYSROOT_DIR="$(call toolchain_find_sysroot,$(TOOLCHAIN_EXTERNAL_CC) $(TOOLCHAIN_EXTERNAL_CFLAGS))" ; \
  	ARCH_LIB_DIR="$(call toolchain_find_libdir,$(TOOLCHAIN_EXTERNAL_CC) $(TOOLCHAIN_EXTERNAL_CFLAGS))" ; \
  	SUPPORT_LIB_DIR="" ; \
@@ -71,5 +71,5 @@ index ddf1d70ab4..6fba077f35 100644
  		if [ -e "$${LIBSTDCPP_A_LOCATION}" ]; then \
  			SUPPORT_LIB_DIR=`readlink -f $${LIBSTDCPP_A_LOCATION} | sed -r -e 's:libstdc\+\+\.a::'` ; \
 -- 
-2.34.1
+2.43.0
 

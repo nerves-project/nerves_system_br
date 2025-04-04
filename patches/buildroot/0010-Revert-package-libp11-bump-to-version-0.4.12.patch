@@ -1,4 +1,4 @@
-From 47ef52713dd2bee6aff6980c19bc32e4630e3dbb Mon Sep 17 00:00:00 2001
+From 2a7391dd5b9d50cf7c071bdc342cb04ebdea1c11 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 11 Sep 2022 08:18:28 -0400
 Subject: [PATCH] Revert "package/libp11: bump to version 0.4.12"
@@ -103,7 +103,7 @@ index 0e42bdd4cf..52d73d4206 100644
 +sha256  57d47a12a76fd92664ae30032cf969284ebac1dfc25bf824999d74b016d51366  libp11-0.4.11.tar.gz
  sha256  d80c9d084ebfb50ea1ed91bfbc2410d6ce542097a32c43b00781b83adcb8c77f  COPYING
 diff --git a/package/libp11/libp11.mk b/package/libp11/libp11.mk
-index 7718573ace..c1873a920c 100644
+index cd4ed34297..45a718ee99 100644
 --- a/package/libp11/libp11.mk
 +++ b/package/libp11/libp11.mk
 @@ -4,7 +4,7 @@
@@ -116,5 +116,5 @@ index 7718573ace..c1873a920c 100644
  LIBP11_DEPENDENCIES = openssl host-pkgconf
  LIBP11_INSTALL_STAGING = YES
 -- 
-2.34.1
+2.43.0
 

@@ -1,4 +1,4 @@
-From 3193c9bf66e3e9966e565e08a0677fbcf54c0e01 Mon Sep 17 00:00:00 2001
+From daa1667516c439649fc8904c32fe56b7cce10303 Mon Sep 17 00:00:00 2001
 From: Lars Wikman <lars@underjord.io>
 Date: Fri, 30 Aug 2024 10:49:29 +0200
 Subject: [PATCH] package/wpa_supplicant: add Smart card option
@@ -40,7 +40,7 @@ index 92953f69f0..2aee108fc1 100644
 +
  endif
 diff --git a/package/wpa_supplicant/wpa_supplicant.mk b/package/wpa_supplicant/wpa_supplicant.mk
-index aef8731341..191604b41b 100644
+index 44cfed495b..9de536b943 100644
 --- a/package/wpa_supplicant/wpa_supplicant.mk
 +++ b/package/wpa_supplicant/wpa_supplicant.mk
 @@ -24,9 +24,6 @@ WPA_SUPPLICANT_CONFIG_ENABLE = \

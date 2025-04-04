@@ -1,4 +1,4 @@
-From 4bcbd1cb6e4ff546eb245ed1ebbd9920dfe1399c Mon Sep 17 00:00:00 2001
+From 7112f48d2dfb8a84db0b80186d1cbdae7ef19fd1 Mon Sep 17 00:00:00 2001
 From: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 Date: Wed, 3 Feb 2016 00:05:42 +0100
 Subject: [PATCH] Add customizable linux logo
@@ -56,7 +56,7 @@ index 0000000000..ed9cbc1caf
 +	cp $(CUSTOMLOGO_DIR)/logo_linux_*.p?m $(LINUX_DIR)/drivers/video/logo
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index c7bb52d278..594622373f 100644
+index 4a81a62ec4..5ed7f36613 100644
 --- a/package/Config.in
 +++ b/package/Config.in
 @@ -280,6 +280,7 @@ comment "Sounds"
@@ -122,5 +122,5 @@ index 0000000000..96b8745fea
 +
 +$(eval $(generic-package))
 -- 
-2.34.1
+2.43.0
 

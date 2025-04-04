@@ -1,4 +1,4 @@
-From 57c4025522f9a3d24985cd71d3380ce889179aeb Mon Sep 17 00:00:00 2001
+From 3f11aa62cc30ebb2532e671700d620ebdda6daa4 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 15 Feb 2016 10:21:17 -0500
 Subject: [PATCH] NERVES_DEFCONFIG_DIR support
@@ -8,10 +8,10 @@ Subject: [PATCH] NERVES_DEFCONFIG_DIR support
  1 file changed, 21 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 000f1dcec0..dd8e2ef4cd 100644
+index 4006bfbda7..d42c24be6b 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -195,6 +195,26 @@ endif
+@@ -197,6 +197,26 @@ endif
  # Workaround bug in make-4.3: https://savannah.gnu.org/bugs/?57676
  $(BASE_DIR)/.br2-external.mk:;
  
@@ -38,7 +38,7 @@ index 000f1dcec0..dd8e2ef4cd 100644
  # To make sure that the environment variable overrides the .config option,
  # set this before including .config.
  ifneq ($(BR2_DL_DIR),)
-@@ -969,6 +989,7 @@ COMMON_CONFIG_ENV = \
+@@ -978,6 +998,7 @@ COMMON_CONFIG_ENV = \
  	KCONFIG_AUTOHEADER=$(BUILD_DIR)/buildroot-config/autoconf.h \
  	KCONFIG_TRISTATE=$(BUILD_DIR)/buildroot-config/tristate.config \
  	BR2_CONFIG=$(BR2_CONFIG) \
@@ -47,5 +47,5 @@ index 000f1dcec0..dd8e2ef4cd 100644
  	BASE_DIR=$(BASE_DIR) \
  	SKIP_LEGACY=
 -- 
-2.34.1
+2.43.0
 

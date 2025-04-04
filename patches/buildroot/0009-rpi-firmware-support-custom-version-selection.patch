@@ -1,4 +1,4 @@
-From 7a67f377e8503fa76749d965b826bffb072a8a2e Mon Sep 17 00:00:00 2001
+From 7813af8415a44055f5f86716564d77b2d7f8a315 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 8 Jul 2019 10:44:12 -0400
 Subject: [PATCH] rpi-firmware: support custom version selection
@@ -16,7 +16,7 @@ example, if you're using the Raspberry Pi Linux kernel tagged
  2 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
-index a9aeaed745..fba78c9ed9 100644
+index f99c116ca2..9b56954f5c 100644
 --- a/package/rpi-firmware/Config.in
 +++ b/package/rpi-firmware/Config.in
 @@ -11,6 +11,11 @@ config BR2_PACKAGE_RPI_FIRMWARE
@@ -57,5 +57,5 @@ index 7ae9ff6c28..0d8a2afa92 100644
  RPI_FIRMWARE_LICENSE = BSD-3-Clause
  RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
 -- 
-2.34.1
+2.43.0
 
