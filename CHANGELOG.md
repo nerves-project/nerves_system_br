@@ -12,6 +12,13 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.30.1
+
+This is a security fix update to v1.30.0. Please see the Erlang release notes.
+
+* Package updates
+  * [Erlang/OTP 27.3.3](https://erlang.org/download/OTP-27.3.3.README.md)
+
 # v1.30.0
 
 This update pulls in Buildroot 2024.11.2 and Erlang/OTP 27.3. This is a major
