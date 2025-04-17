@@ -40,9 +40,6 @@ ENV PATH=/home/nerves/bin:/home/nerves/.local/bin:$PATH \
 	LANG=C.UTF-8 \
 	LC_ALL=C.UTF-8
 
-COPY setup-packages.sh /nerves/setup-packages.sh
-RUN chmod +x /nerves/setup-packages.sh
-
 # Set time
 RUN ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
@@ -52,15 +49,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8 C.UTF-8/' /etc/locale.gen
     locale-gen
 
 # The container has no package lists, so need to update first
-RUN /nerves/setup-packages.sh && apt-get update -y -qq
-
-# Install our i386 deps first, since they require special config in aarch64 envs
-RUN apt-get -o APT::Retries=3 install -y --no-install-recommends \
-        libc6:i386 \
-        libncurses5:i386 \
-        gcc-multilib \
-        g++-multilib \
-        libstdc++6:i386
+RUN apt-get update -y -qq
 
 # Install Buildroot packages (see <Buildroot>/support/docker/DockerFile
 RUN apt-get -o APT::Retries=3 install -y --no-install-recommends \
