@@ -12,6 +12,19 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.30.1
+
+This is a security fix update to v1.30.0. Please see the Erlang release notes.
+
+This fixes [CVE-2025-32433](https://nvd.nist.gov/vuln/detail/CVE-2025-32433)
+which allows for unauthenticated access via SSH. If you are using SSH in
+production, please update your `nerves_system_br` dependency to this or later.
+If using an officially supported Nerves system, the latest versions all have
+this update.
+
+* Package updates
+  * [Erlang/OTP 27.3.3](https://erlang.org/download/OTP-27.3.3.README.md)
+
 # v1.30.0
 
 This update pulls in Buildroot 2024.11.2 and Erlang/OTP 27.3. This is a major
