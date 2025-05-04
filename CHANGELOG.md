@@ -12,6 +12,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.31.0
+
+This is a major Buildroot update to 2025.02.1. It also includes a Mesa3D update
+that fixes Raspberry Pi 5 display issues.
+
+* Changes
+  * Remove i386 multi-arch from the [`nerves_system_br` container](https://github.com/nerves-project/nerves_system_br/pkgs/container/nerves_system_br)
+    since broken in ubuntu-jammy-20250404
+
+* Package updates
+  * Mesa3D 25.0.2
+  * [Buildroot 2025.02.1](https://lore.kernel.org/buildroot/60b8483c-b717-41ce-a406-bceb71c3a089@rnout.be/T/).
+    Also see the [2025.02 release notes](https://lore.kernel.org/buildroot/87cyee9zm0.fsf@dell.be.48ers.dk/T/)
+
 # v1.30.1
 
 This is a security fix update to v1.30.0. Please see the Erlang release notes.
