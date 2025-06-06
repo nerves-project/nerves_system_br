@@ -1,4 +1,4 @@
-From 7813af8415a44055f5f86716564d77b2d7f8a315 Mon Sep 17 00:00:00 2001
+From ad89b670b1c0b692aeb6065df68ca4870be051db Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 8 Jul 2019 10:44:12 -0400
 Subject: [PATCH] rpi-firmware: support custom version selection
@@ -12,8 +12,8 @@ example, if you're using the Raspberry Pi Linux kernel tagged
 `1.20200902`.
 ---
  package/rpi-firmware/Config.in       |  5 +++++
- package/rpi-firmware/rpi-firmware.mk | 14 +++++++++++++-
- 2 files changed, 18 insertions(+), 1 deletion(-)
+ package/rpi-firmware/rpi-firmware.mk | 13 +++++++++++++
+ 2 files changed, 18 insertions(+)
 
 diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
 index f99c116ca2..9b56954f5c 100644
@@ -32,14 +32,13 @@ index f99c116ca2..9b56954f5c 100644
  	bool "rpi 0/1/2/3 bootcode.bin"
  	help
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index 7ae9ff6c28..0d8a2afa92 100644
+index 8350d395da..4a37a62b3d 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
-@@ -4,7 +4,19 @@
- #
- ################################################################################
+@@ -6,6 +6,19 @@
  
--RPI_FIRMWARE_VERSION = 5476720d52cf579dc1627715262b30ba1242525e
+ # Please keep in sync with configs/raspberrypi*_deconfig
+ RPI_FIRMWARE_VERSION = 5476720d52cf579dc1627715262b30ba1242525e
 +ifeq ($(call qstrip,$(BR2_PACKAGE_RPI_FIRMWARE_CUSTOM_VERSION)),)
 +ifeq ($(BR2_PACKAGE_RPI_FIRMWARE),y)
 +$(error The Raspberry Pi firmware version is no longer derived automatically.\
