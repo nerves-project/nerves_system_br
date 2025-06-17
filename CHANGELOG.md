@@ -12,9 +12,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.31.2
+
+This is a security/bug fix update for 1.31.1. It has the fix to
+[CVE-2025-4748](https://cna.erlef.org/cves/cve-2025-4748.html).
+
+* Package updates
+  * [Erlang/OTP 27.3.4.1](https://erlang.org/download/OTP-27.3.4.1.README.md)
+  * Raspberry Pi WiFi firmware 1:20240709-2~bpo12+1+rpt3
+
 # v1.31.1
 
-This is mostly a security/bug fix update for 1.31.1.
+This is mostly a security/bug fix update for 1.31.0.
 
 * Package updates
   * [Erlang/OTP 27.3.4](https://erlang.org/download/OTP-27.3.4.README.md)
