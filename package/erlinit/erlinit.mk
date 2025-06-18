@@ -7,7 +7,7 @@
 ERLINIT_VERSION = v1.14.3
 ERLINIT_SITE = $(call github,nerves-project,erlinit,$(ERLINIT_VERSION))
 ERLINIT_LICENSE = MIT
-ERLINIT_LICENSE_FILES = LICENSE
+ERLINIT_LICENSE_FILES = LICENSES/MIT.txt
 
 # Make sure erlinit gets installed after busybox init so that
 # erlinit's /sbin/init is the one that is used
