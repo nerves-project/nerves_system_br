@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RPICAM_APPS_VERSION = 1.5.3
+RPICAM_APPS_VERSION = 1.7.0
 RPICAM_APPS_SITE = $(call github,raspberrypi,rpicam-apps,v$(RPICAM_APPS_VERSION))
 RPICAM_APPS_LICENSE = BSD-2-Clause
 RPICAM_APPS_LICENSE_FILES = license.txt
