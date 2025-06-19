@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RPI_LIBCAMERA_VERSION = v0.3.2+rpt20241119
+RPI_LIBCAMERA_VERSION = v0.5.0+rpt20250429
 RPI_LIBCAMERA_SITE = $(call github,raspberrypi,libcamera,$(RPI_LIBCAMERA_VERSION))
 RPI_LIBCAMERA_DEPENDENCIES = \
 	host-openssl \
@@ -54,8 +54,14 @@ RPI_LIBCAMERA_PIPELINES-y += rpi/vc4
 RPI_LIBCAMERA_DEPENDENCIES += boost
 RPI_LIBCAMERA_PIPELINES-$(BR2_PACKAGE_RPI_LIBCAMERA_PIPELINE_SIMPLE) += simple
 RPI_LIBCAMERA_PIPELINES-$(BR2_PACKAGE_RPI_LIBCAMERA_PIPELINE_UVCVIDEO) += uvcvideo
+RPI_LIBCAMERA_PIPELINES-$(BR2_PACKAGE_RPI_LIBCAMERA_PIPELINE_VIMC) += vimc
 
 RPI_LIBCAMERA_CONF_OPTS += -Dpipelines=$(subst $(space),$(comma),$(RPI_LIBCAMERA_PIPELINES-y))
+
+ifeq ($(BR2_PACKAGE_RPI_LIBCAMERA_COMPLIANCE),y)
+RPI_LIBCAMERA_DEPENDENCIES += gtest libevent
+RPI_LIBCAMERA_CONF_OPTS += -Dlc-compliance=enabled
+endif
 
 # gstreamer-video-1.0, gstreamer-allocators-1.0
 ifeq ($(BR2_PACKAGE_GSTREAMER1)$(BR2_PACKAGE_GST1_PLUGINS_BASE),yy)
@@ -63,21 +69,30 @@ RPI_LIBCAMERA_CONF_OPTS += -Dgstreamer=enabled
 RPI_LIBCAMERA_DEPENDENCIES += gstreamer1 gst1-plugins-base
 endif
 
-ifeq ($(BR2_PACKAGE_QT5BASE_WIDGETS),y)
-RPI_LIBCAMERA_CONF_OPTS += -Dqcam=enabled
-RPI_LIBCAMERA_DEPENDENCIES += qt5base
-ifeq ($(BR2_PACKAGE_QT5TOOLS_LINGUIST_TOOLS),y)
-RPI_LIBCAMERA_DEPENDENCIES += qt5tools
-endif
-else
-RPI_LIBCAMERA_CONF_OPTS += -Dqcam=disabled
-endif
-
 ifeq ($(BR2_PACKAGE_LIBEVENT),y)
 RPI_LIBCAMERA_CONF_OPTS += -Dcam=enabled
 RPI_LIBCAMERA_DEPENDENCIES += libevent
-else
-RPI_LIBCAMERA_CONF_OPTS += -Dcam=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_ELFUTILS),y)
+# Optional dependency on libdw
+RPI_LIBCAMERA_DEPENDENCIES += elfutils
+endif
+
+ifeq ($(BR2_PACKAGE_JPEG),y)
+RPI_LIBCAMERA_DEPENDENCIES += jpeg
+endif
+
+ifeq ($(BR2_PACKAGE_LIBDRM),y)
+RPI_LIBCAMERA_DEPENDENCIES += libdrm
+endif
+
+ifeq ($(BR2_PACKAGE_LIBUNWIND),y)
+RPI_LIBCAMERA_DEPENDENCIES += libunwind
+endif
+
+ifeq ($(BR2_PACKAGE_SDL2),y)
+RPI_LIBCAMERA_DEPENDENCIES += sdl2
 endif
 
 ifeq ($(BR2_PACKAGE_TIFF),y)
@@ -87,15 +102,11 @@ endif
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 RPI_LIBCAMERA_CONF_OPTS += -Dudev=enabled
 RPI_LIBCAMERA_DEPENDENCIES += udev
-else
-RPI_LIBCAMERA_CONF_OPTS += -Dudev=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_LTTNG_LIBUST),y)
 RPI_LIBCAMERA_CONF_OPTS += -Dtracing=enabled
 RPI_LIBCAMERA_DEPENDENCIES += lttng-libust
-else
-RPI_LIBCAMERA_CONF_OPTS += -Dtracing=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_LIBEXECINFO),y)
