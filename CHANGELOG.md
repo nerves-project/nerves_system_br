@@ -12,6 +12,15 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.31.3
+
+This is a bug fix update for 1.31.2.
+
+* Package updates
+  * [erlinit 1.14.3](https://github.com/nerves-project/erlinit/releases/tag/v1.14.3)
+  * [rpi-libcamera v0.5.0+rpt20250429](https://github.com/raspberrypi/libcamera/releases/tag/v0.5.0%2Brpt20250429)
+  * rpicam-apps 1.7.0
+
 # v1.31.2
 
 This is a security/bug fix update for 1.31.1. It has the fix to
