@@ -1,4 +1,4 @@
-From f5638d44cf822edfab7ffd012b09ef5cbaa91e95 Mon Sep 17 00:00:00 2001
+From 25e01a082872cf6bc815a54459ff45a70b282d3f Mon Sep 17 00:00:00 2001
 From: Alex McLain <alex@alexmclain.com>
 Date: Tue, 5 Nov 2024 11:05:52 -0800
 Subject: [PATCH] update tpm2-tss to 4.1.3
