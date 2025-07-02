@@ -12,6 +12,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.32.0
+
+This is a major Buildroot update to 2025.05 and a major Erlang update to 28.0.1.
+
+The Erlang/OTP 28 update has changes in many areas that affect Elixir libraries.
+Please take this opportunity to review and update other dependencies since many
+have fixes for OTP 28. Examples include `:x509` (OTP's public_key changes) and
+`:toolshed` (OTP's ssh client changes affected running commands).
+
+* Package updates
+  * [Erlang/OTP 28.0.1](https://erlang.org/download/OTP-28.0.1.README.md). Also
+    see [Erlang/OTP 28.0](https://erlang.org/download/OTP-28.0.README.md).
+  * [Buildroot 2025.05](https://lore.kernel.org/buildroot/87sek87ina.fsf@dell.be.48ers.dk/T/)
+
 # v1.31.3
 
 This is a bug fix update for 1.31.2.
