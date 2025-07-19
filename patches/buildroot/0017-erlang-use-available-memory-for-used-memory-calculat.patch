@@ -1,4 +1,4 @@
-From 7227bc07b695874a3c7c1bca28fa1de7493dd8c2 Mon Sep 17 00:00:00 2001
+From 0c4dd3865a40a6d9f7607076572f8e890faf500e Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 7 Jul 2025 14:23:04 -0400
 Subject: [PATCH] erlang: use available memory for used memory calculation
@@ -6,13 +6,13 @@ Subject: [PATCH] erlang: use available memory for used memory calculation
 ---
  ...able-memory-on-Linux-for-used-memory.patch | 79 +++++++++++++++++++
  1 file changed, 79 insertions(+)
- create mode 100644 package/erlang/27.3.4.1/0002-memsup-use-available-memory-on-Linux-for-used-memory.patch
+ create mode 100644 package/erlang/27.3.4.2/0002-memsup-use-available-memory-on-Linux-for-used-memory.patch
 
-diff --git a/package/erlang/27.3.4.1/0002-memsup-use-available-memory-on-Linux-for-used-memory.patch b/package/erlang/27.3.4.1/0002-memsup-use-available-memory-on-Linux-for-used-memory.patch
+diff --git a/package/erlang/27.3.4.2/0002-memsup-use-available-memory-on-Linux-for-used-memory.patch b/package/erlang/27.3.4.2/0002-memsup-use-available-memory-on-Linux-for-used-memory.patch
 new file mode 100644
 index 0000000000..9922e5c58d
 --- /dev/null
-+++ b/package/erlang/27.3.4.1/0002-memsup-use-available-memory-on-Linux-for-used-memory.patch
++++ b/package/erlang/27.3.4.2/0002-memsup-use-available-memory-on-Linux-for-used-memory.patch
 @@ -0,0 +1,79 @@
 +From 3ee931e8acf916653bdc329f0543d415ccdc7326 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
