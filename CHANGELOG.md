@@ -12,6 +12,19 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.31.4
+
+This is a bug fix update for 1.31.3.
+
+* Changes
+  * Add Erlang patch to use Linux's available memory stat rather than computing
+    it from used memory for setting the `system_memory_high_watermark` alarm.
+    This gets rid of the alarm when Linux is caching a lot.
+
+* Package updates
+  * [Erlang/OTP 27.3.4.2](https://erlang.org/download/OTP-27.3.4.2.README.md)
+  * [fwup 1.13.1](https://github.com/fwup-home/fwup/releases/tag/v1.13.1)
+
 # v1.31.3
 
 This is a bug fix update for 1.31.2.
