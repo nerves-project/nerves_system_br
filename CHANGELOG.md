@@ -12,7 +12,7 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
-# v1.32.0
+## v1.32.0
 
 This is a major Buildroot update to 2025.05 and a major Erlang update to 28.0.1.
 
@@ -26,7 +26,20 @@ have fixes for OTP 28. Examples include `:x509` (OTP's public_key changes) and
     see [Erlang/OTP 28.0](https://erlang.org/download/OTP-28.0.README.md).
   * [Buildroot 2025.05](https://lore.kernel.org/buildroot/87sek87ina.fsf@dell.be.48ers.dk/T/)
 
-# v1.31.3
+## v1.31.4
+
+This is a bug fix update for 1.31.3.
+
+* Changes
+  * Add Erlang patch to use Linux's available memory stat rather than computing
+    it from used memory for setting the `system_memory_high_watermark` alarm.
+    This gets rid of the alarm when Linux is caching a lot.
+
+* Package updates
+  * [Erlang/OTP 27.3.4.2](https://erlang.org/download/OTP-27.3.4.2.README.md)
+  * [fwup 1.13.1](https://github.com/fwup-home/fwup/releases/tag/v1.13.1)
+
+## v1.31.3
 
 This is a bug fix update for 1.31.2.
 
@@ -35,7 +48,7 @@ This is a bug fix update for 1.31.2.
   * [rpi-libcamera v0.5.0+rpt20250429](https://github.com/raspberrypi/libcamera/releases/tag/v0.5.0%2Brpt20250429)
   * rpicam-apps 1.7.0
 
-# v1.31.2
+## v1.31.2
 
 This is a security/bug fix update for 1.31.1. It has the fix to
 [CVE-2025-4748](https://cna.erlef.org/cves/cve-2025-4748.html).
@@ -44,7 +57,7 @@ This is a security/bug fix update for 1.31.1. It has the fix to
   * [Erlang/OTP 27.3.4.1](https://erlang.org/download/OTP-27.3.4.1.README.md)
   * Raspberry Pi WiFi firmware 1:20240709-2~bpo12+1+rpt3
 
-# v1.31.1
+## v1.31.1
 
 This is mostly a security/bug fix update for 1.31.0.
 
@@ -53,7 +66,7 @@ This is mostly a security/bug fix update for 1.31.0.
   * [Buildroot 2025.02.3 (fixed 2025.02.2)](https://lore.kernel.org/buildroot/49d039c0-8121-4a91-8a69-889376f85c71@rnout.be/T/)
   * [fwup 1.13.0](https://github.com/fwup-home/fwup/releases/tag/v1.13.0)
 
-# v1.31.0
+## v1.31.0
 
 This is a major Buildroot update to 2025.02.1. It also includes a Mesa3D update
 that fixes Raspberry Pi 5 display issues.
@@ -67,7 +80,7 @@ that fixes Raspberry Pi 5 display issues.
   * [Buildroot 2025.02.1](https://lore.kernel.org/buildroot/60b8483c-b717-41ce-a406-bceb71c3a089@rnout.be/T/).
     Also see the [2025.02 release notes](https://lore.kernel.org/buildroot/87cyee9zm0.fsf@dell.be.48ers.dk/T/)
 
-# v1.30.1
+## v1.30.1
 
 This is a security fix update to v1.30.0. Please see the Erlang release notes.
 
@@ -80,7 +93,7 @@ this update.
 * Package updates
   * [Erlang/OTP 27.3.3](https://erlang.org/download/OTP-27.3.3.README.md)
 
-# v1.30.0
+## v1.30.0
 
 This update pulls in Buildroot 2024.11.2 and Erlang/OTP 27.3. This is a major
 Buildroot update.
