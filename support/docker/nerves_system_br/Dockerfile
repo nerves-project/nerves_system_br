@@ -1,4 +1,4 @@
-FROM hexpm/erlang:28.0.1-ubuntu-jammy-20250530
+FROM hexpm/erlang:28.0.2-ubuntu-jammy-20250714
 LABEL maintainer="Nerves Project developers <nerves@nerves-project.org>" \
       vendor="NervesProject" \
       description="Container with everything needed to build Nerves Systems"
@@ -6,7 +6,7 @@ LABEL maintainer="Nerves Project developers <nerves@nerves-project.org>" \
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
-ENV FWUP_VERSION=1.13.0
+ENV FWUP_VERSION=1.13.1
 
 # See https://github.com/CircleCI-Public/cimg-base/blob/main/Dockerfile.template for generic setup
 
