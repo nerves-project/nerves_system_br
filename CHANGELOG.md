@@ -12,6 +12,11 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.31.5
+
+* Package updates
+  * [fwup 1.13.2](https://github.com/fwup-home/fwup/releases/tag/v1.13.2)
+
 # v1.31.4
 
 This is a bug fix update for 1.31.3.
