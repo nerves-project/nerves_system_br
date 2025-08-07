@@ -12,6 +12,14 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.32.1
+
+This is a bug fix update for 1.32.0.
+
+* Package updates
+  * [Erlang/OTP 28.0.2](https://erlang.org/download/OTP-28.0.2.README.md)
+  * [fwup 1.13.2](https://github.com/fwup-home/fwup/releases/tag/v1.13.2)
+
 ## v1.32.0
 
 This is a major Buildroot update to 2025.05 and a major Erlang update to 28.0.1.
