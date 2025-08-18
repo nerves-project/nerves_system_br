@@ -45,7 +45,7 @@ RPI_LIBCAMERA_CXXFLAGS = -faligned-new
 endif
 
 ifeq ($(BR2_PACKAGE_RPI_LIBCAMERA_V4L2),y)
-RPI_LIBCAMERA_CONF_OPTS += -Dv4l2=true
+RPI_LIBCAMERA_CONF_OPTS += -Dv4l2=enabled
 else
 RPI_LIBCAMERA_CONF_OPTS += -Dv4l2=false
 endif
