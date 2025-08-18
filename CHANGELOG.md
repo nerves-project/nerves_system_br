@@ -12,6 +12,21 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.31.6
+
+This is a bug fix update for 1.31.5. It contains many CVE fixes from the
+Buildroot patch updates and a fix for libcamera support on the Raspberry Pi 5.
+Previous Raspberry Pis have no changes.
+
+* Changes
+  * Added `rpi-libpisp` package to support the Raspberry Pi 5's image processor
+  * Updated the `rpi-libcamera` package to check if `rpi-libpisp` is available
+    and enable the pipeline if so.
+
+* Package updates
+  * [Buildroot 2025.02.5](https://lore.kernel.org/buildroot/dbab32bd-1f0a-41c9-84e1-bdad5781fe85@rnout.be/T/)
+    [Buildroot 2025.02.4](https://lore.kernel.org/buildroot/b8864d40-6037-4d7e-878a-6674b266c74c@rnout.be/T/)
+
 # v1.31.5
 
 * Package updates
