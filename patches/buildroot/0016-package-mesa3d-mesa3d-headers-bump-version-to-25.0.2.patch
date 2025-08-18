@@ -1,4 +1,4 @@
-From 34f323efae57e74f745d631b06490bc43a5d0c0f Mon Sep 17 00:00:00 2001
+From 47548f9f23f3f0c3ade840bfb294fa606a699c7a Mon Sep 17 00:00:00 2001
 From: Bernd Kuhls <bernd@kuhls.net>
 Date: Fri, 21 Mar 2025 18:34:47 +0100
 Subject: [PATCH] package/{mesa3d, mesa3d-headers}: bump version to 25.0.2
@@ -102,7 +102,7 @@ https://gitlab.freedesktop.org/mesa/mesa/-/commit/5ddeea9a62f720e9fd3a6e5c76f74e
 
 Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 ---
- Config.in.legacy                              | 16 ++++-
+ Config.in.legacy                              | 15 ++++
  package/mesa3d-headers/mesa3d-headers.mk      |  2 +-
  ...t-proper-value-for-LIBCLC_INCLUDEDIR.patch |  8 +--
  ...tion-to-disable-optional-neon-suppor.patch | 18 ++---
@@ -115,17 +115,16 @@ Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
  support/testing/tests/package/test_kmscube.py |  2 +-
  .../tests/package/test_python_pyqt5.py        |  2 +-
  support/testing/tests/package/test_weston.py  |  2 +-
- 13 files changed, 117 insertions(+), 56 deletions(-)
+ 13 files changed, 117 insertions(+), 55 deletions(-)
 
 diff --git a/Config.in.legacy b/Config.in.legacy
-index 44ee749329..467dcc9bd1 100644
+index 1ac87b3dc6..f0c55c4aa8 100644
 --- a/Config.in.legacy
 +++ b/Config.in.legacy
-@@ -144,7 +144,21 @@ endif
+@@ -182,6 +182,21 @@ config BR2_PACKAGE_LIBEBUR128
+ 	  The libebur128 package has been removed from Buildroot.
  
- ###############################################################################
- 
--comment "Legacy options removed in 2025.02"
+ comment "Legacy options removed in 2025.02"
 +config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SWRAST
 +	bool "mesa Gallium swrast driver was replaced by softpipe"
 +	select BR2_LEGACY
@@ -240,7 +239,7 @@ index f3919478a6..3b9bca0693 100644
  -  vc4_c_args += '-DUSE_ARM_ASM'
  +  vc4_c_args += '-DVC4_TILING_LT_NEON'
 diff --git a/package/mesa3d/Config.in b/package/mesa3d/Config.in
-index 0412998214..ef2c2c3258 100644
+index 37d2221946..1bd0cf60c2 100644
 --- a/package/mesa3d/Config.in
 +++ b/package/mesa3d/Config.in
 @@ -50,7 +50,8 @@ config BR2_PACKAGE_MESA3D_OPENCL
@@ -309,7 +308,7 @@ index 0412998214..ef2c2c3258 100644
  	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
  	help
  	  This is a software opengl implementation using the Gallium3D
-@@ -307,7 +315,7 @@ comment "Vulkan drivers"
+@@ -308,7 +316,7 @@ comment "Vulkan drivers"
  config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_BROADCOM
  	bool "Vulkan broadcom driver"
  	depends on BR2_arm || BR2_aarch64
@@ -318,7 +317,7 @@ index 0412998214..ef2c2c3258 100644
  	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
  	help
  	  Vulkan broadcom driver.
-@@ -331,7 +339,7 @@ comment "intel vulkan needs a glibc toolchain w/ headers >= 3.17"
+@@ -332,7 +340,7 @@ comment "intel vulkan needs a glibc toolchain w/ headers >= 3.17"
  config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_SWRAST
  	bool "Vulkan swrast driver"
  	depends on BR2_PACKAGE_MESA3D_LLVM
@@ -327,7 +326,7 @@ index 0412998214..ef2c2c3258 100644
  	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
  	help
  	  Vulkan swrast driver.
-@@ -346,7 +354,7 @@ comment "Off-screen Rendering"
+@@ -347,7 +355,7 @@ comment "Off-screen Rendering"
  
  config BR2_PACKAGE_MESA3D_OSMESA_GALLIUM
  	bool "OSMesa (Gallium) library"
@@ -492,7 +491,7 @@ index 202fc5cc74..692846bae7 100644
  $(eval $(meson-package))
 +$(eval $(host-meson-package))
 diff --git a/support/testing/tests/package/test_flutter.py b/support/testing/tests/package/test_flutter.py
-index 08aa497417..e4040ca7dc 100644
+index e359a472ef..19406b7cb1 100644
 --- a/support/testing/tests/package/test_flutter.py
 +++ b/support/testing/tests/package/test_flutter.py
 @@ -22,7 +22,7 @@ class TestFlutter(infra.basetest.BRTest, GraphicsBase):
@@ -557,7 +556,7 @@ index 5f1952b559..65130f9c03 100644
          BR2_PACKAGE_MESA3D_OPENGL_EGL=y
          BR2_PACKAGE_MESA3D_OPENGL_ES=y
 diff --git a/support/testing/tests/package/test_weston.py b/support/testing/tests/package/test_weston.py
-index 2ed59a7f15..461ae50544 100644
+index 43b5240b2d..c4a522c95b 100644
 --- a/support/testing/tests/package/test_weston.py
 +++ b/support/testing/tests/package/test_weston.py
 @@ -22,7 +22,7 @@ class TestWeston(infra.basetest.BRTest, GraphicsBase):
