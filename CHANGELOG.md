@@ -12,6 +12,16 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+# v1.31.7
+
+This is a bug fix update for 1.31.6. It contains important CVE fixes to Erlang
+(especially ssh) and Buildroot packages. Please review the links to see if these
+pertain to you.
+
+* Package updates
+  * [Erlang/OTP 27.3.4.3](https://erlang.org/download/OTP-27.3.4.3.README.md)
+  * [Buildroot 2025.02.6](https://lore.kernel.org/buildroot/b051d400-debc-4269-975a-b2992eed8d61@rnout.be/T/)
+
 # v1.31.6
 
 This is a bug fix update for 1.31.5. It contains many CVE fixes from the
