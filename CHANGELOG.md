@@ -12,6 +12,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.32.2
+
+This is a security and bug fix update to 1.32.1.
+
+* Changes
+  * Added `rpi-libpisp` package to support the Raspberry Pi 5's image processor
+  * Updated the `rpi-libcamera` package to check if `rpi-libpisp` is available
+    and enable the pipeline if so.
+
+* Package updates
+  * [Erlang/OTP 28.1](https://erlang.org/download/OTP-28.1.README.md)
+  * [Buildroot 2025.05.2](https://lore.kernel.org/buildroot/991181e1-7f83-411d-b10c-f29c4d9dfd64@rnout.be/T/)
+  * [erlinit 1.14.4](https://github.com/nerves-project/erlinit/releases/tag/v1.14.4)
+
 ## v1.32.1
 
 This is a bug fix update for 1.32.0.
