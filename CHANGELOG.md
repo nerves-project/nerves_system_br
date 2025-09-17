@@ -34,6 +34,36 @@ have fixes for OTP 28. Examples include `:x509` (OTP's public_key changes) and
     see [Erlang/OTP 28.0](https://erlang.org/download/OTP-28.0.README.md).
   * [Buildroot 2025.05](https://lore.kernel.org/buildroot/87sek87ina.fsf@dell.be.48ers.dk/T/)
 
+# v1.31.7
+
+This is a bug fix update for 1.31.6. It contains important CVE fixes to Erlang
+(especially ssh) and Buildroot packages. Please review the links to see if these
+pertain to you.
+
+* Package updates
+  * [Erlang/OTP 27.3.4.3](https://erlang.org/download/OTP-27.3.4.3.README.md)
+  * [Buildroot 2025.02.6](https://lore.kernel.org/buildroot/b051d400-debc-4269-975a-b2992eed8d61@rnout.be/T/)
+
+# v1.31.6
+
+This is a bug fix update for 1.31.5. It contains many CVE fixes from the
+Buildroot patch updates and a fix for libcamera support on the Raspberry Pi 5.
+Previous Raspberry Pis have no changes.
+
+* Changes
+  * Added `rpi-libpisp` package to support the Raspberry Pi 5's image processor
+  * Updated the `rpi-libcamera` package to check if `rpi-libpisp` is available
+    and enable the pipeline if so.
+
+* Package updates
+  * [Buildroot 2025.02.5](https://lore.kernel.org/buildroot/dbab32bd-1f0a-41c9-84e1-bdad5781fe85@rnout.be/T/)
+    [Buildroot 2025.02.4](https://lore.kernel.org/buildroot/b8864d40-6037-4d7e-878a-6674b266c74c@rnout.be/T/)
+
+# v1.31.5
+
+* Package updates
+  * [fwup 1.13.2](https://github.com/fwup-home/fwup/releases/tag/v1.13.2)
+
 ## v1.31.4
 
 This is a bug fix update for 1.31.3.
