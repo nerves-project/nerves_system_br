@@ -10,9 +10,20 @@ config BR2_PACKAGE_NERVES_CONFIG
 	select BR2_PACKAGE_BOARDID  # ID board for assigning unique names
 	select BR2_PACKAGE_HOST_FWUP # Used by Nerves packaging tools
 	select BR2_TARGET_ROOTFS_SQUASHFS # Nerves uses squashfs archives
-	select BR2_PACKAGE_RNG_TOOLS # rngd needed for cryptographic random number gen
 	help
 	  Nerves system configuration helper. This selects a set of packages
 	  used by all Nerves systems so that they're never accidentally omitted.
 
 	  https://github.com/nerves-project/nerves_system_br
+
+config BR2_PACKAGE_NERVES_CONFIG_ACCEPT_RNG_NOTICE
+	bool "accept rng-tools is no longer required"
+	help
+	  Linux kernels prior to Linux 5.6 had many blocking issues when enough
+	  entropy was not available at early boot. This caused many hangs and
+	  was quite hard to debug if you weren't aware of the issue. As a
+	  result, Nerves automatically set BR2_PACKAGE_RNG_TOOLS=y. This is no
+	  longer an issue, so systems should choose whether they need it or not.
+	  Select this to accept that you have seen this message and taking the
+	  appropriate action for your Nerves system.
+
