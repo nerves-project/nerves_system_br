@@ -12,6 +12,22 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.32.3
+
+This is a security and bug fix update to 1.32.2.
+
+* Changes
+  * No longer require `rng-tools` to be installed to prevent the boot process
+    from hanging due to low entropy. This is no longer needed and can be removed
+    from most Nerves systems and can be removed from `erlinit.conf` scripts. In
+    order to prevent surprises, Nerves system maintainers will need to
+    acknowledge its removal via their `nerves_defconfig`. Instructions included
+    with the compilation error.
+
+* Package updates
+  * [Erlang/OTP 28.1.1](https://erlang.org/download/OTP-28.1.1.README.md)
+  * [Buildroot 2025.05.2](https://lore.kernel.org/buildroot/7bed9b2e-a9d3-476b-84d6-61134e2f726f@rnout.be/T/)
+
 ## v1.32.2
 
 This is a security and bug fix update to 1.32.1.
