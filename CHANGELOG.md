@@ -12,6 +12,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.32.4
+
+This is a security and bug fix update to 1.32.3.
+
+* Changes
+  * The docker container for Nerves systems builds has been updated to include
+    Erlang 28.1.1 and Ubuntu 24.04.
+
+* Package updates
+  * [fwup 1.14.0](https://github.com/fwup-home/fwup/releases/tag/v1.14.0)
+
 ## v1.32.3
 
 This is a security and bug fix update to 1.32.2.
