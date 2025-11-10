@@ -37,7 +37,7 @@ This is a security and bug fix update to 1.32.2.
 
 * Package updates
   * [Erlang/OTP 28.1.1](https://erlang.org/download/OTP-28.1.1.README.md)
-  * [Buildroot 2025.05.2](https://lore.kernel.org/buildroot/7bed9b2e-a9d3-476b-84d6-61134e2f726f@rnout.be/T/)
+  * [Buildroot 2025.05.3](https://lore.kernel.org/buildroot/7bed9b2e-a9d3-476b-84d6-61134e2f726f@rnout.be/T/)
 
 ## v1.32.2
 
