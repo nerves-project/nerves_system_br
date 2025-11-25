@@ -12,4 +12,4 @@ then
     exit 1
 fi
 
-find ./ -name "*.sh" -exec shellcheck {} \;
+find ./ -name "*.sh" -exec shellcheck {} \+
