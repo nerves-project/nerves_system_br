@@ -58,9 +58,9 @@ fi
 # Determine the location of the NERVES_SYSTEM directory. This script is
 # either being sourced from the directory or from the base of nerves_system_br.
 # If it's the latter, then point the helper script at the appropriate place.
-if [ -e "$SCRIPT_DIR/.config" ]; then
+if [[ -e "$SCRIPT_DIR/.config" ]]; then
     NERVES_SYSTEM=$SCRIPT_DIR
-elif [ -e "$SCRIPT_DIR/buildroot/output" ]; then
+elif [[ -e "$SCRIPT_DIR/buildroot/output" ]]; then
     NERVES_SYSTEM=$SCRIPT_DIR/buildroot/output
 else
     echo "ERROR: Can't find Nerves system directory. Has Nerves been built?"
@@ -85,7 +85,7 @@ else
     echo "Nerves configuration: $NERVES_DEFCONFIG"
     echo "Cross-compiler: $GCC_VERSION"
     echo "Erlang/OTP release on target: $NERVES_TARGET_ERL_VER"
-    if [ -n "$(which elixir)" ]; then
+    if [[ -n "$(command -v elixir)" ]]; then
         NERVES_ELIXIR_VERSION=$(elixir -v | grep lixir | cut -d' ' -f2-)
         echo "Elixir version (from path): $NERVES_ELIXIR_VERSION"
     else

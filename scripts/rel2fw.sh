@@ -171,7 +171,7 @@ fi
 "$NERVES_SYSTEM/scripts/merge-squashfs" "$NERVES_SDK_IMAGES/rootfs.squashfs" "$TMP_DIR/combined.squashfs" "$TMP_DIR/rootfs_overlay" "$SQUASHFS_PRIORITIES"
 
 # If a post processing script for the final rootfs was specified, run it
-if [ ! -z "${POST_PROCESSING_SCRIPT}" ]; then
+if [[ -n "${POST_PROCESSING_SCRIPT}" ]]; then
     echo "Running post-processing script: ${POST_PROCESSING_SCRIPT}"
     ${POST_PROCESSING_SCRIPT} "$TMP_DIR/combined.squashfs";
 fi
