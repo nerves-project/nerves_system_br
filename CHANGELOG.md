@@ -12,6 +12,19 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.32.5
+
+This is a security and bug fix update to 1.32.4.
+
+* Changes
+  * Fix `boardid` issue with handling U-Boot environment blocks beyond 2 GB
+  * Update Raspberry Pi WiFi module parameters for stability fix
+
+* Package updates
+  * [Erlang/OTP 28.2](https://erlang.org/download/OTP-28.2.README.md)
+  * [boardid 1.14.1](https://github.com/nerves-project/boardid/releases/tag/v1.14.1)
+  * [rpi-distro-firmware-nonfree 1:20241210-1+rpt4](https://github.com/RPi-Distro/firmware-nonfree/blob/trixie/debian/changelog)
+
 ## v1.32.4
 
 This is a security and bug fix update to 1.32.3.
