@@ -4,7 +4,7 @@
 #
 #############################################################
 
-NERVES_HEART_VERSION = v2.4.0
+NERVES_HEART_VERSION = v2.5.0
 NERVES_HEART_SITE = $(call github,nerves-project,nerves_heart,$(NERVES_HEART_VERSION))
 NERVES_HEART_LICENSE = Apache-2.0
 NERVES_HEART_LICENSE_FILES = LICENSES/Apache-2.0.txt
