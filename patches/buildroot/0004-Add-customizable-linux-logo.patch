@@ -1,4 +1,4 @@
-From 7112f48d2dfb8a84db0b80186d1cbdae7ef19fd1 Mon Sep 17 00:00:00 2001
+From 84654b13f2d61acf0915fad846e21ff3fff5bb5c Mon Sep 17 00:00:00 2001
 From: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 Date: Wed, 3 Feb 2016 00:05:42 +0100
 Subject: [PATCH] Add customizable linux logo
@@ -11,16 +11,16 @@ Signed-off-by: Angelo Compagnucci <angelo.compagnucci@gmail.com>
 ---
  linux/Config.ext.in              |  9 +++++++++
  linux/linux-ext-customlogo.mk    | 11 +++++++++++
- package/Config.in                |  1 +
+ package/Config.in                |  3 +++
  package/customlogo/Config.in     | 17 +++++++++++++++++
  package/customlogo/customlogo.mk | 25 +++++++++++++++++++++++++
- 5 files changed, 63 insertions(+)
+ 5 files changed, 65 insertions(+)
  create mode 100644 linux/linux-ext-customlogo.mk
  create mode 100644 package/customlogo/Config.in
  create mode 100644 package/customlogo/customlogo.mk
 
 diff --git a/linux/Config.ext.in b/linux/Config.ext.in
-index 3cbf42d344..1f6f3ef7a4 100644
+index 3b72d3cf60..d1f83b2bd5 100644
 --- a/linux/Config.ext.in
 +++ b/linux/Config.ext.in
 @@ -1,5 +1,14 @@
@@ -56,17 +56,19 @@ index 0000000000..ed9cbc1caf
 +	cp $(CUSTOMLOGO_DIR)/logo_linux_*.p?m $(LINUX_DIR)/drivers/video/logo
 +endef
 diff --git a/package/Config.in b/package/Config.in
-index 4a81a62ec4..5ed7f36613 100644
+index 83414b3e0b..16a79f8db2 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -280,6 +280,7 @@ comment "Sounds"
+@@ -276,6 +276,9 @@ comment "Sounds"
+ 	source "package/sound-theme-borealis/Config.in"
+ 	source "package/sound-theme-freedesktop/Config.in"
  
- comment "Themes"
- 	source "package/gtk2-engines/Config.in"
++comment "Themes"
 +	source "package/customlogo/Config.in"
- 
++
  endmenu
  
+ menu "Games"
 diff --git a/package/customlogo/Config.in b/package/customlogo/Config.in
 new file mode 100644
 index 0000000000..3044b14420

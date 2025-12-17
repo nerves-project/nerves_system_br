@@ -1,4 +1,4 @@
-From 451a5420d4177b66283788da55b289ec1fc9d895 Mon Sep 17 00:00:00 2001
+From 968119f3e3d1f997c0755e649e2b8ae60f7d17eb Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 30 May 2019 08:49:48 -0400
 Subject: [PATCH] Install Linux headers to staging
@@ -10,10 +10,10 @@ used that may not be available in the prebuilt toolchain.
  1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/linux/linux.mk b/linux/linux.mk
-index f915823dcf..cace289aaf 100644
+index 0520394931..c6745d30b4 100644
 --- a/linux/linux.mk
 +++ b/linux/linux.mk
-@@ -589,12 +589,22 @@ ifeq ($(BR2_STRIP_strip),y)
+@@ -593,12 +593,22 @@ ifeq ($(BR2_STRIP_strip),y)
  LINUX_MAKE_FLAGS += INSTALL_MOD_STRIP=1
  endif
  

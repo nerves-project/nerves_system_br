@@ -1,4 +1,4 @@
-From 2c556aeb52ea624a2fb3ca5e6ab7541eaa28c0a8 Mon Sep 17 00:00:00 2001
+From 910ebc48dbf4e376a9c363e6696c0562818f2175 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 28
@@ -1287,12 +1287,12 @@ index 724f91123b..b0856a82f3 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 9fc5a6eabf..394a5d8b8e 100644
+index 7ff587e35c..394a5d8b8e 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,19 @@
--# From https://github.com/erlang/otp/releases/download/OTP-26.0.2/SHA256.txt
--sha256  47853ea9230643a0a31004433f07a71c1b92d6e0094534f629e3b75dbc62f193  otp_src_26.0.2.tar.gz
+-# From https://github.com/erlang/otp/releases/download/OTP-26.2.5.15/SHA256.txt
+-sha256  28e6d63d82927f132d56289dd3c428ef8bce6bf2283c8549aa0a7afca1a8fe3b  otp_src_26.2.5.15.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-28.2/SHA256.txt
 +sha256  b0f6e1273a034e91c4fa6895e8cb84276baf5ca7a23b29da4f04ff9d0419a0c2  otp_src_28.2.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-27.3.4.3/SHA256.txt
@@ -1313,14 +1313,14 @@ index 9fc5a6eabf..394a5d8b8e 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index c05c51fff4..fdc36ce80e 100644
+index 3472f4119d..fdc36ce80e 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -4,7 +4,44 @@
  #
  ################################################################################
  
--ERLANG_VERSION = 26.0.2
+-ERLANG_VERSION = 26.2.5.15
 +# When updating Erlang, the ERLANG_ERTS_VSN is found in erts/vsn.mk.
 +ifeq ($(BR2_PACKAGE_ERLANG_21),y)
 +ERLANG_VERSION = 21.3.8.24
