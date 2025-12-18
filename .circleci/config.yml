@@ -1,8 +1,8 @@
 version: 2.1
 
 defaults: &defaults
-  docker:
-    - image: cimg/base:stable
+  machine:
+    image: ubuntu-2204:current
   working_directory: ~/repo
 
 run_tests: &run_tests
@@ -27,70 +27,6 @@ docker_env: &docker_env
       echo "export DOCKER_REPO=ghcr.io/$REPO" >> $BASH_ENV
       echo "export DOCKER_TAG=$TAG" >> $BASH_ENV
       echo "export DOCKER_PATH=support/docker/nerves_system_br" >> $BASH_ENV
-
-docker_build_amd64: &docker_build_amd64
-  run:
-    name: Build docker image (amd64)
-    command: |
-       mkdir -p ~/docker
-       docker context create my_context
-       docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-       docker buildx create --name multiarch --driver docker-container --use my_context
-       docker buildx build --platform linux/amd64 $DOCKER_PATH --tag $DOCKER_REPO:$DOCKER_TAG"_amd64" --load --progress=plain
-       docker save $DOCKER_REPO:$DOCKER_TAG"_amd64" -o ~/docker/$DOCKER_TAG"_amd64.tar"
-
-docker_build_arm64: &docker_build_arm64
-  run:
-    name: Build docker image (arm64)
-    command: |
-       mkdir -p ~/docker
-       docker context create my_context
-       docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-       docker buildx create --name multiarch --driver docker-container --use my_context
-       docker buildx build --platform linux/arm64 $DOCKER_PATH --tag $DOCKER_REPO:$DOCKER_TAG"_arm64" --load --progress=plain
-       docker save $DOCKER_REPO:$DOCKER_TAG"_arm64" -o ~/docker/$DOCKER_TAG"_arm64.tar"
-
-docker_import_amd64: &docker_import_amd64
-  run:
-    name: Import docker image (amd64)
-    command: |
-      docker load -i ~/docker/$DOCKER_TAG"_amd64".tar
-
-docker_import_arm64: &docker_import_arm64
-  run:
-    name: Import docker image (arm64)
-    command: |
-      docker load -i ~/docker/$DOCKER_TAG"_arm64".tar
-
-docker_push_amd64: &docker_push_amd64
-  run:
-    name: Push docker image to ghcr.io (amd64)
-    command: |
-      echo $GITHUB_TOKEN | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
-
-      docker image tag $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:dev_amd64
-      docker push $DOCKER_REPO:dev_amd64
-
-      if [ -n "$CIRCLE_TAG" ]; then
-        docker image tag $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:latest_amd64
-        docker push $DOCKER_REPO:$DOCKER_TAG"_amd64"
-        docker push $DOCKER_REPO:latest_amd64
-      fi
-
-docker_push_arm64: &docker_push_arm64
-  run:
-    name: Push docker image to ghcr.io (arm64)
-    command: |
-      echo $GITHUB_TOKEN | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
-
-      docker image tag $DOCKER_REPO:$DOCKER_TAG"_arm64" $DOCKER_REPO:dev_arm64
-      docker push $DOCKER_REPO:dev_arm64
-
-      if [ -n "$CIRCLE_TAG" ]; then
-        docker image tag $DOCKER_REPO:$DOCKER_TAG"_arm64" $DOCKER_REPO:latest_arm64
-        docker push $DOCKER_REPO:$DOCKER_TAG"_arm64"
-        docker push $DOCKER_REPO:latest_arm64
-      fi
 
 docker_push_manifest: &docker_push_manifest
   run:
@@ -122,84 +58,72 @@ jobs:
           name: shellcheck
           working_directory: ~/repo
           command: |
+            sudo apt update && sudo apt install shellcheck -y
             ./scripts/shellchecks.sh
 
-  build_amd64:
+  build_push_amd64:
     <<: *defaults
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            sudo apt-get update && sudo apt-get install -y docker-buildx-plugin
-      - setup_remote_docker
       - <<: *docker_env
-      - <<: *docker_build_amd64
-      - save_cache:
-          key: docker-amd64-{{ .Branch }}-{{ .Revision }}
-          paths: "~/docker"
+      - run:
+          name: Build and push docker image (amd64)
+          command: |
+            echo $GITHUB_TOKEN | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
+            docker build $DOCKER_PATH --tag $DOCKER_REPO:$DOCKER_TAG"_amd64"
+            docker push $DOCKER_REPO:$DOCKER_TAG"_amd64"
 
-  build_arm64:
+            docker tag $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:dev_amd64
+            docker push $DOCKER_REPO:dev_amd64
+
+            if [ -n "$CIRCLE_TAG" ]; then
+              docker tag $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:latest_amd64
+              docker push $DOCKER_REPO:latest_amd64
+            fi
+
+  build_push_arm64:
     <<: *defaults
-    resource_class: large
+    resource_class: arm.large
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: |
-            sudo apt-get update && sudo apt-get install -y docker-buildx-plugin
-      - setup_remote_docker
       - <<: *docker_env
-      - <<: *docker_build_arm64
-      - save_cache:
-          key: docker-arm64-{{ .Branch }}-{{ .Revision }}
-          paths: "~/docker"
+      - run:
+          name: Build and push docker image (arm64)
+          command: |
+            echo $GITHUB_TOKEN | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
+            docker build $DOCKER_PATH --tag $DOCKER_REPO:$DOCKER_TAG"_arm64"
+            docker push $DOCKER_REPO:$DOCKER_TAG"_arm64"
+
+            docker tag $DOCKER_REPO:$DOCKER_TAG"_arm64" $DOCKER_REPO:dev_arm64
+            docker push $DOCKER_REPO:dev_arm64
+
+            if [ -n "$CIRCLE_TAG" ]; then
+              docker tag $DOCKER_REPO:$DOCKER_TAG"_arm64" $DOCKER_REPO:latest_arm64
+              docker push $DOCKER_REPO:latest_arm64
+            fi
 
   test_amd64:
     docker:
       - image: ghcr.io/nerves-project/nerves_system_br:dev_amd64
+    resource_class: large
     working_directory: ~/repo
     steps:
       - checkout
       - <<: *run_tests
 
-  # test_arm64:
-  #   docker:
-  #     - image: ghcr.io/nerves-project/nerves_system_br:dev_arm64
-  #   working_directory: ~/repo
-  #   steps:
-  #     - checkout
-  #     - <<: *run_tests
-
-  push_amd64:
-    <<: *defaults
+  test_arm64:
+    docker:
+      - image: ghcr.io/nerves-project/nerves_system_br:dev_arm64
+    resource_class: arm.large
+    working_directory: ~/repo
     steps:
       - checkout
-      - setup_remote_docker
-      - <<: *docker_env
-      - restore_cache:
-          keys:
-            - docker-amd64-{{ .Branch }}-{{ .Revision }}
-      - <<: *docker_import_amd64
-      - <<: *docker_push_amd64
-
-  push_arm64:
-    <<: *defaults
-    steps:
-      - checkout
-      - setup_remote_docker
-      - <<: *docker_env
-      - restore_cache:
-          keys:
-            - docker-arm64-{{ .Branch }}-{{ .Revision }}
-      - <<: *docker_import_arm64
-      - <<: *docker_push_arm64
+      - <<: *run_tests
 
   push_manifest:
     <<: *defaults
     steps:
       - checkout
-      - setup_remote_docker
       - <<: *docker_env
       - <<: *docker_push_manifest
 
@@ -214,49 +138,35 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - build_amd64:
+      - build_push_amd64:
           context: org-global
           filters:
             tags:
               only: /.*/
-      - build_arm64:
+      - build_push_arm64:
           context: org-global
-          filters:
-            tags:
-              only: /.*/
-      - push_amd64:
-          context: org-global
-          requires:
-            - build_amd64
-          filters:
-            tags:
-              only: /.*/
-      - push_arm64:
-          context: org-global
-          requires:
-            - build_arm64
-          filters:
-            tags:
-              only: /.*/
-      - push_manifest:
-          context: org-global
-          requires:
-            - push_amd64
-            - push_arm64
           filters:
             tags:
               only: /.*/
       - test_amd64:
           context: org-global
           requires:
-            - push_manifest
+            - build_push_amd64
           filters:
             tags:
               only: /.*/
-      # - test_arm64:
-      #     context: org-global
-      #     requires:
-      #       - push_arm64
-      #     filters:
-      #       tags:
-      #         only: /.*/
+      - test_arm64:
+          context: org-global
+          requires:
+            - build_push_arm64
+          filters:
+            tags:
+              only: /.*/
+      - push_manifest:
+          context: org-global
+          requires:
+            - test_amd64
+            - test_arm64
+          filters:
+            tags:
+              only: /.*/
