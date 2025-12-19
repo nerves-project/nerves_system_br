@@ -4,7 +4,7 @@
 #
 #############################################################
 
-BOARDID_VERSION = v1.14.1
+BOARDID_VERSION = v1.15.0
 BOARDID_SITE = $(call github,nerves-project,boardid,$(BOARDID_VERSION))
 BOARDID_LICENSE = Apache-2.0
 BOARDID_LICENSE_FILES = LICENSES/Apache-2.0.txt
