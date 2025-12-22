@@ -12,6 +12,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.33.0
+
+This is a major Buildroot update to 2025.11. While a major update and the
+Buildroot release notes should be reviewed, it updates a lot but doesn't appear
+to require changes to Nerves systems.
+
+* Package updates
+  * [Buildroot 2025.11](https://lore.kernel.org/buildroot/87bjk439tj.fsf@dell.be.48ers.dk/T/)
+  * [Erlang/OTP 28.3](https://erlang.org/download/OTP-28.3.README.md)
+  * [fwup 1.15.0](https://github.com/fwup-home/fwup/releases/tag/v1.15.0)
+  * [erlinit 1.15.1](https://github.com/nerves-project/erlinit/releases/tag/v1.15.1)
+  * [nerves_heart 2.5.0](https://github.com/nerves-project/nerves_heart/releases/tag/v2.5.0)
+  * [boardid 1.15.0](https://github.com/nerves-project/boardid/releases/tag/v1.15.0)
+
 ## v1.32.5
 
 This is a security and bug fix update to 1.32.4.
