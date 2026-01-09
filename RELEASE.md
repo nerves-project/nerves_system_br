@@ -1,3 +1,7 @@
+<!--
+  SPDX-FileCopyrightText: None
+  SPDX-License-Identifier: CC0-1.0
+-->
 # Release checklist
 
   1. Update `CHANGELOG.md` with a bulletpoint list of new features and bug fixes

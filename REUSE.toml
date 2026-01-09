@@ -2,14 +2,7 @@ version = 1
 
 [[annotations]]
 path = [
- ".circleci/config.yml",
- ".formatter.exs",
- ".gitignore",
- ".github/CODEOWNERS",
- ".tool-versions",
- "CHANGELOG.md",
  "NOTICE",
- "RELEASE.md",
  "REUSE.toml",
  "mix.exs",
  "VERSION"
