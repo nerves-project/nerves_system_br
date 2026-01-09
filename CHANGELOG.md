@@ -16,6 +16,15 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.33.1
+
+This release reverts Mesa3D from 25.2.3 to 25.1.9. Versions 25.2.0 and later
+currently don't work with Cog which is used by web kiosks. The 25.2.3 version
+was introduced by `nerves_system_br` v1.33.0. Prior versions used 25.1.8.
+
+* Package updates
+  * Mesa3D 25.1.9
+
 ## v1.33.0
 
 This is a major Buildroot update to 2025.11. While a major update and the
