@@ -181,6 +181,16 @@ echo "Building $FW_FILENAME..."
 ROOTFS="$TMP_DIR/combined.squashfs" $FWUP -c -f "$FWUP_CONFIG" \
 	-o "$FW_FILENAME"
 
+metadata=$($FWUP -m -i "$FW_FILENAME")
+if [[ $metadata =~ meta-uuid=\"([^\"]+)\" ]]; then
+    metadata_uuid="${BASH_REMATCH[1]}"
+    echo "Firmware UUID: $metadata_uuid"
+fi
+if [[ $metadata =~ meta-nickname=\"([^\"]+)\" ]]; then
+    metadata_nickname="${BASH_REMATCH[1]}"
+    echo "Nickname: $metadata_nickname"
+fi
+
 if [[ -n "$IMG_FILENAME" ]]; then
     # Create the output directory - just in case
     mkdir -p "$(dirname "$IMG_FILENAME")"
@@ -195,4 +205,3 @@ if [[ -n "$IMG_FILENAME" ]]; then
     echo "Building $IMG_FILENAME..."
     $FWUP -a -d "$IMG_FILENAME" -t complete -i "$FW_FILENAME"
 fi
-
