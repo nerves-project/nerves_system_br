@@ -46,8 +46,7 @@ path = [
  "board/nerves-common/rootfs_overlay/etc/sysctl.conf",
  "board/nerves-common/device_table.txt",
  "scripts/project-skel/elixir/rel/vm.args",
- "scripts/project-skel/elixir/rel/relx.config",
- "support/docker/nerves_system_br/Dockerfile"
+ "scripts/project-skel/elixir/rel/relx.config"
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "None"
