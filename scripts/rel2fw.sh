@@ -184,11 +184,12 @@ ROOTFS="$TMP_DIR/combined.squashfs" $FWUP -c -f "$FWUP_CONFIG" \
 metadata=$($FWUP -m -i "$FW_FILENAME")
 if [[ $metadata =~ meta-uuid=\"([^\"]+)\" ]]; then
     metadata_uuid="${BASH_REMATCH[1]}"
-    echo "Firmware UUID: $metadata_uuid"
-fi
-if [[ $metadata =~ meta-nickname=\"([^\"]+)\" ]]; then
-    metadata_nickname="${BASH_REMATCH[1]}"
-    echo "Nickname: $metadata_nickname"
+    if [[ $metadata =~ meta-nickname=\"([^\"]+)\" ]]; then
+        metadata_nickname="${BASH_REMATCH[1]}"
+        echo "Firmware UUID: $metadata_nickname ($metadata_uuid)"
+    else
+        echo "Firmware UUID: $metadata_uuid"
+    fi
 fi
 
 if [[ -n "$IMG_FILENAME" ]]; then
