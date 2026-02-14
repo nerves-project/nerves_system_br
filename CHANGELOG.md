@@ -16,6 +16,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.33.2
+
+This is a bug and security fix release. See the Erlang and Buildroot release
+notes for details.
+
+* Changes
+  * Log firmware nicknames if available
+
+* Package updates
+  * [Erlang/OTP 28.3.1](https://erlang.org/download/OTP-28.3.1.README.md)
+  * [Buildroot 2025.11.1](https://lore.kernel.org/buildroot/f6496994-b279-46f4-b554-7dbe2df92782@rnout.be/T/)
+
 ## v1.33.1
 
 This release reverts Mesa3D from 25.2.3 to 25.1.9. Versions 25.2.0 and later
