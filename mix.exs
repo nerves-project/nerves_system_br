@@ -31,6 +31,7 @@ defmodule Nerves.System.BR.Mixfile do
         "package",
         "patches",
         "scripts",
+        "support",
         "Config.in",
         "create-build.sh",
         "external.mk",
