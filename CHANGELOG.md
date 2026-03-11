@@ -16,6 +16,22 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.33.3
+
+This is a bug and security fix release.
+
+* Changes
+  * Improve patches involved with getting Cog and Mesa3D to work together. This
+    removes an older patch holding back the Mesa3D version with a Cog-specific
+    fix.
+  * Patch Weston to support a mouse cursor on Raspberry Pis. This is a minimal
+    patch that won't be necessary once Weston 15.0.0 is available in Buildroot.
+
+* Package updates
+  * Mesa3D 25.2.7 - Update from 25.1.9
+  * [Erlang/OTP 28.4](https://erlang.org/download/OTP-28.4.README.md)
+  * [Buildroot 2025.11.2](https://lore.kernel.org/buildroot/de9c890a-760a-4e6d-86b8-f8e5000a07ff@rnout.be/)
+
 ## v1.33.2
 
 This is a bug and security fix release. See the Erlang and Buildroot release
