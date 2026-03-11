@@ -1,0 +1,42 @@
+From 604768b4d261a5fd9371ed28efefd091ad6384bc Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 11 Mar 2026 11:56:36 -0400
+Subject: [PATCH] mesa3d: force legacy flag to fix Cog
+
+This fixes an issue with cog. The following are prints from the logs:
+
+```
+Renderer process terminated and failed to recover within 1000ms
+<> Crash!: The renderer process crashed. Reloading the page may fix intermittent failures.
+libEGL warning: failed to get driver name for fd -1
+libEGL warning: MESA-LOADER: failed to retrieve device information
+libEGL warning: failed to get driver name for fd -1
+libEGL warning: egl: failed to create dri2 screen
+libEGL warning: egl: failed to create dri2 screen
+Could not create WPE EGL display: EGL_NOT_INITIALIZED. Aborting...
+```
+
+See https://github.com/Igalia/cog/issues/774
+---
+ package/mesa3d/mesa3d.mk | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/package/mesa3d/mesa3d.mk b/package/mesa3d/mesa3d.mk
+index d79b8609c5..186f3939f2 100644
+--- a/package/mesa3d/mesa3d.mk
++++ b/package/mesa3d/mesa3d.mk
+@@ -266,6 +266,11 @@ else
+ MESA3D_CONF_OPTS += -Dzstd=disabled
+ endif
+ 
++ifeq ($(BR2_PACKAGE_COG),y)
++# See https://github.com/Igalia/cog/issues/774
++MESA3D_CONF_OPTS += -Dlegacy-wayland=bind-wayland-display
++endif
++
+ MESA3D_CFLAGS = $(TARGET_CFLAGS)
+ 
+ # m68k needs 32-bit offsets in switch tables to build
+-- 
+2.43.0
+
