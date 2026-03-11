@@ -1,0 +1,54 @@
+From 27409a9b0e27a7d08164ce55e987fc4ea5ba990f Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 11 Mar 2026 11:53:52 -0400
+Subject: [PATCH] weston: fix cursor render assertion on RPi
+
+This is a temporary patch that shouldn't be needed once it's possible to
+update to Weston 15.0.0.
+---
+ ...sertion-when-trying-to-render-cursor.patch | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+ create mode 100644 package/weston/0002-Fix-assertion-when-trying-to-render-cursor.patch
+
+diff --git a/package/weston/0002-Fix-assertion-when-trying-to-render-cursor.patch b/package/weston/0002-Fix-assertion-when-trying-to-render-cursor.patch
+new file mode 100644
+index 0000000000..85b75e58ef
+--- /dev/null
++++ b/package/weston/0002-Fix-assertion-when-trying-to-render-cursor.patch
+@@ -0,0 +1,33 @@
++From fd4cfc329d86f6ae818873051dd7fe7c727eb796 Mon Sep 17 00:00:00 2001
++From: Frank Hunleth <fhunleth@troodon-software.com>
++Date: Wed, 11 Mar 2026 11:48:08 -0400
++Subject: [PATCH] Fix assertion when trying to render cursor
++
++This is fixed in https://gitlab.freedesktop.org/wayland/weston/-/commit/d3ead778dea9bde77d318292b8870e746cad5c3d
++and will be in Weston 15.0.0.
++
++In the meantime, patch it so that a mouse can be used with web kiosks
++without the assertion triggering.
++---
++ libweston/backend-drm/state-propose.c | 5 ++++-
++ 1 file changed, 4 insertions(+), 1 deletion(-)
++
++diff --git a/libweston/backend-drm/state-propose.c b/libweston/backend-drm/state-propose.c
++index 2715ab6c..528f7444 100644
++--- a/libweston/backend-drm/state-propose.c
+++++ b/libweston/backend-drm/state-propose.c
++@@ -530,7 +530,10 @@ drm_output_find_plane_for_view(struct drm_output_state *state,
++ 				continue;
++ 			break;
++ 		case WDRM_PLANE_TYPE_OVERLAY:
++-			assert(fb);
+++                        if (!fb) {
+++                            drm_debug(b, "\t\t\t[view] couldn't get FB for view in plane loop\n");
+++                            continue;
+++                        }
++ 			assert(mode != DRM_OUTPUT_PROPOSE_STATE_RENDERER_ONLY);
++ 			/* if the view covers the whole output, put it in the
++ 			 * scanout plane, not overlay */
++-- 
++2.43.0
++
+-- 
+2.43.0
+
