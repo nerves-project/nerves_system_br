@@ -1,0 +1,26 @@
+From 41a3e52e4c36031c849f96cd7693b1fe76319670 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Thu, 12 Mar 2026 22:37:27 -0400
+Subject: [PATCH] Temporarily remove Linux legal info hashes
+
+Depending on which Linux version you're using the legal info files
+slightly changed. It looks like this is addressed in 2026.02, so remove
+the hash check for now.
+---
+ linux/linux.hash | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/linux/linux.hash b/linux/linux.hash
+index 0c07a21c85..ac58188d7e 100644
+--- a/linux/linux.hash
++++ b/linux/linux.hash
+@@ -12,6 +12,4 @@ sha256  93408e0c5d70ff0ab63dcf9edec6fda2b8524281d611a88e56590436bda43914  linux-
+ sha256  b3454708b98016f02604433e41060be2c1feb595c2bddeb25292596f047f0915  linux-cip-5.10.246-cip66-rt29.tar.gz
+ 
+ # Licenses hashes
+-sha256  fb5a425bd3b3cd6071a3a9aff9909a859e7c1158d54d32e07658398cd67eb6a0  COPYING
+-sha256  8780e78a1a737e127f25a65f6d95269bffd36158dc261114de7859b490bfc5aa  LICENSES/preferred/GPL-2.0
+ sha256  8e378ab93586eb55135d3bc119cce787f7324f48394777d00c34fa3d0be3303f  LICENSES/exceptions/Linux-syscall-note
+-- 
+2.43.0
+
