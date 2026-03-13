@@ -16,6 +16,17 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.33.4
+
+This is a security fix release.
+
+* Changes
+  * Temporarily remove Linux license hash checks until upstream Linux license
+    hash updates land. This change works around `make legal-info` failing when
+    run for v1.33.3 on Linux 6.17 and earlier.
+* Package updates
+  * [Erlang/OTP 28.4.1](https://erlang.org/download/OTP-28.4.1.README.md)
+
 ## v1.33.3
 
 This is a bug and security fix release.
