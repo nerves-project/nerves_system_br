@@ -45,7 +45,7 @@ fi
 # that won't work.
 if [[ "$SHELL" = "/bin/bash" ]]; then
     if [[ "$0" != "bash" && "$0" != "-bash" && "$0" != "/bin/bash" ]]; then
-        echo ERROR: This scripted should be sourced from bash:
+        echo ERROR: This script should be sourced from bash:
         echo
         echo source "${BASH_SOURCE[@]}"
         echo
