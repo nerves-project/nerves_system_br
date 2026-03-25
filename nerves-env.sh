@@ -43,16 +43,12 @@ fi
 
 # Detect if this script has been run directly rather than sourced, since
 # that won't work.
-if [[ "$SHELL" = "/bin/bash" ]]; then
-    if [[ "$0" != "bash" && "$0" != "-bash" && "$0" != "/bin/bash" ]]; then
-        echo ERROR: This scripted should be sourced from bash:
-        echo
-        echo source "${BASH_SOURCE[@]}"
-        echo
-        exit 1
-    fi
-#elif [[ "$SHELL" = "/bin/zsh" ]]; then
-# TODO: Figure out how to detect this error from other shells.
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    echo ERROR: This script should be sourced, not executed directly:
+    echo
+    echo source "${BASH_SOURCE[@]}"
+    echo
+    exit 1
 fi
 
 # Determine the location of the NERVES_SYSTEM directory. This script is
