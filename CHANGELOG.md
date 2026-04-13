@@ -16,6 +16,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.33.5
+
+This is a security fix release.
+
+* Changes
+  * Improve check for sourcing `nerves-env.sh` directly to avoid failing when
+    sourcing from scripts.
+
+* Package updates
+  * [Erlang/OTP 28.4.2](https://erlang.org/download/OTP-28.4.2.README.md)
+  * [Buildroot 2025.11.3](https://lore.kernel.org/buildroot/124c21a6-5810-495e-8b85-f3db41afa1a9@rnout.be/T/)
+
 ## v1.33.4
 
 This is a security fix release.
