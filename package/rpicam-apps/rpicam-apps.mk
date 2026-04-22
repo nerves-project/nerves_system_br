@@ -19,7 +19,8 @@ RPICAM_APPS_DEPENDENCIES = \
 
 RPICAM_APPS_CONF_OPTS = \
 	-Denable_opencv=disabled \
-	-Denable_tflite=disabled
+	-Denable_tflite=disabled \
+	-Denable_imx500=true
 
 ifeq ($(BR2_PACKAGE_LIBDRM),y)
 RPICAM_APPS_DEPENDENCIES += libdrm
