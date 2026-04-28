@@ -16,6 +16,14 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.33.6
+
+This is a security and bug fix release.
+
+* Package updates
+  * [fwup 1.15.1](https://github.com/fwup-home/fwup/releases/tag/v1.15.1)
+  * [Erlang/OTP 28.4.3](https://erlang.org/download/OTP-28.4.3.README.md)
+
 ## v1.33.5
 
 This is a security fix release.
