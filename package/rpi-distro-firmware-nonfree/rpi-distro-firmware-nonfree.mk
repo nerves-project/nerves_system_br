@@ -13,13 +13,15 @@ RPI_DISTRO_FIRMWARE_NONFREE_LICENSE_FILES = debian/copyright
 # 2. The cyfmac43455-sdio-minimal firmware isn't used. It's for increasing the number
 #    of supported clients in AP mode by removing functionality.
 # 3. The rpi-brcmfmac.conf file has parameter settings that reportedly fix a
-#    stability issue seen upstream
+#    stability issue seen upstream. Busybox modprobe uses /etc/modprobe.d and
+#    libkmod uses /lib/modprobe.d, so install in both.
 define RPI_DISTRO_FIRMWARE_NONFREE_INSTALL_TARGET_CMDS
 	mkdir -p "$(TARGET_DIR)/lib/firmware"
-	mkdir -p "$(TARGET_DIR)/lib/modprobe.d"
 	cp -dpfr "$(@D)/debian/config/brcm80211/brcm" "$(TARGET_DIR)/lib/firmware"
 	cp -dpfr "$(@D)/debian/config/brcm80211/cypress" "$(TARGET_DIR)/lib/firmware"
-	cp -dpf "$(@D)/debian/rpi-brcmfmac.conf" "$(TARGET_DIR)/lib/modprobe.d"
+	$(INSTALL) -D -m 0644 "$(@D)/debian/rpi-brcmfmac.conf" "$(TARGET_DIR)/lib/modprobe.d/rpi-brcmfmac.conf"
+	mkdir -p "$(TARGET_DIR)/etc/modprobe.d"
+	ln -sf ../../lib/modprobe.d/rpi-brcmfmac.conf "$(TARGET_DIR)/etc/modprobe.d/rpi-brcmfmac.conf"
 	rm -f "$(TARGET_DIR)/lib/firmware/cypress/cyfmac43455-sdio-minimal.bin"
 	rm -f "$(TARGET_DIR)/lib/firmware/cypress/README.txt"
 	ln -sf cyfmac43455-sdio-standard.bin "$(TARGET_DIR)/lib/firmware/cypress/cyfmac43455-sdio.bin"
