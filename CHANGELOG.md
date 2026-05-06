@@ -16,6 +16,15 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.33.8
+
+This release fixes a patch to turn off WiFi roaming and buggy features on
+Raspberry Pis. The patch was previously ineffective. With the patch, some
+Raspberry Pi 5s reportedly have been WiFi.
+
+* Package updates
+  * rpi-distro-firmware-nonfree: fix modprobe.d location for Busybox modprobe
+
 ## v1.33.7
 
 This is a security and bug fix release.
