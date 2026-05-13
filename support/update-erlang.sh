@@ -5,7 +5,7 @@
 
 # update-erlang.sh
 #
-# Bump Erlang/OTP patch releases (OTP 26, 27, 28) in nerves_system_br and
+# Bump Erlang/OTP patch releases (OTP 26, 27, 28, 29) in nerves_system_br and
 # optionally open a GitHub PR.
 #
 # Usage:
@@ -21,7 +21,7 @@
 # How it works
 # ────────────
 # nerves_system_br carries erlang version support as a patch to Buildroot:
-#   patches/buildroot/0007-erlang-support-OTP-21-28.patch
+#   patches/buildroot/0007-erlang-support-OTP-21-29.patch
 #
 # That patch file touches three things inside Buildroot's package/erlang/:
 #   erlang.mk    - ifeq chain mapping BR2_PACKAGE_ERLANG_N → VERSION + ERTS_VSN
@@ -37,7 +37,7 @@
 # ERTS version comes from erts/vsn.mk inside the OTP source tarball.
 # SHA256 is fetched from the upstream SHA256.txt release asset.
 #
-# Additionally updates two files that track the default OTP version (OTP 28):
+# Additionally updates two files that track the default OTP version (OTP 29):
 #   .tool-versions                               - asdf erlang version
 #   support/docker/nerves_system_br/Dockerfile   - FROM hexpm/erlang:{tag}
 #
@@ -55,9 +55,9 @@ CREATE_PR=false
 DRY_RUN=false
 
 # OTP major versions to manage (oldest to newest; newest = default in erlang.mk)
-OTP_MAJORS=(26 27 28)
+OTP_MAJORS=(26 27 28 29)
 
-PATCH_RELATIVE="patches/buildroot/0007-erlang-support-OTP-21-28.patch"
+PATCH_RELATIVE="patches/buildroot/0007-erlang-support-OTP-21-29.patch"
 TOOL_VERSIONS_RELATIVE=".tool-versions"
 DOCKERFILE_RELATIVE="support/docker/nerves_system_br/Dockerfile"
 ERLANG_TAGS_URL="https://fhunleth.github.io/latest_elixir/erlang-tags.txt"
@@ -122,16 +122,17 @@ current_erts_vsn() {
 
 # Latest released tag for the given OTP major using git ls-remote.
 # Handles both N.M.P and N.M.P.Q (patch-on-patch) versioning.
+# Pre-release tags (OTP-29.0-rc1 etc) are excluded — `--sort=-v:refname`
+# orders them AFTER the matching release tag, which would otherwise win.
 latest_otp_version() {
   local major="$1"
-  # --sort=-v:refname sorts as version strings descending; first result is latest.
-  # Filter out ^{} deref lines; take the bare tag name.
   git ls-remote --tags --sort=-v:refname \
     https://github.com/erlang/otp \
     "refs/tags/OTP-${major}.*" 2>/dev/null \
     | grep -v '\^{}' \
-    | head -1 \
-    | sed 's|.*refs/tags/OTP-||'
+    | sed 's|.*refs/tags/OTP-||' \
+    | grep -vE -- '-(rc|alpha|beta)' \
+    | head -1
 }
 
 # ── Tarball introspection ─────────────────────────────────────────────────────
