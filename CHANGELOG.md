@@ -16,6 +16,16 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.33.9
+
+This is a security and bug fix release.
+
+* Changes
+  * Fix compilation of host-libunistring on glibc 2.43 hosts
+
+* Package updates
+  * [Erlang/OTP 28.5.0.1](https://erlang.org/download/OTP-28.5.0.1.README.md)
+
 ## v1.33.8
 
 This release fixes a patch to turn off WiFi roaming and buggy features on
