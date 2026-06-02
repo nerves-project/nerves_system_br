@@ -25,7 +25,6 @@ docker_env: &docker_env
         TAG=$(cat VERSION)
       fi
 
-      echo "export DOCKER_CLI_EXPERIMENTAL=enabled" >> $BASH_ENV
       echo "export DOCKER_REPO=ghcr.io/$REPO" >> $BASH_ENV
       echo "export DOCKER_TAG=$TAG" >> $BASH_ENV
       echo "export DOCKER_PATH=support/docker/nerves_system_br" >> $BASH_ENV
@@ -37,11 +36,8 @@ docker_push_manifest: &docker_push_manifest
       echo $GITHUB_TOKEN | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
 
       if [ -n "$CIRCLE_TAG" ]; then
-        docker manifest create $DOCKER_REPO:latest $DOCKER_REPO:latest_amd64 $DOCKER_REPO:latest_arm64
-        docker manifest create $DOCKER_REPO:$DOCKER_TAG $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:$DOCKER_TAG"_arm64"
-
-        docker manifest push $DOCKER_REPO:$DOCKER_TAG
-        docker manifest push $DOCKER_REPO:latest
+        docker buildx imagetools create -t $DOCKER_REPO:$DOCKER_TAG $DOCKER_REPO:$DOCKER_TAG"_amd64" $DOCKER_REPO:$DOCKER_TAG"_arm64"
+        docker buildx imagetools create -t $DOCKER_REPO:latest $DOCKER_REPO:latest_amd64 $DOCKER_REPO:latest_arm64
       fi
 
 jobs:
