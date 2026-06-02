@@ -1059,7 +1059,7 @@ notification below in addition to the following.
 
 This is primarily a bug fix release for Buildroot and Erlang/OTP. The Erlinit
 update brings in beta support for including a
-[`runtime.exs`](https://hexdocs.pm/mix/1.12.2/Mix.Tasks.Release.html#module-runtime-configuration)
+[`runtime.exs`](https://mix.hexdocs.pm/1.12.2/Mix.Tasks.Release.html#module-runtime-configuration)
 in your project. This support is new and may lead to reboot loops if you have
 not configured your system to revert to previous firmware loads on failures.
 

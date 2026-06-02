@@ -7,7 +7,7 @@
 Nerves System BR provides the common logic for building Nerves Systems using
 [Buildroot](https://buildroot.org/). If you're new to Nerves, you probably don't
 want to look at this repository. Please check out the official
-[documentation](https://hexdocs.pm/nerves/getting-started.html).
+[documentation](https://nerves.hexdocs.pm/getting-started.html).
 
 For examples of using `nerves_system_br`, take a look at the officially
 supported hardware systems:
