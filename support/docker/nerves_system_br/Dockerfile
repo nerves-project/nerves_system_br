@@ -105,7 +105,8 @@ RUN apt-get -o APT::Retries=3 install -y --no-install-recommends \
     automake \
     libtool \
     libarchive-dev \
-    libconfuse-dev
+    libconfuse-dev \
+    libsctp-dev
 
 # Install packages to make image easier to use
 RUN apt-get -o APT::Retries=3 install -y --no-install-recommends \
