@@ -1,4 +1,4 @@
-From 67b2e7afa8a6d9009ead714a6eee66cb1760961a Mon Sep 17 00:00:00 2001
+From 71f8c3af75742c5e10dc275e5550cccd6b71b353 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 29
@@ -32,9 +32,9 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  ...-update-df-call-to-work-with-Busybox.patch | 77 +++++++++++++++++++
  ...-update-df-call-to-work-with-Busybox.patch | 57 ++++++++++++++
  ...-update-df-call-to-work-with-Busybox.patch | 57 ++++++++++++++
- package/erlang/Config.in                      | 57 +++++++++++++++
+ package/erlang/Config.in                      | 57 ++++++++++++++
  package/erlang/erlang.hash                    | 20 ++++-
- package/erlang/erlang.mk                      | 48 ++++++++++-
+ package/erlang/erlang.mk                      | 48 +++++++++++-
  26 files changed, 1212 insertions(+), 3 deletions(-)
  create mode 100644 package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
  create mode 100644 package/erlang/21.3.8.24/0002-erts-emulator-reorder-inclued-headers-paths.patch
@@ -1289,7 +1289,7 @@ index 0000000000..8e30ef0365
 +2.43.0
 +
 diff --git a/package/erlang/Config.in b/package/erlang/Config.in
-index 724f91123b..b0856a82f3 100644
+index 724f91123b..e98af82f05 100644
 --- a/package/erlang/Config.in
 +++ b/package/erlang/Config.in
 @@ -42,6 +42,63 @@ config BR2_PACKAGE_ERLANG
@@ -1357,7 +1357,7 @@ index 724f91123b..b0856a82f3 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 7ff587e35c..f681b5db14 100644
+index 7ff587e35c..ed05d8293b 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,21 @@
@@ -1385,7 +1385,7 @@ index 7ff587e35c..f681b5db14 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index 3472f4119d..561076dd89 100644
+index 3472f4119d..07e7f6de77 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -4,7 +4,49 @@
@@ -1439,7 +1439,7 @@ index 3472f4119d..561076dd89 100644
  ERLANG_RELEASE = $(firstword $(subst ., ,$(ERLANG_VERSION)))
  ERLANG_SITE = \
  	https://github.com/erlang/otp/releases/download/OTP-$(ERLANG_VERSION)
-@@ -53,6 +90,10 @@ ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
+@@ -53,6 +95,10 @@ ERLANG_CONF_ENV += erl_xcomp_clock_gettime_cpu_time=yes
  
  ERLANG_CONF_OPTS = --without-javac
  
