@@ -1,4 +1,4 @@
-From 29491fe4c1cad5e4188cfb3fa0eed62dda0e8ec4 Mon Sep 17 00:00:00 2001
+From 6cae6f87c14378fc29a633fedd25f6c24ea36d7e Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 27 Mar 2022 08:40:06 -0400
 Subject: [PATCH] erlang: don't install to target
@@ -12,10 +12,10 @@ already on the target.
  1 file changed, 1 insertion(+)
 
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index fdc36ce80e..011740c703 100644
+index 07e7f6de77..9e98f0c51e 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
-@@ -53,6 +53,7 @@ ERLANG_LICENSE_FILES = LICENSE.txt
+@@ -58,6 +58,7 @@ ERLANG_LICENSE_FILES = LICENSE.txt
  ERLANG_CPE_ID_VENDOR = erlang
  ERLANG_CPE_ID_PRODUCT = erlang\/otp
  ERLANG_INSTALL_STAGING = YES
