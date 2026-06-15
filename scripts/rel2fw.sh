@@ -24,7 +24,11 @@ TMP_DIR=$BUILD_DIR/_nerves-tmp
 rm -fr "$TMP_DIR"
 mkdir -p "$TMP_DIR"
 function cleanup {
-  rm -fr "$TMP_DIR"
+  if [[ "$NERVES_DEBUG" == "1" ]]; then
+    echo "$SCRIPT_NAME: NERVES_DEBUG is set. Leaving $TMP_DIR for inspection."
+  else
+    rm -fr "$TMP_DIR"
+  fi
 }
 trap cleanup EXIT
 
