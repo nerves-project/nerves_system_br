@@ -49,14 +49,13 @@ jobs:
       - run: reuse lint
 
   lint:
-    <<: *defaults
+    docker:
+      - image: cimg/base:current
     steps:
       - checkout
       - run:
           name: shellcheck
-          working_directory: ~/repo
           command: |
-            sudo apt update && sudo apt install shellcheck -y
             ./scripts/shellchecks.sh
 
   build_push_amd64:
