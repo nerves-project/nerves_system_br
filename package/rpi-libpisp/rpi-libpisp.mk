@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RPI_LIBPISP_VERSION = v1.2.1
+RPI_LIBPISP_VERSION = v1.5.0
 RPI_LIBPISP_SITE = $(call github,raspberrypi,libpisp,$(RPI_LIBPISP_VERSION))
 RPI_LIBPISP_DEPENDENCIES = json-for-modern-cpp
 RPI_LIBPISP_CONF_OPTS = -Dlogging=disabled
