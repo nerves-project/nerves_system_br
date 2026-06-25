@@ -1,4 +1,4 @@
-From 53da7217cefdf45d3f3335a10956776a951ab74d Mon Sep 17 00:00:00 2001
+From 71a0193e2d1411caaf58361ccf25949f953c63e9 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 8 Jul 2019 10:44:12 -0400
 Subject: [PATCH] rpi-firmware: support custom version selection
@@ -16,7 +16,7 @@ example, if you're using the Raspberry Pi Linux kernel tagged
  2 files changed, 19 insertions(+)
 
 diff --git a/package/rpi-firmware/Config.in b/package/rpi-firmware/Config.in
-index 4dda33a713..2f55cb77cd 100644
+index 625f0ccf67..dd1821a52d 100644
 --- a/package/rpi-firmware/Config.in
 +++ b/package/rpi-firmware/Config.in
 @@ -11,6 +11,11 @@ config BR2_PACKAGE_RPI_FIRMWARE
@@ -32,7 +32,7 @@ index 4dda33a713..2f55cb77cd 100644
  	bool "rpi 0/1/2/3 bootcode.bin"
  	help
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index 83d0808990..5a9bc70bc8 100644
+index f1b1b110ce..cfec876b93 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
 @@ -6,6 +6,20 @@
@@ -57,5 +57,5 @@ index 83d0808990..5a9bc70bc8 100644
  RPI_FIRMWARE_LICENSE = BSD-3-Clause
  RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
 -- 
-2.43.0
+2.53.0
 

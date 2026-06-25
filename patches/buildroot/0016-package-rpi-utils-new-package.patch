@@ -1,4 +1,4 @@
-From 9af9119f451d4b1441b75627f489669d734288e0 Mon Sep 17 00:00:00 2001
+From db2b9097c66acd22b699bbcc0a48d8578fae09c6 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ga=C3=ABl=20PORTAY?= <gael.portay@rtone.fr>
 Date: Thu, 15 May 2025 12:00:00 +0000
 Subject: [PATCH] package/rpi-utils: new package
@@ -15,12 +15,21 @@ Upstream submission:
 https://patchwork.ozlabs.org/project/buildroot/patch/20250515-package-rpi-utils-new-package-v3-1-2@rtone.fr/
 
 Signed-off-by: Gaël PORTAY <gael.portay@rtone.fr>
+---
+ package/Config.in                |  1 +
+ package/rpi-utils/Config.in      | 12 ++++++++++++
+ package/rpi-utils/rpi-utils.hash |  3 +++
+ package/rpi-utils/rpi-utils.mk   | 18 ++++++++++++++++++
+ 4 files changed, 34 insertions(+)
+ create mode 100644 package/rpi-utils/Config.in
+ create mode 100644 package/rpi-utils/rpi-utils.hash
+ create mode 100644 package/rpi-utils/rpi-utils.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 371a1c33..240dd4ae 100644
+index 7a7d359d5a..ba72c104ba 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -447,6 +447,7 @@ menu "Firmware"
+@@ -449,6 +449,7 @@ menu "Firmware"
  	source "package/qoriq-restool/Config.in"
  	source "package/rcw-smarc-sal28/Config.in"
  	source "package/rpi-firmware/Config.in"
@@ -30,7 +39,7 @@ index 371a1c33..240dd4ae 100644
  	source "package/ux500-firmware/Config.in"
 diff --git a/package/rpi-utils/Config.in b/package/rpi-utils/Config.in
 new file mode 100644
-index 00000000..a2729167
+index 0000000000..a2729167aa
 --- /dev/null
 +++ b/package/rpi-utils/Config.in
 @@ -0,0 +1,12 @@
@@ -48,7 +57,7 @@ index 00000000..a2729167
 +	depends on BR2_STATIC_LIBS
 diff --git a/package/rpi-utils/rpi-utils.hash b/package/rpi-utils/rpi-utils.hash
 new file mode 100644
-index 00000000..a6612373
+index 0000000000..a6612373b0
 --- /dev/null
 +++ b/package/rpi-utils/rpi-utils.hash
 @@ -0,0 +1,3 @@
@@ -57,7 +66,7 @@ index 00000000..a6612373
 +sha256  731da956431d1a7c5073e7ee5ebe01f54e359c5339310b32f0893c6fe6507d5a  LICENCE
 diff --git a/package/rpi-utils/rpi-utils.mk b/package/rpi-utils/rpi-utils.mk
 new file mode 100644
-index 00000000..49db3aef
+index 0000000000..49db3aef9f
 --- /dev/null
 +++ b/package/rpi-utils/rpi-utils.mk
 @@ -0,0 +1,18 @@

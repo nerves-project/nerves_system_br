@@ -1,4 +1,4 @@
-From 8508699b89b79a932d6e0a88a316312a3b58fa91 Mon Sep 17 00:00:00 2001
+From 802336afc3f22aa83979cf22456e39a982f73fa7 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 7 Jul 2025 14:23:04 -0400
 Subject: [PATCH] erlang: use available memory for used memory calculation
@@ -181,5 +181,5 @@ index 0000000000..0a71c25069
 +2.43.0
 +
 -- 
-2.43.0
+2.53.0
 

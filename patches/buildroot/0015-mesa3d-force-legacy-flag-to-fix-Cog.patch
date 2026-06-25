@@ -1,4 +1,4 @@
-From 7bedf4c5e4fc3fb97ff747d0230ae65efd546aeb Mon Sep 17 00:00:00 2001
+From 7404253cbcaa60f90bf2175e32a5174717e6494a Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 11 Mar 2026 11:56:36 -0400
 Subject: [PATCH] mesa3d: force legacy flag to fix Cog
@@ -22,10 +22,10 @@ See https://github.com/Igalia/cog/issues/774
  1 file changed, 5 insertions(+)
 
 diff --git a/package/mesa3d/mesa3d.mk b/package/mesa3d/mesa3d.mk
-index f082d3c429..96a71601cf 100644
+index 905afece1b..8f4f01e1b4 100644
 --- a/package/mesa3d/mesa3d.mk
 +++ b/package/mesa3d/mesa3d.mk
-@@ -269,6 +269,11 @@ else
+@@ -272,6 +272,11 @@ else
  MESA3D_CONF_OPTS += -Dzstd=disabled
  endif
  
@@ -38,5 +38,5 @@ index f082d3c429..96a71601cf 100644
  
  # m68k needs 32-bit offsets in switch tables to build
 -- 
-2.43.0
+2.53.0
 

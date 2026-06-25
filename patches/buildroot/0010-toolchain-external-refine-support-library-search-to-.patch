@@ -1,4 +1,4 @@
-From ec70d88e954092873fc0e577bf5b4928e80f5cfd Mon Sep 17 00:00:00 2001
+From 9d3bdfd8e2f8f840b226fccee73f1d22ec70ddd8 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 12 Dec 2022 08:07:05 -0500
 Subject: [PATCH] toolchain-external: refine support library search to lib
@@ -71,5 +71,5 @@ index 270cf814ed..a6bf18a093 100644
  		if [ -e "$${LIBSTDCPP_A_LOCATION}" ]; then \
  			SUPPORT_LIB_DIR=`readlink -f $${LIBSTDCPP_A_LOCATION} | sed -r -e 's:libstdc\+\+\.a::'` ; \
 -- 
-2.43.0
+2.53.0
 
