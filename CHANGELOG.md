@@ -16,6 +16,24 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.34.0
+
+This is a significant update to many components. Please take care in updating as
+many packages have received security and feature updates.
+
+* Changes
+  * Erlang updated from 28.5.0.1 to 29.0.2
+  * Buildroot updated from 2025.11.3 to 2026.05
+  * Added rpi-utils package since rpi-userland is no longer available
+  * Updated libp11. If you're using NervesKey or an ATECC608, you must update
+    nerves_key_pkcs11 or you'll get a segfault on TLS connections.
+  * Erlang 26, 27, and 28 are now actively updated to their latest patch
+    releases at the time of this release if you can't use 29.0.2.
+
+* Package updates
+  * [Erlang/OTP 29.0.2](https://erlang.org/download/OTP-29.0.2.README.md)
+  * [Buildroot 2026.05](https://lore.kernel.org/buildroot/87fr2wpxhj.fsf@dell.be.48ers.dk/T/)
+
 ## v1.33.9
 
 This is a security and bug fix release.
