@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: None
 # SPDX-License-Identifier: CC0-1.0
-FROM hexpm/erlang:29.0.3-ubuntu-noble-20260610
+FROM hexpm/erlang:29.0.4-ubuntu-noble-20260610
 LABEL maintainer="Nerves Project developers <nerves@nerves-project.org>" \
       vendor="NervesProject" \
       description="Container with everything needed to build Nerves Systems"
