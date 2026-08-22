@@ -143,9 +143,14 @@ if [[ -e $HOME/.nerves/cache/buildroot ]]; then
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 fi
 
+BR_PATCH_DIRS=("$NERVES_SYSTEM/patches")
+if [[ -d "$NERVES_DEFCONFIG_DIR/patches/buildroot" ]]; then
+    BR_PATCH_DIRS+=("$NERVES_DEFCONFIG_DIR/patches/buildroot")
+fi
+
 NERVES_BR_STATE_FILE=$NERVES_SYSTEM/buildroot-$NERVES_BR_VERSION/.nerves-br-state
 NERVES_BR_EXPECTED_STATE_FILE=$BUILD_DIR/.nerves-expected-br-state
-"$NERVES_SYSTEM/scripts/buildroot-state.sh" $NERVES_BR_VERSION "$NERVES_SYSTEM/patches" > "$NERVES_BR_EXPECTED_STATE_FILE"
+"$NERVES_SYSTEM/scripts/buildroot-state.sh" $NERVES_BR_VERSION "${BR_PATCH_DIRS[@]}" > "$NERVES_BR_EXPECTED_STATE_FILE"
 
 create_buildroot_dir() {
     # Clean up any old versions of Buildroot
@@ -155,7 +160,7 @@ create_buildroot_dir() {
     "$NERVES_SYSTEM/scripts/download-buildroot.sh" $NERVES_BR_VERSION "$NERVES_BR_DL_DIR" "$NERVES_SYSTEM"
 
     # Apply Nerves-specific patches
-    "$NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh" "$NERVES_SYSTEM/buildroot" "$NERVES_SYSTEM/patches/buildroot"
+    "$NERVES_SYSTEM/buildroot/support/scripts/apply-patches.sh" "$NERVES_SYSTEM/buildroot" "${BR_PATCH_DIRS[@]}"
 
     # Symlink Buildroot's dl directory so that it can be cached between builds
     ln -sf "$NERVES_BR_DL_DIR" "$NERVES_SYSTEM/buildroot/dl"
