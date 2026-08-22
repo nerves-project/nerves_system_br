@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # SPDX-FileCopyrightText: 2016 Frank Hunleth
 # SPDX-FileCopyrightText: 2019 Matt Ludwigs
-# SPDX-FileCopyrightText: 2026 Matt Ludwigs
+# SPDX-FileCopyrightText: 2026 Ben Youngblood
 #
 # SPDX-License-Identifier: GPL-2.0-or-later
 #
