@@ -11,31 +11,24 @@
 #
 # Inputs:
 #   $1   The Buildroot version
-#   $2   The directory containing patches for Buildroot
+#   $2+  The directories containing patches for Buildroot
 #
 # Outputs:
 #   Text describing the Buildroot tree
 #
 
-set -e
+set -euo pipefail
 export LC_ALL=C
 
-BR_VERSION=$1
-shift
+BR_VERSION=${1-}
+shift || true
 BR_PATCH_DIRS=("$@")
 
 usage() {
     echo "buildroot-state.sh <BR version> <patch directory> [patch directory...]"
 }
 
-for patch_dir in "${BR_PATCH_DIRS[@]}"; do
-    if [[ ! -d $patch_dir ]]; then
-        echo "ERROR: Buildroot patch directory '$patch_dir' invalid"
-        exit 1
-    fi
-done
-
-if [[ -z $BR_VERSION || -z "${BR2_PATCH_DIRS[0]}" ]]; then
+if [[ -z $BR_VERSION || ${#BR_PATCH_DIRS[@]} -eq 0 ]]; then
     usage
     exit 1
 fi
@@ -56,8 +49,15 @@ for patch_dir in "${BR_PATCH_DIRS[@]}"; do
     echo "Patch directory $index:"
 
     pushd "$patch_dir" >/dev/null
-    find . -name "*.patch" | sort | while IFS= read -r patch; do
-        sha256sum "$patch"
-    done
+
+    # sha256sum over all the files in sorted order. Hidden files/dirs are excluded
+    # because apply-patches.sh won't apply them. Don't limit to just .patch files
+    # since apply-patches.sh will apply series files, patch tarballs, etc. Skip
+    # empty directories as well.
+    files=$(find . -type f -not -path '*/.*' | sort)
+    if [[ -n $files ]]; then
+        echo "$files" | xargs sha256sum
+    fi
+
     popd >/dev/null
 done
