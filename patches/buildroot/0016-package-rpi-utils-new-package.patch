@@ -1,4 +1,4 @@
-From db2b9097c66acd22b699bbcc0a48d8578fae09c6 Mon Sep 17 00:00:00 2001
+From 1c8c54a9af7d676302ca5ba661cace81fbe362c1 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ga=C3=ABl=20PORTAY?= <gael.portay@rtone.fr>
 Date: Thu, 15 May 2025 12:00:00 +0000
 Subject: [PATCH] package/rpi-utils: new package
@@ -26,7 +26,7 @@ Signed-off-by: Gaël PORTAY <gael.portay@rtone.fr>
  create mode 100644 package/rpi-utils/rpi-utils.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index 7a7d359d5a..ba72c104ba 100644
+index bb42c68c03..cad81cb8c9 100644
 --- a/package/Config.in
 +++ b/package/Config.in
 @@ -449,6 +449,7 @@ menu "Firmware"
@@ -35,8 +35,8 @@ index 7a7d359d5a..ba72c104ba 100644
  	source "package/rpi-firmware/Config.in"
 +	source "package/rpi-utils/Config.in"
  	source "package/sunxi-boards/Config.in"
- 	source "package/ts4900-fpga/Config.in"
  	source "package/ux500-firmware/Config.in"
+ 	source "package/wilc-firmware/Config.in"
 diff --git a/package/rpi-utils/Config.in b/package/rpi-utils/Config.in
 new file mode 100644
 index 0000000000..a2729167aa
