@@ -16,6 +16,18 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.34.3
+
+This is a security fix release.
+
+* Changes
+  * Support out-of-tree patches to Buildroot as a hopefully short term fix to a
+    better way at supporting alternative Buildroot trees. This is an advanced
+    feature, so see the Git commit adding it for more information.
+
+* Package updates
+  * [Buildroot 2026.05.2](https://lore.kernel.org/buildroot/buildroot-2026.05.2-announce-1787518882@buildroot.org/T/)
+
 ## v1.34.2
 
 This is a security fix release.
