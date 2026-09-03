@@ -10,6 +10,8 @@ set -e
 TEST_OUTPUT="$PWD/test_output"
 TEST_DIR="$PWD"
 
+export NERVES_BR_DIR="$TEST_OUTPUT/buildroot_dir"
+
 run_test() {
     TEST=$1
     echo "Running $TEST"
