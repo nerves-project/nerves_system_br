@@ -16,6 +16,14 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.34.5
+
+This is a security and bug fix release.
+
+* Package updates
+  * [Buildroot 2026.05.3](https://lore.kernel.org/buildroot/buildroot-2026.05.3-announce-1789069201@buildroot.org/T/)
+  * [fwup 1.17.0](https://github.com/fwup-home/fwup/releases/tag/v1.17.0)
+
 ## v1.34.4
 
 This is a security fix release.
