@@ -103,21 +103,21 @@ check_cmd tar
 # ── Version discovery ─────────────────────────────────────────────────────────
 
 # Current version for a given OTP major, read from the patch file.
-# Greps for the added (+) ERLANG_VERSION line whose value starts with {major}.
+# Matches either a diff-added (+) or diff-context (space) ERLANG_VERSION line.
 current_otp_version() {
   local major="$1"
-  grep "^+ERLANG_VERSION = ${major}\." "$PATCH_FILE" \
-    | head -1 \
-    | awk '{print $3}'
+  sed -nE "s|^[ +]ERLANG_VERSION = (${major}\\..*)$|\\1|p" "$PATCH_FILE" \
+    | head -1
 }
 
 # Current ERTS VSN for a given OTP version string, read from the patch file.
 current_erts_vsn() {
   local otp_version="$1"
   # The ERTS line immediately follows the ERLANG_VERSION line in the ifeq block.
-  grep -A1 "^+ERLANG_VERSION = ${otp_version}$" "$PATCH_FILE" \
-    | grep "^+ERLANG_ERTS_VSN = " \
-    | awk '{print $3}'
+  awk -v otp_version="$otp_version" '
+    $0 ~ "^[ +]ERLANG_VERSION = " otp_version "$" { found = 1; next }
+    found && $0 ~ "^[ +]ERLANG_ERTS_VSN = " { print $3; exit }
+  ' "$PATCH_FILE"
 }
 
 # Latest released tag for the given OTP major using git ls-remote.
@@ -176,7 +176,8 @@ fetch_sha256() {
 # ── Patch file editing ────────────────────────────────────────────────────────
 
 # Update one OTP major's entries inside the patch file.
-# All substitutions are version-string-unique, so plain sed -i is safe.
+# All substitutions are version-string-unique, so plain sed -i is safe while
+# preserving whether the matched line is a diff addition (+) or context line.
 update_patch_for_major() {
   local major="$1"
   local old_ver="$2"
@@ -187,17 +188,17 @@ update_patch_for_major() {
   local new_sha256="$7"
 
   log "  Patching erlang.mk  : ERLANG_VERSION  ${old_ver} -> ${new_ver}"
-  sed -i "s|^+ERLANG_VERSION = ${old_ver}$|+ERLANG_VERSION = ${new_ver}|" "$PATCH_FILE"
+  sed -Ei "s|^([ +])ERLANG_VERSION = ${old_ver}$|\\1ERLANG_VERSION = ${new_ver}|" "$PATCH_FILE"
 
   log "  Patching erlang.mk  : ERLANG_ERTS_VSN ${old_erts} -> ${new_erts}"
-  sed -i "s|^+ERLANG_ERTS_VSN = ${old_erts}$|+ERLANG_ERTS_VSN = ${new_erts}|" "$PATCH_FILE"
+  sed -Ei "s|^([ +])ERLANG_ERTS_VSN = ${old_erts}$|\\1ERLANG_ERTS_VSN = ${new_erts}|" "$PATCH_FILE"
 
   log "  Patching erlang.hash: ${old_sha256:0:16}…  otp_src_${old_ver}"
   log "                     -> ${new_sha256:0:16}…  otp_src_${new_ver}"
   # Hash value line
-  sed -i "s|^+sha256  ${old_sha256}  otp_src_${old_ver}.tar.gz$|+sha256  ${new_sha256}  otp_src_${new_ver}.tar.gz|" "$PATCH_FILE"
+  sed -Ei "s|^([ +])sha256  ${old_sha256}  otp_src_${old_ver}.tar.gz$|\\1sha256  ${new_sha256}  otp_src_${new_ver}.tar.gz|" "$PATCH_FILE"
   # Comment line above it
-  sed -i "s|^+# From .*/OTP-${old_ver}/SHA256.txt$|+# From https://github.com/erlang/otp/releases/download/OTP-${new_ver}/SHA256.txt|" "$PATCH_FILE"
+  sed -Ei "s|^([ +])# From .*/OTP-${old_ver}/SHA256.txt$|\\1# From https://github.com/erlang/otp/releases/download/OTP-${new_ver}/SHA256.txt|" "$PATCH_FILE"
 
   # Rename version-specific directory references in ALL buildroot patch files,
   # not just 0007. Any patch that adds a package/erlang/{version}/ directory
@@ -299,7 +300,7 @@ for MAJOR in "${OTP_MAJORS[@]}"; do
 
   OLD_ERTS="$(current_erts_vsn "$CURRENT")"
   [[ -n "$OLD_ERTS" ]] || die "Could not determine current ERTS VSN for OTP ${CURRENT}"
-  OLD_SHA="$(grep "^+sha256  .*  otp_src_${CURRENT}.tar.gz$" "$PATCH_FILE" | awk '{print $2}')"
+  OLD_SHA="$(sed -nE "s|^[ +]sha256  ([0-9a-f]+)  otp_src_${CURRENT}\\.tar\\.gz$|\\1|p" "$PATCH_FILE" | head -1)"
   [[ -n "$OLD_SHA" ]] || die "Could not find current SHA256 for otp_src_${CURRENT}.tar.gz in patch"
 
   if [[ "$DRY_RUN" == true ]]; then
@@ -447,4 +448,3 @@ else
   log "  git -C '${REPO_DIR}' add ${FILES_TO_ADD[*]}"
   log "  git -C '${REPO_DIR}' commit -m '${COMMIT_TITLE}'"
 fi
-
