@@ -58,7 +58,7 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/26.2.5.21/0002-erlang-libei-arch-compile.patch
  create mode 100644 package/erlang/27.3.4.17/0001-disksup-update-df-call-to-work-with-Busybox.patch
  create mode 100644 package/erlang/28.5.0.6/0001-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/29.0.6/0001-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/29.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
 
 diff --git a/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
@@ -1225,11 +1225,11 @@ index 0000000000..8e30ef0365
 +-- 
 +2.43.0
 +
-diff --git a/package/erlang/29.0.6/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/29.0.6/0001-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/29.1/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/29.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..8e30ef0365
 --- /dev/null
-+++ b/package/erlang/29.0.6/0001-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/29.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,57 @@
 +From aa48235ab5f561d78894e70cd84f853f9eaa2423 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1361,8 +1361,8 @@ index 667b27753e..3c8debc8fe 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,21 @@
-+# From https://github.com/erlang/otp/releases/download/OTP-29.0.6/SHA256.txt
-+sha256  36c89ffdac9d7531c19be0cee34355b167ea95188625d32bee61ebf49ac82afa  otp_src_29.0.6.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-29.1/SHA256.txt
++sha256  568b4edbeadc414b87257ebbb5ededc313ad7deaa688679ca0bd6bb49808cce1  otp_src_29.1.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-28.5.0.6/SHA256.txt
 +sha256  49d7a75e906334af54ae336ba53fc4e6ad100645e8e7efd3be008de284dab3ba  otp_src_28.5.0.6.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-27.3.4.17/SHA256.txt
@@ -1423,8 +1423,8 @@ index f48100a3f1..9c9fd00259 100644
 +ERLANG_VERSION = 28.5.0.6
 +ERLANG_ERTS_VSN = 16.4.0.6
 +else
-+ERLANG_VERSION = 29.0.6
-+ERLANG_ERTS_VSN = 17.0.6
++ERLANG_VERSION = 29.1
++ERLANG_ERTS_VSN = 17.1
 +endif
 +endif
 +endif
