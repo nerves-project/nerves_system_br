@@ -1,4 +1,4 @@
-From 1c8c54a9af7d676302ca5ba661cace81fbe362c1 Mon Sep 17 00:00:00 2001
+From c3fed4654246b9a5610fd6671ac7cfec0a3e0e2f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ga=C3=ABl=20PORTAY?= <gael.portay@rtone.fr>
 Date: Thu, 15 May 2025 12:00:00 +0000
 Subject: [PATCH] package/rpi-utils: new package
@@ -26,10 +26,10 @@ Signed-off-by: Gaël PORTAY <gael.portay@rtone.fr>
  create mode 100644 package/rpi-utils/rpi-utils.mk
 
 diff --git a/package/Config.in b/package/Config.in
-index bb42c68c03..cad81cb8c9 100644
+index 4ccf4abdf3..0151bf5bcd 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -449,6 +449,7 @@ menu "Firmware"
+@@ -455,6 +455,7 @@ menu "Firmware"
  	source "package/qoriq-restool/Config.in"
  	source "package/rcw-smarc-sal28/Config.in"
  	source "package/rpi-firmware/Config.in"
