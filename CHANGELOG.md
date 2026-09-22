@@ -16,6 +16,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.35.0
+
+This is a major Buildroot update to 2026.08.
+
+* Changes
+  * Fix regression where the Erlang available memory patch was not being applied
+    to Erlang/OTP 29. Without this patch, the `system_memory_high_watermark`
+    alarm would be incorrectly set. The patch was originally added in v1.31.4.
+    Earlier Erlang/OTP versions continued to have the patch.
+
+* Package updates
+  * [Buildroot 2026.08](https://lore.kernel.org/buildroot/878q5hf0yd.fsf@dell.be.48ers.dk/T/)
+  * [Erlang/OTP 29.1](https://erlang.org/download/OTP-29.1.README.md)
+
 ## v1.34.5
 
 This is a security and bug fix release.
