@@ -7,22 +7,13 @@
 #
 defmodule System.Env do
   @path "PATH"
-  @ld_library_path "LD_LIBRARY_PATH"
 
   def path_add(p) do
     System.put_env(@path, "#{p}:#{path()}")
   end
 
-  def ld_library_path_add(p) do
-    System.put_env(@ld_library_path, "#{p}:#{ld_library_path()}")
-  end
-
   def path do
     System.get_env(@path)
-  end
-
-  def ld_library_path do
-    System.get_env(@ld_library_path)
   end
 end
 
@@ -66,9 +57,6 @@ sdk_sysroot = Path.join(system_path, "staging")
 
     Path.join(toolchain_path, "bin")
     |> System.Env.path_add()
-
-    Path.join(toolchain_path, "lib")
-    |> System.Env.ld_library_path_add()
 
     {toolchain_path, crosscompile}
   else
