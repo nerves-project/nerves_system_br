@@ -1,0 +1,74 @@
+From 1af135908dc801f501f05f396b4762d86a88f014 Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray@rclabs.org>
+Date: Wed, 23 Sep 2026 21:09:44 +1000
+Subject: [PATCH] package/fakeroot: preload libfakeroot.so
+
+Add a package patch so the fakeroot wrapper no longer forces
+LD_LIBRARY_PATH on every command it runs.
+---
+ .../0001-fakeroot-preload-libfakeroot.patch   | 53 +++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+ create mode 100644 package/fakeroot/0001-fakeroot-preload-libfakeroot.patch
+
+diff --git a/package/fakeroot/0001-fakeroot-preload-libfakeroot.patch b/package/fakeroot/0001-fakeroot-preload-libfakeroot.patch
+new file mode 100644
+index 0000000..7b91989
+--- /dev/null
++++ b/package/fakeroot/0001-fakeroot-preload-libfakeroot.patch
+@@ -0,0 +1,53 @@
++From 5b246729998603d5f23bd760cc4704e1e457311b Mon Sep 17 00:00:00 2001
++From: Ray Chang <ray@rclabs.org>
++Date: Wed, 23 Sep 2026 21:09:34 +1000
++Subject: [PATCH] fakeroot: preload libfakeroot.so
++
++The wrapper forces LD_LIBRARY_PATH so its bare-soname preload would
++resolve. This shadows the host's versioned libraries (e.g. Arch's
++libncursesw, required by libreadline) with unversioned copies from the
++install prefix. Preload by absolute path instead (USEABSLIBPATH=1)
++so builds are the same as debian/macOS.
++---
++ scripts/fakeroot.in | 8 ++++----
++ 1 file changed, 4 insertions(+), 4 deletions(-)
++
++diff --git a/scripts/fakeroot.in b/scripts/fakeroot.in
++index 0d6f435..0a0823c 100644
++--- a/scripts/fakeroot.in
+++++ b/scripts/fakeroot.in
++@@ -33,7 +33,7 @@ fatal ()
++ FAKEROOT_PREFIX=@prefix@
++ FAKEROOT_BINDIR=@bindir@
++ 
++-USEABSLIBPATH=@LDPRELOADABS@
+++USEABSLIBPATH=1
++ FAKEROOT_LIB=lib@fakeroot_transformed@@DLSUFFIX@
++ PATHS=@libdir@:${FAKEROOT_PREFIX}/lib64/libfakeroot:${FAKEROOT_PREFIX}/lib32/libfakeroot
++ FAKED=${FAKEROOT_BINDIR}/@faked_transformed@
++@@ -145,7 +145,7 @@ PID=`echo $KEY_PID|cut -d: -f2`
++ if [ "$WAITINTRAP" -eq 0 ]; then
++   trap "kill -s @signal@ $PID" EXIT INT
++ else
++-  @MACOSX_FALSE@trap 'FAKEROOTKEY=$FAKEROOTKEY @LDLIBPATHVAR@="$PATHS" @LDPRELOADVAR@="$FAKEROOT_LIB" /bin/ls -l / >/dev/null 2>&1; while kill -s @signal@ $PID 2>/dev/null; do sleep 0.1; done' EXIT INT
+++  @MACOSX_FALSE@trap 'FAKEROOTKEY=$FAKEROOTKEY @LDPRELOADVAR@="$FAKEROOT_LIB" /bin/ls -l / >/dev/null 2>&1; while kill -s @signal@ $PID 2>/dev/null; do sleep 0.1; done' EXIT INT
++   @MACOSX_TRUE@trap 'FAKEROOTKEY=$FAKEROOTKEY @LDPRELOADVAR@="$FAKEROOT_LIB" /bin/ls -l / >/dev/null 2>&1; while kill -s @signal@ $PID 2>/dev/null; do sleep 0.1; done' EXIT INT
++ fi
++ 
++@@ -168,11 +168,11 @@ fi
++ export FAKEROOT_FD_BASE
++ 
++ if test -z "$*"; then
++-  @MACOSX_FALSE@FAKEROOTKEY=$FAKEROOTKEY @LDLIBPATHVAR@="$PATHS" @LDEXTRAVAR@ @LDPRELOADVAR@="$FAKEROOT_LIB" ${SHELL:-/bin/sh}
+++  @MACOSX_FALSE@FAKEROOTKEY=$FAKEROOTKEY @LDEXTRAVAR@ @LDPRELOADVAR@="$FAKEROOT_LIB" ${SHELL:-/bin/sh}
++   @MACOSX_TRUE@FAKEROOTKEY=$FAKEROOTKEY @LDEXTRAVAR@ @LDPRELOADVAR@="$FAKEROOT_LIB" ${SHELL:-/bin/sh}
++   RESULT=$?
++ else
++-  @MACOSX_FALSE@FAKEROOTKEY=$FAKEROOTKEY @LDLIBPATHVAR@="$PATHS" @LDEXTRAVAR@ @LDPRELOADVAR@="$FAKEROOT_LIB" "$@"
+++  @MACOSX_FALSE@FAKEROOTKEY=$FAKEROOTKEY @LDEXTRAVAR@ @LDPRELOADVAR@="$FAKEROOT_LIB" "$@"
++   @MACOSX_TRUE@FAKEROOTKEY=$FAKEROOTKEY @LDEXTRAVAR@ @LDPRELOADVAR@="$FAKEROOT_LIB" "$@"
++   RESULT=$?
++ fi
++-- 
++2.55.0
++
+-- 
+2.55.0
+

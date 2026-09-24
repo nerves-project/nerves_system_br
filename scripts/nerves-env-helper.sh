@@ -23,12 +23,6 @@ pathadd() {
     fi
 }
 
-ldlibrarypathadd() {
-    if [[ -d "$1" ]] && [[ ":$LD_LIBRARY_PATH:" != *":$1:"* ]]; then
-        LD_LIBRARY_PATH="$1:$LD_LIBRARY_PATH"
-    fi
-}
-
 clean_erl_output() {
     tmp=${1//\"}             # Trim double quotes
     tmp=${tmp//[[:space:]]/} # Trim whitespace
@@ -47,7 +41,6 @@ if [[ -e "$NERVES_SYSTEM/host" ]]; then
     export PERLLIB=$NERVES_TOOLCHAIN/lib/perl
 
     pathadd "$NERVES_TOOLCHAIN/bin"
-    ldlibrarypathadd "$NERVES_TOOLCHAIN/lib"
 else
     # The user is using a prebuilt toolchain and system. Usually NERVES_TOOLCHAIN will be defined,
     # but guess it just in case it isn't.
