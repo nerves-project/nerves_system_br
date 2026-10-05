@@ -1,4 +1,4 @@
-From a3e790a8639d965f3055b14743ffa8471d68a44f Mon Sep 17 00:00:00 2001
+From 900a749b9e4e25318d169931887c3eb74af5c855 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Thu, 30 May 2019 08:49:48 -0400
 Subject: [PATCH] Install Linux headers to staging

@@ -1,4 +1,4 @@
-From f95541fd9da07a5f715ef0ae605fbecb1d81f5fb Mon Sep 17 00:00:00 2001
+From a72beebde4f28f2ee284f197d63fec847b2532df Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Mon, 3 Apr 2023 00:27:17 -0400
 Subject: [PATCH] fwup: bump to v1.17.0
@@ -9,7 +9,7 @@ Subject: [PATCH] fwup: bump to v1.17.0
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/package/fwup/fwup.hash b/package/fwup/fwup.hash
-index 51ec444bcb..0737d539a8 100644
+index 51ec444bcb..4dfbeed070 100644
 --- a/package/fwup/fwup.hash
 +++ b/package/fwup/fwup.hash
 @@ -1,3 +1,3 @@
@@ -18,7 +18,7 @@ index 51ec444bcb..0737d539a8 100644
 +sha256  513ec1546728371d7fd972e44375cd81f6ce0d308e0833552c78da309035b749  fwup-1.17.0.tar.gz
  sha256  cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  LICENSE
 diff --git a/package/fwup/fwup.mk b/package/fwup/fwup.mk
-index a6395d583d..328b1ead16 100644
+index a6395d583d..38c234141d 100644
 --- a/package/fwup/fwup.mk
 +++ b/package/fwup/fwup.mk
 @@ -4,7 +4,7 @@

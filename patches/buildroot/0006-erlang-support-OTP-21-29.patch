@@ -1,4 +1,4 @@
-From 418b0eb1e8314baf68693b02d9c413dae17a547c Mon Sep 17 00:00:00 2001
+From ad6dca2a53c9ac41f25e1728d8bb5c343a6e4235 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 11 Sep 2018 12:28:41 -0400
 Subject: [PATCH] erlang: support OTP 21 - 29
@@ -1357,7 +1357,7 @@ index 724f91123b..e98af82f05 100644
  	bool "install megaco application"
  	help
 diff --git a/package/erlang/erlang.hash b/package/erlang/erlang.hash
-index 667b27753e..3c8debc8fe 100644
+index 667b27753e..182f2a5e56 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,21 @@
@@ -1383,7 +1383,7 @@ index 667b27753e..3c8debc8fe 100644
  # Hash for license file
  sha256  809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0  LICENSE.txt
 diff --git a/package/erlang/erlang.mk b/package/erlang/erlang.mk
-index f48100a3f1..9c9fd00259 100644
+index bc95eb9b6e..4198e6ad99 100644
 --- a/package/erlang/erlang.mk
 +++ b/package/erlang/erlang.mk
 @@ -4,7 +4,49 @@

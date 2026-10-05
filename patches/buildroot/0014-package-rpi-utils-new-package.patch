@@ -1,4 +1,4 @@
-From c3fed4654246b9a5610fd6671ac7cfec0a3e0e2f Mon Sep 17 00:00:00 2001
+From db32758e7c1ca577e1de8f3f5b6f4169b2f57c89 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ga=C3=ABl=20PORTAY?= <gael.portay@rtone.fr>
 Date: Thu, 15 May 2025 12:00:00 +0000
 Subject: [PATCH] package/rpi-utils: new package

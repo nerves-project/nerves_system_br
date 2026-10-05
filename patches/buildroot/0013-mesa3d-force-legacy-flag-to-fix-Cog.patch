@@ -1,4 +1,4 @@
-From 651f2126153bcb8aa72d14d0c4579000e0e12920 Mon Sep 17 00:00:00 2001
+From cc311f29d5f4698cf86abe601a1d25b2fd6646db Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 11 Mar 2026 11:56:36 -0400
 Subject: [PATCH] mesa3d: force legacy flag to fix Cog
