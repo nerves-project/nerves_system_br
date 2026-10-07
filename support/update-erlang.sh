@@ -21,7 +21,7 @@
 # How it works
 # ────────────
 # nerves_system_br carries erlang version support as a patch to Buildroot:
-#   patches/buildroot/0007-erlang-support-OTP-21-29.patch
+#   patches/buildroot/0006-erlang-support-OTP-21-29.patch
 #
 # That patch file touches three things inside Buildroot's package/erlang/:
 #   erlang.mk    - ifeq chain mapping BR2_PACKAGE_ERLANG_N → VERSION + ERTS_VSN
@@ -57,7 +57,7 @@ DRY_RUN=false
 # OTP major versions to manage (oldest to newest; newest = default in erlang.mk)
 OTP_MAJORS=(26 27 28 29)
 
-PATCH_RELATIVE="patches/buildroot/0007-erlang-support-OTP-21-29.patch"
+PATCH_RELATIVE="patches/buildroot/0006-erlang-support-OTP-21-29.patch"
 TOOL_VERSIONS_RELATIVE=".tool-versions"
 DOCKERFILE_RELATIVE="support/docker/nerves_system_br/Dockerfile"
 ERLANG_TAGS_URL="https://fhunleth.github.io/latest_elixir/erlang-tags.txt"
@@ -201,7 +201,7 @@ update_patch_for_major() {
   sed -Ei "s|^([ +])# From .*/OTP-${old_ver}/SHA256.txt$|\\1# From https://github.com/erlang/otp/releases/download/OTP-${new_ver}/SHA256.txt|" "$PATCH_FILE"
 
   # Rename version-specific directory references in ALL buildroot patch files,
-  # not just 0007. Any patch that adds a package/erlang/{version}/ directory
+  # not just 0006. Any patch that adds a package/erlang/{version}/ directory
   # (e.g. 0015-erlang-use-available-memory-*.patch) needs the same treatment.
   local patches_dir="${REPO_DIR}/patches/buildroot"
   local affected
