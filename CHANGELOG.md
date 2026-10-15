@@ -16,6 +16,20 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.35.2
+
+This is a security and bug fix release.
+
+* Package updates
+  * [Erlang/OTP 29.1.2](https://erlang.org/download/OTP-29.1.2.README.md)
+  * [Erlang/OTP 28.5.0.8](https://erlang.org/download/OTP-28.5.0.8.README.md)
+  * [Erlang/OTP 27.3.4.19](https://erlang.org/download/OTP-27.3.4.19.README.md)
+
+* Fixes
+  * Stop using `LD_LIBRARY_PATH` for host toolchain binaries when building on
+    Linux with Buildroot. This fixes `ld.so` warnings on distros that enable the
+    warnings like Arch, and it's also a good thing to do. (@CJRChang)
+
 ## v1.35.1
 
 This is a security and bug fix release.
