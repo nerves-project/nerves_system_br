@@ -56,9 +56,9 @@ Signed-off-by: Frank Hunleth <fhunleth@troodon-software.com>
  create mode 100644 package/erlang/25.3.2/0003-disksup-update-df-call-to-work-with-Busybox.patch
  create mode 100644 package/erlang/26.2.5.21/0001-disksup-update-df-call-to-work-with-Busybox.patch
  create mode 100644 package/erlang/26.2.5.21/0002-erlang-libei-arch-compile.patch
- create mode 100644 package/erlang/27.3.4.18/0001-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/28.5.0.7/0001-disksup-update-df-call-to-work-with-Busybox.patch
- create mode 100644 package/erlang/29.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/27.3.4.19/0001-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/28.5.0.8/0001-disksup-update-df-call-to-work-with-Busybox.patch
+ create mode 100644 package/erlang/29.1.2/0001-disksup-update-df-call-to-work-with-Busybox.patch
 
 diff --git a/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch b/package/erlang/21.3.8.24/0001-erts-ethread-instruct-libatomic_ops-we-do-require-CA.patch
 new file mode 100644
@@ -1079,11 +1079,11 @@ index 0000000000..5a3c729289
 +--
 +2.44.0
 +
-diff --git a/package/erlang/27.3.4.18/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/27.3.4.18/0001-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/27.3.4.19/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/27.3.4.19/0001-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..b621381b4c
 --- /dev/null
-+++ b/package/erlang/27.3.4.18/0001-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/27.3.4.19/0001-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,77 @@
 +From e85fabb333c9c03bf8b69c6edf49413a57fd5e86 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1162,11 +1162,11 @@ index 0000000000..b621381b4c
 +-- 
 +2.34.1
 +
-diff --git a/package/erlang/28.5.0.7/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/28.5.0.7/0001-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/28.5.0.8/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/28.5.0.8/0001-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..8e30ef0365
 --- /dev/null
-+++ b/package/erlang/28.5.0.7/0001-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/28.5.0.8/0001-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,57 @@
 +From aa48235ab5f561d78894e70cd84f853f9eaa2423 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1225,11 +1225,11 @@ index 0000000000..8e30ef0365
 +-- 
 +2.43.0
 +
-diff --git a/package/erlang/29.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/29.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
+diff --git a/package/erlang/29.1.2/0001-disksup-update-df-call-to-work-with-Busybox.patch b/package/erlang/29.1.2/0001-disksup-update-df-call-to-work-with-Busybox.patch
 new file mode 100644
 index 0000000000..8e30ef0365
 --- /dev/null
-+++ b/package/erlang/29.1.1/0001-disksup-update-df-call-to-work-with-Busybox.patch
++++ b/package/erlang/29.1.2/0001-disksup-update-df-call-to-work-with-Busybox.patch
 @@ -0,0 +1,57 @@
 +From aa48235ab5f561d78894e70cd84f853f9eaa2423 Mon Sep 17 00:00:00 2001
 +From: Frank Hunleth <fhunleth@troodon-software.com>
@@ -1361,12 +1361,12 @@ index 667b27753e..182f2a5e56 100644
 --- a/package/erlang/erlang.hash
 +++ b/package/erlang/erlang.hash
 @@ -1,5 +1,21 @@
-+# From https://github.com/erlang/otp/releases/download/OTP-29.1.1/SHA256.txt
-+sha256  054e0143e39c780e091107fc9b345792a9c1a55f6bac1eca1c1101510fc06bf6  otp_src_29.1.1.tar.gz
-+# From https://github.com/erlang/otp/releases/download/OTP-28.5.0.7/SHA256.txt
-+sha256  ddf17db6d3e9b7a7cfac0d72238ddc8ea040fedc5e3dfad82fc90675319d6c93  otp_src_28.5.0.7.tar.gz
-+# From https://github.com/erlang/otp/releases/download/OTP-27.3.4.18/SHA256.txt
-+sha256  920d00076d94f4850bd642d79da3229c8e5eea7ebc914996ee6dfd2154aeacf7  otp_src_27.3.4.18.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-29.1.2/SHA256.txt
++sha256  c79966661e35fe4aff8ec003db63682e3b33b10b672220d51bf93c0a9244b049  otp_src_29.1.2.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-28.5.0.8/SHA256.txt
++sha256  8a696e15bcbe5d57197b1f4c03c92d415f9fd9af70f9222a05911c8a5463cba6  otp_src_28.5.0.8.tar.gz
++# From https://github.com/erlang/otp/releases/download/OTP-27.3.4.19/SHA256.txt
++sha256  866307e64e245e86bee15b3807030a998e59873d7480d6fae1e40b432a3d12b7  otp_src_27.3.4.19.tar.gz
  # From https://github.com/erlang/otp/releases/download/OTP-26.2.5.21/SHA256.txt
  sha256  e1fde86f4e2874d4c136221a34753b5b785d762b910fb3fb35a23a6a7faf0a64  otp_src_26.2.5.21.tar.gz
 +# From https://github.com/erlang/otp/releases/download/OTP-25.3.2/SHA256.txt
@@ -1416,15 +1416,15 @@ index bc95eb9b6e..4198e6ad99 100644
 +ERLANG_ERTS_VSN = 14.2.5.15
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_27),y)
-+ERLANG_VERSION = 27.3.4.18
-+ERLANG_ERTS_VSN = 15.2.7.13
++ERLANG_VERSION = 27.3.4.19
++ERLANG_ERTS_VSN = 15.2.7.14
 +else
 +ifeq ($(BR2_PACKAGE_ERLANG_28),y)
-+ERLANG_VERSION = 28.5.0.7
-+ERLANG_ERTS_VSN = 16.4.0.6
++ERLANG_VERSION = 28.5.0.8
++ERLANG_ERTS_VSN = 16.4.0.7
 +else
-+ERLANG_VERSION = 29.1.1
-+ERLANG_ERTS_VSN = 17.1
++ERLANG_VERSION = 29.1.2
++ERLANG_ERTS_VSN = 17.1.1
 +endif
 +endif
 +endif
