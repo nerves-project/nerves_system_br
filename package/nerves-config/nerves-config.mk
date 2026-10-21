@@ -25,8 +25,10 @@ define NERVES_CONFIG_INSTALL_TARGET_CMDS
 	$(HOST_DIR)/bin/echo-gcc-args > $(BINARIES_DIR)/buildroot-gcc-args
 endef
 
+ifeq ($(BR2_PACKAGE_NERVES_CONFIG),y)
 ifneq ($(BR2_PACKAGE_NERVES_CONFIG_ACCEPT_RNG_NOTICE),y)
 $(error "The BR2_PACKAGE_RNG_TOOLS option is no longer a forced dependency in Nerves. Linux kernels >= 5.6 may not need it. Please add BR2_PACKAGE_NERVES_CONFIG_ACCEPT_RNG_NOTICE=y to your nerves_defconfig to indicate that you've seen this message.")
+endif
 endif
 
 $(eval $(generic-package))
