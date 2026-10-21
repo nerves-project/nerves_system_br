@@ -1,0 +1,18 @@
+config BR2_PACKAGE_NERVES2_CONFIG
+	bool "nerves2-config"
+	select BR2_PACKAGE_ERLANG   # Erlang is required for all Nerves systems
+	select BR2_PACKAGE_ERLINIT  # Always use erlinit to boot
+	select BR2_PACKAGE_OPENSSL  # Used for Erlang crypto
+	select BR2_PACKAGE_FWUP     # Used for OTA firmware updates
+	select BR2_PACKAGE_NCURSES  # IEx shell is near impossible to use without
+	select BR2_PACKAGE_NERVES_HEART # Nerves updates to Erlang's heartbeat support
+	select BR2_PACKAGE_UBOOT_TOOLS  # Required for Nerves firmware metadata
+	select BR2_PACKAGE_BOARDID  # ID board for assigning unique names
+	select BR2_PACKAGE_HOST_FWUP # Used by Nerves packaging tools
+	select BR2_TARGET_ROOTFS_TAR # Used by Nerves packaging tools
+	help
+	  Nerves 2 system configuration helper. This selects a set of packages
+	  used by all Nerves 2 systems so that they're never accidentally omitted.
+
+	  https://github.com/nerves-project/nerves_system_br
+
