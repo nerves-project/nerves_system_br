@@ -4,6 +4,7 @@
 # SPDX-FileCopyrightText: 2017 rradu
 # SPDX-FileCopyrightText: 2024 Ben Youngblood
 # SPDX-FileCopyrightText: 2024 Rockwell Schrock
+# SPDX-FileCopyrightText: 2026 Edgar Andrés Margffoy Tuay
 #
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -18,10 +19,6 @@ set -e
 LC_ALL=C
 LANG=C
 export LC_ALL LANG
-
-# Cache the location of sed due to very slow path searches on OSX if anything
-# under /home is in the path.
-SED="$(command -v sed)"
 
 # Account for Mac differences
 if [[ "$(uname)" = "Darwin" ]]; then
@@ -39,118 +36,88 @@ else
 fi
 
 # This implementation might be slow
-perm_to_num() {
-	string=$1
-
-	let perms=0
-
-	[[ "${string}" = ?r???????? ]] && perms=$(( perms + 0400 ))
-	[[ "${string}" = ??w??????? ]] && perms=$(( perms + 0200 ))
-	[[ "${string}" = ???x?????? ]] && perms=$(( perms + 0100 ))
-	[[ "${string}" = ???s?????? ]] && perms=$(( perms + 04100 ))
-	[[ "${string}" = ???S?????? ]] && perms=$(( perms + 04000 ))
-	[[ "${string}" = ????r????? ]] && perms=$(( perms + 040 ))
-	[[ "${string}" = ?????w???? ]] && perms=$(( perms + 020 ))
-	[[ "${string}" = ??????x??? ]] && perms=$(( perms + 010 ))
-	[[ "${string}" = ??????s??? ]] && perms=$(( perms + 02010 ))
-	[[ "${string}" = ??????S??? ]] && perms=$(( perms + 02000 ))
-	[[ "${string}" = ???????r?? ]] && perms=$(( perms + 04 ))
-	[[ "${string}" = ????????w? ]] && perms=$(( perms + 02 ))
-	[[ "${string}" = ?????????x ]] && perms=$(( perms + 01 ))
-	[[ "${string}" = ?????????t ]] && perms=$(( perms + 01001 ))
-	[[ "${string}" = ?????????T ]] && perms=$(( perms + 01000 ))
-
-    printf '%o' $perms
-}
-
-owner_to_uid_gid() {
-    echo "$1" | "$SED" -e "s/\// /g"
-}
-
-get_path() {
-    # trim the squashfs-root and escape any spaces
-    echo "$*" | "$SED" -e 's/squashfs-root//' -e 's/ /\\ /g'
-}
-
-device_file() {
-    perm=$1
-    owner=$2
-
-    # Depending on the major and minor numbers, you either get
-    # major,minor or major, minor. Remove the comma and account
-    # for the optional space.
-    if [[ $3 =~ ,.+ ]]; then
-        major_minor=$(echo "$3" | "$SED" -e 's/,/ /')
-        filename=$6
-    else
-        major_minor="$(echo "$3" | "$SED" -e 's/,/ /') $4"
-        filename=$7
-    fi
-
-    echo "$(get_path "$filename") ${perm:0:1} $(perm_to_num "$perm") $(owner_to_uid_gid "$owner") $major_minor"
-}
-
-symlink_file() {
-    # symlinks are the handled the same as files currently.
-    echo "$(get_path "$6") m $(perm_to_num "$1") $(owner_to_uid_gid "$2")"
-}
-
-directory_file() {
-    perm="$1"
-    owner="$2"
-    shift 5
-    pathname="$(get_path "$@")"
-    # mksquashfs doesn't support setting permissions and ownership
-    # on the root directory
-    if [[ ! -z "$pathname" ]]; then
-        echo "$pathname m $(perm_to_num "$perm") $(owner_to_uid_gid "$owner")"
-    fi
-}
-
-regular_file() {
-    perm="$1"
-    owner="$2"
-    shift 5
-    pathname="$(get_path "$@")"
-    echo "$pathname m $(perm_to_num "$perm") $(owner_to_uid_gid "$owner")"
-}
-
+# Both listings in one pass of awk each: the shell loops they replace started
+# several processes per file (sed, stat, command substitutions), ~40 s for a
+# typical Nerves image.
 unsquash_to_pseudofile() {
-    input=$1
-    while read -r perms owner rest; do
-        case $perms in
-            c*)
-                device_file "$perms" "$owner" $rest
-                ;;
-            b*)
-                device_file "$perms" "$owner" $rest
-                ;;
-            l*)
-                symlink_file "$perms" "$owner" $rest
-                ;;
-            d*)
-                directory_file "$perms" "$owner" $rest
-                ;;
-            -*)
-                regular_file "$perms" "$owner" $rest
-                ;;
-            *)
-                # Ignore
-                ;;
-        esac
-    done < <(unsquashfs -n -ll "$input")
+    unsquashfs -n -ll "$1" | awk '
+    function perm_to_num(s,   p, c) {
+        p = 0
+        if (substr(s, 2, 1) == "r") p += 256
+        if (substr(s, 3, 1) == "w") p += 128
+        c = substr(s, 4, 1)
+        if (c == "x") p += 64; else if (c == "s") p += 2112; else if (c == "S") p += 2048
+        if (substr(s, 5, 1) == "r") p += 32
+        if (substr(s, 6, 1) == "w") p += 16
+        c = substr(s, 7, 1)
+        if (c == "x") p += 8; else if (c == "s") p += 1032; else if (c == "S") p += 1024
+        if (substr(s, 8, 1) == "r") p += 4
+        if (substr(s, 9, 1) == "w") p += 2
+        c = substr(s, 10, 1)
+        if (c == "x") p += 1; else if (c == "t") p += 513; else if (c == "T") p += 512
+        return sprintf("%o", p)
+    }
+    function replace_all(s, from, to,   out, i) {
+        out = ""
+        while ((i = index(s, from)) > 0) {
+            out = out substr(s, 1, i - 1) to
+            s = substr(s, i + length(from))
+        }
+        return out s
+    }
+    # The path without its squashfs-root prefix, spaces escaped
+    function get_path(s,   i) {
+        if ((i = index(s, "squashfs-root")) > 0)
+            s = substr(s, 1, i - 1) substr(s, i + 13)
+        return replace_all(s, " ", "\\ ")
+    }
+    function words_from(n,   s, i) {
+        s = $n
+        for (i = n + 1; i <= NF; i++) s = s " " $i
+        return s
+    }
+    function owner(s) { return replace_all(s, "/", " ") }
+    {
+        type = substr($1, 1, 1)
+        if (type == "c" || type == "b") {
+            # unsquashfs prints device numbers as "major,minor" or "major, minor"
+            if ($3 ~ /,./) {
+                major_minor = $3; filename = $6
+            } else {
+                major_minor = $3 " " $4; filename = $7
+            }
+            sub(/,/, " ", major_minor)
+            print get_path(filename) " " type " " perm_to_num($1) " " owner($2) " " major_minor
+        } else if (type == "l") {
+            print get_path($6) " m " perm_to_num($1) " " owner($2)
+        } else if (type == "d" || type == "-") {
+            path = get_path(words_from(6))
+            # mksquashfs cannot set permissions on the root directory
+            if (type == "-" || path != "")
+                print path " m " perm_to_num($1) " " owner($2)
+        }
+    }'
 }
 
 find_to_pseudofile() {
-    inputdir=$1
-    while read -r mode path; do
-        path=$(echo "$path" | "$SED" -e "s^$inputdir^^" -e "s/ /\\\\ /g")
-        if [[ ! -z $path ]]; then
-            echo "$path m $mode 0 0"
-        fi
-    done < <(find "$inputdir" -exec "$STAT" -c "%a %n" "{}" ";")
+    find "$1" -exec "$STAT" -c "%a %n" "{}" "+" | awk -v dir="$1" '
+    {
+        mode = $1
+        path = substr($0, index($0, " ") + 1)
+        sub(/^[ \t]+/, "", path)
+        sub(/[ \t]+$/, "", path)
+        if ((i = index(path, dir)) > 0)
+            path = substr(path, 1, i - 1) substr(path, i + length(dir))
+        out = ""
+        while ((i = index(path, " ")) > 0) {
+            out = out substr(path, 1, i - 1) "\\ "
+            path = substr(path, i + 1)
+        }
+        path = out path
+        if (path != "")
+            print path " m " mode " 0 0"
+    }'
 }
-
 
 # "readlink -f" implementation for BSD
 # This code was extracted from the Elixir shell scripts
