@@ -163,7 +163,10 @@ unsquash_to_pseudofile "$input_squashfs" >pseudofile.in
 find_to_pseudofile "$overlay_dir" >>pseudofile.in
 
 # remove repeated entries to avoid warnings from mksquashfs
-awk '!x[$1]++' pseudofile.in > pseudofile
+# Keep the first entry for each path. A path ends at its first unescaped
+# space ("\ " is part of it), so awk's $1 won't do.
+awk '{ key = $0; if (match(key, /[^\\] /)) key = substr(key, 1, RSTART); if (!seen[key]++) print }' \
+    pseudofile.in > pseudofile
 
 unsquashfs -f "$input_squashfs" >/dev/null
 cp -Rf "$overlay_dir/." "$workdir/squashfs-root"
