@@ -21,6 +21,9 @@ run_test() {
     echo "$TEST succeeded"
 }
 
+# Script tests: seconds, so before the builds
+"$TEST_DIR/merge-squashfs-test.sh"
+
 # Add tests here
 run_test smoke-test
 
