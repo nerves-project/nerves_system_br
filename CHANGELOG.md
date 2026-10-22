@@ -16,6 +16,26 @@ follows:
    minor and patch releases. They're also made to fix bugs and add features to
    the build infrastructure.
 
+## v1.35.3
+
+This is an important security and bug fix release. Among other changes it has
+the eMudhra ca-certificate package update.
+
+* Package updates
+  * [Buildroot 2026.08.1](https://lore.kernel.org/buildroot/buildroot-2026.08.1-announce-1792682049@buildroot.org/T/)
+
+* Changes
+  * Include `nerves-env.cmake` in artifacts. This fixes issues with Hex packages
+    that use CMake to build their native code.
+  * If not using `nerves-config` to automatically select required Nerves system
+    packages, don't require the `rngd` acknowledgment.
+  * Add `nerves2-config` for automatically selecting required Nerves 2 system
+    packages. Importantly, this removes the SquashFS rootfs from the Nerves
+    system artifact and will break compatibility with Nerves 1. This is
+    unrelated to using SquashFS root filesystems on your target. There's no
+    urgency to switch your Nerves system to this unless you need to reduce the
+    artifact size.
+
 ## v1.35.2
 
 This is a security and bug fix release.
