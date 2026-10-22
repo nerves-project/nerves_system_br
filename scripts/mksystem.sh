@@ -75,6 +75,7 @@ EOT
 
 # Copy common nerves shell scripts over
 cp "$BR2_EXTERNAL_NERVES_PATH/nerves-env.sh" "$WORK_DIR/$ARCHIVE_NAME"
+cp "$BR2_EXTERNAL_NERVES_PATH/nerves-env.cmake" "$WORK_DIR/$ARCHIVE_NAME"
 cp "$BR2_EXTERNAL_NERVES_PATH/nerves.mk" "$WORK_DIR/$ARCHIVE_NAME"
 cp -R "$BR2_EXTERNAL_NERVES_PATH/scripts" "$WORK_DIR/$ARCHIVE_NAME"
 
