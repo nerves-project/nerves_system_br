@@ -55,7 +55,8 @@ CREATE_PR=false
 DRY_RUN=false
 
 # OTP major versions to manage (oldest to newest; newest = default in erlang.mk)
-OTP_MAJORS=(26 27 28 29)
+#OTP_MAJORS=(26 27 28 29)
+OTP_MAJORS=(27 29)
 
 PATCH_RELATIVE="patches/buildroot/0006-erlang-support-OTP-21-29.patch"
 TOOL_VERSIONS_RELATIVE=".tool-versions"
