@@ -16,7 +16,7 @@
 #   --pr           Push branch and open a PR via `gh`
 #   --dry-run      Print what would change without modifying anything
 #
-# Requirements: bash 4+, git, curl, tar (GNU recommended), gh (for --pr)
+# Requirements: bash 4+, git, curl, jq, tar (GNU recommended), gh (for --pr)
 #
 # How it works
 # ────────────
@@ -41,8 +41,8 @@
 #   .tool-versions                               - asdf erlang version
 #   support/docker/nerves_system_br/Dockerfile   - FROM hexpm/erlang:{tag}
 #
-# The Dockerfile tag is looked up in:
-#   https://fhunleth.github.io/latest_elixir/erlang-tags.txt
+# The Dockerfile tag is looked up using the public API for:
+#   https://bob.hex.pm/docker
 # If no matching tag is found for a given version (e.g. hexpm hasn't built it
 # yet), the Dockerfile update is skipped with a note.
 
@@ -60,7 +60,7 @@ OTP_MAJORS=(26 27 28 29)
 PATCH_RELATIVE="patches/buildroot/0006-erlang-support-OTP-21-29.patch"
 TOOL_VERSIONS_RELATIVE=".tool-versions"
 DOCKERFILE_RELATIVE="support/docker/nerves_system_br/Dockerfile"
-ERLANG_TAGS_URL="https://fhunleth.github.io/latest_elixir/erlang-tags.txt"
+ERLANG_TAGS_URL="https://bob.hex.pm/api/docker"
 
 # The last entry in OTP_MAJORS is the default version tracked by .tool-versions
 # and the Dockerfile.
@@ -92,6 +92,7 @@ check_cmd() { command -v "$1" &>/dev/null || die "Required command not found: $1
 
 check_cmd git
 check_cmd curl
+check_cmd jq
 check_cmd tar
 [[ "$CREATE_PR" == true ]] && check_cmd gh
 
@@ -229,8 +230,8 @@ update_tool_versions() {
 }
 
 # Update the Dockerfile FROM line to the latest hexpm/erlang tag for new_ver.
-# Fetches the erlang-tags.txt curated list and greps for a ubuntu-noble tag
-# matching the exact OTP version.  Skips with a note if none is found -- this
+# Queries Bob for ubuntu-noble tags matching the exact OTP version, newest
+# build first. Skips with a note if none is found -- this
 # happens when hexpm hasn't built the image yet.
 update_dockerfile() {
   local old_ver="$1"
@@ -238,19 +239,22 @@ update_dockerfile() {
 
   log "Dockerfile: fetching ${ERLANG_TAGS_URL} ..."
   local tags_content
-  if ! tags_content="$(curl -fsSL "$ERLANG_TAGS_URL" 2>/dev/null)"; then
+  if ! tags_content="$(curl -fsSL --get "$ERLANG_TAGS_URL" \
+      --data-urlencode "repo=hexpm/erlang" \
+      --data-urlencode "tag=${new_ver}-ubuntu-noble-" \
+      --data-urlencode "sort=built_at" 2>/dev/null)"; then
     log "Dockerfile: WARNING: could not fetch ${ERLANG_TAGS_URL} -- skipping"
     return
   fi
 
-  # Look for a tag of the form {new_ver}-ubuntu-noble-{date}
   local new_tag
-  new_tag="$(printf '%s\n' "$tags_content" \
-    | grep "^${new_ver}-ubuntu-noble-" \
-    | head -1)"
+  if ! new_tag="$(printf '%s\n' "$tags_content" | jq -r '.tags[0].tag // empty')"; then
+    log "Dockerfile: WARNING: could not parse ${ERLANG_TAGS_URL} -- skipping"
+    return
+  fi
 
   if [[ -z "$new_tag" ]]; then
-    log "Dockerfile: NOTE: no hexpm/erlang tag found for ${new_ver} in erlang-tags.txt."
+    log "Dockerfile: NOTE: no hexpm/erlang tag found for ${new_ver} on Bob."
     log "           hexpm may not have built it yet. Dockerfile left unchanged."
     return
   fi
